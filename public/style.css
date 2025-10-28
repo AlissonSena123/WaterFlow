@@ -1,3 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
-    background-color: lightblue;
+    background-color: black;
+}
+
+.containerCadastro{
+    background-color: lightskyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formulario{
+    display: flex;
+    flex-flow: column wrap;
+    gap: 10px;
+}
+
+.inputCadastro{
+    padding: 10px;
 }

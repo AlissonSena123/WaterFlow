@@ -44,7 +44,10 @@ server.get("/reporte", (req, res) => {
 
 server.post("/imprimir", (req, res) => {
     console.log(req.body);
-    res.send("<h1>usuário cadastrado com sucesso</h1>");
+    res.send(`
+        <h1>usuário cadastrado com sucesso</h1>
+        <a href="/cadastro" target="blank">Voltar</a>`
+    );
 });
 
 server.listen(PORT, () => {
