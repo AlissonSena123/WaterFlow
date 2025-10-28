@@ -16,18 +16,15 @@ server.get("/teste", (req, res) => {
 })
 
 server.get("/login", (req, res) => {
-    // res.send("Login");
     res.sendFile(path.join(__dirname, "public/login.html"));
 });
 
 server.get("/cadastro", (req, res) => {
     res.sendFile(path.join(__dirname, "public/cadastro.html"));
-    // res.send("Cadastro");
 });
 
 server.get("/inicio", (req, res) => {
     res.sendFile(path.join(__dirname, "public/inicio.html"));
-    // res.send("Inicio");
 });
 
 server.get("/forum", (req, res) => {
@@ -36,6 +33,10 @@ server.get("/forum", (req, res) => {
 
 server.get("/perfil", (req, res) => {
     res.sendFile(path.join(__dirname, "public/perfil.html"));
+});
+
+server.get("/reporte", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/reporte.html"));
 });
 
 server.listen(PORT, () => {
