@@ -8,5 +8,20 @@
 </head>
 <body>
     <h1>Cadastro</h1>
+    <form action="/imprimir" method="post">
+        <input type="text" name="nome" required>
+        <input type="date" name="data-de-nascimento" required>
+        <input type="email" name="email" required>
+        <input type="password" name="senha" required>
+        <select name="bairro" required>
+            <option value="" selected disabled>Seu Bairro</option>
+            <option value="Novo Horizonte">Novo Horizonte</option>
+            <option value="Sussuarana">Sussuarana</option>
+            <option value="Mata Escura">Mata Escura</option>
+            <option value="Boca da Mata">Boca da Mata</option>
+            <option value="Stella Maris">Stella Maris</option>
+        </select>
+        <button type="submit">Continuar</button>
+    </form>
 </body>
 </html>

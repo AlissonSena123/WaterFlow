@@ -3,6 +3,9 @@ const path = require("path");
 const server = express();
 const PORT = 8080;
 
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+
 server.use(express.static(path.join(__dirname, "public")));
 
 server.get("/teste", (req, res) => {
@@ -20,7 +23,7 @@ server.get("/login", (req, res) => {
 });
 
 server.get("/cadastro", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/cadastro.html"));
+    res.sendFile(path.join(__dirname, "public", "cadastro.html"));
 });
 
 server.get("/inicio", (req, res) => {
@@ -37,6 +40,11 @@ server.get("/perfil", (req, res) => {
 
 server.get("/reporte", (req, res) => {
     res.sendFile(path.join(__dirname, "public/reporte.html"));
+});
+
+server.post("/imprimir", (req, res) => {
+    console.log(req.body);
+    res.send("<h1>usuário cadastrado com sucesso</h1>");
 });
 
 server.listen(PORT, () => {
