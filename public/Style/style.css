@@ -1,0 +1,18 @@
+/* Import da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap');
+
+:root {
+    --font: "Momo Trust Display", sans-serif;
+    --color-bg-primary: #e0f7fa; /* azul claro mais suave */
+    --color-text-primary: rgb(39, 39, 39);
+    --color-header-login: white;
+    --color-header-signup: #f8f9fa;
+}
+
+* {
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
