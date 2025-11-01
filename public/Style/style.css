@@ -3,10 +3,8 @@
 
 :root {
     --font: "Momo Trust Display", sans-serif;
-    --color-bg-primary: #e0f7fa; /* azul claro mais suave */
+    --color-bg-primary: #023373; 
     --color-text-primary: rgb(39, 39, 39);
-    --color-header-login: white;
-    --color-header-signup: #f8f9fa;
 }
 
 * {
@@ -14,5 +12,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-weight: lighter;
 }
+
+
+
 
