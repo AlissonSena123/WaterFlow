@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap');
+
+
+:root {
+    --font: "Momo Trust Display", sans-serif;
+    --color-bg-primary: #023373; 
+    --color-bg-secondary: #049DBF;
+    --color-bg-tertiary: white;
+    --color-text-primary: rgb(39, 39, 39);
+}
+
+* {
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+body{
+    height: 100vh;
+    background-color: var(--color-bg-secondary);
+}
+
+button{
+    cursor: pointer;
+}
+
+header{
+    background-color: var(--color-bg-tertiary);
+    padding-bottom: 20px;
+    color: var(--color-bg-primary);
+    border-bottom: 5px solid var(--color-bg-primary);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+header img{
+    width: 200px;
+    display: block;
+}
+
+footer{
+    padding: 20px;
+    background-color: var(--color-bg-primary);
+    color: white;
+}
+
+
+
+

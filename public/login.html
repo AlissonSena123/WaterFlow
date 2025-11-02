@@ -4,8 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="Style/style.css">
+    <link rel="shortcut icon" href="Img/Logo/Mask group.png" type="image/x-icon">
+    <link rel="stylesheet" href="Style/global.css">
+    <link rel="stylesheet" href="Style/login.css">
 </head>
 <body>
+    <header>
+        <img src="Img/Logo/Logo.png" alt="logotipo">
+    </header>
+    <main id="login-main">
+        <h1>Entrar</h1>
+        <form action="" method="post">
+            <div class="login-input">
+                <label for="idEmail">Email</label>
+                <input type="email" name="email" id="idEmail" required placeholder="@email.com">
+            </div>
+            <div class="login-input">
+                <label for="idSenha">Senha</label>
+                <input type="password" name="senha" id="idSenha" required placeholder="**********">
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Primeira vez aqui? <br> <a href="/cadastro">Cadastra-se</a></p>
+    </main>
+    <footer>
+        <p>&copy;WaterFlow</p>
+    </footer>
 </body>
 </html>
