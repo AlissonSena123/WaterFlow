@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap');
-
+@font-face {
+    font-family: "Momo Trust Display";
+    src: url(../fonts/MomoTrustDisplay-Regular.ttf) format("truetype");
+}
 
 :root {
     --font: "Momo Trust Display", sans-serif;
@@ -22,7 +24,7 @@ body{
     background-color: var(--color-bg-secondary);
 }
 
-button{
+button, label{
     cursor: pointer;
 }
 
@@ -30,7 +32,7 @@ header{
     background-color: var(--color-bg-tertiary);
     padding-bottom: 20px;
     color: var(--color-bg-primary);
-    border-bottom: 5px solid var(--color-bg-primary);
+    border-bottom: 1.5px solid var(--color-bg-primary);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -41,8 +43,9 @@ header img{
     display: block;
 }
 
+
 footer{
-    padding: 20px;
+    padding: 50px;
     background-color: var(--color-bg-primary);
     color: white;
 }
