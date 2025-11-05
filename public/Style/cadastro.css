@@ -7,6 +7,7 @@ body{
     background-color: white;
     padding: 20px;
     color: var(--color-bg-primary);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.219);
 }
 
 main{
@@ -20,14 +21,14 @@ main{
     background-color: white;
     padding: 20px;
     width: 600px;
-    max-width: 750px;
+    max-width: 600px;;
     min-width: 400px;
     display: flex;
     flex-direction: column;
     color: var(--color-bg-primary);
     border-radius: 10px;
     box-shadow: 0px 0px 10px var(--color-bg-primary);
-    margin: 20px 0px;
+    margin: 20px;
 }
 
 .cadastro-form-main h2{
@@ -44,6 +45,13 @@ main{
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+}
+
+.cadastro-form-main form .inputGroup > p.maxMin{
+    margin-top: 5px;
+    font-size: .7em;
+    color: red;
+    text-align: end;
 }
 .cadastro-form-main form .inputGroup > label{
     width: max-content;
@@ -76,6 +84,13 @@ main{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-bg-secondary);
+    box-shadow: 0 0 5px var(--color-bg-secondary);
+    transition: 0.2s;
 }
 
 .cadastro-form-main form .CEP-inputs > input{

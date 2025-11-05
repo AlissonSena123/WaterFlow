@@ -25,7 +25,7 @@ body{
 }
 
 button, label{
-    transition-duration: 0.2s;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
