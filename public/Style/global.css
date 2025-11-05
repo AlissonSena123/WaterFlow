@@ -31,7 +31,7 @@ header h1{
 }
 
 body{
-    height: 100vh;
+    min-height: 100vh;
     background-image: linear-gradient(to bottom left, var(--color-bg-primary), var(--color-bg-secondary), var(--color-bg-tertiary));
     background-attachment: fixed;
 }
@@ -51,6 +51,14 @@ input:focus {
     border-color: var(--color-bg-secondary);
     box-shadow: 0 0 5px var(--color-bg-secondary);
     transition: 0.2s;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
 }
 
 
