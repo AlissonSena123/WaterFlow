@@ -15,14 +15,14 @@
     <main>
         <div class="cadastro-form-main">
             <h2>Criar uma conta no <br> WaterFlow</h2>
-            <form action="">
+            <form action="/api/cadastrar" method="post">
                 <div class="inputGroup">
                     <label for="idNome">Nome Completo</label>
-                    <input type="text" name="nome" id="idNome" placeholder="Ex: João Henrique" required>
+                    <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required>
                 </div>
                 <div class="inputGroup">
                     <label for="idData">Data de Nascimento</label>
-                    <input type="date" name="data_de_nascimento" id="idData" required>
+                    <input type="date" name="data_nascimento" id="idData" required>
                 </div>
                 <div class="inputGroup">
                     <label for="idEmail">Email</label>
@@ -31,7 +31,7 @@
                 <div class="inputGroup">
                     <label for="idSenha">Senha</label>
                     <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" min="10" max="15" required>
-                    <p class="maxMin">*Digite senhas de 10 a 15 caracteres</p>
+                    <p class="maxMin">*Digite senhas de 10e a 15 caracteres</p>
                 </div>
                 <div class="inputGroup">
                     <label for="idTelefone">Telefone</label>
@@ -43,9 +43,9 @@
                 </div>
                 <div class="inputGroup">
                     <div class="CEP-inputs">
-                        <input type="text" name="" id="" placeholder="Cidade">
-                        <input type="text" name="" id="" placeholder="Estado">
-                        <input type="text" name="" id="" placeholder="País">
+                        <input type="text" name="cidade" placeholder="Cidade">
+                        <input type="text" name="estado" placeholder="Estado">
+                        <input type="text" name="pais" placeholder="País">
                     </div>
                 </div>
                 <button type="submit">Cadastrar-se!</button>
