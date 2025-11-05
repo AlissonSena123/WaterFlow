@@ -60,18 +60,43 @@ server.get("/reporte", (req, res) => {
 });
 
 server.post('/salvar', (req, res) => {
-    const { nome, email, telefone, senha } = req.body;
+    const {
+        nome_completo,
+        data_de_nascimento,
+        email,
+        senha,
+        telefone,
+        CEP,
+        cidade,
+        estado,
+        pais
+    } = req.body;
 
-    const sql = 'INSERT INTO usuarios (nome, email, telefone, senha) VALUES (?, ?, ?, ?)';
-    db.query(sql, [nome, email, telefone, senha], (err) => {
+    const sql = `
+        INSERT INTO usuarios
+        (nome_completo, data_nascimento, email, senha, telefone, CEP, cidade, estado, pais)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [
+        nome_completo,
+        data_de_nascimento,
+        email,
+        senha,  
+        telefone,
+        CEP,
+        cidade,
+        estado,
+        pais
+    ], (err, resultado) => {
         if (err) {
             console.error('Erro ao inserir dados:', err.message);
             return res.status(500).send(`<script>alert('Erro ao salvar no banco!'); window.history.back();</script>`);
         }
-
         res.status(201).send(`<script>alert('Cadastro realizado com sucesso!'); window.location.href = '/login';</script>`);
     });
 });
+
 
 server.post('/log', (req, res) => {
     const { email, senha } = req.body;

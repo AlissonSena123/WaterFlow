@@ -5,28 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Img/Logo/Mask group.png" type="image/x-icon">
     <link rel="stylesheet" href="Style/global.css">
-    <link rel="stylesheet" href="Style/login.css">
+    <link rel="stylesheet" href="Style/cadastro.css">
     <title>Cadastrar</title>
 </head>
 <body>
-    <header>
-        <img src="Img/Logo/Logo.png" alt="logotipo">
+    <header id="cadastro-header">
+        <h1>WaterFlow</h1>
     </header>
 
-    <main id="login-main">
-        <h1>Cadastrar</h1>
-        <form action="/salvar" method="post">
+    <main>
+        <div class="cadastro-form-main">
+            <h2>Criar uma conta no <br> WaterFlow</h2>
+            <form action="/salvar" method="post">
+                
+                <div class="inputGroup">
+                    <label for="idNome">Nome Completo</label>
+                    <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required autocomplete="name">
+                </div>
 
-            <input type="text" name="nome" placeholder="Nome" required><br>
+                <div class="inputGroup">
+                    <label for="idData">Data de Nascimento</label>
+                    <input type="date" name="data_de_nascimento" id="idData" required autocomplete="bday">
+                </div>
 
-            <input type="email" name="email" placeholder="Email" required><br>
+                <div class="inputGroup">
+                    <label for="idEmail">Email</label>
+                    <input type="email" name="email" id="idEmail" placeholder="@email.com" required autocomplete="email">
+                </div>
 
-            <input type="text" name="telefone" placeholder="Telefone" required><br>
+                <div class="inputGroup">
+                    <label for="idSenha">Senha</label>
+                    <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" minlength="10" maxlength="15" required autocomplete="new-password">
+                    <p class="maxMin">*Digite senhas de 10 a 15 caracteres</p>
+                </div>
 
-            <input type="password" name="senha" placeholder="Senha" required><br>
+                <div class="inputGroup">
+                    <label for="idTelefone">Telefone</label>
+                    <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" required autocomplete="tel">
+                </div>
 
-            <button type="submit">Cadastre-se!</button>
-        </form>
+                <div class="inputGroup">
+                    <label for="idCEP">CEP</label>
+                    <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" required autocomplete="postal-code">
+                </div>
+
+                <div class="inputGroup CEP-inputs">
+                    <input type="text" name="cidade" placeholder="Cidade" required autocomplete="address-level2">
+                    <input type="text" name="estado" placeholder="Estado" required autocomplete="address-level1">
+                    <input type="text" name="pais" placeholder="País" required autocomplete="country">
+                </div>
+
+                <button type="submit">Cadastrar-se!</button>
+            </form>
+
+            <p>Já possui uma Conta? <br> 
+                <a href="/login">Voltar à Tela de Login</a> 
+            </p>
+        </div>
     </main>
 
     <footer>
