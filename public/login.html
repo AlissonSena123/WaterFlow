@@ -9,25 +9,28 @@
     <link rel="stylesheet" href="Style/login.css">
 </head>
 <body>
-    <header id="login-header">
-        <img src="Img/Logo/Logo.png" alt="logotipo">
+    <header>
+        <h1>WaterFlow</h1>
     </header>
-    <main id="login-main">
-        <div id="header-form-login">
-            <h1>Entrar</h1>
+    <main>
+        <div class="login-form-main">
+            <div class="login-form-header">
+                <h1>Entrar</h1>
+                <p>Bem vindo de volta ao WaterFlow</p>
+            </div>
+            <form action="">
+                <div class="login-input">
+                    <label for="idEmail">Email</label>
+                    <input type="email" name="email" id="idEmail" required placeholder="@email.com">
+                </div>
+                <div class="login-input">
+                    <label for="idSenha">Senha</label>
+                    <input type="password" name="senha" id="idSenha" required placeholder="**********">
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+            <p>Primeira vez aqui? <br> <a href="/cadastro">Cadastra-se</a></p>
         </div>
-        <form action="" method="post">
-            <div class="login-input">
-                <label for="idEmail">Email</label>
-                <input type="email" name="email" id="idEmail" required placeholder="@email.com">
-            </div>
-            <div class="login-input">
-                <label for="idSenha">Senha</label>
-                <input type="password" name="senha" id="idSenha" required placeholder="**********">
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-        <p>Primeira vez aqui? <br> <a href="/cadastro">Cadastra-se</a></p>
     </main>
     <footer>
         <p>&copy;WaterFlow</p>

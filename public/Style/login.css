@@ -1,82 +1,67 @@
-#login-header{
-    background-color: var(--color-bg-tertiary);
-    padding-bottom: 20px;
-    color: var(--color-bg-primary);
-    position: relative;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.295);
+main{
+    min-height: 100vh;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-#login-header img{
-    width: 200px;
-    display: block;
-}
-
-#login-main{
-    background-color: var(--color-bg-tertiary);
-    color: var(--color-bg-primary);
-    height: 100vh;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#login-main form{
+.login-form-main{
+    background-color: white;
+    padding: 30px;
+    width: 500px;
+    max-width: 700px;;
     min-width: 400px;
-    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-bg-primary);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px var(--color-bg-primary);
+    margin: 20px;
+}
+
+.login-form-main form{
     display: flex;
     flex-direction: column;
 }
 
-#login-main form .login-input{
-    display: flex;
-    flex-direction: column;
+.login-form-main .login-form-header{
+    text-align: center;
+    margin: 10px 0px 50px 0px;
 }
 
-#login-main form .login-input input{
-    padding: 10px;
+.login-form-main form .login-input{
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
-    width: 100%;
-    border-color: var(--color-bg-primary);
-    border-style: solid;
-    border-radius: 6px;
-    outline: none;
 }
 
-#login-main form .login-input label{
-    margin-bottom: 5px;
+.login-form-main form .login-input > input{
+    padding: 10.5px;
+    border: 1.5px solid var(--color-bg-primary);
+    border-radius: 5px;
 }
 
-#login-main form button{
-    padding: 10px;
+.login-form-main form button{
     width: 50%;
-    align-self: center;
-    margin-bottom: 20px;
+    padding: 12px;
     background-color: var(--color-bg-secondary);
-    color: var(--color-bg-tertiary);
+    color: white;
     border: none;
-    border-radius: 8px;
-    transition: .3s;
+    align-self: center;
+    margin: 20px 0px;
+    border-radius: 10px;
 }
 
-#login-main form button:hover{
+.login-form-main form button:hover{
     background-color: var(--color-bg-primary);
+    transform: translateY(-10px);
 }
 
-#login-main p{
+.login-form-main p{
+    margin: 10px 0px;
     text-align: center;
 }
 
-#login-main p a{
-    color: var(--color-bg-secondary);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-#login-main p a:hover{
-    text-decoration: underline;
+.login-form-main p > a{
+    font-size: .9em;
 }
