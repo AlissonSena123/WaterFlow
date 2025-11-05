@@ -7,7 +7,7 @@
     --font: "Momo Trust Display", sans-serif;
     --color-bg-primary: #023373; 
     --color-bg-secondary: #049DBF;
-    --color-bg-tertiary: white;
+    --color-bg-tertiary: #88e9ff;
     --color-text-primary: rgb(39, 39, 39);
 }
 
@@ -25,28 +25,14 @@ body{
 }
 
 button, label{
+    transition-duration: 0.2s;
     cursor: pointer;
-}
-
-header{
-    background-color: var(--color-bg-tertiary);
-    padding-bottom: 20px;
-    color: var(--color-bg-primary);
-    border-bottom: 1.5px solid var(--color-bg-primary);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-header img{
-    width: 200px;
-    display: block;
 }
 
 
 footer{
     padding: 50px;
-    background-color: var(--color-bg-primary);
+    background-color: white;
     color: white;
 }
 
