@@ -66,12 +66,17 @@ main{
 .cadastro-form-main form .CEP-inputs{
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--color-bg-primary);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 
 .cadastro-form-main form .CEP-inputs > input{
-    width: 30.50%;
+    width: 100%;
 }
 
 .cadastro-form-main p{

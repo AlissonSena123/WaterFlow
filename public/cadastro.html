@@ -46,6 +46,7 @@
                         <input type="text" name="cidade" placeholder="Cidade">
                         <input type="text" name="estado" placeholder="Estado">
                         <input type="text" name="pais" placeholder="País">
+                        <input type="text" name="bairro" placeholder="Bairro">
                     </div>
                 </div>
                 <button type="submit">Cadastrar-se!</button>
@@ -56,5 +57,35 @@
     <footer>
         <p>&copy;WaterFlow</p>
     </footer>
+    <script>
+        const inputCEP = document.getElementById("idCEP");
+        
+        inputCEP.addEventListener("blur", async () => {
+            const cep = inputCEP.value.replace(/\C/g, "");
+
+            if(cep.length !== 8){
+                alert("Digite um CEP válido com 8 números.");
+                return;
+            }
+
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const dados = await response.json();
+
+            if(dados.error){
+                alert("CEP não encontrado!");
+                return;
+            }
+
+            const cidadeInput = document.querySelector("input[name=cidade]");
+            const estadoInput = document.querySelector("input[name=estado]");
+            const paisInput = document.querySelector("input[name=pais]");
+            const bairroInput = document.querySelector("input[name=bairro]");
+
+            cidadeInput.value = dados.localidade || "";
+            estadoInput.value = dados.uf || "";
+            paisInput.value = "Brasil";
+            bairroInput.value = dados.bairro || "";
+        })
+    </script>
 </body>
 </html>
