@@ -34,7 +34,7 @@ main{
     margin-bottom: 20px;
 }
 
-.cadastro-form-main form .inputGroup > p.maxMin{
+.cadastro-form-main form .inputGroup > p.maxMin, p#errorCEP{
     margin-top: 5px;
     font-size: .7em;
     color: red;
@@ -86,4 +86,5 @@ main{
 .cadastro-form-main p > a{
     font-size: .9em;
 }
+
 

@@ -15,7 +15,7 @@
     <main>
         <div class="cadastro-form-main">
             <h2>Criar uma conta no <br> WaterFlow</h2>
-            <form action="/api/cadastrar" method="post">
+            <form action="/api/cadastrar" method="post" autocomplete="off">
                 <div class="inputGroup">
                     <label for="idNome">Nome Completo</label>
                     <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required>
@@ -31,7 +31,7 @@
                 <div class="inputGroup">
                     <label for="idSenha">Senha</label>
                     <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" min="10" max="15" required>
-                    <p class="maxMin">*Digite senhas de 10e a 15 caracteres</p>
+                    <p class="maxMin">*Digite senhas de 10 a 15 caracteres</p>
                 </div>
                 <div class="inputGroup">
                     <label for="idTelefone">Telefone</label>
@@ -40,13 +40,14 @@
                 <div class="inputGroup">
                     <label for="idCEP">CEP</label>
                     <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP">
+                    <p id="errorCEP"></p>
                 </div>
                 <div class="inputGroup">
                     <div class="CEP-inputs">
-                        <input type="text" name="cidade" placeholder="Cidade">
-                        <input type="text" name="estado" placeholder="Estado">
-                        <input type="text" name="pais" placeholder="País">
-                        <input type="text" name="bairro" placeholder="Bairro">
+                        <input type="text" name="cidade" placeholder="Cidade" readonly>
+                        <input type="text" name="estado" placeholder="Estado" readonly> 
+                        <input type="text" name="pais" placeholder="País" readonly>
+                        <input type="text" name="bairro" placeholder="Bairro" readonly>
                     </div>
                 </div>
                 <button type="submit">Cadastrar-se!</button>
@@ -59,28 +60,36 @@
     </footer>
     <script>
         const inputCEP = document.getElementById("idCEP");
+        const errorCEP = document.getElementById("errorCEP");
+
+        
         
         inputCEP.addEventListener("blur", async () => {
             const cep = inputCEP.value.replace(/\C/g, "");
-
-            if(cep.length !== 8){
-                alert("Digite um CEP válido com 8 números.");
-                return;
-            }
-
-            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const dados = await response.json();
-
-            if(dados.error){
-                alert("CEP não encontrado!");
-                return;
-            }
 
             const cidadeInput = document.querySelector("input[name=cidade]");
             const estadoInput = document.querySelector("input[name=estado]");
             const paisInput = document.querySelector("input[name=pais]");
             const bairroInput = document.querySelector("input[name=bairro]");
 
+            if(cep.length !== 8){
+                errorCEP.innerHTML = "*Digite um CEP de 8 digitos";
+                cidadeInput.value = "";
+                estadoInput.value = "";
+                paisInput.value = "";
+                bairroInput.value = "";
+                return;
+            }
+
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const dados = await response.json();
+
+            if(dados.erro){
+                errorCEP.innerHTML = "*CEP não encontrado";
+                return;
+            }
+
+            errorCEP.innerHTML = "";
             cidadeInput.value = dados.localidade || "";
             estadoInput.value = dados.uf || "";
             paisInput.value = "Brasil";
