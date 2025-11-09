@@ -13,36 +13,38 @@
         <h1>WaterFlow</h1>
     </header>
     <main>
-        <div class="cadastro-form-main">
+        <div class="cadastro-form">
             <h2>Criar uma conta no <br> WaterFlow</h2>
             <form action="/api/cadastrar" method="post" autocomplete="off">
-                <div class="inputGroup">
+                <div class="inputGroup item1">
                     <label for="idNome">Nome Completo</label>
                     <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required>
                 </div>
-                <div class="inputGroup">
-                    <label for="idData">Data de Nascimento</label>
-                    <input type="date" name="data_nascimento" id="idData" required>
-                </div>
-                <div class="inputGroup">
+                
+                <div class="inputGroup item2">
                     <label for="idEmail">Email</label>
                     <input type="email" name="email" id="idEmail" placeholder="@email.com" required>
                 </div>
-                <div class="inputGroup">
+                
+                <div class="inputGroup item3">
                     <label for="idSenha">Senha</label>
                     <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" min="10" max="15" required>
-                    <p class="maxMin">*Digite senhas de 10 a 15 caracteres</p>
+                    <p>*Digite senhas de 10 a 15 caracteres</p>
                 </div>
-                <div class="inputGroup">
+                <div class="inputGroup item4">
+                    <label for="idData">Data de Nascimento</label>
+                    <input type="date" name="data_nascimento" id="idData" required>
+                </div>
+                <div class="inputGroup item5">
                     <label for="idTelefone">Telefone</label>
                     <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX">
                 </div>
-                <div class="inputGroup">
+                <div class="inputGroup item6">
                     <label for="idCEP">CEP</label>
                     <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP">
                     <p id="errorCEP"></p>
                 </div>
-                <div class="inputGroup">
+                <div class="inputGroup item7">
                     <div class="CEP-inputs">
                         <input type="text" name="cidade" placeholder="Cidade" readonly>
                         <input type="text" name="estado" placeholder="Estado" readonly> 
