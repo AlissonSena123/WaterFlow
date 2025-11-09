@@ -1,24 +1,80 @@
+body{
+    background: url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.btnGroup button{
+    padding: 10px;
+    width: 120px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
+}
+.btnGroup button#btnEntrar{
+    background-color: var(--color-bg-primary);
+    color: white;
+}
+
+.btnGroup button#btnEntrar:hover{
+    background-color: rgb(7, 0, 66);
+}
+
+.btnGroup button#btnCadastrar{
+    background: none;
+    border: 2.5px solid rgb(7, 0, 66);
+    color: var(--color-bg-primary);
+}
+
+.btnGroup button#btnCadastrar:hover{
+    background-color: rgb(7, 0, 66);
+    color: white;
+}
+
 main{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: radial-gradient(circle at 30% 20%, rgba(178, 209, 255, 0.589), transparent 40%), radial-gradient(circle at 70% 80%, rgba(191, 208, 255, 0.568), transparent 50%),linear-gradient(120deg, #00bcd4, #2196f3);
-    background-blend-mode: screen;
-    overflow: hidden;
+    min-height: 100vh;
 }
 
 .form-section{
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.747);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.329);
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
     color: var(--color-bg-primary);
+    margin: 50px;
 }
 
 .form-section .form-header{
     text-align: center;
     margin-bottom: 40px;
+}
+
+.form-section .form-header h1{
+    font-size: 2.8em;
+    font-weight: bold;
+}
+
+.form-section .form-header h3{
+    font-size: 1em;
 }
 
 form{
@@ -40,18 +96,20 @@ form{
 
 form .inputItem label{
     margin-top: 5px;
+    font-weight: 500;
 }
 
 form .inputItem > input{
     padding: 10px;
     border-radius: 10px;
-    border: 2px solid var(--color-bg-primary);
+    border-top: none;
+    border: 2px solid rgba(64, 64, 255, 0.493);
 }
 
 form button{
     align-self: center;
     padding: 12.5px;
-    width: 72%;
+    width: 50%;
     border: none;
     background-color: var(--color-bg-secondary);
     color: white;
@@ -59,7 +117,7 @@ form button{
     margin: 20px 0px 30px 0px;
 }
 
-button:hover{
+form button:hover{
     background-color: var(--color-bg-primary);
     transform: translateY(-5px);
 }
