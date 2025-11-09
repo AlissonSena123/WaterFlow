@@ -1,66 +1,69 @@
 main{
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle at 30% 20%, rgba(178, 209, 255, 0.589), transparent 40%), radial-gradient(circle at 70% 80%, rgba(191, 208, 255, 0.568), transparent 50%),linear-gradient(120deg, #00bcd4, #2196f3);
+    background-blend-mode: screen;
+    overflow: hidden;
 }
 
-.login-form-main{
-    background-color: white;
-    padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
+.form-section{
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.329);
     color: var(--color-bg-primary);
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px var(--color-bg-primary);
-    margin: 20px;
 }
 
-.login-form-main form{
-    display: flex;
-    flex-direction: column;
-}
-
-.login-form-main .login-form-header{
+.form-section .form-header{
     text-align: center;
-    margin: 10px 0px 50px 0px;
+    margin-bottom: 40px;
 }
 
-.login-form-main form .login-input{
+form{
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
 }
 
-.login-form-main form .login-input > input{
-    padding: 10.5px;
-    border: 1.5px solid var(--color-bg-primary);
-    border-radius: 5px;
+.inputGroup{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.login-form-main form button{
-    width: 200px;
-    padding: 14px;
+.inputGroup .inputItem{
+    display: flex;
+    flex-direction: column;
+}
+
+form .inputItem label{
+    margin-top: 5px;
+}
+
+form .inputItem > input{
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--color-bg-primary);
+}
+
+form button{
+    align-self: center;
+    padding: 12.5px;
+    width: 72%;
+    border: none;
     background-color: var(--color-bg-secondary);
     color: white;
-    border: none;
-    align-self: center;
-    margin: 25px 0px 15px 0px;
-    border-radius: 10px;
+    border-radius: 6px;
+    margin: 20px 0px 30px 0px;
 }
 
-.login-form-main form button:hover{
+button:hover{
     background-color: var(--color-bg-primary);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
-.login-form-main p{
-    margin: 10px 0px;
+.form-section p{
     text-align: center;
-}
-
-.login-form-main p > a{
-    font-size: .9em;
 }

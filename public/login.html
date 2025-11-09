@@ -9,31 +9,27 @@
     <link rel="stylesheet" href="Style/login.css">
 </head>
 <body>
-    <header>
-        <h1>WaterFlow</h1>
-    </header>
     <main>
-        <div class="login-form-main">
-            <div class="login-form-header">
+        <section class="form-section">
+            <div class="form-header">
                 <h1>Entrar</h1>
-                <p>Bem vindo de volta ao WaterFlow</p>
+                <h3>Bem vindo de volta ao WaterFlow</h3>
             </div>
             <form action="">
-                <div class="login-input">
-                    <label for="idEmail">Email</label>
-                    <input type="email" name="email" id="idEmail" required placeholder="@email.com">
+                <div class="inputGroup">
+                    <div class="inputItem">
+                        <label for="idEmail">Email</label>
+                        <input type="email" name="email" id="idEmail" required placeholder="@email.com">
+                    </div>
+                    <div class="inputItem">
+                        <label for="idSenha">Senha</label>
+                        <input type="password" name="senha" id="idSenha" required placeholder="************">
+                    </div>
                 </div>
-                <div class="login-input">
-                    <label for="idSenha">Senha</label>
-                    <input type="password" name="senha" id="idSenha" required placeholder="**********">
-                </div>
-                <button type="submit">Entrar</button>
+                <button type="submit">ENTRAR</button>
+                <p>Primeira vez aqui? <br> <a href="/cadastrar">Cadastra-se aqui</a></p>
             </form>
-            <p>Primeira vez aqui? <br> <a href="/cadastro">Cadastra-se</a></p>
-        </div>
+        </section>
     </main>
-    <footer>
-        <p>&copy;WaterFlow</p>
-    </footer>
 </body>
 </html>
