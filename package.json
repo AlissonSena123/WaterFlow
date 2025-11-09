@@ -9,10 +9,19 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Projeto de TCC do curso de DS",
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
-    "mysql2": "^3.15.3"
-  }
+    "mysql2": "^3.15.3",
+    "nodemon": "^3.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlissonSena123/WaterFlow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlissonSena123/WaterFlow/issues"
+  },
+  "homepage": "https://github.com/AlissonSena123/WaterFlow#readme"
 }
