@@ -62,8 +62,13 @@ footer{
     padding: 80px;
     background-color: white;
     color: var(--color-bg-primary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.301);
 }
+
 
 
 
