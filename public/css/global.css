@@ -1,0 +1,158 @@
+/* ==== FONTE ==== */
+@font-face {
+    font-family: "Momo Trust Display";
+    src: url(../fonts/MomoTrustDisplay-Regular.ttf) format("truetype");
+}
+
+/* ==== VARIAVEIS ==== */
+:root {
+    --font: "Momo Trust Display", sans-serif;
+    --color-bg-023373: #023373; 
+    --color-bg-049DBF: #049DBF;
+    --color-bg-88e9ff: #88e9ff;
+    --color-bg-070042: #070042;
+    --color-bg-ffffffbe: #ffffffbe;
+}
+
+/* ==== CONFIGURAÇÕES GERAIS ==== */
+header{
+    padding: 30px;
+}
+
+header img{
+    width: 130px;
+}
+
+* {
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+html, body{
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+button, label{
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+label{
+    width: max-content;
+    margin-bottom: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-bg-049DBF);
+    box-shadow: 0 0 5px var(--color-bg-049DBF);
+    transition: 0.2s;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+
+/* ==== <HEADER> DAS TELAS DE CADASTRO E LOGIN ==== */
+.headerLoginCadastro{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerLoginCadastro .btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.headerLoginCadastro .btnGroup button{
+    padding: 10px;
+    width: 120px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
+}
+
+.headerLoginCadastro .btnGroup button#btnEntrar{
+    background-color: var(--color-bg-023373);
+    color: white;
+}
+
+.headerLoginCadastro .btnGroup button#btnEntrar:hover{
+    background-color: var(--color-bg-070042);
+}
+
+.headerLoginCadastro .btnGroup button#btnCadastrar{
+    background: none;
+    border: 2.5px solid var(--color-bg-070042);
+    color: var(--color-bg-023373);
+}
+
+.headerLoginCadastro .btnGroup button#btnCadastrar:hover{
+    background-color: var(--color-bg-070042);
+    color: white;
+}
+
+
+/* ==== <FORM> DAS TELAS DE CADASTRO E LOGIN ==== */
+
+/* Eles possuem o mesmo padrão */
+
+.formLoginCadastro{
+    background-color: var(--color-bg-ffffffbe);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
+    color: var(--color-bg-023373);
+    border-radius: 15px;
+    margin: 50px;
+}
+
+.formLoginCadastro form button{
+    background-color: var(--color-bg-049DBF);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.formLoginCadastro form button:hover{
+    background-color: var(--color-bg-023373);
+    transform: translateY(-5px);
+}
+
+
+/* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
+footer{
+    padding: 80px;
+    background-color: white;
+    color: var(--color-bg-023373);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.301);
+}
+
+
+@media (max-width: 600px) {
+    .section-form-login,
+    .section-form-cadastro {
+        padding: 20px;
+    }
+}
+
+
+
+

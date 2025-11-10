@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Img/Logo/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="Style/global.css">
-    <link rel="stylesheet" href="Style/cadastro.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/cadastro.css">
     <title>Cadastrar</title>
 </head>
 <body>
-    <header>
+    <header class="headerLoginCadastro">
         <img src="Img/Logo.png" alt="LogoTipo">
         <div class="btnGroup">
             <button id="btnEntrar">Entrar</button>
@@ -17,7 +17,7 @@
         </div>
     </header>
     <main>
-        <div class="cadastro-form">
+        <section class="section-form-cadastro formLoginCadastro">
             <h2>Criar uma conta no <br> WaterFlow</h2>
             <form action="/api/cadastrar" method="post" autocomplete="off">
                 <div class="inputGroup item1">
@@ -32,7 +32,7 @@
                 
                 <div class="inputGroup item3">
                     <label for="idSenha">Senha</label>
-                    <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" min="10" max="15" required>
+                    <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" minlength="10" maxlength="15" required>
                     <p>*Digite senhas de 10 a 15 caracteres</p>
                 </div>
                 <div class="inputGroup item4">
@@ -49,17 +49,18 @@
                     <p id="errorCEP"></p>
                 </div>
                 <div class="inputGroup item7">
-                    <div class="CEP-inputs">
-                        <input type="text" name="cidade" placeholder="Cidade" readonly>
-                        <input type="text" name="estado" placeholder="Estado" readonly> 
-                        <input type="text" name="pais" placeholder="País" readonly>
-                        <input type="text" name="bairro" placeholder="Bairro" readonly>
-                    </div>
+                    <fieldset class="CEP-inputs">
+                        <legend>Endereço automático</legend>
+                        <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
+                        <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP"> 
+                        <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
+                        <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
+                    </fieldset>
                 </div>
                 <button type="submit">Cadastrar-se!</button>
             </form>
             <p>Já possui uma Conta? <br> <a href="/login">Voltar a Tela de Login</a> </p>
-        </div>
+        </section>
     </main>
     <footer>
         <img src="Img/Logo2.png" alt="" width="150px">
@@ -70,7 +71,15 @@
         const errorCEP = document.getElementById("errorCEP");
 
         inputCEP.addEventListener("blur", async () => {
-            const cep = inputCEP.value.replace(/\C/g, "");
+            const cep = inputCEP.value.replace(/\D/g, "");
+
+
+            function limparInput(){
+                cidadeInput.value = "";
+                estadoInput.value = "";
+                paisInput.value = "";
+                bairroInput.value = "";
+            }
 
             const cidadeInput = document.querySelector("input[name=cidade]");
             const estadoInput = document.querySelector("input[name=estado]");
@@ -79,12 +88,12 @@
 
             if(cep.length !== 8){
                 errorCEP.innerHTML = "*Digite um CEP de 8 digitos";
-                cidadeInput.value = "";
-                estadoInput.value = "";
-                paisInput.value = "";
-                bairroInput.value = "";
+                limparInput();
                 return;
             }
+
+
+            errorCEP.innerHTML = "Buscando CEP...";
 
             const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
             const dados = await response.json();
