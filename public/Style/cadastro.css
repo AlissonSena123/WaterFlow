@@ -1,3 +1,50 @@
+body{
+    background: linear-gradient(to bottom , rgba(255, 255, 255, 0.219), rgba(0, 44, 133, 0.363)), url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.3px 20px;
+}
+
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.btnGroup button{
+    padding: 10px;
+    width: 120px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
+}
+
+.btnGroup button#btnEntrar{
+    background-color: var(--color-bg-primary);
+    color: white;
+}
+
+.btnGroup button#btnEntrar:hover{
+    background-color: rgb(7, 0, 66);
+}
+
+.btnGroup button#btnCadastrar{
+    background: none;
+    border: 2.5px solid rgb(7, 0, 66);
+    color: var(--color-bg-primary);
+}
+
+.btnGroup button#btnCadastrar:hover{
+    background-color: rgb(7, 0, 66);
+    color: white;
+}
+
 main{
     margin: 50px 0px;
     display: flex;
@@ -7,7 +54,9 @@ main{
 }
 
 .cadastro-form{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.747);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 30px;
     border-radius: 15px;
     width: 600px;
@@ -39,7 +88,7 @@ label{
 
 input {
     padding: 10px;
-    border: 2px solid #6f7eff;
+    border: 2px solid rgba(64, 64, 255, 0.493);
     border-radius: 6px;
     width: 100%;       
     max-width: 100%;
@@ -80,7 +129,7 @@ button {
     margin: 20px 0px;
 }
 
-button:hover{
+form button:hover{
     background-color: var(--color-bg-primary);
     transform: translateY(-5px);
 }

@@ -1,5 +1,5 @@
 body{
-    background: url(../Img/bg.svg) no-repeat center top;
+    background: linear-gradient(to bottom , rgba(255, 255, 255, 0.219), rgba(0, 44, 133, 0.363)), url(../Img/bg.svg) no-repeat center top;
     background-size: cover;
 }
 
@@ -23,6 +23,7 @@ header{
     border: none;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
 }
+
 .btnGroup button#btnEntrar{
     background-color: var(--color-bg-primary);
     color: white;
@@ -68,14 +69,6 @@ main{
     margin-bottom: 40px;
 }
 
-.form-section .form-header h1{
-    font-size: 2.8em;
-    font-weight: bold;
-}
-
-.form-section .form-header h3{
-    font-size: 1em;
-}
 
 form{
     display: flex;
@@ -102,18 +95,17 @@ form .inputItem label{
 form .inputItem > input{
     padding: 10px;
     border-radius: 10px;
-    border-top: none;
     border: 2px solid rgba(64, 64, 255, 0.493);
 }
 
 form button{
     align-self: center;
-    padding: 12.5px;
+    padding: 15px;
     width: 50%;
     border: none;
     background-color: var(--color-bg-secondary);
     color: white;
-    border-radius: 6px;
+    border-radius: 8px;
     margin: 20px 0px 30px 0px;
 }
 
