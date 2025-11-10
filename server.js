@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const { createConnection } = require("net");
-const cadastroRouter = require('./routers/usuario');
+const usuarioRouter = require('./routers/usuario');
 
 const server = express();
 const PORT = 8080;
@@ -10,7 +10,7 @@ const PORT = 8080;
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-server.use(cadastroRouter);
+server.use(usuarioRouter);
 
 
 /*server.get("/teste", (req, res) => {

@@ -1,32 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./bancoDados');
+const bcrypt = require("bcrypt");
 
-router.post("/api/cadastrar", (req, res) => {
-    const {nome_completo, data_nascimento, email, senha, telefone, CEP} = req.body;
+router.post("/api/cadastrar", async (req, res) => {
+    const { nome_completo, data_nascimento, email, senha, telefone, CEP } = req.body;
 
-    let sqlVerificar = 'SELECT * FROM usuarios WHERE email = ?';
+    try {
+        //verificando se usuario ja existe com Promise e await, para nao executar antes e dar erro.
+        const sqlVerificar = 'SELECT * FROM usuarios WHERE email = ?';
+        const usuarioExistente = await new Promise((resolve, reject) => {
+            db.query(sqlVerificar, [email], (err, resultado) => {
+                if (err) return reject(err);
+                resolve(resultado);
+            });
+        });
 
-    db.query(sqlVerificar, [email], (err, resultado) => {
-        if (err) {
-            console.error("Erro ao verificar o email: ", err.message);
-            return res.status(500).send("Erro interno no servidor");
+        if (usuarioExistente.length > 0) {
+            return res.status(400).send(`<script>alert('Esse usuário já existe!'); window.history.back();</script>`)
         };
 
-        if(resultado.length > 0) {
-            return res.status(400).send(`<script>alert('Esse usuario já existe!'); window.history.back();</script>`)
-        };
-    });
+        //criando hash(binarios) a senha do usuario;
+        const hashSenha = await bcrypt.hash(senha, 10);
 
-    const sqlInserir = "INSERT INTO usuarios(nome_completo, data_nascimento, email, senha, telefone, CEP) VALUES(?, ?, ?, ?, ?, ?) ";
-    
-    db.query(sqlInserir, [nome_completo, data_nascimento, email, senha, telefone, CEP], (err) => {
-        if(err){
-            console.error("Erro ao inserir no banco: ", err.message);
-            return res.send("Erro ao cadastrar no banco!");
-        }
-        res.send(`<script>alert('Cadastro realizado com sucesso!'); window.location.href='/login';</script>`);
-    });
+        const sqlInserir = "INSERT INTO usuarios(nome_completo, data_nascimento, email, senha, telefone, CEP) VALUES(?, ?, ?, ?, ?, ?) ";
+
+        await new Promise((resolve, reject) => {
+            db.query(sqlInserir, [nome_completo, data_nascimento, email, hashSenha, telefone, CEP], (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        });
+
+        return res.send(`<script>alert('Cadastro realizado com sucesso!'); window.location.href='/login';</script>`);
+    } catch (error) {
+        console.error("Erro no cadastro:", error.message);
+        return res.status(500).send("Erro interno no servidor");
+    }
+
 });
 
 router.post('/login', (req, res) => {
