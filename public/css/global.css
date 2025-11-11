@@ -1,10 +1,12 @@
 /* ==== FONTE ==== */
+
 @font-face {
     font-family: "Momo Trust Display";
     src: url(../fonts/MomoTrustDisplay-Regular.ttf) format("truetype");
 }
 
 /* ==== VARIAVEIS ==== */
+
 :root {
     --font: "Momo Trust Display", sans-serif;
     --color-bg-primary-blue: #023373; 
@@ -13,9 +15,11 @@
     --color-bg-blue-darker: #070042;
     --color-bg-white-opacity: #ffffffbe;
     --color-white: #f5f7fc;
+    --color-text-primary-black: rgb(20, 20, 20);
 }
 
 /* ==== CONFIGURAÇÕES GERAIS ==== */
+
 header{
     padding: 30px;
 }
@@ -36,11 +40,6 @@ html, body{
     min-height: 100vh;
 }
 
-main{
-    background-attachment: fixed;
-    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
-    background-size: cover;
-}
 
 button, label{
     transition: all 0.3s ease;
@@ -67,7 +66,8 @@ a:hover{
     text-decoration: underline;
 }
 
-/* ==== CONFIGURAÇÕES PADRÃO DE BOTÕES ==== */
+/* ==== CONFIGURAÇÃO PADRÃO DE BOTÕES ==== */
+
 button {
     background-color: var(--color-bg-secondary-blue);
     color: white;
@@ -105,11 +105,14 @@ button:hover {
 }
 
 /* ==== <HEADER> DAS TELAS DE CADASTRO E LOGIN ==== */
+
 .headerLoginCadastro{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.205);
+    position: relative;
 }
 
 .btnGroup{
@@ -157,6 +160,13 @@ button:hover {
 }
 
 
+/* ==== BACKGROUNDS ==== */
+
+.bg-primary{
+    background-attachment: fixed;
+    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
+}
 
 /* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
 footer{
