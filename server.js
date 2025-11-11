@@ -2,12 +2,11 @@ const express = require("express");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const path = require("path");
-const { createConnection } = require("net");
 
 const server = express();
 const PORT = 8080;
 
-server.use(express.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 
 server.use(express.static(path.join(__dirname, "public")));
@@ -25,16 +24,6 @@ db.connect((err) => {
     }
     console.log("Conexão com o Banco SQL realizado com sucesso!");
 });
-
-server.get("/teste", (req, res) => {
-    res.send(`
-        <a href="/login" target="blank">Login</a>
-        <a href="/cadastro" target="blank">Cadastro</a> 
-        <a href="/inicio" target="blank">Inicio</a>
-        <a href="/forum" target="blank">Forum</a> 
-        <a href="/perfil" target="blank">Perfil</a>      
-    `)
-})
 
 server.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "public/login.html"));
@@ -71,8 +60,8 @@ server.post("/api/cadastrar", (req, res) => {
             return res.send("Erro ao cadastrar no banco!");
         }
         res.send(`Usuário ${nome_completo} cadastrado com sucesso!`);
-    })
-})
+    });
+});
 
 server.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}/teste`);

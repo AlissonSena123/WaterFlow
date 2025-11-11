@@ -1,0 +1,47 @@
+header{
+    background-color: rgba(255, 255, 255, 0.342);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+
+main{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding-top: 120px;
+    min-height: 100vh;
+    
+}
+
+.section-sobre{
+    grid-column: 1/-1;
+    grid-row: 1/-2;
+    margin: 20px;
+    background-color: var(--color-bg-blue-darker);
+    padding: 50px;
+    color: var(--color-white);
+    border-radius: 10px;
+}
+
+.section-sobre h2{
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.section-sobre p{
+    text-align: justify;
+    font-weight: lighter;
+}
+
+.section-sobre p strong{
+    color: var(--color-bg-secondary-blue);
+}
+
+.section-sobre p strong span{
+    color: orangered;
+}

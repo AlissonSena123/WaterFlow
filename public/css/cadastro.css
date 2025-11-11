@@ -1,27 +1,9 @@
-body{
-    background: linear-gradient(to bottom , rgba(255, 255, 255, 0.219), rgba(0, 44, 133, 0.363)), url(../Img/bg.svg) no-repeat center top;
-    background-size: cover;
-}
+/* ==== PÁGINA DE CADASTRO ==== */
 
-header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-main{
-    padding: 40px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
+/* ==== FOMULARIO DE CADASTRO ==== */
 .section-form-cadastro{
     padding: 30px;
-    width: 800px;
+    width: 700px;
     max-width: 90%;
 }
 
@@ -82,7 +64,7 @@ main{
 }
 
 .section-form-cadastro form .CEP-inputs legend{
-    padding: 5px;
+    padding: 0px 5px;
 }
   
 

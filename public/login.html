@@ -12,11 +12,11 @@
     <header class="headerLoginCadastro">
         <img src="Img/Logo.png" alt="LogoTipo">
         <div class="btnGroup">
-            <button id="btnEntrar" aria-label="Ir para página de login">Entrar</button>
-            <button id="btnCadastrar" aria-label="Ir para página de cadastro">Cadastrar</button>
+            <button class="btn-primary" aria-label="Ir para página de login">Entrar</button>
+            <button class="btn-outline" aria-label="Ir para página de cadastro">Cadastrar</button>
         </div>
     </header>
-    <main>
+    <main class="mainLoginCadastro">
         <section class="section-form-login formLoginCadastro">
             <div class="form-header">
                 <h1>ENTRAR</h1>
@@ -26,11 +26,11 @@
                 <div class="inputGroup">
                     <div class="inputItem">
                         <label for="idEmail">Email</label>
-                        <input type="email" name="email" id="idEmail" required placeholder="@email.com">
+                        <input type="email" name="email" id="idEmail" required placeholder="@email.com" autocomplete="email">
                     </div>
                     <div class="inputItem">
                         <label for="idSenha">Senha</label>
-                        <input type="password" name="senha" id="idSenha" required placeholder="************">
+                        <input type="password" name="senha" id="idSenha" required placeholder="************" autocomplete="current-password">
                     </div>
                 </div>
                 <button type="submit">ENTRAR</button>
@@ -39,8 +39,8 @@
         </section>
     </main>
     <footer>
-        <img src="Img/Logo2.png" alt="" width="150px">
-        <p>&copy; 2025 WaterFlow. Todos os direitos reservados.</p>
+        <img src="Img/Logo2.png" alt="LogoTipo-Footer">
+        <p>&copy; 2025 WaterFlow — Todos os direitos reservados | Projeto TCC</p>
     </footer>
 </body>
 </html>

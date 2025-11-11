@@ -7,11 +7,12 @@
 /* ==== VARIAVEIS ==== */
 :root {
     --font: "Momo Trust Display", sans-serif;
-    --color-bg-023373: #023373; 
-    --color-bg-049DBF: #049DBF;
-    --color-bg-88e9ff: #88e9ff;
-    --color-bg-070042: #070042;
-    --color-bg-ffffffbe: #ffffffbe;
+    --color-bg-primary-blue: #023373; 
+    --color-bg-secondary-blue: #049DBF;
+    --color-bg-blue-lighter: #88e9ff;
+    --color-bg-blue-darker: #070042;
+    --color-bg-white-opacity: #ffffffbe;
+    --color-white: #f5f7fc;
 }
 
 /* ==== CONFIGURAÇÕES GERAIS ==== */
@@ -33,7 +34,12 @@ header img{
 
 html, body{
     min-height: 100vh;
+}
+
+main{
     background-attachment: fixed;
+    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
 }
 
 button, label{
@@ -48,8 +54,8 @@ label{
 
 input:focus {
     outline: none;
-    border-color: var(--color-bg-049DBF);
-    box-shadow: 0 0 5px var(--color-bg-049DBF);
+    border-color: var(--color-bg-secondary-blue);
+    box-shadow: 0 0 5px var(--color-bg-secondary-blue);
     transition: 0.2s;
 }
 
@@ -61,6 +67,42 @@ a:hover{
     text-decoration: underline;
 }
 
+/* ==== CONFIGURAÇÕES PADRÃO DE BOTÕES ==== */
+button {
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-bg-blue-darker);
+}
+
+.btn-outline {
+  background: none;
+  border: 2.5px solid var(--color-bg-blue-darker);
+  color: var(--color-bg-primary-blue);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+}
 
 /* ==== <HEADER> DAS TELAS DE CADASTRO E LOGIN ==== */
 .headerLoginCadastro{
@@ -70,57 +112,29 @@ a:hover{
     align-items: center;
 }
 
-.headerLoginCadastro .btnGroup{
+.btnGroup{
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.headerLoginCadastro .btnGroup button{
-    padding: 10px;
-    width: 120px;
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
-}
-
-.headerLoginCadastro .btnGroup button#btnEntrar{
-    background-color: var(--color-bg-023373);
-    color: white;
-}
-
-.headerLoginCadastro .btnGroup button#btnEntrar:hover{
-    background-color: var(--color-bg-070042);
-}
-
-.headerLoginCadastro .btnGroup button#btnCadastrar{
-    background: none;
-    border: 2.5px solid var(--color-bg-070042);
-    color: var(--color-bg-023373);
-}
-
-.headerLoginCadastro .btnGroup button#btnCadastrar:hover{
-    background-color: var(--color-bg-070042);
-    color: white;
-}
-
-
 /* ==== <FORM> DAS TELAS DE CADASTRO E LOGIN ==== */
 
-/* Eles possuem o mesmo padrão */
-
 .formLoginCadastro{
-    background-color: var(--color-bg-ffffffbe);
+    background-color: var(--color-bg-white-opacity);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
-    color: var(--color-bg-023373);
+    color: var(--color-bg-primary-blue);
     border-radius: 15px;
     margin: 50px;
+    width: 90%;
+    max-width: 700px;
+    padding: 40px;
 }
 
 .formLoginCadastro form button{
-    background-color: var(--color-bg-049DBF);
+    background-color: var(--color-bg-secondary-blue);
     color: white;
     border: none;
     padding: 15px;
@@ -128,21 +142,38 @@ a:hover{
 }
 
 .formLoginCadastro form button:hover{
-    background-color: var(--color-bg-023373);
+    background-color: var(--color-bg-primary-blue);
     transform: translateY(-5px);
 }
+
+/* ==== <MAIN> DAS TELAS DE CADASTRO E LOGIN ==== */
+
+.mainLoginCadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 50px 0px;
+}
+
 
 
 /* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
 footer{
-    padding: 80px;
-    background-color: white;
-    color: var(--color-bg-023373);
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #eaf4ff 100%);
+    text-align: center;
+    color: var(--color-bg-primary-blue);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.301);
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.301);
+    gap: 10px;
+}
+
+footer img{
+    width: 150px;
 }
 
 
@@ -150,9 +181,19 @@ footer{
     .section-form-login,
     .section-form-cadastro {
         padding: 20px;
+        margin: 0px;
     }
 }
 
+@media (max-width: 520px) {
+    .btnGroup{
+        display: none;
+
+    }
+    .headerLoginCadastro{
+        justify-content: center;
+    }
+}
 
 
 

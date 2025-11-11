@@ -12,11 +12,11 @@
     <header class="headerLoginCadastro">
         <img src="Img/Logo.png" alt="LogoTipo">
         <div class="btnGroup">
-            <button id="btnEntrar">Entrar</button>
-            <button id="btnCadastrar">Cadastrar</button>
+            <button class="btn-primary">Entrar</button>
+            <button class="btn-outline">Cadastrar</button>
         </div>
     </header>
-    <main>
+    <main class="mainLoginCadastro">
         <section class="section-form-cadastro formLoginCadastro">
             <h2>Criar uma conta no <br> WaterFlow</h2>
             <form action="/api/cadastrar" method="post" autocomplete="off">
@@ -57,14 +57,14 @@
                         <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
                     </fieldset>
                 </div>
-                <button type="submit">Cadastrar-se!</button>
+                <button type="submit">Cadastrar-se</button>
             </form>
             <p>Já possui uma Conta? <br> <a href="/login">Voltar a Tela de Login</a> </p>
         </section>
     </main>
     <footer>
-        <img src="Img/Logo2.png" alt="" width="150px">
-        <p>&copy; 2025 WaterFlow. Todos os direitos reservados.</p>
+        <img src="Img/Logo2.png" alt="LogoTipo-Footer">
+        <p>&copy; 2025 WaterFlow — Todos os direitos reservados | Projeto TCC</p>
     </footer>
     <script>
         const inputCEP = document.getElementById("idCEP");

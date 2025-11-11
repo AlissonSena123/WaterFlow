@@ -1,16 +1,7 @@
-body{
-    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
-    background-size: cover;
-}
+/* ==== PÁGINA DE LOGIN ==== */
 
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 50px 0px;
-}
 
+/* ==== FOMULARIO DE LOGIN ==== */
 .section-form-login{
     padding: 50px;
     width: 500px;
