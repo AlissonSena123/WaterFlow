@@ -1,6 +1,5 @@
 header{
-    background-color: rgba(255, 255, 255, 0.342);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.205);
+    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.205);
     backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
@@ -13,6 +12,23 @@ header{
     color: var(--color-text-primary-black);
 }
 
+header .btn-primary{
+    width: 150px;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+nav a{
+    color: var(--color-text-primary-black);
+}
+
+
 main{
     display: flex;
     flex-direction: column;
@@ -22,18 +38,17 @@ main{
 }
 
 .section-sobre{
-    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     padding: 60px;
     color: var(--color-text-primary-black);
 }
 
 
-.section-sobre h2{
-    font-size: 4rem;
+.section-sobre h1{
+    font-size: 3rem;
     margin-bottom: 10px;
 }
 
@@ -41,8 +56,9 @@ main{
     text-align: justify;
     font-weight: lighter;
     font-size: 1.2rem;
-    width: 700px;
+    width: 600px;
     max-width: 90%;
+    margin-bottom: 10px;
 }
 
 
@@ -52,13 +68,30 @@ main{
 }
 
 .section-projeto .section-projeto-contant{
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     color: var(--color-text-primary-black);
 }
 
 .section-projeto .section-projeto-contant h1{
     font-size: 4rem;
+    margin-bottom: 20px;
 }
 
+.section-projeto .section-projeto-contant p{
+    width: 500px;
+    max-width: 90%;
+    margin-bottom: 20px;
+}
+
+.section-projeto-contant .btn-outline{
+    border: none;
+    background-color: var(--color-bg-primary-blue);
+    color: var(--color-white);
+    width: 200px;
+    padding: 20px;
+}
 
