@@ -1,12 +1,8 @@
 header{
     background-color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 header a{
-    font-size: 35px;
     color: var(--color-white);
 }
 
@@ -17,11 +13,11 @@ main{
 }
 
 .form-report{
-    margin: 50px 10px;
+    margin: 50px;
     border-radius: 15px;
     justify-self: center;
     align-self: center;
-    padding: 50px;
+    padding: 40px;
     background-color: var(--color-bg-white-opacity);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
