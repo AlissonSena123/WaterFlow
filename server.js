@@ -1,68 +1,41 @@
 const express = require("express");
-const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const path = require("path");
+const usuarioRouter = require("./routers/usuarios");
+const sequelize = require("./config/database");
 
 const server = express();
 const PORT = 8080;
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
-
 server.use(express.static(path.join(__dirname, "public")));
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "cimatec",
-    database: "Waterflow"
-});
-
-db.connect((err) => {
-    if(err){
-        console.error("Erro ao conectar com o Banco SQL: ", err.message);
-    }
-    console.log("Conexão com o Banco SQL realizado com sucesso!");
-});
+server.use(usuarioRouter);
 
 server.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/login.html"));
+  res.sendFile(path.join(__dirname, "public/login.html"));
 });
 
 server.get("/cadastro", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "cadastro.html"));
+  res.sendFile(path.join(__dirname, "public/cadastro.html"));
 });
 
 server.get("/inicio", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/inicio.html"));
+  res.sendFile(path.join(__dirname, "public/inicio.html"));
 });
 
 server.get("/forum", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/forum.html"));
+  res.sendFile(path.join(__dirname, "public/forum.html"));
 });
 
 server.get("/perfil", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/perfil.html"));
+  res.sendFile(path.join(__dirname, "public/perfil.html"));
 });
 
 server.get("/reporte", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/reporte.html"));
-});
-
-server.post("/api/cadastrar", (req, res) => {
-    const {nome_completo, data_nascimento, email, senha, telefone, CEP} = req.body;
-
-    const sql = "INSERT INTO usuarios(nome_completo, data_nascimento, email, senha, telefone, CEP) VALUES(?, ?, ?, ?, ?, ?) ";
-    
-    db.query(sql, [nome_completo, data_nascimento, email, senha, telefone, CEP], (err) => {
-        if(err){
-            console.error("Erro ao inserir no banco: ", err.message);
-            return res.send("Erro ao cadastrar no banco!");
-        }
-        res.send(`Usuário ${nome_completo} cadastrado com sucesso!`);
-    });
+  res.sendFile(path.join(__dirname, "public/reporte.html"));
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}/teste`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/login`);
 });
