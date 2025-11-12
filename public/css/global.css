@@ -38,6 +38,7 @@ header img{
 
 html, body{
     min-height: 100vh;
+    background: var(--color-bg-primary-blue);
 }
 
 
@@ -108,6 +109,7 @@ button:hover {
 /* ==== <HEADER> DAS TELAS DE CADASTRO E LOGIN ==== */
 
 .headerLoginCadastro{
+    background: var(--color-white);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -124,7 +126,8 @@ button:hover {
 
 /* ==== <FORM> DAS TELAS DE CADASTRO E LOGIN ==== */
 
-.formLoginCadastro{
+.section-form-cadastro, 
+.section-form-login{
     background-color: var(--color-bg-white-opacity);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -135,19 +138,23 @@ button:hover {
     width: 90%;
     max-width: 700px;
     padding: 40px;
+    border: 2px solid var(--color-bg-blue-darker);
 }
 
-.formLoginCadastro form button{
-    background-color: var(--color-bg-secondary-blue);
+.section-form-cadastro form button,
+.section-form-login form button{
+    background-color: var(--color-bg-primary-blue);
     color: white;
-    border: none;
+    border: 2px solid var(--color-bg-blue-darker);
     padding: 15px;
     border-radius: 8px;
 }
 
-.formLoginCadastro form button:hover{
-    background-color: var(--color-bg-primary-blue);
-    transform: translateY(-5px);
+.section-form-cadastro form button:hover,
+.section-form-login form button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.192);
 }
 
 /* ==== <MAIN> DAS TELAS DE CADASTRO E LOGIN ==== */
@@ -160,7 +167,6 @@ button:hover {
     padding: 50px 0px;
 }
 
-
 /* ==== BACKGROUNDS ==== */
 
 .bg-primary{
@@ -168,6 +174,7 @@ button:hover {
     background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
     background-size: cover;
 }
+
 
 /* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
 footer{

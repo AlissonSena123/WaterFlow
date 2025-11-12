@@ -1,6 +1,6 @@
 header{
-    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.205);
-    backdrop-filter: blur(10px);
+    background-color: var(--color-white);
+    box-shadow: 0px 5px 15px rgba(39, 39, 39, 0.356);
     position: fixed;
     width: 100%;
     top: 0;
@@ -26,6 +26,7 @@ nav{
 
 nav a{
     color: var(--color-text-primary-black);
+    font-size: 1.2rem;
 }
 
 
@@ -34,7 +35,6 @@ main{
     flex-direction: column;
     padding-top: 120px; 
     min-height: 100vh;
-    background-color: var(--color-bg-f5f7fc);
 }
 
 .section-sobre{
@@ -47,16 +47,16 @@ main{
 }
 
 
-.section-sobre h1{
+.section-sobre .section-sobre-contant h1{
     font-size: 3rem;
     margin-bottom: 10px;
 }
 
-.section-sobre p{
+.section-sobre .section-sobre-contant p{
     text-align: justify;
     font-weight: lighter;
     font-size: 1.2rem;
-    width: 600px;
+    width: 650px;
     max-width: 90%;
     margin-bottom: 10px;
 }
@@ -88,10 +88,8 @@ main{
 }
 
 .section-projeto-contant .btn-outline{
-    border: none;
-    background-color: var(--color-bg-primary-blue);
-    color: var(--color-white);
+    margin: 10px;
     width: 200px;
-    padding: 20px;
+    padding: 18px;
 }
 
