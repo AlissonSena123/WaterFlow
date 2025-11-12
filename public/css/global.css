@@ -22,10 +22,9 @@
 
 header{
     padding: 30px;
-}
-
-header img{
-    width: 130px;
+    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.322);
+    background-color: var(--color-white);
+    position: relative;
 }
 
 * {
@@ -52,7 +51,8 @@ label{
     margin-bottom: 5px;
 }
 
-input:focus {
+input:focus, 
+textarea:focus{
     outline: none;
     border-color: var(--color-bg-secondary-blue);
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
@@ -114,14 +114,22 @@ button:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.205);
-    position: relative;
 }
 
 .btnGroup{
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+/* ==== CONFIGURAÇÕES DE INPUTS ==== */
+
+.input-form{
+    padding: 10px;
+    border: 2px solid rgba(64, 64, 255, 0.493);
+    border-radius: 6px;
+    width: 100%;       
+    margin: 0;
 }
 
 /* ==== <FORM> DAS TELAS DE CADASTRO E LOGIN ==== */
