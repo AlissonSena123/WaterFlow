@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+/*const mysql = require('mysql2');
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -14,4 +14,18 @@ db.connect((err) => {
     console.log("Conexão com o Banco SQL realizado com sucesso!");
 });
 
-module.exports = db;
+module.exports = db;*/
+
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('waterflow','root','L@tus_40', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
+
+sequelize.authenticate().then(() => {
+    console.log("Conectado com sucesso");
+}).catch((error) => {
+    console.log("Falha ao conectar com banco de dados!", error);
+});
+
+module.exports = sequelize;
