@@ -11,6 +11,7 @@
     --font: "Momo Trust Display", sans-serif;
     --color-bg-primary-blue: #023373; 
     --color-bg-secondary-blue: #049DBF;
+    --color-bg-tertiary-blue: #7fa1e9;
     --color-bg-blue-lighter: #88e9ff;
     --color-bg-blue-darker: #070042;
     --color-bg-white-opacity: #ffffffbe;
@@ -22,7 +23,6 @@
 
 header{
     padding: 30px;
-    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.322);
     background-color: var(--color-white);
     position: relative;
 }
@@ -131,6 +131,8 @@ button:hover {
 .input-form{
     padding: 10px;
     border: 2px solid rgba(64, 64, 255, 0.493);
+    border-left: 20px solid rgba(64, 64, 255, 0.493);
+    background-color: rgb(243, 249, 255);
     border-radius: 6px;
     width: 100%;       
     margin: 0;
@@ -144,20 +146,19 @@ button:hover {
     background-color: var(--color-bg-white-opacity);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.219);
     color: var(--color-text-primary-black);
-    border-radius: 15px;
     width: 90%;
     max-width: 700px;
     padding: 40px;
-    border: 2px solid var(--color-bg-blue-darker);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.247);
+    border-radius: 15px;
 }
 
 .section-form-cadastro form button,
 .section-form-login form button{
     background-color: var(--color-bg-primary-blue);
     color: white;
-    border: 2px solid var(--color-bg-blue-darker);
     padding: 15px;
     border-radius: 8px;
 }
@@ -181,12 +182,15 @@ button:hover {
 
 /* ==== BACKGROUNDS ==== */
 
-.bg-primary{
-    background-attachment: fixed;
+.bg-primary-img{
     background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
     background-size: cover;
 }
 
+.bg-secondary-img{
+    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/layered-waves-haikei.svg) no-repeat center top;
+    background-size: cover;
+}
 
 /* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
 footer{

@@ -1,18 +1,6 @@
-header h2{
+header h1{
     color: var(--color-bg-primary-blue);
 }
-
-header h2 span{
-    color: var(--color-bg-secondary-blue);
-    text-decoration: underline;
-}
-
-main{
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: max-content 1fr;
-}
-
 
 .section-form-report form .inputGroup{
     display: flex;
@@ -69,7 +57,6 @@ form .btn-primary{
     grid-row: 6;
     justify-self: end;
     width: 200px;
-    border: 2px solid var(--color-bg-blue-darker);
 }
 
 @media (max-width: 600px) {
@@ -78,9 +65,6 @@ form .btn-primary{
         justify-content: center;
     }
 
-    header h2{
-        display: none;
-    }
 
     .section-form-report form{
         grid-template-columns: 1fr;

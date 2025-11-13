@@ -1,6 +1,5 @@
 header{
     background-color: var(--color-white);
-    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.205);
     position: fixed;
     width: 100%;
     top: 0;
@@ -26,7 +25,7 @@ nav{
 
 nav a{
     color: var(--color-text-primary-black);
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 
