@@ -1,0 +1,40 @@
+.section-esqueciSenha, .section-esqueciSenha-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    max-width: 90%;
+    padding: 50px;
+    color: var(--color-bg-blue-darker);
+}
+
+.section-esqueciSenha form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.section-esqueciSenha{
+    border-right: 10px solid var(--color-bg-blue-darker);
+    border-radius: 15px;
+}
+
+.section-esqueciSenha p{
+    margin: 20px 0px;
+    text-align: center;
+}
+
+.section-esqueciSenha h1{
+    text-align: center;
+    font-size: 3.5rem;
+    width: 100%;
+}
+
+.section-esqueciSenha input, button{
+    width: 90%;
+    padding: 20px;
+}
