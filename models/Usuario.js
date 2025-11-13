@@ -61,4 +61,10 @@ const Usuario = sequelize.define("Usuario", {
   timestamps: false,
 });
 
+async function criarTables() {
+    await Usuario.sync();
+};
+
+criarTables();
+
 module.exports = Usuario;

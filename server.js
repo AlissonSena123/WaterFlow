@@ -2,8 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const usuarioRouter = require("./routers/usuarios");
-const sequelize = require("./config/database");
-
 const server = express();
 const PORT = 8080;
 

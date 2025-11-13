@@ -73,4 +73,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+router.get("/redefinirSenha/:email", async (req, res) => {
+    const {email} = req.params;
+
+    const encontrado = await Usuario.findOne({ where: {email}});
+
+    if(!encontrado) {
+      return res.send("<script>alert('Email não encontrado'); window.history.back();</script>");
+    }
+      res.redirect(`/novaSenha?email = ${email}`);
+
+      console.error("Erro email nao cadastrado: ", err);
+      res.status(500).send("Erro interno no servidor");
+});
+
+router.route("/novaSenha")
+.get((req, res) => {
+    res.render("novaSenha", { email: req.query.email });
+})
+.post( async (req, res) => {
+    const {email, novaSenha} = req.body;
+    await Usuario.update({senha: novaSenha}, {where: {email}});
+    res.send(`<script> alert("Senha atualizada!"); window.location.href= '/login';</script>`);
+})
+
 module.exports = router;
