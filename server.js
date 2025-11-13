@@ -44,7 +44,7 @@ server.get("/redefinir", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/senhaEsquecida.html"));
 });
 
-server.get("/redefinir/confimar", (req, res) => {
+server.get("/redefinir/confirmar", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/redefinirSenha.html"));
 })
 
