@@ -12,6 +12,10 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(usuarioRouter);
 
+server.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/index.html"));
+});
+
 server.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/login.html"));
 });
@@ -35,6 +39,14 @@ server.get("/perfil", (req, res) => {
 server.get("/reporte", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
+
+server.get("/redefinir", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/senhaEsquecida.html"));
+});
+
+server.get("/redefinir/confimar", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/redefinirSenha.html"));
+})
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
