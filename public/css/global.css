@@ -131,7 +131,6 @@ button:hover {
 .input-form{
     padding: 10px;
     border: 2px solid rgba(64, 64, 255, 0.493);
-    border-left: 20px solid rgba(64, 64, 255, 0.493);
     background-color: rgb(243, 249, 255);
     border-radius: 6px;
     width: 100%;       

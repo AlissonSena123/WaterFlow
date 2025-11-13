@@ -36,6 +36,12 @@
     font-weight: 500;
 }
 
+.section-form-login form a{
+    margin: 0px 0px 20px 0px;
+    align-self: self-end;
+    font-size: .9rem;
+}
+
 .section-form-login form button{
     align-self: center;
     width: 50%;
