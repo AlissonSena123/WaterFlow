@@ -1,0 +1,218 @@
+/* ==== FONTE ==== */
+
+@font-face {
+    font-family: "Momo Trust Display";
+    src: url(../fonts/MomoTrustDisplay-Regular.ttf) format("truetype");
+}
+
+/* ==== VARIAVEIS ==== */
+
+:root {
+    --font: "Momo Trust Display", sans-serif;
+    --color-bg-primary-blue: #023373; 
+    --color-bg-secondary-blue: #049DBF;
+    --color-bg-blue-lighter: #88e9ff;
+    --color-bg-blue-darker: #070042;
+    --color-bg-white-opacity: #ffffffbe;
+    --color-white: #ffffff;
+    --color-text-primary-black: #1b1f26;
+}
+
+/* ==== CONFIGURAÇÕES GERAIS ==== */
+
+header{
+    padding: 30px;
+}
+
+header img{
+    width: 130px;
+}
+
+* {
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+html, body{
+    min-height: 100vh;
+    background: var(--color-bg-primary-blue);
+}
+
+
+button, label{
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+label{
+    width: max-content;
+    margin-bottom: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-bg-secondary-blue);
+    box-shadow: 0 0 5px var(--color-bg-secondary-blue);
+    transition: 0.2s;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+/* ==== CONFIGURAÇÃO PADRÃO DE BOTÕES ==== */
+
+button {
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 150px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-bg-blue-darker);
+}
+
+.btn-outline {
+  background: none;
+  border: 2.5px solid var(--color-bg-blue-darker);
+  color: var(--color-bg-primary-blue);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+}
+
+/* ==== <HEADER> DAS TELAS DE CADASTRO E LOGIN ==== */
+
+.headerLoginCadastro{
+    background: var(--color-white);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 5px 15px rgba(151, 151, 151, 0.205);
+    position: relative;
+}
+
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* ==== <FORM> DAS TELAS DE CADASTRO E LOGIN ==== */
+
+.section-form-cadastro, 
+.section-form-login{
+    background-color: var(--color-bg-white-opacity);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
+    color: var(--color-text-primary-black);
+    border-radius: 15px;
+    margin: 50px;
+    width: 90%;
+    max-width: 700px;
+    padding: 40px;
+    border: 2px solid var(--color-bg-blue-darker);
+}
+
+.section-form-cadastro form button,
+.section-form-login form button{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    border: 2px solid var(--color-bg-blue-darker);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.section-form-cadastro form button:hover,
+.section-form-login form button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.192);
+}
+
+/* ==== <MAIN> DAS TELAS DE CADASTRO E LOGIN ==== */
+
+.mainLoginCadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 50px 0px;
+}
+
+/* ==== BACKGROUNDS ==== */
+
+.bg-primary{
+    background-attachment: fixed;
+    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
+}
+
+
+/* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
+footer{
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #eaf4ff 100%);
+    text-align: center;
+    color: var(--color-bg-primary-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.301);
+    gap: 10px;
+    position: relative;
+}
+
+footer img{
+    width: 150px;
+}
+
+
+@media (max-width: 600px) {
+    .section-form-login,
+    .section-form-cadastro {
+        padding: 20px;
+        margin: 0px;
+    }
+}
+
+@media (max-width: 520px) {
+    .btnGroup{
+        display: none;
+
+    }
+    .headerLoginCadastro{
+        justify-content: center;
+    }
+}
+
+
+

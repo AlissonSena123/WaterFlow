@@ -4,36 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="shortcut icon" href="Img/Logo/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="Style/global.css">
-    <link rel="stylesheet" href="Style/login.css">
+    <link rel="shortcut icon" href="Img/Mask group.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <header>
-        <h1>WaterFlow</h1>
-    </header>
-    <main>
-        <div class="login-form-main">
-            <div class="login-form-header">
-                <h1>Entrar</h1>
-                <p>Bem vindo de volta ao WaterFlow</p>
-            </div>
-            <form action="/login" method="post">
-                <div class="login-input">
-                    <label for="idEmail">Email</label>
-                    <input type="email" name="email" id="idEmail" required placeholder="@email.com">
-                </div>
-                <div class="login-input">
-                    <label for="idSenha">Senha</label>
-                    <input type="password" name="senha" id="idSenha" required placeholder="**********">
-                </div>
-                <button type="submit">Entrar</button>
-            </form>
-            <p>Primeira vez aqui? <br> <a href="/cadastro">Cadastra-se</a></p>
+    <header class="headerLoginCadastro">
+        <img src="Img/Logo.png" alt="LogoTipo">
+        <div class="btnGroup">
+            <button class="btn-primary" aria-label="Ir para página de login">Entrar</button>
+            <button class="btn-outline" aria-label="Ir para página de cadastro">Cadastrar</button>
         </div>
+    </header>
+    <main class="mainLoginCadastro bg-primary">
+        <section class="section-form-login">
+            <div class="form-header">
+                <h1>ENTRAR</h1>
+                <h3>Bem vindo de volta ao WaterFlow</h3>
+            </div>
+            <form action="">
+                <div class="inputGroup">
+                    <div class="inputItem">
+                        <label for="idEmail">Email</label>
+                        <input type="email" name="email" id="idEmail" required placeholder="@email.com" autocomplete="email">
+                    </div>
+                    <div class="inputItem">
+                        <label for="idSenha">Senha</label>
+                        <input type="password" name="senha" id="idSenha" required placeholder="************" autocomplete="current-password">
+                    </div>
+                </div>
+                <button type="submit">ENTRAR</button>
+                <p>Primeira vez aqui? <br> <a href="/cadastrar">Cadastra-se aqui</a></p>
+            </form>
+        </section>
     </main>
     <footer>
-        <p>&copy;WaterFlow</p>
+        <img src="Img/Logo2.png" alt="LogoTipo-Footer">
+        <p>&copy; 2025 WaterFlow — Todos os direitos reservados | Projeto TCC</p>
     </footer>
 </body>
 </html>
