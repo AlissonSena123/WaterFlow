@@ -1,13 +1,6 @@
 /* ==== PÁGINA DE CADASTRO ==== */
 
-
 /* ==== FOMULARIO DE CADASTRO ==== */
-.section-form-cadastro{
-    padding: 30px;
-    width: 700px;
-    max-width: 90%;
-}
-
 .section-form-cadastro h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -28,14 +21,6 @@
 
 .section-form-cadastro form label{
     margin-bottom: 5px;
-}
-
-.section-form-cadastro form input {
-    padding: 10px;
-    border: 2px solid rgba(64, 64, 255, 0.493);
-    border-radius: 6px;
-    width: 100%;       
-    margin: 0;
 }
 
 .section-form-cadastro form .inputGroup > p{

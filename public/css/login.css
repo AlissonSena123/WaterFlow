@@ -36,10 +36,10 @@
     font-weight: 500;
 }
 
-.section-form-login form .inputGroup .inputItem > input{
-    padding: 10px;
-    border-radius: 6px;
-    border: 2px solid rgba(64, 64, 255, 0.493);
+.section-form-login form a{
+    margin: 0px 0px 20px 0px;
+    align-self: self-end;
+    font-size: .9rem;
 }
 
 .section-form-login form button{

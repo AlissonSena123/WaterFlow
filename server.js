@@ -1,9 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const usuarioRouter = require("./routers/usuario"); // rotas com Sequelize
-const sequelize = require('./routers/bancoDados'); // importa e executa a conexão com o banco
-
+const usuarioRouter = require("./routers/usuarios");
 const server = express();
 const PORT = 8080;
 
@@ -11,36 +9,45 @@ const PORT = 8080;
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-
-// Rotas principais
 server.use(usuarioRouter);
+
+server.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/index.html"));
+});
 
 // Páginas HTML
 server.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/login.html"));
+  res.sendFile(path.join(__dirname, "public/pages/login.html"));
 });
 
 server.get("/cadastro", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/cadastro.html"));
+  res.sendFile(path.join(__dirname, "public/pages/cadastro.html"));
 });
 
 server.get("/inicio", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/inicio.html"));
+  res.sendFile(path.join(__dirname, "public/pages/inicio.html"));
 });
 
 server.get("/forum", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/forum.html"));
+  res.sendFile(path.join(__dirname, "public/pages/forum.html"));
 });
 
 server.get("/perfil", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/perfil.html"));
+  res.sendFile(path.join(__dirname, "public/pages/perfil.html"));
 });
 
 server.get("/reporte", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/reporte.html"));
+  res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
 
-// Inicialização do servidor
+server.get("/redefinir", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/senhaEsquecida.html"));
+});
+
+server.get("/redefinir/confirmar", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/redefinirSenha.html"));
+})
+
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
 });
