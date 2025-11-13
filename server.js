@@ -13,27 +13,27 @@ server.use(express.static(path.join(__dirname, "public")));
 server.use(usuarioRouter);
 
 server.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/login.html"));
+  res.sendFile(path.join(__dirname, "public/pages/login.html"));
 });
 
 server.get("/cadastro", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/cadastro.html"));
+  res.sendFile(path.join(__dirname, "public/pages/cadastro.html"));
 });
 
 server.get("/inicio", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/inicio.html"));
+  res.sendFile(path.join(__dirname, "public/pages/inicio.html"));
 });
 
 server.get("/forum", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/forum.html"));
+  res.sendFile(path.join(__dirname, "public/pages/forum.html"));
 });
 
 server.get("/perfil", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/perfil.html"));
+  res.sendFile(path.join(__dirname, "public/pages/perfil.html"));
 });
 
 server.get("/reporte", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/reporte.html"));
+  res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
 
 server.listen(PORT, () => {

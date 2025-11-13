@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="Img/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="shortcut icon" href="../Img/Mask group.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
     <title>Cadastrar</title>
 </head>
 <body>
-    <header class="headerLoginCadastro">
-        <img src="Img/Logo.png" alt="LogoTipo" width="130px">
+    <header class="header-primary-d_flex-space_between">
+        <img src="../Img/Logo.png" alt="LogoTipo" width="130px">
         <div class="btnGroup">
             <button class="btn-primary">Entrar</button>
             <button class="btn-outline">Cadastrar</button>
         </div>
     </header>
-    <main class="mainLoginCadastro bg-primary">
+    <main class="main-primary bg-primary">
         <section class="section-form-cadastro">
             <h2>Criar uma conta no <br> WaterFlow</h2>
             <form action="/api/cadastrar" method="post" autocomplete="off">
@@ -63,52 +63,9 @@
         </section>
     </main>
     <footer>
-        <img src="Img/Logo2.png" alt="LogoTipo-Footer">
+        <img src="../Img/Logo2.png" alt="LogoTipo-Footer">
         <p>&copy; 2025 WaterFlow — Todos os direitos reservados | Projeto TCC</p>
     </footer>
-    <script>
-        const inputCEP = document.getElementById("idCEP");
-        const errorCEP = document.getElementById("errorCEP");
-
-        inputCEP.addEventListener("blur", async () => {
-            const cep = inputCEP.value.replace(/\D/g, "");
-
-
-            function limparInput(){
-                cidadeInput.value = "";
-                estadoInput.value = "";
-                paisInput.value = "";
-                bairroInput.value = "";
-            }
-
-            const cidadeInput = document.querySelector("input[name=cidade]");
-            const estadoInput = document.querySelector("input[name=estado]");
-            const paisInput = document.querySelector("input[name=pais]");
-            const bairroInput = document.querySelector("input[name=bairro]");
-
-            if(cep.length !== 8){
-                errorCEP.innerHTML = "*Digite um CEP de 8 digitos";
-                limparInput();
-                return;
-            }
-
-
-            errorCEP.innerHTML = "Buscando CEP...";
-
-            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const dados = await response.json();
-
-            if(dados.erro){
-                errorCEP.innerHTML = "*CEP não encontrado";
-                return;
-            }
-
-            errorCEP.innerHTML = "";
-            cidadeInput.value = dados.localidade || "";
-            estadoInput.value = dados.uf || "";
-            paisInput.value = "Brasil";
-            bairroInput.value = dados.bairro || "";
-        })
-    </script>
+    <script src="/WaterFlow/API/viaCEP.js"></script>
 </body>
 </html>

@@ -1,12 +1,6 @@
 /* ==== PÁGINA DE CADASTRO ==== */
 
 /* ==== FOMULARIO DE CADASTRO ==== */
-.section-form-cadastro{
-    padding: 30px;
-    width: 700px;
-    max-width: 90%;
-}
-
 .section-form-cadastro h2 {
     text-align: center;
     margin-bottom: 20px;

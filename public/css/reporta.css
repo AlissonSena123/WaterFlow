@@ -1,9 +1,10 @@
-header{
-    background-color: rgb(255, 255, 255);
+header h2{
+    color: var(--color-bg-primary-blue);
 }
 
-header a{
-    color: var(--color-white);
+header h2 span{
+    color: var(--color-bg-secondary-blue);
+    text-decoration: underline;
 }
 
 main{
@@ -12,32 +13,20 @@ main{
     grid-template-rows: max-content 1fr;
 }
 
-.form-report{
-    margin: 50px;
-    border-radius: 15px;
-    justify-self: center;
-    align-self: center;
-    padding: 40px;
-    background-color: var(--color-bg-white-opacity);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.329);
-    border: 2px solid var(--color-bg-blue-darker);
-}
 
-.form-report form .inputGroup{
+.section-form-report form .inputGroup{
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.form-report h2{
+.section-form-report h2{
     color: var(--color-text-primary-black);
     margin-bottom: 50px;
     text-align: center;
 }
 
-.form-report form{
+.section-form-report form{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 30px;
@@ -89,28 +78,32 @@ form .btn-primary{
         justify-content: center;
     }
 
-    .form-report form{
+    header h2{
+        display: none;
+    }
+
+    .section-form-report form{
         grid-template-columns: 1fr;
     }
 
-    .form-report form .item1,
-    .form-report form .item2,
-    .form-report form .item3,
-    .form-report form .item4,
-    .form-report form .item5,
-    .form-report form .btn-outline{
+    .section-form-report form .item1,
+    .section-form-report form .item2,
+    .section-form-report form .item3,
+    .section-form-report form .item4,
+    .section-form-report form .item5,
+    .section-form-report form .btn-outline{
         grid-column: 1;
     }
 
-    .form-report form .item4{
+    .section-form-report form .item4{
         grid-row: 4/5;
     }
 
-    .form-report form .item5{
+    .section-form-report form .item5{
         grid-row: 5/6;
     }
 
-    .form-report form .btn-primary{
+    .section-form-report form .btn-primary{
         width: 100%;
     }
 
