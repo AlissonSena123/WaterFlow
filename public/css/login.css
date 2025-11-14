@@ -3,7 +3,6 @@
 
 /* ==== FOMULARIO DE LOGIN ==== */
 .section-form-login{
-    padding: 50px;
     width: 500px;
     max-width: 90%;
 }
@@ -23,7 +22,7 @@
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 13px;
 }
 
 .section-form-login form .inputGroup .inputItem{
@@ -38,7 +37,7 @@
 
 .section-form-login form a{
     margin: 0px 0px 20px 0px;
-    align-self: self-end;
+    align-self: flex-end;
     font-size: .9rem;
 }
 

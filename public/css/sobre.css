@@ -26,6 +26,11 @@ nav{
 nav a{
     color: var(--color-text-primary-black);
     font-size: 1rem;
+    text-decoration: none;
+}
+
+nav a:hover{
+    text-decoration: underline;
 }
 
 
