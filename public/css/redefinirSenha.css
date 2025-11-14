@@ -2,11 +2,6 @@ main{
     background-color: var(--color-white);
 }
 
-.section-redefinirSenha-img{
-    background: url(../Img/11668754_20945760.svg) no-repeat center center;
-    background-size: cover;
-}
-
 .section-redefinirSenha h1, p{
     text-align: center;
 }

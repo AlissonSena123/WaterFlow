@@ -10,11 +10,6 @@ main{
     width: 100%;
 }
 
-.section-esqueciSenha-img{
-    background: url(../Img/12085707_20944201.svg) no-repeat center center;
-    background-size: cover;
-}
-
 .section-esqueciSenha p{
     margin: 0px 0 20px;
     text-align: center;
