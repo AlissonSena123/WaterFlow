@@ -1,21 +1,10 @@
-.section-redefinirSenha{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    color: var(--color-bg-blue-darker);
-    padding: 50px 35px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.247);
-    border-top: 15px solid var(--color-bg-blue-darker);
-    border-radius: 15px;
-    border-left: 3px solid var(--color-bg-blue-darker);
-    border-right: 3px solid var(--color-bg-blue-darker);
-    border-bottom: 3px solid var(--color-bg-blue-darker);
+main{
+    background-color: var(--color-white);
 }
 
-.section-redefinirSenha h1{
-    font-size: 2.3rem;
+.section-redefinirSenha-img{
+    background: url(../Img/11668754_20945760.svg) no-repeat center center;
+    background-size: cover;
 }
 
 .section-redefinirSenha h1, p{
@@ -32,5 +21,5 @@
 
 .section-redefinirSenha input, button{
     width: 100%;
-    padding: 20px;
+    padding: 15px;
 }

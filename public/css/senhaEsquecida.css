@@ -1,13 +1,5 @@
-.section-esqueciSenha, .section-esqueciSenha-img{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    width: 600px;
-    max-width: 90%;
-    padding: 50px;
-    color: var(--color-bg-blue-darker);
+main{
+    background-color: white;
 }
 
 .section-esqueciSenha form{
@@ -18,23 +10,22 @@
     width: 100%;
 }
 
-.section-esqueciSenha{
-    border-right: 10px solid var(--color-bg-blue-darker);
-    border-radius: 15px;
+.section-esqueciSenha-img{
+    background: url(../Img/12085707_20944201.svg) no-repeat center center;
+    background-size: cover;
 }
 
 .section-esqueciSenha p{
-    margin: 20px 0px;
+    margin: 0px 0 20px;
     text-align: center;
 }
 
 .section-esqueciSenha h1{
     text-align: center;
-    font-size: 3.5rem;
-    width: 100%;
 }
 
-.section-esqueciSenha input, button{
-    width: 90%;
-    padding: 20px;
+.section-esqueciSenha input, 
+.section-esqueciSenha button{
+    width: 100%;
+    padding: 15px;
 }
