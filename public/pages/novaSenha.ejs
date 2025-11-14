@@ -12,6 +12,7 @@
     <header class="header-primary-d_flex-space_between">
         <img src="../Img/Logo.png" alt="LogoTipo">
     </header>
+<<<<<<< HEAD
     <main class="main-primary">
         <div class="container">
             <section class="image-wrapper"><img src="../Img/11668754_20945760.svg" alt=""></section>
@@ -26,6 +27,25 @@
                 </form>
             </section>
         </div>
+=======
+    <main class="main-primary bg-primary-linear">
+        <section class="section-redefinirSenha">
+            <h1>Informe a nova senha</h1>
+            
+            <p>Sua identidade foi verificada. Digite e confirme sua nova senha:</p>
+            
+            <form action="/novaSenha/<%= token %>" method="post">
+                
+                <input type="hidden" name="_method" value="PUT"> 
+                
+                <input type="password" name="novaSenha" placeholder="Digite sua Nova Senha" required class="input-form">
+                
+                <input type="password" name="confirmar-senha" placeholder="Confirme a Senha" required class="input-form">
+                
+                <button class="btn-primary" type="submit">Confirmar</button>
+            </form>
+        </section>
+>>>>>>> 2e493357b7fb80233ac285fca251cebde0d6f487
     </main>
     <footer>
         <img src="../Img/Logo2.png" alt="">
