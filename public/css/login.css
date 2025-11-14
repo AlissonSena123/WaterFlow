@@ -5,11 +5,12 @@
 .section-form-login{
     width: 500px;
     max-width: 90%;
+    margin: 0 auto;
 }
 
 .section-form-login .form-header{
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 }
 
 
@@ -19,10 +20,10 @@
 }
 
 .section-form-login form .inputGroup{
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 1rem;
 }
 
 .section-form-login form .inputGroup .inputItem{
@@ -31,21 +32,26 @@
 }
 
 .section-form-login form .inputGroup .inputItem label{
-    margin-top: 5px;
+    margin-top: .3rem;
     font-weight: 500;
 }
 
 .section-form-login form a{
-    margin: 0px 0px 20px 0px;
+    margin-bottom: 1.2rem;
     align-self: flex-end;
     font-size: .9rem;
+    text-decoration: none;
+}
+
+.section-form-login form a:hover{
+    text-decoration: underline;
 }
 
 .section-form-login form button{
     align-self: center;
     width: 50%;
     border-radius: 8px;
-    margin: 20px 0px 30px 0px;
+    margin: 1.2rem 0 2rem 0;
 }
 
 

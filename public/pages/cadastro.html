@@ -20,17 +20,17 @@
         <section class="section-form-cadastro">
             <h2>Criar uma conta no <br> WaterFlow</h2>
             <form action="/api/cadastrar" method="post" autocomplete="off">
-                <div class="inputGroup item1">
+                <div class="inputGroup full-row">
                     <label for="idNome">Nome Completo</label>
                     <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required class="input-form">
                 </div>
                 
-                <div class="inputGroup item2">
+                <div class="inputGroup full-row">
                     <label for="idEmail">Email</label>
                     <input type="email" name="email" id="idEmail" placeholder="@email.com" required class="input-form">
                 </div>
                 
-                <div class="inputGroup item3">
+                <div class="inputGroup full-row">
                     <label for="idSenha">Senha</label>
                     <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" minlength="10" maxlength="15" required class="input-form">
                     <p>*Digite senhas de 10 a 15 caracteres</p>
@@ -41,14 +41,14 @@
                 </div>
                 <div class="inputGroup item5">
                     <label for="idTelefone">Telefone</label>
-                    <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" class="input-form">
+                    <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" class="input-form" pattern="\(\d{2}\)\s\d{5}-\d{4}" inputmode="numeric">
                 </div>
-                <div class="inputGroup item6">
+                <div class="inputGroup full-row">
                     <label for="idCEP">CEP</label>
-                    <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" class="input-form">
+                    <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" class="input-form" inputmode="numeric" maxlength="9">
                     <p id="errorCEP"></p>
                 </div>
-                <div class="inputGroup item7">
+                <div class="inputGroup full-row">
                     <fieldset class="CEP-inputs">
                         <legend>Endereço automático</legend>
                         <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP" class="input-form">

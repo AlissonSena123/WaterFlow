@@ -15,7 +15,6 @@
 .section-form-cadastro form > .inputGroup{
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
     width: 100%;
 }
 
@@ -30,11 +29,7 @@
     text-align: end;
 }
 
-.section-form-cadastro form .item1, 
-.section-form-cadastro form .item2, 
-.section-form-cadastro form .item7, 
-.section-form-cadastro form .item3, 
-.section-form-cadastro form .item6{
+.full-row{
     grid-column: 1/-1;
 }
 
@@ -71,15 +66,9 @@
     .section-form-cadastro form {
         grid-template-columns: 1fr;
     }
-    .section-form-cadastro form .item1, 
-    .section-form-cadastro form .item2, 
-    .section-form-cadastro form .item3, 
-    .section-form-cadastro form .item4,
-    .section-form-cadastro form .item5, 
-    .section-form-cadastro form .item6,
-    .section-form-cadastro form .item7,
-    .section-form-cadastro form button{
-        grid-column: 1;
+
+    .item4, .item5{
+        grid-column: 1/-1;
     }
 
     .section-form-cadastro form button{
