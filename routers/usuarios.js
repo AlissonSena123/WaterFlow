@@ -73,4 +73,52 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+router.post("/redefinirSenha", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.send("<script>alert('Parâmetro de email não fornecido.'); window.history.back();</script>");
+  }
+
+  const emailLimpo = email.trim().toLowerCase();
+
+  try {
+    const encontrado = await Usuario.findOne({
+      where: { email: emailLimpo }
+    });
+
+    if (!encontrado) {
+      return res.send("<script>alert('Email não encontrado'); window.history.back();</script>");
+    }
+
+    if (encontrado) {
+      res.writeHead(302, {
+        'Location': `/novaSenha?email=${encodeURIComponent(emailLimpo)}`
+      });
+      res.end();
+      return; 
+    }
+
+    return res.redirect(`/novaSenha?email=${encodeURIComponent(emailLimpo)}`);
+
+  } catch (error) {
+    console.error("Erro ao buscar usuário para redefinir senha: ", error);
+    res.status(500).send("Erro interno no servidor.");
+  }
+});
+
+router.route("/novaSenha")
+  .get((req, res) => {
+    res.render("novaSenha", { email: req.query.email });
+  })
+  .post(async (req, res) => {
+    const { email, novaSenha } = req.body;
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const newHash = await bcrypt.hash(novaSenha, salt);
+    await Usuario.update({ senha: newHash }, { where: { email } });
+    res.send(`<script> alert("Senha atualizada!"); window.location.href= '/login';</script>`);
+  })
+
 module.exports = router;

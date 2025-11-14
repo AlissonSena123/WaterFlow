@@ -2,20 +2,23 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const usuarioRouter = require("./routers/usuarios");
-const sequelize = require("./config/database");
-
 const server = express();
 const PORT = 8080;
 
+// Middlewares
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(usuarioRouter);
 
+server.set('view engine', 'ejs');
+server.set('views', path.join(__dirname, 'public','pages'));
+
 server.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/index.html"));
 });
 
+// Páginas HTML
 server.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/login.html"));
 });

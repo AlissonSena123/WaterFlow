@@ -1,14 +1,19 @@
 const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('waterflow', 'root', 'cimatec', {
+            /*Insira nome do seu banco onde tem waterflow*/
+const sequelize = new Sequelize('waterflow2', 'root', 'L@tus_40', {
     host: 'localhost',
     dialect: 'mysql',
 });
 
-sequelize.authenticate().then(() => {
-    console.log('Conectado ao banco com sucesso!');
-}).catch((err) => {
-    console.log("Erro ao se conectar com o banco: ", err);
-});
+async function autenticarBanco() {
+    try {
+        await sequelize.authenticate()
+        console.log("Conexao com o banco estabelecido!");
+    }catch(error) {
+        console.error("Conexao nao estabelecida");
+    }
+}
+
+autenticarBanco();
 
 module.exports = sequelize;
