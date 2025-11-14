@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
             /*Insira nome do seu banco onde tem waterflow*/
-const sequelize = new Sequelize('waterflow2', 'root', 'L@tus_40', {
+const sequelize = new Sequelize('waterflow3', 'root', 'L@tus_40', {
     host: 'localhost',
     dialect: 'mysql',
 });

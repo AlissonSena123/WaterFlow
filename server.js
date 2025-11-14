@@ -4,10 +4,12 @@ const path = require("path");
 const usuarioRouter = require("./routers/usuarios");
 const server = express();
 const PORT = 8080;
+const methodOverride = require('method-override');
 
 // Middlewares
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
+server.use(methodOverride('_method'));
 server.use(express.static(path.join(__dirname, "public")));
 server.use(usuarioRouter);
 
