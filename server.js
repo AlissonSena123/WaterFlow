@@ -11,6 +11,9 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
 server.use(usuarioRouter);
 
+server.set('view engine', 'ejs');
+server.set('views', path.join(__dirname, 'public','pages'));
+
 server.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/index.html"));
 });

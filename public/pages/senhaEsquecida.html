@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="../Img/Mask group.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/senhaEsquecida.css">
-    <title>Redifinir Senha</title>
+    <title>Redefinir Senha</title>
 </head>
 <body>
     <header class="header-primary-d_flex-space_between">
@@ -14,10 +14,10 @@
     </header>
     <main class="main-primary bg-primary-linear">
         <section class="section-esqueciSenha">
-            <h1>Redefir Senha</h1>
+            <h1>Redefinir Senha</h1>
             <p>Digite seu E-mail abaixo para poder realizar a redefinição da sua senha.</p>
-            <form action="">
-                <input type="email" name="" id="" placeholder="Digite seu Email" class="input-form" required>
+            <form action="/redefinirSenha" method="post">
+                <input type="email" name="email" id="email" placeholder="Digite seu Email" class="input-form" required>
                 <button class="btn-outline" type="submit">Enviar</button>
             </form>
         </section>
