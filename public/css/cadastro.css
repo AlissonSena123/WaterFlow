@@ -56,11 +56,13 @@ main .section-register{
     padding: 50px;
     background-color: white;
     color: #023373;
+    border-left: 2px solid rgba(65, 105, 225, 0.322);
 }
 
 main .section-register h2{
     font-size: 2rem;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 
