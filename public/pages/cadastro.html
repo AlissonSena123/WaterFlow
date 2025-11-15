@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../Img/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cadastro.css">
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
     <title>Cadastrar</title>
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="../Img/Mask group.png" alt="">
+            <img src="../Img/Logo.png" alt="">
             <nav>
-                <button type="button" class="btn-register">Cadastrar</button>
-                <button type="button" class="btn-login">Entrar</button>
+                <button type="button" class="btn-login" onclick="window.location.href = '/login'">Entrar</button>
             </nav>
         </header>
         <main>
@@ -60,12 +59,9 @@
                     </div>
                     <button type="submit" class="btn-primary">Cadastrar-se</button>
                 </form>
-                <p>Já tem conta? <a href="">Entrar</a></p>
+                <p>Já tem conta? <a href="/login">Entrar</a></p>
             </section>
         </main>
-        <footer>
-            <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
-        </footer>
     </div>
     <script src="../js/redirecionar.js"></script>
     <script src="../API/viaCEP.js"></script>
