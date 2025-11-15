@@ -7,6 +7,7 @@ header{
     background-color: royalblue;
     box-shadow: 0px 10px 10px rgba(85, 85, 85, 0.219);
     grid-area: header;
+    position: relative;
 }
 
 header img{
@@ -35,15 +36,22 @@ header nav button:hover{
 }
 
 main{
-    padding-top: 20px;
     grid-area: main;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1.2fr;
 }
 
 main .section-img{
-    background: url(../Img/11668727_20945306.svg) no-repeat right center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../Img/bg.svg) no-repeat bottom center;
     background-size: cover;
+    padding: 50px;
+}
+
+main .section-img img{
+    width: 100%;
 }
 
 
@@ -54,9 +62,7 @@ main .section-register{
     align-items: center;
     gap: 20px;
     padding: 50px;
-    background-color: white;
-    color: #023373;
-    border-left: 2px solid rgba(65, 105, 225, 0.322);
+    color: var(--color-bg-primary-blue);
 }
 
 main .section-register h2{
@@ -108,7 +114,7 @@ main .section-register h2{
 .section-register form .form-item-register p{
     align-self: flex-end;
     margin-top: 5px;
-    font-size: .9rem;
+    font-size: .8rem;
     color: red;
 }
 
@@ -132,10 +138,10 @@ main .section-register h2{
 
 footer{
     color: rgba(65, 105, 225, 0.5);
-    margin-top: 50px;
-    border-top: 2px solid rgba(65, 105, 225, 0.5);
+    border-top: 2px solid rgba(45, 98, 255, 0.5);
     grid-area: footer;
     padding: 20px;
     text-align: center;
+    margin-top: 50px;
     justify-self: center;
 }
