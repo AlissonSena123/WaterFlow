@@ -17,9 +17,8 @@
             <section class="image-wrapper"><img src="../Img/11668754_20945760.svg" alt=""></section>
             <section class="section-redefinirSenha">
                 <h1>Informe a nova senha</h1>
-                <p>Definindo nova senha para: <strong><%= email %></strong></p>
-                <form action="/novaSenha" method="post">
-                    <input type="hidden" name="email" value="<%= email %>">
+                <p>Definindo nova senha</p>
+                <form action="/novaSenha/<%= token %>" method="post">
                     <input type="password" name="novaSenha" placeholder="Digite sua Nova Senha" required class="input-form">
                     <input type="password" name="confirmar-senha" placeholder="Confirme a Senha" required class="input-form">
                     <button class="btn-primary" type="submit">Confirmar</button>
