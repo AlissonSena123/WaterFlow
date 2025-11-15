@@ -4,64 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../Img/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/global.css">
     <title>Cadastrar</title>
 </head>
 <body>
-    <header class="header-primary-d_flex-space_between">
-        <img src="../Img/Logo.png" alt="LogoTipo">
-        <div class="btnGroup">
-            <button class="btn-primary">Entrar</button>
-            <button class="btn-outline">Cadastrar</button>
-        </div>
-    </header>
-    <main class="main-primary bg-primary-img">
-        <section class="section-form-cadastro">
-            <h2>Criar uma conta no <br> WaterFlow</h2>
-            <form action="/api/cadastrar" method="post" autocomplete="off">
-                <div class="inputGroup full-row">
-                    <label for="idNome">Nome Completo</label>
-                    <input type="text" name="nome_completo" id="idNome" placeholder="Ex: João Henrique" required class="input-form">
-                </div>
-                
-                <div class="inputGroup full-row">
-                    <label for="idEmail">Email</label>
-                    <input type="email" name="email" id="idEmail" placeholder="@email.com" required class="input-form">
-                </div>
-                
-                <div class="inputGroup full-row">
-                    <label for="idSenha">Senha</label>
-                    <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" minlength="10" maxlength="15" required class="input-form">
-                    <p>*Digite senhas de 10 a 15 caracteres</p>
-                </div>
-                <div class="inputGroup item4">
-                    <label for="idData">Data de Nascimento</label>
-                    <input type="date" name="data_nascimento" id="idData" required class="input-form">
-                </div>
-                <div class="inputGroup item5">
-                    <label for="idTelefone">Telefone</label>
-                    <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" class="input-form" pattern="\(\d{2}\)\s\d{5}-\d{4}" inputmode="numeric">
-                </div>
-                <div class="inputGroup full-row">
-                    <label for="idCEP">CEP</label>
-                    <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" class="input-form" inputmode="numeric" maxlength="9">
-                    <p id="errorCEP"></p>
-                </div>
-                <div class="inputGroup full-row">
-                    <fieldset class="CEP-inputs">
-                        <legend>Endereço automático</legend>
-                        <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP" class="input-form">
-                        <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP" class="input-form"> 
-                        <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP" class="input-form">
-                        <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP" class="input-form">
-                    </fieldset>
-                </div>
-                <button type="submit" class="btn-primary">Cadastrar-se</button>
-            </form>
-            <p>Já possui uma Conta? <br> <a href="/login">Voltar a Tela de Login</a> </p>
-        </section>
-    </main>
+    <div class="container">
+        <header>
+            <img src="../Img/Mask group.png" alt="">
+            <nav>
+                <button type="button" class="btn-register">Cadastrar</button>
+                <button type="button" class="btn-login">Entrar</button>
+            </nav>
+        </header>
+        <main>
+            <section class="section-img"></section>
+            <section class="section-register">
+                <h2>Criar uma conta no WaterFlow</h2>
+                <form action="/api/cadastrar" method="post" autocomplete="off">
+                    <div class="form-item-register item1">
+                        <label for="idNome">Nome Completo</label>
+                        <input type="text" name="nome_completo" id="idNome" placeholder="Seu Nome" required>
+                    </div>
+        
+                    <div class="form-item-register item2">
+                        <label for="idEmail">Email</label>
+                        <input type="email" name="email" id="idEmail" placeholder="seuemail@exemplo.com" required>
+                    </div>
+        
+                    <div class="form-item-register item3">
+                        <label for="idSenha">Senha</label>
+                        <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
+                        <p>*Digite senhas de 10 a 15 caracteres</p>
+                    </div>
+                    <div class="form-item-register item4">
+                        <label for="idData">Data de Nascimento</label>
+                        <input type="date" name="data_nascimento" id="idData" required>
+                    </div>
+                    <div class="form-item-register item5">
+                        <label for="idTelefone">Telefone</label>
+                        <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" pattern="\(\d{2}\)\s\d{5}-\d{4}" inputmode="numeric">
+                    </div>
+                    <div class="form-item-register item6">
+                        <label for="idCEP">CEP</label>
+                        <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
+                        <p id="errorCEP"></p>
+                    </div>
+                    <div class="form-item-register itemCep item7">
+                        <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
+                        <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
+                        <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
+                        <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
+                    </div>
+                    <button type="submit" class="btn-primary">Cadastrar-se</button>
+                </form>
+                <p>Já tem conta? <a href="">Entrar</a></p>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
+        </footer>
+    </div>
     <script src="../js/redirecionar.js"></script>
     <script src="../API/viaCEP.js"></script>
 </body>

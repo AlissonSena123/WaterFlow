@@ -35,7 +35,6 @@
 
 html, body{
     min-height: 100vh;
-    background: var(--color-bg-primary-blue);
 }
 
 
@@ -57,20 +56,20 @@ textarea:focus{
     transition: 0.2s;
 }
 
+/* ==== CONTAINER ==== */
+.container{
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr max-content;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+}
 
 /* ==== HEADER ==== */
 
-header{
-    padding: 20px;
-    background-color: var(--color-white);
-    position: relative;
-}
-
-header img{
-    max-width: 120px;
-    width: 100%;
-    height: auto;
-}
 
 .header-primary-d_flex-space_between{
     background: var(--color-white);
@@ -138,7 +137,6 @@ button:hover {
 
 /* ==== SEÇÕES DE FORMULARIO ==== */
 
-.section-form-cadastro, 
 .section-form-login,
 .section-form-report{
     background: linear-gradient(to top, var(--color-white), transparent);
@@ -151,7 +149,6 @@ button:hover {
     border-radius: 15px;
 }
 
-.section-form-cadastro form button,
 .section-form-login form button{
     padding: 15px;
     border-radius: 8px;
@@ -228,31 +225,9 @@ button:hover {
     var(--color-white));
 }
 
-/* ==== CONFIGURAÇÃO GERAL PARA FOOTER ==== */
-
-footer{
-    padding: 40px;
-    background: linear-gradient(180deg, #ffffff 0%, #eaf4ff 100%);
-    text-align: center;
-    color: var(--color-bg-primary-blue);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow-medium);
-    gap: 10px;
-    position: relative;
-}
-
-footer img{
-    width: 150px;
-}
-
 
 @media (max-width: 600px) {
-    .section-form-login,
-    .section-form-cadastro {
+    .section-form-login{
         margin: 0px;
     }
 
@@ -267,10 +242,4 @@ footer img{
         display: none;
 
     }
-    .headerLoginCadastro{
-        justify-content: center;
-    }
 }
-
-
-

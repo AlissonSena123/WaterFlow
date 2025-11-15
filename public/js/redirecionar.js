@@ -1,7 +1,7 @@
-document.querySelector(".btnGroup .btn-primary").addEventListener("click", () =>{
+document.querySelector("nav .btn-login").addEventListener("click", () =>{
     window.location.href = "/login";
 });
 
-document.querySelector(".btnGroup .btn-outline").addEventListener("click", () => {
+document.querySelector("nav .btn-register").addEventListener("click", () => {
     window.location.href = "/cadastro";
 })
