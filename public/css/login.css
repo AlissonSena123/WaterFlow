@@ -1,5 +1,6 @@
 body{
-    background: url(../Img/bg.svg);
+    background: url(../Img/bg.svg) no-repeat top center;
+    background-size: cover;
 }
 
 header{
