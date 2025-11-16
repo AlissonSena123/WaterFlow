@@ -107,7 +107,7 @@ router.post("/redefinirSenha", async (req, res) => {
     usuario.tokenExpiration = expirar;
     await usuario.save();
 
-    const resetURL = `http://localhost:8080/novaSenha/${token}`;
+    const resetURL = `http://localhost:8080/redefinir-senha/${token}`;
     console.log(`\n\n[LINK DE REDEFINIÇÃO GERADO]: ${resetURL}\n\n`); // Simula o envio de e-mail
 
     return res.redirect("/instrucoes_enviadas");
@@ -148,7 +148,7 @@ router.get("/instrucoes_enviadas", (req, res) => {
 // --- ROTA DE VALIDAÇÃO DE TOKEN (GET /novaSenha/:token) ---
 // Formato de rota tradicional para maior compatibilidade
 
-router.get("/novaSenha/:token", async (req, res) => {
+router.get("/redefinir-senha/:token", async (req, res) => {
   const { token } = req.params;
   const now = new Date();
 
@@ -164,7 +164,8 @@ router.get("/novaSenha/:token", async (req, res) => {
       return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
     }
 
-    res.render("novaSenha", { token: token });
+    const path = require("path");
+    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -172,51 +173,48 @@ router.get("/novaSenha/:token", async (req, res) => {
   }
 });
 
-router.post("/novaSenha/:token", async (req, res) => {
-  const { token } = req.params;
-  const { novaSenha, 'confirmar-senha': confirmarSenha } = req.body;
-  const now = new Date();
 
-  try {
-    // 1. Validação simples de campos
-    if (!novaSenha || !confirmarSenha) {
-      return res.status(400).send("<script>alert('Todos os campos de senha são obrigatórios.'); window.history.back();</script>");
+router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
+    const { senha, token } = req.body; // AGORA bate com o frontend
+    const now = new Date();
+
+    try {
+        if (!senha || !token) {
+            return res.status(400).json({
+                sucesso: false,
+                error: "Todos os campos são obrigatórios."
+            });
+        }
+
+        const usuario = await Usuario.findOne({
+            where: {
+                resetToken: token,
+                tokenExpiration: { [Op.gt]: now }
+            }
+        });
+
+        if (!usuario) {
+            return res.status(400).json({
+                sucesso: false,
+                error: "Link inválido ou expirado."
+            });
+        }
+
+        const hash = await bcrypt.hash(senha, 10);
+
+        usuario.senha = hash;
+        usuario.resetToken = null;
+        usuario.tokenExpiration = null;
+        await usuario.save();
+
+        return res.json({
+            sucesso: true,
+            message: "Senha atualizada com sucesso!"
+        });
+
+    } catch (error) {
+        console.error("Erro ao atualizar senha:", error);
+        res.status(500).json({ error: "Erro interno." });
     }
-    if (novaSenha !== confirmarSenha) {
-      return res.status(400).send("<script>alert('As senhas não coincidem. Tente novamente.'); window.history.back();</script>");
-    }
-
-    // 2. Busca e validação do token (igual ao GET)
-    const usuario = await Usuario.findOne({
-      where: {
-        resetToken: token,
-        tokenExpiration: { [Op.gt]: now }
-      }
-    });
-
-    if (!usuario) {
-      return res.status(400).send("<script>alert('O link de redefinição é inválido ou já expirou. Tente novamente.'); window.location.href= '/login';</script>");
-    }
-
-    // 3. Criptografia e salvamento da nova senha
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const newHash = await bcrypt.hash(novaSenha, salt);
-
-    usuario.senha = newHash;
-    usuario.resetToken = null; // Invalida o token
-    usuario.tokenExpiration = null;
-
-    await usuario.save();
-
-    // 4. Feedback de sucesso e redirecionamento
-    res.send(`<script> alert("Senha atualizada com sucesso!"); window.location.href= '/login';</script>`);
-
-
-  } catch (error) {
-    console.error("Erro ao atualizar senha:", error);
-    res.status(500).send("Erro interno.");
-  }
 });
-
 module.exports = router;
