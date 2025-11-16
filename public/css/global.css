@@ -117,23 +117,24 @@ button:hover {
 }
 
 .btn-primary{
-    background-color: var(--color-bg-primary-blue);
+    background-color: royalblue;
     color: white;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-bg-blue-darker);
+    background-color: var(--color-bg-blue-darker);
 }
 
 .btn-outline {
-  background: none;
-  border: 2.5px solid var(--color-bg-blue-darker);
-  color: var(--color-bg-primary-blue);
+    border: 2px solid royalblue;
+    color: royalblue;
+    border-radius: 10px;
+    background: none;
 }
 
 .btn-outline:hover {
-  background-color: var(--color-bg-blue-darker);
-  color: white;
+    background-color: rgb(65, 105, 225);
+    color: white;
 }
 
 
@@ -161,7 +162,7 @@ button:hover {
     border-radius: 15px;
 }
 
-.section-form-login form button{
+.section-form-login > form > button{
     padding: 15px;
     border-radius: 8px;
 }

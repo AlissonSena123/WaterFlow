@@ -10,37 +10,47 @@
     <link rel="stylesheet" href="../css/sobre.css">
 </head>
 <body>
-    <header class="header-primary-d_flex-space_between">
-        <img src="../Img/Logo.png" alt="LogoTipo">
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Projeto</a>
-            <a href="#">Contato</a>
-        </nav>
-        <button class="btn-primary">Entrar</button>
-    </header>
-    <main>
-        <section class="section-sobre bg-primary-img">
-            <article class="section-sobre-contant" data-aos="fade-right">
-                <h1>Bem Vindo ao WaterFlow</h1>
-                <p>Receba informações sobre a situação da água em seu bairro!</p>
-                <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador. Utilizando nosso sistema, as empresas de abastecimento, como a Embasa, terão um maior entendimento da situação da água nos bairros de Salvador, além de ter uma maior conectividade com a população.</p>
-            </article>
-        </section>
-        <section class="section-projeto">
-            <article class="section-projeto-contant" data-aos="fade-up">
-                <h1>Junte-se ao WaterFlow</h1>
-                <p>Com o sistema do WaterFlow podemos melhorar o atendimento de grandes distribuidoras de água e tirar a sua dúvida com relação ao abastecimento de água em seu bairro!</p>
-                <p>Para a população soteropolitana, o nosso site disponibilizar:</p>
-                <p>Ficou interessado(a)?</p>
-                <button class="btn-outline">Cadastre-se aqui</button>
-            </article>
-        </section>
-    </main>
-    <footer>
-        <img src="../Img/Logo2.png" alt="">
-        <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
-    </footer>
+    <div class="container">
+        <header id="inicio">
+            <img src="../Img/Logo.png" alt="LogoTipo">
+            <button class="btn-primary" onclick="window.location.href = '/login'">Entrar</button>
+        </header>
+        <main>
+            <section class="section-sobre">
+                <article class="section-sobre-contant" data-aos="fade-right">
+                    <h1>Bem Vindo ao WaterFlow</h1>
+                    <p>Receba informações sobre a situação da água em seu bairro!</p>
+                    <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador. Utilizando nosso sistema, as empresas de abastecimento, como a Embasa, terão um maior entendimento da situação da água nos bairros de Salvador, além de ter uma maior conectividade com a população.</p>
+                </article>
+            </section>
+            <section class="section-projeto">
+                <article class="section-projeto-contant" data-aos="fade-up">
+                    <h1>Junte-se ao WaterFlow</h1>
+                    <p>Com o sistema do WaterFlow podemos melhorar o atendimento de grandes distribuidoras de água e tirar a sua dúvida com relação ao abastecimento de água em seu bairro!</p>
+                    <p>Para a população soteropolitana, o nosso site disponibilizar:</p>
+                    <div class="cards" data-aos="fade-up">
+                        <div class="card-item1">
+                            <h2>Mapa</h2>
+                            <p>Um mapa interativo onde os usuários poderão ver a situação do abastecimento de água em seu e em outros bairros de Salvador.</p>
+                        </div>
+                        <div class="card-item2">
+                            <h2>Fórum</h2>
+                            <p>Uma comunidade, os usuário poderão compartilhar ideias, dicas, problemas que vem passando e se ajudar mutuamente.</p>
+                        </div>
+                        <div class="card-item3">
+                            <h2>Report</h2>
+                            <p>Sistema de reporte, aqui os usuários reportarão o problema que estão passando para as distribuidoras.</p>
+                        </div>
+                    </div>
+                    <p>Ficou interessado(a)?</p>
+                    <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastre-se aqui</button>
+                </article>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
+        </footer>
+    </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

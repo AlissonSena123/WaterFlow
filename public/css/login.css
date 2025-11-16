@@ -14,40 +14,31 @@ header{
     position: relative;
 }
 
-header img{
+header > img{
     width: 100px;
 }
 
-header nav{
+header > nav{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
-header nav button{
+header > nav > button{
     padding: 12px;
     width: 150px;
-    border: 2px solid royalblue;
-    color: royalblue;
-    border-radius: 10px;
-    background: none;
 }
 
-header nav .btn-register:hover{
-    background: royalblue;
-    color: white;
-}
 
 main{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px 0px;
-    
 }
 
-main .section-login{
+main > .section-login{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,49 +53,39 @@ main .section-login{
     color: var(--color-text-primary-black);
 }
 
-main .section-login .form-header{
+main > .section-login > .form-header{
     text-align: center;
     margin-bottom: 20px;
 }
 
-main .section-login form{
+main > .section-login > form{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
-main .section-login form .form-item-login{
+main > .section-login > form > .form-item-login{
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     width: 100%;
 }
 
-main .section-login form .form-item-login input{
+main > .section-login > form > .form-item-login > input{
     width: 100%;
     border: 2px solid royalblue;
     padding: 13px;
     border-radius: 6px;
 }
 
-main .section-login form a{
+main > .section-login > form > a{
     align-self: flex-end;
     margin: 0px 0px 25px 0px;
 }
 
-main .section-login form button{
+main > .section-login > form > button{
     padding: 15px;
     width: 50%;
     background-color: royalblue;
-}
-
-footer{
-    border-top: 3px solid rgb(28, 62, 167);
-    align-self: center;
-    justify-self: center;
-    padding: 20px;
-    color: rgb(28, 62, 167);
-    text-align: center;
-    margin: 0px 10px;
 }

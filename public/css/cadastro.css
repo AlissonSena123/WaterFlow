@@ -9,31 +9,22 @@ header{
     position: relative;
 }
 
-header img{
+header > img{
     width: 100px;
 }
 
-header nav{
+header > nav{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
-header nav button{
+header > nav > button{
     padding: 12px;
     width: 150px;
-    border: 2px solid royalblue;
-    color: royalblue;
-    border-radius: 10px;
-    background: none;
 }
 
-
-header nav .btn-login:hover{
-    background-color: rgb(65, 105, 225);
-    color: white;
-}
 
 main{
     display: grid;
@@ -41,7 +32,7 @@ main{
     padding: 5px;
 }
 
-main .section-img{
+main > .section-img{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,12 +44,12 @@ main .section-img{
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.466);
 }
 
-main .section-img img{
+main > .section-img > img{
     width: 100%;
 }
 
 
-main .section-register{
+main > .section-register{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,7 +60,7 @@ main .section-register{
     background-color: white;
 }
 
-main .section-register h2{
+main > .section-register > h2{
     font-size: 2rem;
     text-align: center;
     margin-bottom: 20px;
@@ -82,7 +73,7 @@ main .section-register h2{
 }
 
 
-.section-register form{
+.section-register > form{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -90,48 +81,44 @@ main .section-register h2{
 }
 
 
-.section-register form .form-item-register input{
+.section-register > form > .form-item-register > input{
     padding: 13px;
     width: 100%;
     border: 2px solid royalblue;
     border-radius: 6px;
 }
 
-.section-register form .item1,
-.section-register form .item2,
-.section-register form .item3,
-.section-register form .item6,
-.section-register form .item7,
-.section-register form button{
+.section-register > form > .item1,
+.section-register > form > .item2,
+.section-register > form > .item3,
+.section-register > form > .item6,
+.section-register > form > .item7,
+.section-register > form > button{
     grid-column: 1/-1;
 }
 
-.section-register form .item7{
+.section-register > form > .item7{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-.section-register form .form-item-register p{
+.section-register > form > .form-item-register > p{
     align-self: flex-end;
     margin-top: 5px;
     font-size: .8rem;
     color: red;
 }
 
-.section-register form button{
+.section-register > form > button{
     justify-self: center;
     align-self: center;
     margin: 20px 0px 10px;
     padding: 15px;
     width: 50%;
-    border: 2px solid royalblue;
-    border-radius: 10px;
-    background: white;
-    color: royalblue;
 }
 
-.section-register form button:hover{
+.section-register > form > button:hover{
     transform: translateY(-4px);
     background-color: royalblue;
     color: white;
