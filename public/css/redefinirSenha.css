@@ -1,47 +1,77 @@
-.container{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 2rem;
+#toast{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #ffffff;
+    color: royalblue;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .4s ease, transform .4s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    pointer-events: none;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/3;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.322);
+    position: relative;
+}
+
+header > img{
+    width: 100px;
+}
+
+main{
+    background-color: royalblue;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .section-redefinirSenha{
-    grid-column: 2/3;
+    box-shadow: 0px 0px 10px black;
 }
 
-.image-wrapper{
-    grid-column: 1/2;
-}
-
-.section-redefinirSenha h1, 
-.section-redefinirSenha p{
-    text-align: center;
-}
-
-.section-redefinirSenha form{
+.section-redefinirSenha > form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 400px;
-    gap: 1.2rem;
 }
 
-.section-redefinirSenha input, 
-.section-redefinirSenha button{
+.section-redefinirSenha > form > input{
+    padding: 20px;
     width: 100%;
-    padding: 0.9rem 1rem;
+    border: 2px solid royalblue;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
-@media (max-width: 600px){
-    .container{
-        grid-template-columns: 1;
-    }
-    
-    .image-wrapper{
-        display: none;
-    }
+.section-redefinirSenha > form > button{
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
 
-    .section-redefinirSenha{
-        grid-column: 1/3;
-    }
+footer {
+    background-color: rgb(37, 69, 165);
+    color: royalblue;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+footer > p{
+    width: max-content;
+    padding: 10px;
 }

@@ -11,115 +11,30 @@
 </head>
 
 <body>
-
-    <!-- TOAST -->
-    <div id="toast" style="
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        background: #4CAF50;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 12px;
-        font-size: 16px;
-        font-family: Arial, sans-serif;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity .4s ease, transform .4s ease;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        pointer-events: none;
-     ">
+    <div class="container">
+        <!-- TOAST -->
+        <div id="toast"></div>
+        <header>
+            <img src="../Img/Logo.png" alt="LogoTipo">
+            <nav></nav>
+        </header>
+        <main>
+            <section class="section-redefinirSenha">
+                <h1>Informe a nova senha</h1>
+                <p>Sua identidade foi verificada. Digite e confirme sua nova senha:</p>
+                <form id="formAtualizar">
+                    <!-- TOKEN HIDDEN (ESSENCIAL!) -->
+                    <input type="hidden" id="token">
+                    <input type="password" id="novaSenha" placeholder="Nova senha" required>
+                    <input type="password" id="confirmarSenha" placeholder="Confirmar nova senha" required>
+                    <button type="submit" class="btn-outline">Atualizar senha</button>
+                </form>
+            </section>
+        </main>
+        <script src="../JS/token.js"></script>
+        <footer>
+            <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
+        </footer>
     </div>
-
-    <header class="header-primary-d_flex-space_between">
-        <img src="../Img/Logo.png" alt="LogoTipo">
-        <nav></nav>
-    </header>
-
-    <main class="main-primary bg-primary-linear">
-        <section class="section-redefinirSenha">
-            <h1>Informe a nova senha</h1>
-
-            <p>Sua identidade foi verificada. Digite e confirme sua nova senha:</p>
-
-            <form id="formAtualizar">
-
-                <!-- TOKEN HIDDEN (ESSENCIAL!) -->
-                <input type="hidden" id="token">
-
-                <input type="password" id="novaSenha" placeholder="Nova senha" required>
-                <input type="password" id="confirmarSenha" placeholder="Confirmar nova senha" required>
-
-                <button type="submit">Atualizar senha</button>
-            </form>
-        </section>
-    </main>
-
-
-    <script>
-        const tokenURL = window.location.pathname.split("/").pop();
-        document.getElementById("token").value = tokenURL;
-
-        // Função do toast
-        function showToast(msg) {
-            const toast = document.getElementById("toast");
-            toast.innerText = msg;
-
-            toast.style.opacity = "1";
-            toast.style.transform = "translateY(0)";
-
-            setTimeout(() => {
-                toast.style.opacity = "0";
-                toast.style.transform = "translateY(20px)";
-            }, 3000);
-        }
-
-        // Captura o submit do form
-        document.getElementById("formAtualizar").addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const senha = document.getElementById("novaSenha").value;
-            const confirmarSenha = document.getElementById("confirmarSenha").value;
-            const token = document.getElementById("token").value;
-
-            if (senha !== confirmarSenha) {
-                showToast("As senhas não coincidem!");
-                return;
-            }
-
-            try {
-                const response = await fetch(`/usuarios/atualizar-senha/${token}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ senha, token })
-                });
-
-                const resultado = await response.json();
-
-                if (response.ok) {
-                    showToast(resultado.message);
-
-                    setTimeout(() => {
-                        window.location.href = "/login";
-                    }, 3200);
-                } else {
-                    showToast(resultado.error || "Erro ao atualizar a senha.");
-                }
-
-            } catch (erro) {
-                console.error("Erro no fetch:", erro);
-                showToast("Erro interno. Tente novamente mais tarde.");
-            }
-        });
-    </script>
-
-    <footer>
-        <img src="../Img/Logo2.png" alt="">
-        <p>&copy; 2025 WaterFlow. Todos os direitos reservados | Projeto TCC</p>
-    </footer>
-
 </body>
-
 </html>

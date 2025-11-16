@@ -177,7 +177,7 @@ button:hover {
     align-items: center;
     justify-content: center;
 
-    max-width: 450px;
+    max-width: 550px;
     width: 100%;
     padding: 1.5rem; 
     margin: 40px auto; 
@@ -190,6 +190,8 @@ button:hover {
 
     position: relative;
     z-index: 2;
+
+    text-align: center;
 }
 
 .image-wrapper{
