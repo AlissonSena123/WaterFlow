@@ -27,7 +27,7 @@ header > img{
     transition: .3s all ease-in-out;
 }
 
-.back-icon i{
+.back-icon > i{
     color: royalblue;
     font-size: 1.5rem;
     position: relative;
@@ -35,8 +35,8 @@ header > img{
     transition: .3s all ease-in-out;
 }
 
-.back-icon:hover a,
-.back-icon:hover i{
+.back-icon:hover > a,
+.back-icon:hover > i{
     transform: translateY(-2px);
     color: var(--color-bg-blue-darker);
 }
