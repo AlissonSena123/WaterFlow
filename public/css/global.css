@@ -169,7 +169,7 @@ button:hover {
 
 /* ==== TELAS DE RECUPERAÇÃO / REDEFINIÇÃO ==== */
 
-.section-esqueciSenha,
+
 .section-redefinirSenha{
 
     display: flex;
@@ -201,11 +201,6 @@ button:hover {
     position: relative;
     padding: 1rem;
     z-index: 1;
-}
-
-.image-wrapper img{
-    max-width: 500px;
-    width: 100%;
 }
 
 /* ==== MAIN'S ==== */
