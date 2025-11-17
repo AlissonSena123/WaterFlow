@@ -1,17 +1,24 @@
-#toast{
+#toast {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    top: 20px;
+    right: 20px;
+    transform: translatey(20px);
     background: #ffffff;
     color: royalblue;
     padding: 15px 20px;
     border-radius: 12px;
     font-size: 16px;
     opacity: 0;
-    transform: translateY(20px);
     transition: opacity .4s ease, transform .4s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     pointer-events: none;
+    z-index: 9999; 
+}
+
+#show {
+    display: block;     
+    min-width: 180px;   
+    text-align: center; 
 }
 
 header{

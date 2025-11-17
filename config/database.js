@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('test', 'root', 'sqllocal', {
+const sequelize = new Sequelize('test', 'root', 'cimatec', {
     host: 'localhost',
     dialect: 'mysql',
 });

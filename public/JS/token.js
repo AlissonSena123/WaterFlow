@@ -3,8 +3,10 @@ document.getElementById("token").value = tokenURL;
 
 // Função do toast
 function showToast(msg) {
+    const msgBox = document.getElementById("show");
     const toast = document.getElementById("toast");
-    toast.innerText = msg;
+
+    msgBox.innerText = msg;
 
     toast.style.opacity = "1";
     toast.style.transform = "translateY(0)";
