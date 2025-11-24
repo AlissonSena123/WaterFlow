@@ -8,6 +8,9 @@ const map = new maplibregl.Map({
     zoom: 12 // Zoom do Mapa
 });
 
+// Definindo valor maximo e minimo do zoom
+map.setMinZoom(10);
+map.setMaxZoom(15);
 
 // Limitando o movimento do mapa
 map.setMaxBounds([
