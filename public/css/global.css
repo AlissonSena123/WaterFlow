@@ -80,6 +80,10 @@ footer{
     grid-area: footer;
 }
 
+nav{
+    grid-area: nav;
+}
+
 /* ==== HEADER ==== */
 
 
