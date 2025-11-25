@@ -1,5 +1,5 @@
 .container{
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas: 
     "header header"
     "main main"
@@ -20,21 +20,10 @@ header{
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     box-shadow: 0px 5px 10px rgba(41, 41, 41, 0.068);
 }
 
 main{
     background-color: rgb(37, 69, 165);
-}
-
-footer{
-    background-color: rgb(255, 255, 255);
-    color: royalblue;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
 }
