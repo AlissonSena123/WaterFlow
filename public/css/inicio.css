@@ -1,0 +1,29 @@
+.container{
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "header header"
+    "main main"
+    "footer footer";
+}
+
+nav{
+    background-color: lightblue;
+}
+
+header > img{
+    width: 100px;
+}
+
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 5px 10px rgba(41, 41, 41, 0.068);
+}
+
+main{
+    background-color: rgb(37, 69, 165);
+}

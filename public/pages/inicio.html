@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="shortcut icon" href="Img/Logo/Mask group.png" type="image/x-icon">
-    <link rel="stylesheet" href="Style/global.css">
+    <link rel="shortcut icon" href="../Img/Mask group.svg" type="image/x-icon">
+    <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/inicio.css">
 </head>
 <body>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, odio sed facilis, nulla consequuntur eius dolore laboriosam fugiat nisi architecto qui aspernatur nobis maiores. Voluptas illo quo iure debitis reprehenderit! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam quia obcaecati quidem excepturi quis inventore labore ullam, fuga quaerat aspernatur ex nemo. Quaerat cum sapiente ipsam recusandae, cupiditate ab harum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum, blanditiis. Doloribus cum ratione optio, nihil sunt fuga, magni quasi quibusdam, tenetur fugit veritatis incidunt. Commodi dolor eos et maxime voluptatibus!</p>
+    <div class="container">
+        <!-- <nav>
+            nav
+        </nav> Deixe ele assim por enquanto -->
+        <header>
+            <img src="../Img/Logo.png" alt="">
+        </header>
+        <main id="map"></main>
+    </div>
+    <script src="../JS/mapa.js"></script>
 </body>
 </html>
