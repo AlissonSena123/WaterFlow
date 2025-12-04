@@ -18,11 +18,13 @@
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "method-override": "^3.0.0",
     "mysql2": "^3.15.3",
     "nodemailer": "^7.0.10",
     "nodemon": "^3.1.10",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "uuid": "^13.0.0"
   },
   "repository": {
     "type": "git",

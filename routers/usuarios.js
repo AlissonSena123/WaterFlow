@@ -69,6 +69,9 @@ router.post("/login", async (req, res) => {
       return res.send("<script>alert('Senha incorreta'); window.history.back();</script>");
     }
 
+    //salvar sessao do usuario;
+    req.session.userId = usuario.id;
+    req.session.username = usuario.nome_completo;
     // Login bem-sucedido
     res.redirect("/inicio");
   } catch (err) {
@@ -217,4 +220,17 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
         res.status(500).json({ error: "Erro interno." });
     }
 });
+
+//rota de logout
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Erro ao destruir sessão:", err);
+            return res.status(500).send("Erro ao fazer logout!");
+        }
+        res.clearCookie("connect.sid");
+        res.redirect("/login");
+    });
+});
+
 module.exports = router;
