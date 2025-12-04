@@ -8,10 +8,13 @@ const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
+
 // Middlewares
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
+
+
 //middleware de sessao
 server.use(session({
     genid: function(req){
@@ -22,6 +25,7 @@ server.use(session({
     saveUninitialized: true,
     cookie: { maxAge: 60 * 60 * 1000 } // 1 hora
 }));
+
 server.use(usuarioRouter);
 
 server.get("/session", (req, res) => {

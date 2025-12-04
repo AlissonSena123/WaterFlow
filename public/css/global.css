@@ -45,7 +45,6 @@ button, label{
 
 label{
     width: max-content;
-    margin-bottom: 5px;
 }
 
 input:focus, 

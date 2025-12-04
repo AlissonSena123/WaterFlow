@@ -8,6 +8,7 @@
     <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet"/>
     <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/inicio.css">
 </head>
@@ -18,10 +19,35 @@
         </nav> Deixe ele assim por enquanto -->
         <header>
             <img src="../Img/Logo.png" alt="">
-            <a href="/logout">Sair</a>
+            <p><a href="/logout">Sair</a></p>
+            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
         </header>
         <main></main>
     </div>
     <script src="../JS/mapa.js"></script>
+    <script>
+        document.getElementById("btnLogout").addEventListener("click", async () => {
+            try 
+            {
+                const response = await fetch("/logout", {
+                    method: "POST",
+                    credentials: "include"
+                });
+                
+                const data = await response.json();
+
+                if(!response.ok){
+                    return alert(data.error);
+                }
+
+                alert(data.message);
+                window.location.href = data.redirect;
+
+            } catch (error) {
+                console.error(error);
+                alert("Erro interno de servidor");
+            }
+        });
+    </script>
 </body>
 </html>

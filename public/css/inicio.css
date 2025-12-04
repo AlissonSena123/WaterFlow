@@ -17,7 +17,7 @@ header > img{
 
 header{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.493);
@@ -25,6 +25,20 @@ header{
     box-shadow: 0px 5px 10px rgba(41, 41, 41, 0.068);
     position: relative;
     z-index: 100;
+}
+
+header > button{
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+header > button > span{
+    font-size: 1.3rem;
+    margin-right: 5px;
 }
 
 main{

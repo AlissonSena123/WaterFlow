@@ -247,15 +247,19 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 });
 
 //rota de logout
-router.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Erro ao destruir sessão:", err);
-      return res.status(500).send("Erro ao fazer logout!");
-    }
-    res.clearCookie("connect.sid");
-    res.redirect("/login");
-  });
+router.post("/logout", (req, res) => {
+  if(req.session.userId){
+    req.session.destroy((err) => {
+      if(err){
+        console.log(err);
+        return res.status(500).json({error: "Erro ao fazer logout!"});
+      }
+      res.clearCookie("connect.sid");
+      return res.status(200).json({message: "Logout realizado com sucesso!", redirect: "/login"});
+    });
+  } else {
+    res.status(400).json({ error: "Nenhum usuário logado." });
+  }
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="../Img/Mask group.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Entrar</title>
 </head>
 <body>
@@ -24,16 +25,15 @@
                 </div>
                 <form action="/login" method="post">
                     <div class="form-item-login">
-                        <label for="idEmail">Email</label>
+                        <label for="idEmail" class="ph-fill ph-at"></label>
                         <input type="email" name="email" id="idEmail" required placeholder="@email.com" autocomplete="email">
                     </div>
                     <div class="form-item-login">
-                        <label for="idSenha">Senha</label>
-                        
+                        <label for="idSenha" class="ph-fill ph-password"></label>
                         <input type="password" name="senha" id="idSenha" required placeholder="************" autocomplete="current-password">
                     </div>
                     <a href="/redefinir">Esqueceu sua senha?</a>
-                    <button type="submit" class="btn-primary">Entrar</button>
+                    <button type="submit" class="btn-primary"><span class="ph-fill ph-sign-in"></span>Entrar</button>
                 </form>
                 <p>Primeira vez aqui? <a href="/cadastro">Cadastra-se</a></p>
             </section>
