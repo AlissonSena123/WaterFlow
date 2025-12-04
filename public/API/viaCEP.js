@@ -18,7 +18,7 @@ inputCEP.addEventListener("blur", async () => {
     const bairroInput = document.querySelector("input[name=bairro]");
 
     if(cep.length !== 8){
-        errorCEP.innerHTML = "*Digite um CEP de 8 digitos";
+        errorCEP.innerHTML = "*Digite um CEP de 8 digitos"; 
         limparInput();
         return;
     }

@@ -5,7 +5,7 @@ const router = express.Router();
 const crypto = require("crypto");
 const { Op } = require('sequelize');
 const { Sequelize } = require('sequelize');
-
+const nodemailer = require("nodemailer")
 // --- ROTAS DE CADASTRO E LOGIN (MANTIDAS) ---
 
 router.post("/api/cadastrar", async (req, res) => {
@@ -69,6 +69,9 @@ router.post("/login", async (req, res) => {
       return res.send("<script>alert('Senha incorreta'); window.history.back();</script>");
     }
 
+    //salvar sessao do usuario;
+    req.session.userId = usuario.id;
+    req.session.username = usuario.nome_completo;
     // Login bem-sucedido
     res.redirect("/inicio");
   } catch (err) {
@@ -107,8 +110,33 @@ router.post("/redefinirSenha", async (req, res) => {
     usuario.tokenExpiration = expirar;
     await usuario.save();
 
+    const transporte = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,        
+      secure: false, 
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+
+
     const resetURL = `http://localhost:8080/redefinir-senha/${token}`;
-    console.log(`\n\n[LINK DE REDEFINIÇÃO GERADO]: ${resetURL}\n\n`); // Simula o envio de e-mail
+
+    await transporte.sendMail({
+      from: process.env.MAIL_USER,
+      to: emailLimpo,
+      subject: "Redefinir senha WaterFlow",
+      html: `
+      <h2>Redefinir Senha</h2>
+      <p>Voce pediu par redefinir sua senha.</p>
+      <p>Clique no link abaixo para continuar:</p>
+      <a href="${resetURL}">${resetURL}</a>
+      <p>O link expira em 1 hora.</p>`
+    });
 
     return res.redirect("/instrucoes_enviadas");
 
@@ -175,46 +203,59 @@ router.get("/redefinir-senha/:token", async (req, res) => {
 
 
 router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
-    const { senha, token } = req.body; // AGORA bate com o frontend
-    const now = new Date();
+  const { senha, token } = req.body; // AGORA bate com o frontend
+  const now = new Date();
 
-    try {
-        if (!senha || !token) {
-            return res.status(400).json({
-                sucesso: false,
-                error: "Todos os campos são obrigatórios."
-            });
-        }
-
-        const usuario = await Usuario.findOne({
-            where: {
-                resetToken: token,
-                tokenExpiration: { [Op.gt]: now }
-            }
-        });
-
-        if (!usuario) {
-            return res.status(400).json({
-                sucesso: false,
-                error: "Link inválido ou expirado."
-            });
-        }
-
-        const hash = await bcrypt.hash(senha, 10);
-
-        usuario.senha = hash;
-        usuario.resetToken = null;
-        usuario.tokenExpiration = null;
-        await usuario.save();
-
-        return res.json({
-            sucesso: true,
-            message: "Senha atualizada com sucesso!"
-        });
-
-    } catch (error) {
-        console.error("Erro ao atualizar senha:", error);
-        res.status(500).json({ error: "Erro interno." });
+  try {
+    if (!senha || !token) {
+      return res.status(400).json({
+        sucesso: false,
+        error: "Todos os campos são obrigatórios."
+      });
     }
+
+    const usuario = await Usuario.findOne({
+      where: {
+        resetToken: token,
+        tokenExpiration: { [Op.gt]: now }
+      }
+    });
+
+    if (!usuario) {
+      return res.status(400).json({
+        sucesso: false,
+        error: "Link inválido ou expirado."
+      });
+    }
+
+    const hash = await bcrypt.hash(senha, 10);
+
+    usuario.senha = hash;
+    usuario.resetToken = null;
+    usuario.tokenExpiration = null;
+    await usuario.save();
+
+    return res.json({
+      sucesso: true,
+      message: "Senha atualizada com sucesso!"
+    });
+
+  } catch (error) {
+    console.error("Erro ao atualizar senha:", error);
+    res.status(500).json({ error: "Erro interno." });
+  }
 });
+
+//rota de logout
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Erro ao destruir sessão:", err);
+      return res.status(500).send("Erro ao fazer logout!");
+    }
+    res.clearCookie("connect.sid");
+    res.redirect("/login");
+  });
+});
+
 module.exports = router;

@@ -1,15 +1,32 @@
 const express = require("express");
+require("dotenv").config();
+const session = require("express-session"); //criando sessao de login
 const bodyParser = require("body-parser");
 const path = require("path");
 const usuarioRouter = require("./routers/usuarios");
 const server = express();
 const PORT = 8080;
-
+const { v4: uuidv4 } = require("uuid");
+const auth = require("./middleware/auth.js");
 // Middlewares
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
+//middleware de sessao
+server.use(session({
+    genid: function(req){
+      return uuidv4(); //gerar id aleatorio com biblioteca uuid;
+    },
+    secret: '=fmLV*U@FL`N]]~/zqtFCch.pBTGoU',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // 1 hora
+}));
 server.use(usuarioRouter);
+
+server.get("/session", (req, res) => {
+    res.send(req.sessionID);
+});
 
 server.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/index.html"));
@@ -24,19 +41,19 @@ server.get("/cadastro", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/cadastro.html"));
 });
 
-server.get("/inicio", (req, res) => {
+server.get("/inicio", auth,  (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/inicio.html"));
 });
 
-server.get("/forum", (req, res) => {
+server.get("/forum", auth,  (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/forum.html"));
 });
 
-server.get("/perfil", (req, res) => {
+server.get("/perfil", auth, (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/perfil.html"));
 });
 
-server.get("/reporte", (req, res) => {
+server.get("/reporte", auth, (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
 
