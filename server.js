@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const session = require("express-session"); //criando sessao de login
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -6,7 +7,7 @@ const usuarioRouter = require("./routers/usuarios");
 const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
-const auth = require("./middleware/auth.js")
+const auth = require("./middleware/auth.js");
 // Middlewares
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
@@ -56,7 +57,7 @@ server.get("/reporte", auth, (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
 
-server.get("/redefinir", auth, (req, res) => {
+server.get("/redefinir", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/senhaEsquecida.html"));
 });
 
