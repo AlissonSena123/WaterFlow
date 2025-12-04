@@ -17,5 +17,3 @@ map.setMaxBounds([
     [-38.70, -13.20], 
     [-38.20, -12.70] 
 ]);
-
-map.addControl(new maplibregl.NavigationControl()); // Adicionar controle de Zoom
