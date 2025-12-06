@@ -12,7 +12,7 @@ header{
     background-color: white;
     box-shadow: 0px 5px 10px rgba(41, 41, 41, 0.068);
     color: var(--color-text-primary-black);
-    padding: 20px;
+    padding: 25px;
 }
 
 header > img{
@@ -23,78 +23,60 @@ header > .btn-primary{
     padding: 12px;
 }
 
-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-}
-
-
 main{
-    display: flex;
-    flex-direction: column;
-    padding-top: 76px; 
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    padding-top: 98px; 
 }
 
 .section-sobre{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 60px;
-    color: var(--color-text-primary-black);
+    padding: 50px;
+    text-align: center;
     background: url(../Img/bg.svg) no-repeat center top;
     background-size: cover;
 }
 
-
 .section-sobre > .section-sobre-contant > h1{
-    font-size: 3rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 4rem;
 }
 
 .section-sobre > .section-sobre-contant > p{
-    font-weight: lighter;
+    justify-self: center;
     font-size: 1.2rem;
-    text-align: justify;
-    margin-bottom: 10px;
+    width: 90%;
+    max-width: 1000px;
 }
-
 
 .section-projeto{
-    background-color: var(--color-white);
+    box-shadow: inset 0px 10px 10px rgba(0, 0, 0, 0.205);
     padding: 50px;
-}
-
-.section-projeto > .section-projeto-contant{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-text-primary-black);
-    gap: 20px;
-}
-
-.section-projeto > .section-projeto-contant h1{
-    font-size: 4rem;
     text-align: center;
+    background: url(../Img/layered-waves-haikei.svg) no-repeat center bottom;
+    background-size: cover;
+}
+
+.section-projeto > .section-projeto-contant > h1{
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: white;
 }
 
 .section-projeto > .section-projeto-contant > p{
     justify-self: center;
-    text-align: center;
-    width: 50%;
+    width: 90%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    color: white;
 }
 
 .section-projeto > .section-projeto-contant > .cards{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    padding: 0px 50px;
-    margin: 30px 0px;
     gap: 20px;
+    margin-bottom: 60px;
 }
 
 .section-projeto > .section-projeto-contant > .cards > .card-item1,
@@ -102,20 +84,27 @@ main{
 .section-projeto > .section-projeto-contant > .cards > .card-item3{
     width: 100%;
     padding: 50px;
-    background-color: royalblue;
+    background-color: var(--color-text-primary-black);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 0px 20px 0px rgb(7, 4, 44);
+    box-shadow: 0px 20px 0px black;
     transition: .2s all ease-in-out;
 }
 
-.section-projeto > .section-projeto-contant > .cards > .card-item1 > h2,
-.section-projeto > .section-projeto-contant > .cards > .card-item2 > h2,
-.section-projeto > .section-projeto-contant > .cards > .card-item3 > h2{
+.section-projeto > .section-projeto-contant > .cards > .card-item1 > span,
+.section-projeto > .section-projeto-contant > .cards > .card-item2 > span,
+.section-projeto > .section-projeto-contant > .cards > .card-item3 > span{
+    font-size: 6rem;
+    margin-bottom: 20px;
+}
+
+.section-projeto > .section-projeto-contant > .cards > .card-item1 > .card-item-content > h2,
+.section-projeto > .section-projeto-contant > .cards > .card-item2 > .card-item-content > h2,
+.section-projeto > .section-projeto-contant > .cards > .card-item3 > .card-item-content > h2{
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
@@ -132,34 +121,30 @@ main{
 .section-projeto > .section-projeto-contant > .cards > .card-item2:hover,
 .section-projeto > .section-projeto-contant > .cards > .card-item3:hover{
     transform: translateY(-10px);
-    box-shadow: 0px 25px 0px rgb(17, 9, 102);
+    box-shadow: 0px 25px 0px rgb(20, 58, 128);
 }
+
 
 .section-projeto-contant > .btn-outline{
     margin: 10px;
-    width: 200px;
-    padding: 25px;
+    width: 90%;
+    max-width: 300px;
+    padding: 15px;
     justify-self: center;
 }
 
-.footer-img{
-    background: url(../Img/layered-waves-haikei.svg) no-repeat center center;
-    background-size: cover;
-    grid-area: footer-img;
-    height: 500px;
-}
+@media (max-width: 900px) {
+    .section-projeto > .section-projeto-contant > .cards{
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 
-footer{
-    border-top: 3px solid royalblue;
-    justify-self: center;
-    padding: 20px;
-    color: royalblue;
-}
-
-footer > p{
-    text-align: center;
-}
-
-footer > img{
-    width: 100px;
+    .section-projeto > .section-projeto-contant > .cards > .card-item1,
+    .section-projeto > .section-projeto-contant > .cards > .card-item2,
+    .section-projeto > .section-projeto-contant > .cards > .card-item3{
+        justify-self: center;
+        align-self: center;
+        width: 90%;
+        max-width: 500px;
+    }
 }
