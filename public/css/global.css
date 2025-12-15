@@ -83,23 +83,6 @@ nav{
     grid-area: nav;
 }
 
-/* ==== HEADER ==== */
-
-
-.header-primary-d_flex-space_between{
-    background: var(--color-white);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow-soft);
-}
-
-.btnGroup{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
 
 
 /* ==== CONFIGURAÇÃO PADRÃO DE BOTÕES ==== */
@@ -140,6 +123,11 @@ button:hover {
     color: white;
 }
 
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 
 /* ==== CONFIGURAÇÕES DE INPUTS ==== */
 
@@ -151,24 +139,7 @@ button:hover {
     width: 100%;       
 }
 
-/* ==== SEÇÕES DE FORMULARIO ==== */
 
-.section-form-login,
-.section-form-report{
-    background: linear-gradient(to top, var(--color-white), transparent);
-    color: var(--color-text-primary-black);
-    width: 90%;
-    max-width: 700px;
-    padding: 40px;
-    margin: auto;
-    box-shadow: var(--shadow-medium);
-    border-radius: 15px;
-}
-
-.section-form-login > form > button{
-    padding: 15px;
-    border-radius: 8px;
-}
 
 /* ==== TELAS DE RECUPERAÇÃO / REDEFINIÇÃO ==== */
 

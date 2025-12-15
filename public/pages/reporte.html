@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../Img/Mask group.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../Img/Mask group.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/reporta.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Reportar</title>
 </head>
-<body>
-    <header class="header-primary-d_flex-space_between">
-        <a href="#"><img src="../Img/Logo.png" alt=""></a>
+<body class="bg-primary-img">
+    <header>
+        <a href="/inicio" class="ph-fill ph-house-line"></a>
+        <img src="../Img/Logo.png" alt="">
     </header>
-    <main class="main-primary bg-primary-img">
+    <main>
         <section class="section-form-report">
             <h2>Reportar falta d'água</h2>
             <form action="">
                 <div class="inputGroup item1">
                     <label for="idNome">Nome Completo</label>
-                    <input type="text" name="nome_completo" id="idNome" placeholder="Nome Completo" class="input-form" required>
+                    <input type="text" name="nome_completo" id="idNome" placeholder="Nome Completo" required>
                 </div>
                 <div class="inputGroup item2">
                     <label for="idRua">Rua</label>
-                    <input type="text" name="rua" placeholder="Rua" id="idRua" class="input-form" required>
+                    <input type="text" name="rua" placeholder="Rua" id="idRua" required>
                 </div>
                 
                 <div class="inputGroup item3">
                     <label for="idCEP">CEP</label>
-                    <input type="text" name="CEP" placeholder="CEP" id="idCEP" class="input-form" required>
+                    <input type="text" name="CEP" placeholder="CEP" id="idCEP" required>
                 </div>
                 <div class="inputGroup item4">
                     <label for="idNum">Nº</label>
-                    <input type="text" name="numero" placeholder="Nº" id="idNum" class="input-form" required>
+                    <input type="text" name="numero" placeholder="Nº" id="idNum" required>
                 </div>
                 <div class="inputGroup item5">
                     <label for="idDesc">Descrição</label>
-                    <textarea name="descricao" placeholder="Descreva seu problema aqui:" class="input-form" id="idDesc" required></textarea>
+                    <textarea name="descricao" placeholder="Descreva seu problema aqui:" id="idDesc" required></textarea>
                 </div>
                 <button type="submit" class="btn-primary">Enviar</button>
             </form>

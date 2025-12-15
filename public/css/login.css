@@ -89,7 +89,7 @@ main > .section-login > form > .form-item-login > label{
 main > .section-login > form > .form-item-login > input{
     width: 100%;
     border: 2px solid var(--color-bg-blue-darker);
-    padding: 15px;
+    padding: 16.7px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }

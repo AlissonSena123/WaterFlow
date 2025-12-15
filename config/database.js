@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('wtfl', 'root', 'sqllocal', {
+const sequelize = new Sequelize('wtfl', 'dev', 'sqllocal', {
     host: 'localhost',
     dialect: 'mysql',
 });

@@ -127,7 +127,6 @@ main > .section-register > h2{
 }
 
 @media (max-width: 920px) {
-
     .container > main{
         grid-template-columns: 1;
         background: url(../Img/layered-waves-haikei.svg) no-repeat center center;
