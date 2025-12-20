@@ -105,7 +105,6 @@ main{
 
 footer{
     background-color: rgb(37, 69, 165);
-    color: royalblue;
     padding: 20px;
     text-align: center;
     display: flex;
@@ -114,6 +113,7 @@ footer{
 
 footer > p{
     padding: 10px;
+    color: white;
 }
 
 @media (max-width: 1050px){
