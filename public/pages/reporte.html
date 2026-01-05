@@ -15,31 +15,33 @@
         <img src="../Img/Logo.png" alt="">
     </header>
     <main>
-        <section class="section-form-report">
-            <h2>Reportar falta d'água</h2>
+        <h2>Reportar falta d'água</h2>
+        <p>Preencha os campos com os dados correspondentes:</p>
+        <section>
             <form action="">
-                <div class="inputGroup item1">
-                    <label for="idNome">Nome Completo</label>
-                    <input type="text" name="nome_completo" id="idNome" placeholder="Nome Completo" required>
+                <div id="item1">
+                    <label for="idNome">Nome</label>
+                    <input type="text" name="nome" id="idNome">  
                 </div>
-                <div class="inputGroup item2">
-                    <label for="idRua">Rua</label>
-                    <input type="text" name="rua" placeholder="Rua" id="idRua" required>
+                <div id="item2">
+                    <label for="">Email</label>
+                    <input type="text" name="email" id="idEmail">
                 </div>
-                
-                <div class="inputGroup item3">
-                    <label for="idCEP">CEP</label>
-                    <input type="text" name="CEP" placeholder="CEP" id="idCEP" required>
+                <div id="item3">
+                    <label for="idCep">Cep</label>
+                    <input type="text" name="cep" id="idCep">
                 </div>
-                <div class="inputGroup item4">
-                    <label for="idNum">Nº</label>
-                    <input type="text" name="numero" placeholder="Nº" id="idNum" required>
+                <div id="item4">
+                    <input type="text" name="rua" id="idRua" placeholder="Rua" disabled>
                 </div>
-                <div class="inputGroup item5">
-                    <label for="idDesc">Descrição</label>
-                    <textarea name="descricao" placeholder="Descreva seu problema aqui:" id="idDesc" required></textarea>
+                <div id="item5">
+                    <input type="text" name="bairro" id="idBairro" placeholder="Bairro" disabled>
                 </div>
-                <button type="submit" class="btn-primary">Enviar</button>
+                <div id="item6">
+                    <label for="idDescricao">Descrição</label>
+                    <textarea name="descricao" id="idDescricao"></textarea>
+                </div>
+                <button type="submit">Enviar</button>
             </form>
         </section>
     </main>
