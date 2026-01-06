@@ -77,7 +77,7 @@ main > .section-login > form > .form-item-login{
 main > .section-login > form > .form-item-login > label{
     font-size: 2rem;
     background-color: var(--color-bg-blue-darker);
-    padding: 10px;
+    padding: 11.1px;
     color: white;
     display: flex;
     align-items: center;

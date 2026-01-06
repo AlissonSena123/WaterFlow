@@ -20,12 +20,12 @@ main{
     display: grid;
     grid-template-rows: repeat(2, max-content) 1fr;
     background-color: white;
-    margin: 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    margin: 10px;
 }
 
 main > h2{
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: lighter;
     padding: 10px;
     color: white;
@@ -39,18 +39,19 @@ main > p{
 
 main > section{
     padding: 10px;
+    align-self: center;
 }
 
 main > section > form{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: max-content;
     gap: 10px;
     grid-template-areas: 
-    "item1 item2"
-    "item3 item3"
-    "item4 item5"
-    "item6 item6"
-    "none btn";
+    "item1 item2 item2"
+    "item3 item4 item5"
+    "item6 item6 item6"
+    "none none btn";
     margin: 0px 10px 10px 10px;
 }
 
@@ -65,7 +66,7 @@ main > section > form > div > label{
 
 main > section > form > div > input{
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--color-bg-primary-blue);
     border-radius: 5px;
 }
 
@@ -83,10 +84,12 @@ main > section > form > #item3{
 
 main > section > form > #item4{
     grid-area: item4;
+    align-self: flex-end;
 }
 
 main > section > form > #item5{
     grid-area: item5;
+    align-self: flex-end;
 }
 
 main > section > form > #item6{
@@ -97,7 +100,7 @@ main > section > form > #item6 > textarea{
     height: 200px;
     resize: none;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--color-bg-primary-blue);
     border-radius: 5px;
 }
 

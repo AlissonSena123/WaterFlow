@@ -53,6 +53,7 @@ textarea:focus{
     border-color: var(--color-bg-secondary-blue);
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
     transition: 0.2s;
+    background-color: white;
 }
 
 /* ==== CONTAINER ==== */
