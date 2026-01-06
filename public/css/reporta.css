@@ -18,18 +18,31 @@ header > a{
 
 main{
     display: grid;
-    grid-template-rows: repeat(2, max-content) 1fr;
+    grid-template-rows: repeat(3, max-content) 1fr;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    border-radius: 20px;
     margin: 10px;
 }
 
-main > h2{
+main > div.title-report{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    color: white;
+    border-radius: 20px 20px 0px 0px;
+    background-color: var(--color-bg-primary-blue);
+}
+
+main > .title-report > h2{
     font-size: 1.4rem;
     font-weight: lighter;
-    padding: 10px;
-    color: white;
-    background-color: var(--color-bg-primary-blue);
+    
+}
+
+main > .title-report > i{
+    font-size: 1.8rem;
 }
 
 main > p{
@@ -65,8 +78,8 @@ main > section > form > div > label{
 }
 
 main > section > form > div > input{
-    padding: 10px;
-    border: 1px solid var(--color-bg-primary-blue);
+    padding: 12px;
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 5px;
 }
 
@@ -100,7 +113,7 @@ main > section > form > #item6 > textarea{
     height: 200px;
     resize: none;
     padding: 10px;
-    border: 1px solid var(--color-bg-primary-blue);
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 5px;
 }
 
@@ -111,5 +124,19 @@ main > section > form > button{
     background-color: var(--color-bg-primary-blue);
 }
 
+
+@media (max-width: 700px){
+    main > section > form{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "item1"
+        "item2"
+        "item3"
+        "item4"
+        "item5"
+        "item6"
+        "btn";
+    }
+}
 
 
