@@ -10,29 +10,22 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <img src="../Img/Logo.png" alt="">
-            <nav>
-                <button type="button" class="btn-outline" onclick="window.location.href = '/login'">Entrar</button>
-            </nav>
-        </header>
         <main>
-            <section class="section-img">
+            <section class="section-left">
                 <img src="../Img/undraw_complete-form_aarh.svg" alt="">
             </section>
-            <section class="section-register">
+            <section class="section-right">
+                <img src="../Img/Logo.png" alt="Logo">
                 <h2>Criar uma conta no WaterFlow</h2>
                 <form action="/api/cadastrar" method="post" autocomplete="off">
                     <div class="form-item-register item1">
                         <label for="idNome">Nome Completo</label>
                         <input type="text" name="nome_completo" id="idNome" placeholder="Seu Nome" required>
                     </div>
-        
                     <div class="form-item-register item2">
                         <label for="idEmail">Email</label>
                         <input type="email" name="email" id="idEmail" placeholder="seuemail@exemplo.com" required>
                     </div>
-        
                     <div class="form-item-register item3">
                         <label for="idSenha">Senha</label>
                         <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
