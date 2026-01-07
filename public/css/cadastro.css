@@ -8,10 +8,14 @@ main > .section-left{
     justify-content: center;
     align-items: center;
     grid-column: 1/2;
-    background-image: linear-gradient(to bottom, blue, cornflowerblue, cornflowerblue);
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.466);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.27);
+    background: url(../Img/layered-waves-haikei.svg) no-repeat center top;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 0px 20px 20px 0px;
 }
 
 main > .section-left > img{
@@ -31,13 +35,13 @@ main > .section-right{
 main > .section-right > h2{
     font-size: 2rem;
     text-align: center;
-    margin-bottom: 20px
+    margin-bottom: 10px;
 }
 
 main > .section-right > img{
     width: 100px;
     justify-self: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .form-item-register{
@@ -57,11 +61,14 @@ main > .section-right > img{
     padding: 13px;
     width: 100%;
     border: 2px solid var(--color-bg-primary-blue);
-    border-radius: 6px;
 }
 
 .section-right > form > .form-item-register > label{
     margin-bottom: 5px;
+}
+
+.section-right > form > .item1{
+    
 }
 
 .section-right > form > .item1,
@@ -89,9 +96,10 @@ main > .section-right > img{
 .section-right > form > button{
     justify-self: center;
     align-self: center;
+    border-radius: 0px;
     margin: 20px 0px 10px;
-    padding: 15px;
-    width: 50%;
+    padding: 10px;
+    width: 100%;
 }
 
 .section-right > form > button:hover{
