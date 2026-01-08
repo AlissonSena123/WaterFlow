@@ -12,9 +12,12 @@
 </head>
 <body>
     <div class="container">
-        <header id="inicio">
+        <header>
             <img src="../Img/Logo.png" alt="LogoTipo">
-            <button class="btn-primary" onclick="window.location.href = '/login'">Entrar</button>
+            <div class="btn-links">
+                <button class="btn-primary" onclick="window.location.href = '/login'"> <i class="ph-fill ph-sign-in"></i> Entrar</button>
+                <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastrar</button>
+            </div>
         </header>
         <main>
             <section id="section-sobre">
@@ -47,13 +50,11 @@
                         <div class="card-item3">
                             <span class="ph-fill ph-warning"></span>
                             <div class="card-item-content">
-                                <h2>Report</h2>
+                                <h2>Reporte</h2>
                                 <p>Sistema de reporte, aqui os usuários reportarão o problema que estão passando para as distribuidoras.</p>
                             </div>
                         </div>
                     </div>
-                    <p style="color: black;">Ficou interessado(a)?</p>
-                    <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastre-se aqui</button>
                 </article>
             </section>
             <hr>
@@ -65,6 +66,7 @@
                         <h3>Idealizador do projeto</h3>
                     </div>
                     <p>Nosso "Gestor de Projetos", deu origem ao projeto que estamos desenvolvendo, desenvolveu as ideias que queremos implementar agora e futuramente em nosso projeto.</p>
+
                 </article>
                 <article id="dev-matheus">
                     <div class="article-developers">

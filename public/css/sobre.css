@@ -17,8 +17,23 @@ header > img{
     width: 100px;
 }
 
-header > .btn-primary{
-    padding: 12px;
+header > .btn-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+}
+
+header > .btn-links > button{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+}
+
+header > .btn-links > button > i{
+    font-size: 1.2rem;
 }
 
 main{
@@ -43,7 +58,7 @@ main{
 
 #section-sobre > .section-sobre-contant > p{
     justify-self: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     width: 90%;
     max-width: 1000px;
 }
@@ -82,9 +97,8 @@ main{
 #section-projeto > .section-projeto-contant > .cards > .card-item3{
     width: 100%;
     padding: 50px;
-    background-color: var(--color-bg-primary-blue);
-    border: 2px solid black;
-    color: white;
+    background-color: white;
+    color: var(--color-bg-primary-blue);
     display: flex;
     flex-direction: column;
     justify-content: center;

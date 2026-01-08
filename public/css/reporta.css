@@ -4,6 +4,7 @@ header{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 header > img{
@@ -22,6 +23,7 @@ main{
     grid-template-rows: repeat(3, max-content) 1fr;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    color: var(--color-bg-primary-blue);
 }
 
 main > div.title-report{
