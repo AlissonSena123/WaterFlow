@@ -99,9 +99,6 @@ button {
     transition: all 0.3s ease;
 }
 
-button:hover {
-    transform: translateY(-3px);
-}
 
 .btn-primary{
     background-color: royalblue;

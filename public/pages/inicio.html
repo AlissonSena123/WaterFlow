@@ -13,15 +13,18 @@
     <link rel="stylesheet" href="../css/inicio.css">
 </head>
 <body>
-    <div class="container" id="map">
-        <!-- <nav>
-            nav
-        </nav> Deixe ele assim por enquanto -->
+    <div class="container">
+        <nav>
+            <div class="btn-nav">
+                <button id="btnForum" onclick="window.location.href = '/forum'"><span class="ph-fill ph-chats"></span>Fórum</button>
+                <button id="btnReport" onclick="window.location.href = '/reporte'"><span class="ph-fill ph-warning-octagon"></span>Reportar</button>
+            </div>
+            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
+        </nav>
         <header>
             <img src="../Img/Logo.png" alt="">
-            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
         </header>
-        <main></main>
+        <main id="map"></main>
     </div>
     <script src="../JS/mapa.js"></script>
     <script>
