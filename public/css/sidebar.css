@@ -1,0 +1,83 @@
+#sidebar{
+    background-color: white;
+    height: 100vh;
+    width: 250px;
+    border-right: 2px solid var(--color-bg-primary-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 1em;
+}
+
+#sidebar > ul{
+    list-style: none;
+}
+
+#sidebar > ul > li:first-child{
+    display: flex;
+    justify-content: flex-start;
+    margin: 15px 0px 50px 5px;
+}
+
+
+#sidebar > ul > .logo > img{
+    width: 70px;
+}
+
+#sidebar > ul > li.ativo > a > i{
+    border-radius: 50px;
+    background-color: var(--color-bg-blue-darker);
+    color: white;
+    padding: 8px;
+}
+
+#sidebar > ul > li{
+    margin-bottom: 10px;
+}
+
+#sidebar > ul > li > a{
+    color: var(--color-bg-primary-blue);
+    text-decoration: none;
+    padding: .85em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    transition: .1s;
+    border-radius: 50px;
+}
+
+#sidebar > ul > li > a > i{
+    font-size: 1.6rem;
+    transition: .1s;
+}
+
+#sidebar > ul > li > a > span{
+    font-size: 1rem;
+    font-weight: normal;
+    transition: .1s;
+}
+
+#sidebar > ul > li > a:hover{
+    background-color: rgb(236, 241, 255);
+}
+
+#sidebar > ul > li > a:hover > span,
+#sidebar > ul > li > a:hover > i{
+    color: var(--color-bg-blue-darker);
+}
+
+#sidebar > ul > li > a:hover > i{
+    border-radius: 50px;
+    background-color: var(--color-bg-blue-darker);
+    color: white;
+    padding: 8px;
+}
+
+#sidebar > button{
+    color: white;
+    background-color: red;
+    border-radius: 0px;
+    margin: 20px;
+    border-radius: 5px;
+    align-self: center;
+}

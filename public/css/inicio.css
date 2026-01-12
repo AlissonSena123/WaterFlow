@@ -1,96 +1,11 @@
 .container{
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: auto 1fr;
     grid-template-areas: 
-    "header header"
     "nav main"
-}
-
-header{
-    background-color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid var(--color-bg-primary-blue);
-}
-
-header > img{
-    width: 100px;
-}
-
-nav{
-    background-color: white;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-    border-top: 2px solid var(--color-bg-primary-blue);
-    border-right: 2px solid var(--color-bg-primary-blue);
-    gap: 20px;
-    padding: 15px;
-}
-
-
-nav > .btn-nav{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    align-self: flex-start;
-    gap: 10px;
-    width: 100%;
-}
-
-nav > button,
-nav > .btn-nav > button{
-    padding: 18px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    color: white;
-    border-radius: 10px;
-    column-gap: 10px;
-}
-
-
-nav > .btn-nav > button{
-    background-color: var(--color-bg-primary-blue);
-    box-shadow: none;
-}
-
-nav > .btn-nav > button > span{
-    font-size: 1.8rem;
-    font-weight: lighter;
-    color: white;
-}
-
-nav > .btn-nav > button:hover{
-    background-color: var(--color-bg-secondary-blue);
-    color: white;
-}
-
-nav > .btn-nav > button:hover > span{
-    color: white;
-}
-
-nav > #btnLogout > span{
-    font-size: 1.5rem;
-    font-weight: lighter;
-}
-
-nav > #btnLogout{
-    
-    background-color: red;
-    color: white;
-}
-
-
-nav > #btnLogout:hover{
-    background-color: rgb(182, 0, 0);
+    "nav main"
 }
 
 main{
     background-color: rgb(37, 69, 165);
-    border-top: 2px solid var(--color-bg-primary-blue);
-    border-left: 2px solid var(--color-bg-primary-blue);
 }
 

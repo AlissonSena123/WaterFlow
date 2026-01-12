@@ -6,15 +6,44 @@
     <link rel="shortcut icon" href="../Img/Mask group.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/reporta.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Reportar</title>
 </head>
 <body class="bg-primary-img">
     <div class="container">
-        <header>
-            <a href="/inicio" class="ph-fill ph-house-line"></a>
-            <img src="../Img/Logo.png" alt="">
-        </header>
+        <nav id="sidebar">
+             <ul>
+                <li class="logo">
+                    <img src="../Img/Logo.png" alt="">
+                </li>
+                <li class="home">
+                    <a href="/inicio">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <span>Mapa</span>
+                    </a>
+                </li>
+                <li class="forum">
+                    <a href="/forum">
+                        <i class="ph-fill ph-chats"></i>
+                        <span>Fórum</span>
+                    </a>
+                </li>
+                <li class="report ativo">
+                    <a href="/reporte">
+                        <i class="ph-fill ph-exclamation-mark"></i>
+                        <span>Reporte</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/perfil">
+                        <i class="ph-fill ph-user-circle"></i>
+                        <span>Perfil</span>
+                    </a>
+                </li>
+             </ul>
+            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
+        </nav>
         <main>
             <div class="title-report">
                 <i class="ph-fill ph-warning-circle"></i>

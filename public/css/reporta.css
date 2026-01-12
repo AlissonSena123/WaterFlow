@@ -1,20 +1,8 @@
-header{
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    
-}
-
-header > img{
-    width: 100px;
-}
-
-header > a{
-    font-size: 2.3rem;
-    text-decoration: none;
-    color: var(--color-bg-primary-blue);
+.container{
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+    "nav main"
+    "nav main"
 }
 
 main{
