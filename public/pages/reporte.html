@@ -7,42 +7,42 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/reporta.css">
     <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Reportar</title>
 </head>
 <body class="bg-primary-img">
     <div class="container">
-        <nav id="sidebar">
-             <ul>
-                <li class="logo">
-                    <img src="../Img/Logo.png" alt="">
-                </li>
-                <li class="home">
+        <nav class="sidebar">
+            <div class="btn-expandir">
+                <i class="ph-bold ph-list"></i>
+            </div>
+            <ul>
+                <li class="sideBar-item">
                     <a href="/inicio">
-                        <i class="ph-fill ph-map-pin"></i>
-                        <span>Mapa</span>
+                        <span class="icon"><i class="ph-fill ph-map-pin"></i></span>
+                        <span class="title">Mapa</span>
                     </a>
                 </li>
-                <li class="forum">
+                <li class="sideBar-item">
                     <a href="/forum">
-                        <i class="ph-fill ph-chats"></i>
-                        <span>Fórum</span>
+                        <span class="icon"><i class="ph-fill ph-chat-text"></i></span>
+                        <span class="title">Fórum</span>
                     </a>
                 </li>
-                <li class="report ativo">
+                <li class="sideBar-item active">
                     <a href="/reporte">
-                        <i class="ph-fill ph-exclamation-mark"></i>
-                        <span>Reporte</span>
+                        <span class="icon"><i class="ph-fill ph-warning-circle"></i></span>
+                        <span class="title">Reporte</span>
                     </a>
                 </li>
-                <li>
+                <li class="sideBar-item">
                     <a href="/perfil">
-                        <i class="ph-fill ph-user-circle"></i>
-                        <span>Perfil</span>
+                        <span class="icon"><i class="ph-fill ph-user-circle"></i></span>
+                        <span class="title">Perfil</span>
                     </a>
                 </li>
-             </ul>
-            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
+            </ul>
         </nav>
         <main>
             <div class="title-report">
@@ -80,5 +80,6 @@
             </section>
         </main>
     </div>
+    <script src="../JS/sidebar.js" defer></script>
 </body>
 </html>

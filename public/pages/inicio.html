@@ -16,42 +16,42 @@
 </head>
 <body>
     <div class="container">
-        <nav id="sidebar">
-             <ul>
-                <li class="logo">
-                    <img src="../Img/Logo.png" alt="">
-                </li>
-                <li class="home ativo">
+        <nav class="sidebar">
+            <div class="btn-expandir">
+                <i class="ph-bold ph-list"></i>
+            </div>
+            <ul>
+                <li class="sideBar-item active">
                     <a href="/inicio">
-                        <i class="ph-fill ph-map-pin"></i>
-                        <span>Mapa</span>
+                        <span class="icon"><i class="ph-fill ph-map-pin"></i></span>
+                        <span class="title">Mapa</span>
                     </a>
                 </li>
-                <li class="forum">
+                <li class="sideBar-item">
                     <a href="/forum">
-                        <i class="ph-fill ph-chats"></i>
-                        <span>Fórum</span>
+                        <span class="icon"><i class="ph-fill ph-chat-text"></i></span>
+                        <span class="title">Fórum</span>
                     </a>
                 </li>
-                <li class="report">
+                <li class="sideBar-item">
                     <a href="/reporte">
-                        <i class="ph-fill ph-exclamation-mark"></i>
-                        <span>Reporte</span>
+                        <span class="icon"><i class="ph-fill ph-warning-circle"></i></span>
+                        <span class="title">Reporte</span>
                     </a>
                 </li>
-                <li>
+                <li class="sideBar-item">
                     <a href="/perfil">
-                        <i class="ph-fill ph-user-circle"></i>
-                        <span>Perfil</span>
+                        <span class="icon"><i class="ph-fill ph-user-circle"></i></span>
+                        <span class="title">Perfil</span>
                     </a>
                 </li>
-             </ul>
-            <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button>
+            </ul>
         </nav>
         <!-- <button id="btnLogout"><span class="ph-fill ph-sign-out"></span>Sair</button> -->
         <main id="map"></main>
     </div>
     <script src="../JS/mapa.js"></script>
+    <script src="../JS/sidebar.js" defer></script>
     <script>
         document.getElementById("btnLogout").addEventListener("click", async () => {
             try 

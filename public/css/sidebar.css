@@ -1,83 +1,84 @@
-#sidebar{
-    background-color: white;
-    height: 100vh;
-    width: 250px;
-    border-right: 2px solid var(--color-bg-primary-blue);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 5px 1em;
+.container{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+    "nav main"
+    "nav main";
 }
 
-#sidebar > ul{
-    list-style: none;
-}
-
-#sidebar > ul > li:first-child{
-    display: flex;
-    justify-content: flex-start;
-    margin: 15px 0px 50px 5px;
-}
-
-
-#sidebar > ul > .logo > img{
+nav.sidebar{
     width: 70px;
+    height: 100%;
+    background-color: white;
+    padding: 40px 0px 20px 0px;
+    border-right: 2px solid var(--color-bg-primary-blue);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    overflow: hidden;
+
+    transition: .2s;
 }
 
-#sidebar > ul > li.ativo > a > i{
+
+nav.sidebar:hover{
+    width: 300px;
+}
+
+.btn-expandir{
+    width: 100%;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-expandir > i{
+    color: var(--color-bg-primary-blue);
+    font-size: 24px;
+    cursor: pointer;
+    transition: .2s;
+    padding: 5px;
+    
+}
+
+.btn-expandir > i:hover{
+    background-color: rgb(216, 216, 255);
+    
+}
+
+ul{
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.sideBar-item{
+    transition: .1s;
+    margin: 0px 10px;
     border-radius: 50px;
-    background-color: var(--color-bg-blue-darker);
-    color: white;
-    padding: 8px;
 }
 
-#sidebar > ul > li{
-    margin-bottom: 10px;
+ul li.sideBar-item:hover{
+    background-color: rgb(216, 216, 255);
 }
 
-#sidebar > ul > li > a{
+ul li.sideBar-item a{
     color: var(--color-bg-primary-blue);
     text-decoration: none;
-    padding: .85em;
+    font-size: 16px;
+    padding: 20px 4%;
     display: flex;
     align-items: center;
-    gap: 1em;
-    transition: .1s;
-    border-radius: 50px;
+    gap: 1rem;
 }
 
-#sidebar > ul > li > a > i{
-    font-size: 1.6rem;
-    transition: .1s;
+ul li.sideBar-item a .icon i{
+    font-size: 30px;
+    margin-left: 10px;
 }
 
-#sidebar > ul > li > a > span{
-    font-size: 1rem;
-    font-weight: normal;
-    transition: .1s;
-}
 
-#sidebar > ul > li > a:hover{
-    background-color: rgb(236, 241, 255);
-}
-
-#sidebar > ul > li > a:hover > span,
-#sidebar > ul > li > a:hover > i{
-    color: var(--color-bg-blue-darker);
-}
-
-#sidebar > ul > li > a:hover > i{
-    border-radius: 50px;
-    background-color: var(--color-bg-blue-darker);
-    color: white;
-    padding: 8px;
-}
-
-#sidebar > button{
-    color: white;
-    background-color: red;
-    border-radius: 0px;
-    margin: 20px;
-    border-radius: 5px;
-    align-self: center;
+ul li.active a .icon,
+ul li.active a .title{
+    color: var(--color-bg-secondary-blue);
 }
