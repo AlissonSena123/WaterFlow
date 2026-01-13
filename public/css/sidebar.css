@@ -1,84 +1,135 @@
-.container{
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "nav main"
-    "nav main";
-}
-
-nav.sidebar{
-    width: 70px;
-    height: 100%;
+#sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
-    padding: 40px 0px 20px 0px;
     border-right: 2px solid var(--color-bg-primary-blue);
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    overflow: hidden;
-
-    transition: .2s;
+    z-index: 2;
+    position: relative;
+    transition: all .5s ease-in-out;
+    min-width: 82px;
 }
 
-
-nav.sidebar:hover{
-    width: 300px;
+#sidebar-content{
+    padding: 12px;
 }
 
-.btn-expandir{
-    width: 100%;
-    padding-left: 10px;
-    margin-bottom: 20px;
+#sidebar-items{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
 }
 
-.btn-expandir > i{
-    color: var(--color-bg-primary-blue);
-    font-size: 24px;
+.sidebar-item{
+    border-radius: 8px;
+    padding: 14px;
     cursor: pointer;
     transition: .2s;
-    padding: 5px;
-    
 }
 
-.btn-expandir > i:hover{
-    background-color: rgb(216, 216, 255);
-    
+.sidebar-item.active{
+    background-color: var(--color-bg-primary-blue);
 }
 
-ul{
-    height: 100%;
-    list-style-type: none;
+.sidebar-item.active a{
+    color: white;
 }
 
-ul li.sideBar-item{
-    transition: .1s;
-    margin: 0px 10px;
-    border-radius: 50px;
+.sidebar-item:hover:not(.active){
+    background-color: rgb(215, 215, 255);
 }
 
-ul li.sideBar-item:hover{
-    background-color: rgb(216, 216, 255);
-}
-
-ul li.sideBar-item a{
-    color: var(--color-bg-primary-blue);
+.sidebar-item a{
     text-decoration: none;
-    font-size: 16px;
-    padding: 20px 4%;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    color: var(--color-bg-primary-blue);
 }
 
-ul li.sideBar-item a .icon i{
-    font-size: 30px;
-    margin-left: 10px;
+.sidebar-item a i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35em;
+    width: 20px;
+    height: 20px;
+}
+
+#sidebar-open-btn{
+    background: none;
+    box-shadow: none;
+    width: max-content;
+    position: absolute;
+    top: 45%;
+    right: -15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: all .2s ease-in-out;
+}
+
+#sidebar-open-btn i{
+    font-size: 1.9rem;
+    color: var(--color-bg-primary-blue);
+    background-color: white;
+    border-radius: 50%;
 }
 
 
-ul li.active a .icon,
-ul li.active a .title{
-    color: var(--color-bg-secondary-blue);
+.item-title{
+    width: 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    transition: width .6s;
+    height: 0px;
+}
+
+#logout{
+    border-top: 2px solid rgb(215, 215, 255);
+}
+
+#btn-logout{
+    background: red;
+    color: white;
+    box-shadow: none;
+    padding: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: start;
+    gap: 20px;
+    width: 100%;
+    border-radius: 0;
+}
+
+#btn-logout i{
+    font-size: 1.5em;
+}
+
+#btn-logout:hover{
+    background-color: brown;
+}
+
+#sidebar.open-sidebar{
+    min-width: 15%;
+}
+
+#sidebar.open-sidebar .item-title{
+    width: 150px;
+    height: auto;
+}
+
+#sidebar.open-sidebar .sidebar-item a{
+    justify-content: flex-start;
+    gap: 14px;
+}
+
+#sidebar-open-btn.rotate{
+    transform: rotate(180deg);
 }

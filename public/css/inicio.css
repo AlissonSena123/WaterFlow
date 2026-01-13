@@ -1,4 +1,28 @@
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+    position: relative;
+    z-index: 1;
+}
+
+header img{
+    width: 100px;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+    "nav header"
+    "nav main";
+}
+
 main{
     background-color: rgb(37, 69, 165);
+    position: fixed;
+    z-index: 0;
 }
 

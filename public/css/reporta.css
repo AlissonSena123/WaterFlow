@@ -15,6 +15,7 @@ main{
 }
 
 main > div.title-report{
+    width: 100%;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -116,7 +117,7 @@ main > section > form > button{
 }
 
 
-@media (max-width: 700px){
+@media (max-width: 850px){
     main > section > form{
         grid-template-columns: 1fr;
         grid-template-areas: 

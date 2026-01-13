@@ -13,36 +13,44 @@
 </head>
 <body class="bg-primary-img">
     <div class="container">
-        <nav class="sidebar">
-            <div class="btn-expandir">
-                <i class="ph-bold ph-list"></i>
+        <nav id="sidebar">
+            <div id="sidebar-content">
+                <ul id="sidebar-items">
+                    <li class="sidebar-item">
+                        <a href="/inicio">
+                            <i class="ph-bold ph-map-trifold"></i>
+                            <span class="item-title">Mapa</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/forum">
+                            <i class="ph-bold ph-chat-text"></i>
+                            <span class="item-title">Fórum</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item active">
+                        <a href="/reporte">
+                            <i class="ph-bold ph-warning-circle"></i>
+                            <span class="item-title">Reporte</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/perfil">
+                            <i class="ph-bold ph-user-circle"></i>
+                            <span class="item-title">Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+                <button id="sidebar-open-btn">
+                    <i class="ph-fill ph-caret-circle-double-right"></i>
+                </button>
             </div>
-            <ul>
-                <li class="sideBar-item">
-                    <a href="/inicio">
-                        <span class="icon"><i class="ph-fill ph-map-pin"></i></span>
-                        <span class="title">Mapa</span>
-                    </a>
-                </li>
-                <li class="sideBar-item">
-                    <a href="/forum">
-                        <span class="icon"><i class="ph-fill ph-chat-text"></i></span>
-                        <span class="title">Fórum</span>
-                    </a>
-                </li>
-                <li class="sideBar-item active">
-                    <a href="/reporte">
-                        <span class="icon"><i class="ph-fill ph-warning-circle"></i></span>
-                        <span class="title">Reporte</span>
-                    </a>
-                </li>
-                <li class="sideBar-item">
-                    <a href="/perfil">
-                        <span class="icon"><i class="ph-fill ph-user-circle"></i></span>
-                        <span class="title">Perfil</span>
-                    </a>
-                </li>
-            </ul>
+            <div id="logout">
+                <button id="btn-logout">
+                    <i class="ph-fill ph-sign-out"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
         </nav>
         <main>
             <div class="title-report">
