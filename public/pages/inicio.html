@@ -21,8 +21,9 @@
         </header>
         <nav id="sidebar">
             <div id="sidebar-content">
+                <i class="ph-bold ph-list"></i>
                 <ul id="sidebar-items">
-                    <li class="sidebar-item active">
+                    <li class="sidebar-item">
                         <a href="/inicio">
                             <i class="ph-bold ph-map-trifold"></i>
                             <span class="item-title">Mapa</span>
@@ -47,9 +48,6 @@
                         </a>
                     </li>
                 </ul>
-                <button id="sidebar-open-btn">
-                    <i class="ph-fill ph-caret-circle-double-right"></i>
-                </button>
             </div>
             <div id="logout">
                 <button id="btn-logout">
@@ -62,29 +60,6 @@
     </div>
     <script src="../JS/mapa.js"></script>
     <script src="../JS/sidebar.js" defer></script>
-    <script>
-        document.getElementById("btn-logout").addEventListener("click", async () => {
-            try 
-            {
-                const response = await fetch("/logout", {
-                    method: "POST",
-                    credentials: "include"
-                });
-                
-                const data = await response.json();
-
-                if(!response.ok){
-                    return alert(data.error);
-                }
-
-                alert(data.message);
-                window.location.href = data.redirect;
-
-            } catch (error) {
-                console.error(error);
-                alert("Erro interno de servidor");
-            }
-        });
-    </script>
+    <script src="../JS/logout.js"></script>
 </body>
 </html>
