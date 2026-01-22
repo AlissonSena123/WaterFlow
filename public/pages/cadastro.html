@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../Img/Mask group.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../Img/LogoIcon.svg" type="image/x-icon">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/cadastro.css">
     <title>Cadastrar</title>
@@ -11,12 +11,13 @@
 <body>
     <div class="container">
         <main>
-            <section class="section-left">
+            <section class="section-left"> 
                 <img src="../Img/undraw_complete-form_aarh.svg" alt="">
             </section>
             <section class="section-right">
-                <img src="../Img/Logo.png" alt="Logo">
-                <h2>Criar uma conta no WaterFlow</h2>
+                <img src="../Img/LogoV1.png" alt="Logo" class="logoSctRight">
+                <h2>Criar uma conta no WaterFlow gratuitamente</h2>
+                <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
                 <form action="/api/cadastrar" method="post" autocomplete="off">
                     <div class="form-item-register item1">
                         <label for="idNome">Nome Completo</label>
@@ -50,7 +51,7 @@
                         <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
                         <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
                     </div>
-                    <button type="submit" class="btn-outline">Cadastrar-se</button>
+                    <button type="submit">Cadastrar-se</button>
                 </form>
                 <hr>
                 <p>Já tem conta? <a href="/login">Entrar</a></p>

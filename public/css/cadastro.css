@@ -1,153 +1,129 @@
+.container{
+    background: url(../Img/backgroundWeveEffect.svg) no-repeat center center;
+    background-size: cover;
+}
+
 main{
+    background-color: rgba(255, 255, 255, 0.432);
+    margin: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.303);
+    border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "sct-left sct-right";
 }
 
-main > .section-left{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column: 1/2;
-    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.27);
-    background: url(../Img/layered-waves-haikei.svg) no-repeat center top;
+.section-left{
+    background: var(--color-bg-primary-blue) url(../Img/backgroundBannerGradient.svg) no-repeat center center;
     background-size: cover;
+    grid-area: sct-left;
+    border-radius: 10px 0px 0px 10px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    border-radius: 0px 20px 20px 0px;
 }
 
-main > .section-left > img{
-    width: 90%;
+.section-left > img{
+    width: 700px;
 }
 
-main > .section-right{
-    grid-column: 2/3;
-    display: grid;
-    grid-template-rows: repeat(2, max-content) 1fr max-content;
-    gap: 20px;
-    padding: 50px;
-    color: var(--color-text-primary-black);
+
+.section-right{
+    grid-area: sct-right;
+    padding: 30px;
     background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    display: grid;
+    grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
+    grid-template-columns: 1fr;
+    gap: 10px;
+    color: var(--color-text-primary-black);
 }
 
-main > .section-right > h2{
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-main > .section-right > img{
+.section-right > .logoSctRight{
     width: 100px;
     justify-self: flex-end;
-    margin-bottom: 10px;
+    align-self: center;
+    margin-bottom: 25px;
 }
 
-.form-item-register{
-    display: flex;
-    flex-direction: column;
+.section-right > h2{
+    font-weight: bold;
+    font-size: 1.85rem;
+    text-align: center;
+}
+
+.section-right > p{
+    font-size: 1rem;
+    margin-bottom: 20px;
 }
 
 .section-right > form{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-rows: auto;
+    gap: 20px 10px;
+    grid-template-areas: 
+    "item1 item1"
+    "item2 item2"
+    "item3 item3"
+    "item4 item5"
+    "item6 item6"
+    "item7 item7"
+    "btnRegister btnRegister";
+}
+
+.section-right > form > .form-item-register{
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.section-right > form > .item1{ grid-area: item1; }
+.section-right > form > .item2{ grid-area: item2; }
+.section-right > form > .item3{ grid-area: item3; }
+.section-right > form > .item4{ grid-area: item4; }
+.section-right > form > .item5{ grid-area: item5; }
+.section-right > form > .item6{ grid-area: item6; }
+.section-right > form > .item7{ grid-area: item7; }
+
+.section-right > form > .item3 > p{ 
+    color: red; 
+    font-size: .9rem; 
+    text-align: end;
+}
+
+.section-right > form > button{ 
+    grid-area: btnRegister;
     width: 100%;
+    margin: 15px 0px 10px 0px;
+    border-radius: 5px; 
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    transition: .1s all ease-in-out;
+    padding: 15px;
+}
+
+.section-right > form > button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-4px);
 }
 
 
 .section-right > form > .form-item-register > input{
     padding: 13px;
-    width: 100%;
-    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 5px;
+    border: 2px solid var(--color-bg-blue-darker);
 }
 
-.section-right > form > .form-item-register > label{
-    margin-bottom: 5px;
-}
-
-.section-right > form > .item1,
-.section-right > form > .item2,
-.section-right > form > .item3,
-.section-right > form > .item6,
-.section-right > form > .item7,
-.section-right > form > button{
-    grid-column: 1/-1;
-}
-
-.section-right > form > .item7{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.section-right > form > .form-item-register > p{
-    align-self: flex-end;
-    margin-top: 5px;
-    font-size: .8rem;
-    color: red;
-}
-
-.section-right > form > button{
-    justify-self: center;
-    align-self: center;
-    border-radius: 0px;
-    margin: 20px 0px 10px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-}
-
-.section-right > form > button:hover{
-    transform: translateY(-4px);
-    background-color: royalblue;
-    color: white;
+.section-right > hr{
+    border: 2px solid var(--color-bg-blue-darker);
+    border-style: dashed;
+    margin-bottom: 10px;
 }
 
 .section-right > p{
-    justify-self: center;
-}
-
-@media (max-width: 920px) {
-    .container > main{
-        grid-template-columns: 1;
-        background: linear-gradient(to bottom, blue, cornflowerblue, cornflowerblue) no-repeat center center;
-        background-size: cover;
-        padding: 10px;
-    }
-
-    main > .section-left,
-    main > .section-left > img{
-        display: none;
-    }
-
-    main > .section-right{
-        grid-column: 1/3;
-        justify-self: center;
-        align-self: center;
-        box-shadow: 0px 0px 5px black;
-        border-radius: 20px;
-    }
-    
-
-    main > .section-right > form > button{
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    main > .section-right > form{
-        grid-template-columns: 1fr;
-    }
-
-    .section-right > form > .item4,
-    .section-right > form > .item5{
-        grid-column: 1/-1;
-    }
-
-    .section-right > form > button{
-        padding: 25px;
-    }
+    text-align: center;
 }
