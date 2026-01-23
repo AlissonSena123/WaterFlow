@@ -6,7 +6,7 @@
 main{
     background-color: rgba(255, 255, 255, 0.432);
     margin: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.303);
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -20,13 +20,10 @@ main{
     grid-area: sct-left;
     border-radius: 10px 0px 0px 10px;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .section-left > img{
-    width: 700px;
+    width: 110px;
 }
 
 
@@ -36,28 +33,21 @@ main{
     background-color: white;
     border-radius: 0px 10px 10px 0px;
     display: grid;
-    grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
+    grid-template-rows: repeat(2, auto) 1fr repeat(2, auto);
     grid-template-columns: 1fr;
     gap: 10px;
     color: var(--color-text-primary-black);
 }
 
-.section-right > .logoSctRight{
-    width: 100px;
-    justify-self: flex-end;
-    align-self: center;
-    margin-bottom: 25px;
-}
-
 .section-right > h2{
     font-weight: bold;
-    font-size: 1.85rem;
-    text-align: center;
+    font-size: 2.5rem;
 }
 
 .section-right > p{
     font-size: 1rem;
     margin-bottom: 20px;
+    text-align: start;
 }
 
 .section-right > form{
@@ -119,11 +109,11 @@ main{
 }
 
 .section-right > hr{
-    border: 2px solid var(--color-bg-blue-darker);
-    border-style: dashed;
+    border: 1px solid var(--color-bg-blue-darker);
     margin-bottom: 10px;
 }
 
-.section-right > p{
+
+.section-right > .link-login{
     text-align: center;
 }
