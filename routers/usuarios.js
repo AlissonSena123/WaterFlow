@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const { Op } = require('sequelize');
 const { Sequelize } = require('sequelize');
 const nodemailer = require("nodemailer")
+const path = require("path");
 // --- ROTAS DE CADASTRO E LOGIN (MANTIDAS) ---
 
 router.post("/api/cadastrar", async (req, res) => {
@@ -150,27 +151,7 @@ router.post("/redefinirSenha", async (req, res) => {
 // --- ROTA DE FEEDBACK DE ENVIO (GET /instrucoes_enviadas) ---
 
 router.get("/instrucoes_enviadas", (req, res) => {
-  res.send(`
-  <!DOCTYPE html>
-  <html lang="pt-BR">
-  <head>
-  <meta charset="UTF-8">
-  <title>Instruções Enviadas</title>
-  <style>
-  body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-  h1 { color: #333; }
-  p { color: #555; }
-  .btn { display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
-  </style>
-  </head>
-  <body>
-  <h1>Verifique a sua caixa de entrada!</h1>
-  <p>Se a conta existir, você receberá em breve um e-mail com o link seguro para redefinir sua senha.</p>
-  <p>O link é válido por aproximadamente 60 minutos.</p>
-  <a href="/login" class="btn">Ir para a página de Login</a>
-  </body>
-  </html>
-  `);
+  res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"))
 });
 
 // --- ROTA DE VALIDAÇÃO DE TOKEN (GET /novaSenha/:token) ---
@@ -193,7 +174,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
     }
 
     const path = require("path");
-    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
+    return res.sendFile(path.join(__dirname, ""));
 
   } catch (error) {
     console.error("Erro na validação do token:", error);

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../Img/LogoIcon.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/instrucaoEmail.css">
+    
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+
+    <title>Redefinir Senha</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="../Img/LogoV1.png" alt="">
+        </header>
+        <main>
+            <section>
+                <i class="ph ph-envelope"></i>
+                <h1>Verifique seu Email</h1>
+                <p>Verifique a caixa de entrada do email cadastrado, será enviado um email com um link para a redefinição de sua senha</p>
+                <p class="text-timer">Validade do link:</p>
+                <p id="timer">60 : 00</p>
+                <a href="/login" class="btn">Ir para a página de Login</a>
+            </section>
+        </main>
+    </div>
+    <script>
+        
+        function iniciarTimer(duracao, tempo){ 
+            const intervalo = setInterval(() => { // Função de intervalo
+                const minutos = parseInt(duracao / 60, 10); // Variavel dos minutos
+                const segundos = parseInt(duracao % 60, 10); // Variavel dos segundos 
+
+                const formatarTempo = `${minutos < 10 ? '0' + minutos : minutos} : ${segundos < 10 ? '0' + segundos : segundos}`; // Função para formatar o Timer. EXEMPLO: 10:00
+                tempo.textContent = formatarTempo;
+
+                if(--duracao < 0){
+                    clearInterval(intervalo);
+                    tempo.textContent = "00 : 00";
+                }
+            }, 1000);
+        }
+
+        window.onload = () => { // Quando a pagina (window) recarregar, tudo que está dentro da função acontece 
+
+            const numeroInicialDoTimer = document.getElementById("timer"); // Atribuimos a tag HTML a uma função
+
+            iniciarTimer(3600, numeroInicialDoTimer); // Chamamos a função passando os parâmetros de duração do timer e nossa váriavel. 3600 = 60 minutos
+        }
+    </script>
+</body>
+</html>
