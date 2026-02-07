@@ -1,135 +1,78 @@
+.container{
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main";
+    background: url(../Img/backgroundWeveEffect.svg) center top no-repeat;
+    background-size: cover;
+}
+
 header{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    grid-column: 1/3;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0px 5px 10px rgba(41, 41, 41, 0.068);
-    position: relative;
-}
-
-header > img{
-    width: 100px;
-}
-
-.back-icon{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.back-icon > a{
-    font-size: 1.3rem;
-    text-decoration: none;
-    color: royalblue;
-    transition: .3s all ease-in-out;
-}
-
-.back-icon > i{
-    color: royalblue;
-    font-size: 1.5rem;
-    position: relative;
-    bottom: 5px;
-    transition: .3s all ease-in-out;
-}
-
-.back-icon:hover > a,
-.back-icon:hover > i{
-    transform: translateY(-2px);
-    color: var(--color-bg-blue-darker);
 }
 
 main{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 50px;
-    gap: 20px;
-}
-
-.section-esqueciSenha{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-self: center;
-    justify-self: flex-end;
-    grid-column: 1/2;
-    max-width: 650px;
-    width: 100%;
-    box-shadow: 0px 0px 10px black;
-    padding: 3rem;
-    border-radius: 12px;
-}
-
-.section-esqueciSenha > form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
-    width: 100%;
-}
-
-.section-esqueciSenha > p{
-    margin: 0px 0 1.5rem;
-    text-align: center;
-}
-
-.section-esqueciSenha > h1{
-    text-align: center;
-}
-
-.section-esqueciSenha > form > input{
-    width: 100%;
-    border: 2px solid royalblue;
     padding: 20px;
+}
+
+.sctForgottenPassword{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px black;
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.itemForgottenPasswordBHead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.sctForgottenPassword > .itemForgottenPasswordBHead > img{
+    width: 100px;
+}
+
+.sctForgottenPassword > .itemForgottenPasswordBHead > i{
+    font-size: 2.2rem;
+}
+
+.sctForgottenPassword > h1{
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.sctForgottenPassword > p{
+    margin-bottom: 30px;
+}
+
+.sctForgottenPassword > form{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+    width: 100%;
+}
+
+.sctForgottenPassword > form > input{
+    padding: 20px;
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 6px;
 }
 
-.section-esqueciSenha > form > button{
+.sctForgottenPassword > form > button{
     width: 100%;
     padding: 20px;
-}
-
-
-.image-wrapper > img{
-    justify-self: center;
-    align-self: center;
-    width: 500px;
-    max-width: 90%;
-    grid-column: 2/3;
-    
-}
-
-footer{
-    background-color: rgb(37, 69, 165);
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-
-footer > p{
-    padding: 10px;
+    background-color: var(--color-bg-primary-blue);
     color: white;
 }
 
-@media (max-width: 1050px){
-    main{
-        grid-template-columns: 1fr;
-        gap: 0px;
-    }
-
-    .image-wrapper{
-        display: none;
-    }
-
-    main > .section-esqueciSenha{
-        grid-column: 1/3;
-        padding: 100px;
-        justify-self: center;
-    }
-    
+.sctForgottenPassword > form > button:hover{
+    background-color: var(--color-bg-secondary-blue);
 }
