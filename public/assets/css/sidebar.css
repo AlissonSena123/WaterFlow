@@ -4,8 +4,11 @@
     justify-content: space-between;
     background-color: var(--color-bg-primary-blue);
     z-index: 2;
-    position: relative;
-    min-width: 120px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 100vh;
 }
 
 #sidebar-content{
