@@ -80,9 +80,14 @@ thead{
 }
 
 /* Lista */
-ul{
-  margin-left: 20px;
+main > #ajuda > ul{
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+main > #ajuda > ul > li{
+  margin-left: 15px;
+  list-style: decimal;
 }
