@@ -7,11 +7,13 @@ const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
-
+const funcionarioRouter = require("./routers/funcionario.js")
+const poligonosRouter = require("./routers/poligonos.js")
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
+
 
 
 //middleware de sessao
@@ -26,6 +28,8 @@ server.use(session({
 }));
 
 server.use(usuarioRouter);
+server.use("/funcionario", funcionarioRouter)
+server.use("/poligonos", poligonosRouter)
 
 server.get("/session", (req, res) => {
     res.send(req.sessionID);
@@ -65,7 +69,7 @@ server.get("/redefinir", (req, res) => {
 });
 
 server.get("/redefinir/confirmar", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/pages/redefinirSenha.html"));
+  res.sendFile(path.join(__dirname, "public/pages/redefinirsenha.html"));
 })
 
 server.listen(PORT, () => {
