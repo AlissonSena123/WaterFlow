@@ -3,8 +3,8 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
-    "nav header"
-    "nav main";
+  "nav header"
+  "nav main";
 }
 
 header{
