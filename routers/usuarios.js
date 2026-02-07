@@ -173,8 +173,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
       return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
     }
 
-    const path = require("path");
-    return res.sendFile(path.join(__dirname, ""));
+    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
