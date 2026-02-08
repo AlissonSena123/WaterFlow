@@ -6,6 +6,8 @@
     "nav main";
 }
 
+
+
 header{
   display: flex;
   justify-content: center;
@@ -35,18 +37,97 @@ main section{
   box-shadow: var(--shadow-soft);
 }
 
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.7rem;
+}
+
+/* Seção de STATUS */
 .status{
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  background-color: var(--color-bg-blue-darker);
+  color: white;
 }
 
+.status > div > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.status > div > h1 > i{
+  font-size: 3rem;
+}
+
+.status > .groupBtnPoligonos{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+}
+
+.status > .groupBtnPoligonos > button{
+  width: 100%;
+  padding: 12px;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+.status > .groupBtnPoligonos > button > i{
+  font-size: 2rem;
+}
+
+.status > .groupBtnPoligonos > button.btn-outline{
+  border: 3px solid royalblue;
+  color: white;
+}
+
+.status > .groupBtnPoligonos > button.btn-outline:hover{
+  border-color: royalblue;
+}
+
+.status > .groupBtnPoligonos > button.btn-primary:hover{
+  background-color: white;
+  color: var(--color-bg-blue-darker);
+}
+
+
+
+/* Seção de Filtro */
 .filtros{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 2fr repeat(4, 1fr);
+  grid-auto-rows: auto;
   gap: 16px;
+}
+
+.filtros > #btnSalvar{
+  width: 100%;
+  background-color: royalblue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.filtros > #btnSalvar > i{
+  font-size: 1.5rem;
+}
+
+.filtros > #btnSalvar:hover{
+  background-color: var(--color-bg-blue-darker);
 }
 
 .field{
@@ -54,6 +135,24 @@ main section{
   flex-direction: column;
   gap: 6px;
 }
+
+.field > input,
+.field > select{
+  background: #f0f4ff;
+  padding: 12px;
+}
+
+.filtros > div#map{
+  height: 500px;
+  width: 100%;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 2px solid royalblue;
+  padding: 20px;
+  grid-column: 1/-1;
+}
+
+/* Seção da Lista de Polígonos */
 
 table{
   width: 100%;
@@ -65,12 +164,33 @@ th, td{
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
 }
 
 thead{
   background: #f0f4ff;
+} 
+
+tbody > tr> .itemTableAcoes{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 10px;
 }
 
+tbody > tr > .itemTableAcoes > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  justify-self: center;
+  width: 100%;
+}
+
+tr > .itemTableAcoes > button > i{
+  font-size: 1.5rem;
+}
+
+/* BADGE */
 .badge{
   display: inline-block;
   padding: 4px 8px;
@@ -84,9 +204,17 @@ thead{
 .badge-active{ background: #e6f7ed; color: #0c7a3f; }
 .badge-review{ background: #e7edff; color: #2447a6; }
 
-.ajuda ul{
-  margin-left: 20px;
+/* Ajuda Rapida */
+.ajuda > ul{
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.ajuda > ul > li{
+  margin-left: 10px;
+  list-style: inside;
+  font-weight: lighter;
+  margin-bottom: 5px;
 }

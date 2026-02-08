@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poligonos - Funcionario</title>
+  <title>Polígonos - Funcionario</title>
   <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
@@ -41,19 +41,19 @@
           <li class="sidebar-item active">
             <a href="/funcionario/poligonos">
               <i class="ph-bold ph-map-trifold"></i>
-              <span class="item-title">Poligonos</span>
+              <span class="item-title">Polígonos</span>
             </a>
           </li>
           <li class="sidebar-item">
             <a href="/funcionario/relatorios">
               <i class="ph-bold ph-file-text"></i>
-              <span class="item-title">Relatorios</span>
+              <span class="item-title">Relatórios</span>
             </a>
           </li>
           <li class="sidebar-item">
             <a href="/funcionario/usuarios">
               <i class="ph-bold ph-users"></i>
-              <span class="item-title">Usuarios</span>
+              <span class="item-title">Usuários</span>
             </a>
           </li>
         </ul>
@@ -67,69 +67,81 @@
     </nav>
 
     <main>
+
       <section class="status">
         <div>
-          <h1>Poligonos</h1>
+          <h1> <i class="ph-fill ph-map-trifold"></i> Polígonos</h1>
           <p>Status: <strong>Pronto para edicao</strong> � Ultima atualizacao: 12:40</p>
         </div>
-        <div class="btnGroup">
-          <button class="btn-primary">Novo Poligono</button>
-          <button class="btn-outline">Importar GeoJSON</button>
-          <button class="btn-outline">Publicar Selecionados</button>
+        <div class="groupBtnPoligonos">
+          <button class="btn-primary"> <i class="ph-fill ph-file-plus"></i> Novo Polígono</button>
+          <button class="btn-outline"> <i class="ph-fill ph-file-arrow-down"></i> Importar GeoJSON</button>
+          <button class="btn-outline"> <i class="ph-fill ph-megaphone-simple"></i> Publicar Selecionados</button>
         </div>
       </section>
 
       <section class="filtros">
+
         <div class="field">
-          <label>Buscar por area</label>
-          <input class="input-form" type="text" placeholder="Ex: Zona Norte" />
+          <label for="inputArea">Buscar por área:</label>
+          <input class="input-form" type="text" placeholder="Ex: Zona Norte" id="inputArea" />
         </div>
-        <div id="map"></div>
-        <button id="btnSalvar">Salvar Poligono</button>
+
         <div class="field">
-          <label>Tipo</label>
-          <select class="input-form">
-            <option>Todos</option>
-            <option>Falta de agua</option>
+          <label for="slctTipo">Tipo:</label>
+          <select class="input-form" id="slctTipo">
+            <option disabled selected>Todos</option>
+            <option>Falta de água</option>
             <option>Risco futuro</option>
           </select>
         </div>
+
         <div class="field">
-          <label>Status</label>
-          <select class="input-form">
-            <option>Todos</option>
+          <label for="slctStatus">Status:</label>
+          <select class="input-form" id="slctStatus">
+            <option disabled selected>Todos</option>
             <option>Ativo</option>
-            <option>Em revisao</option>
+            <option>Em revisão</option>
             <option>Rascunho</option>
           </select>
         </div>
+
         <div class="field">
-          <label>Periodo</label>
-          <input class="input-form" type="date" />
+          <label for="inputData">Período:</label>
+          <input class="input-form" type="date" id="inputData"/>
         </div>
+
+        <button id="btnSalvar"> <i class="ph-fill ph-floppy-disk-back"></i> Salvar Polígono</button>
+
+        <div id="map"></div>
+
       </section>
 
-      <section>
-        <h2>Lista de poligonos</h2>
+      
+
+      <section id="sctListPoligonos">
+        <h2> <i class="ph-bold ph-list"></i> Lista de Polígonos</h2>
         <table>
           <thead>
             <tr>
-              <th>Area</th>
-              <th>Tipo</th>
-              <th>Risco</th>
-              <th>Status</th>
-              <th>Acoes</th>
+              <th>Área:</th>
+              <th>Tipo:</th>
+              <th>Risco:</th>
+              <th>Status:</th>
+              <th>Ações:</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Zona Norte</td>
-              <td>Falta de agua</td>
+              <td>Falta de água</td>
               <td><span class="badge badge-high">Alto</span></td>
-              <td><span class="badge badge-review">Em revisao</span></td>
-              <td>
-                <button class="btn-primary">Editar</button>
-                <button class="btn-outline">Revisar</button>
+              <td><span class="badge badge-review">Em revisão</span></td>
+              <td class="itemTableAcoes">
+                <button class="btn-primary"> <i class="ph-fill ph-pen"></i> Editar</button>
+                <button class="btn-primary"> <i class="ph-fill ph-file-magnifying-glass"></i> Revisar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-eye"></i> Ver</button>
+                <button class="btn-outline"> <i class="ph-fill ph-box-arrow-down"></i> Arquivar</button>
               </td>
             </tr>
             <tr>
@@ -137,9 +149,11 @@
               <td>Risco futuro</td>
               <td><span class="badge badge-med">Medio</span></td>
               <td><span class="badge badge-active">Ativo</span></td>
-              <td>
-                <button class="btn-primary">Ver</button>
-                <button class="btn-outline">Arquivar</button>
+              <td class="itemTableAcoes">
+                <button class="btn-primary"> <i class="ph-fill ph-pen"></i> Editar</button>
+                <button class="btn-primary"> <i class="ph-fill ph-file-magnifying-glass"></i> Revisar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-eye"></i> Ver</button>
+                <button class="btn-outline"> <i class="ph-fill ph-box-arrow-down"></i> Arquivar</button>
               </td>
             </tr>
           </tbody>
@@ -147,18 +161,18 @@
       </section>
 
       <section class="ajuda">
-        <h2>Ajuda rapida</h2>
+        <h2> <i class="ph-fill ph-info"></i> Ajuda rápida</h2>
         <ul>
-          <li>Use filtros para evitar edicao errada.</li>
+          <li>Use filtros para evitar edição errada.</li>
           <li>Poligonos em revisao precisam de dupla checagem.</li>
-          <li>Importacao de GeoJSON reduz erros de desenho manual.</li>
+          <li>Importacão de GeoJSON reduz erros de desenho manual.</li>
         </ul>
       </section>
     </main>
   </div>
 
   <script src="../../assets/JS/logout.js"></script>
-  <script src="../../assets/JS/funcionario/mapa-poligono.js"></script>
+  <script src="../../assets/JS/mapa-poligono.js"></script> <!-- Acho que não precisamos criar mais um arquivo JS para o mapa, já temos o JS que inicia o mapa da tela, podemos colocar todas as funções relacionadas ao mapa lá, podemos criar funções e só chamadas quando acontecer alguma interação na tela, mas se essa separação for importante, deixe como estar -->
 </body>
 
 </html>
