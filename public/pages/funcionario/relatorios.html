@@ -32,19 +32,19 @@
           <li class="sidebar-item">
             <a href="/funcionario/poligonos">
               <i class="ph-bold ph-map-trifold"></i>
-              <span class="item-title">Poligonos</span>
+              <span class="item-title">Polígonos</span>
             </a>
           </li>
           <li class="sidebar-item active">
             <a href="/funcionario/relatorios">
               <i class="ph-bold ph-file-text"></i>
-              <span class="item-title">Relatorios</span>
+              <span class="item-title">Relatórios</span>
             </a>
           </li>
           <li class="sidebar-item">
             <a href="/funcionario/usuarios">
               <i class="ph-bold ph-users"></i>
-              <span class="item-title">Usuarios</span>
+              <span class="item-title">Usuários</span>
             </a>
           </li>
         </ul>
@@ -60,46 +60,50 @@
     <main>
       <section class="status">
         <div>
-          <h1>Relatorios</h1>
+          <h1> <i class="ph-fill ph-file-text"></i> Relatórios</h1>
           <p>Status: <strong>Pronto para gerar</strong> � Ultima atualizacao: 12:40</p>
         </div>
-        <div class="btnGroup">
-          <button class="btn-primary">Gerar PDF</button>
+        <div class="groupBtnRelatorio">
+          <button class="btn-primary"> <i class="ph-fill ph-file-pdf"></i> Gerar PDF</button>
           <button class="btn-outline">Exportar CSV</button>
         </div>
       </section>
 
       <section class="filtros">
+
         <div class="field">
-          <label>Periodo</label>
+          <label>Período:</label>
           <div class="range">
             <input class="input-form" type="date" />
             <input class="input-form" type="date" />
           </div>
         </div>
+
         <div class="field">
-          <label>Tipo</label>
+          <label>Tipo:</label>
           <select class="input-form">
             <option>Resumo geral</option>
             <option>Falta de agua</option>
             <option>Risco futuro</option>
           </select>
         </div>
+
         <div class="field">
-          <label>Regiao</label>
+          <label>Região:</label>
           <input class="input-form" type="text" placeholder="Ex: Centro" />
         </div>
+        
       </section>
 
       <section>
-        <h2>Ultimos relatorios</h2>
+        <h2>Últimos relatórios:</h2>
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Periodo</th>
-              <th>Status</th>
-              <th>Acoes</th>
+              <th>Nome:</th>
+              <th>Periodo:</th>
+              <th>Status:</th>
+              <th>Acões:</th>
             </tr>
           </thead>
           <tbody>
@@ -107,16 +111,19 @@
               <td>Resumo Semanal</td>
               <td>01/02 - 07/02</td>
               <td><span class="badge badge-ready">Pronto</span></td>
-              <td>
+              <td class="itemTableAcoes">
                 <button class="btn-primary">Baixar</button>
                 <button class="btn-outline">Visualizar</button>
+                <button class="btn-outline">Detalhes</button>
               </td>
             </tr>
             <tr>
               <td>Mapa Critico</td>
               <td>01/02 - 07/02</td>
               <td><span class="badge badge-process">Em processamento</span></td>
-              <td>
+              <td class="itemTableAcoes">
+                <button class="btn-primary">Baixar</button>
+                <button class="btn-outline">Visualizar</button>
                 <button class="btn-outline">Detalhes</button>
               </td>
             </tr>

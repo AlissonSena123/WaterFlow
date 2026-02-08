@@ -33,24 +33,79 @@ main section{
   box-shadow: var(--shadow-soft);
 }
 
+/* Seção de Status */
+
 .status{
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  background-color: var(--color-bg-blue-darker);
+  color: white;
 }
+
+.status > div > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.status > div > h1 > i{
+  font-size: 3rem;
+}
+
+.status > .groupBtnRelatorio{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+.status > .groupBtnRelatorio > button{
+  width: 100%;
+  padding: 20px;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+.status > .groupBtnRelatorio > button > i{
+  font-size: 2rem;
+}
+
+.status > .groupBtnRelatorio > button.btn-outline{
+  border: 3px solid royalblue;
+  color: white;
+}
+
+.status > .groupBtnRelatorio > button.btn-primary:hover{
+  background-color: white;
+  color: var(--color-bg-blue-darker);
+}
+
+/* Seção de Filtro */
 
 .filtros{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 2fr 1fr 2fr;
   gap: 16px;
 }
 
 .field{ display: flex; flex-direction: column; gap: 6px; }
 
+.field > input,
+.field > div > input,
+.field > select{
+  background: #f0f4ff;
+  padding: 12px;
+}
+
 .range{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
+
+/* BADGE */
 .badge{
   display: inline-block;
   padding: 4px 8px;
@@ -62,6 +117,8 @@ main section{
 .badge-ready{ background: #e6f7ed; color: #0c7a3f; }
 .badge-process{ background: #fff1d6; color: #9c5a00; }
 
+/* Seção de Ultimos Relatorios */
+
 table{
   width: 100%;
   border-collapse: collapse;
@@ -72,15 +129,42 @@ th, td{
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
 }
 
 thead{
   background: #f0f4ff;
 }
 
-.ajuda ul{
-  margin-left: 20px;
+tbody > tr> .itemTableAcoes{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+}
+
+tbody > tr > .itemTableAcoes > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  justify-self: center;
+  width: 100%;
+}
+
+tr > .itemTableAcoes > button > i{
+  font-size: 1.5rem;
+}
+
+.ajuda > ul{
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.ajuda > ul > li{
+  margin-left: 10px;
+  list-style: inside;
+  font-weight: lighter;
+  margin-bottom: 5px;
 }
