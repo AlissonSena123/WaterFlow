@@ -140,8 +140,16 @@ tbody > tr > .itemTableAcoes{
 }
 
 tr > .itemTableAcoes > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
   justify-self: center;
   width: 100%;
+}
+
+tr > .itemTableAcoes > button > i{
+  font-size: 1.5rem;
 }
 
 /* Lista */
