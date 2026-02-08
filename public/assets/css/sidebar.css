@@ -89,3 +89,11 @@
 #btn-logout:hover{
     background-color: brown;
 }
+
+.active{
+    background-color: rgb(215, 215, 255);
+}
+
+.active > a{
+    color: var(--color-bg-blue-darker);
+}

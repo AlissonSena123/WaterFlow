@@ -37,6 +37,56 @@ main section{
   box-shadow: var(--shadow-soft);
 }
 
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.7rem;
+}
+
+/* Primeira Seção */
+main > #titleDashboard{
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+}
+
+main > #titleDashboard > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+#titleDashboard > h1 > i{
+  font-size: 3rem;
+}
+
+
+/* Segunda Seção */
+main > #groupButtonDashboard{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+main > #groupButtonDashboard > button{
+  justify-self: center;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+#groupButtonDashboard > button > i{
+  font-size: 2rem;
+}
+
+
+
 /* Cards */
 .cards{
   display: grid;
@@ -55,31 +105,47 @@ main section{
 .card h3{
   font-size: 1rem;
   margin-bottom: 6px;
+  font-weight: lighter;
 }
 
 .card p{
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 600;
 }
 
+
 /* Tabela */
-table{
+main > #ReviewDashboard > table{
   width: 100%;
   border-collapse: collapse;
   margin-top: 12px;
 }
 
+
 th, td{
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
 }
 
 thead{
   background: #f0f4ff;
 }
 
+tbody > tr > .itemTableAcoes{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+tr > .itemTableAcoes > button{
+  justify-self: center;
+  width: 100%;
+}
+
 /* Lista */
+
 main > #ajuda > ul{
   margin-top: 15px;
   display: flex;
@@ -87,7 +153,9 @@ main > #ajuda > ul{
   gap: 6px;
 }
 
-main > #ajuda > ul > li{
-  margin-left: 15px;
-  list-style: decimal;
+#ajuda > ul > li{
+  margin-left: 10px;
+  list-style: inside;
+  font-weight: lighter;
+  margin-bottom: 5px;
 }
