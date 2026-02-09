@@ -63,7 +63,7 @@ main section{
 
 .status > .groupBtnRelatorio > button{
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   justify-self: center;
   display: flex;
   align-items: center;
@@ -117,8 +117,8 @@ main section{
 .badge-ready{ background: #e6f7ed; color: #0c7a3f; }
 .badge-process{ background: #fff1d6; color: #9c5a00; }
 
-/* Seção de Ultimos Relatorios */
 
+/* Seção de Ultimos Relatorios */
 table{
   width: 100%;
   border-collapse: collapse;

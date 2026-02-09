@@ -39,6 +39,48 @@ main section{
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+}
+
+.status > div > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.status > div > h1 > i{
+  font-size: 3rem;
+}
+
+.status > .groupBtnUser{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+.status > .groupBtnUser > button{
+  width: 100%;
+  padding: 12px;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px
+}
+
+.status > .groupBtnUser > button > i{
+  font-size: 2rem;
+}
+
+.status > .groupBtnUser > button.btn-outline{
+  border: 3px solid royalblue;
+  color: white;
+}
+
+.status > .groupBtnUser >  button.btn-primary:hover{
+  background-color: white;
+  color: var(--color-bg-blue-darker);
 }
 
 .filtros{
@@ -74,9 +116,16 @@ th, td{
 
 thead{ background: #f0f4ff; }
 
-.ajuda ul{
-  margin-left: 20px;
+.ajuda > ul{
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.ajuda > ul > li{
+  margin-left: 10px;
+  list-style: inside;
+  font-weight: lighter;
+  margin-bottom: 5px;
 }

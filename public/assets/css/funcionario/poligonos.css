@@ -76,7 +76,7 @@ main > section > h2 > i{
 
 .status > .groupBtnPoligonos > button{
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   justify-self: center;
   display: flex;
   align-items: center;
@@ -91,10 +91,6 @@ main > section > h2 > i{
 .status > .groupBtnPoligonos > button.btn-outline{
   border: 3px solid royalblue;
   color: white;
-}
-
-.status > .groupBtnPoligonos > button.btn-outline:hover{
-  border-color: royalblue;
 }
 
 .status > .groupBtnPoligonos > button.btn-primary:hover{
