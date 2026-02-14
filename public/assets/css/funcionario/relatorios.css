@@ -33,6 +33,16 @@ main section{
   box-shadow: var(--shadow-soft);
 }
 
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.8rem;
+}
+
 /* Seção de Status */
 
 .status{

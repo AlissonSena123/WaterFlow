@@ -33,6 +33,16 @@ main section{
   box-shadow: var(--shadow-soft);
 }
 
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.8rem;
+}
+
 .status{
   display: flex;
   justify-content: space-between;
@@ -61,7 +71,7 @@ main section{
 
 .status > .groupBtnUser > button{
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   justify-self: center;
   display: flex;
   align-items: center;
@@ -91,6 +101,13 @@ main section{
 
 .field{ display: flex; flex-direction: column; gap: 6px; }
 
+.field > input,
+.field > div > input,
+.field > select{
+  background: #f0f4ff;
+  padding: 12px;
+}
+
 .badge{
   display: inline-block;
   padding: 4px 8px;
@@ -112,9 +129,29 @@ th, td{
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
 }
 
 thead{ background: #f0f4ff; }
+
+tbody > tr> .itemTableAcoes{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+tbody > tr > .itemTableAcoes > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  justify-self: center;
+  width: 100%;
+}
+
+tr > .itemTableAcoes > button > i{
+  font-size: 1.5rem;
+}
 
 .ajuda > ul{
   margin-top: 15px;
