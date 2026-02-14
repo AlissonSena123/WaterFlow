@@ -1,59 +1,79 @@
 .container{
     grid-template-columns: auto 1fr;
     grid-template-areas: 
+    "nav header"
     "nav main"
-    "nav main"
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 22px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+    position: relative;
+    z-index: 1;
+    background: white;
+}
+
+header img{
+    width: 100px;
 }
 
 main{
     display: grid;
-    grid-template-rows: repeat(3, max-content) 1fr;
-    background-color: white;
+    grid-template-rows: repeat(3, max-content);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
     color: var(--color-bg-primary-blue);
+    padding: 24px;
+    background: #f6f8fc;
+    position: relative;
+    z-index: 0;
 }
 
 main > div.title-report{
     width: 100%;
     padding: 20px;
+    color: white;
+    background-color: var(--color-bg-blue-darker);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+main > .title-report > h1{
     display: flex;
     align-items: center;
-    column-gap: 10px;
-    color: white;
-    background-color: var(--color-bg-primary-blue);
-}
-
-main > .title-report > h2{
-    font-size: 1.4rem;
-    font-weight: lighter;
+    column-gap: 5px;
+    font-size: 2rem;
+    margin-bottom: 10px;
     
 }
-
-main > .title-report > i{
-    font-size: 1.8rem;
+.title-report > h1 > i{
+    font-size: 3rem;
 }
 
-main > p{
-    font-size: .9rem;
-    margin: 10px;
+main > .title-report > p{
+    font-size: 1rem;
+    color: white;
 }
 
 main > section{
-    padding: 10px;
-    align-self: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    background: white;
+    padding: 20px;
 }
 
 main > section > form{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: max-content;
-    gap: 10px;
+    grid-auto-rows: auto;
+    gap: 20px 10px;
     grid-template-areas: 
     "item1 item2 item2"
     "item3 item4 item5"
     "item6 item6 item6"
     "none none btn";
-    margin: 0px 10px 10px 10px;
 }
 
 main > section > form > div{
@@ -67,8 +87,9 @@ main > section > form > div > label{
 
 main > section > form > div > input{
     padding: 12px;
-    border: 2px solid var(--color-bg-primary-blue);
+    border: 2px solid royalblue;
     border-radius: 5px;
+    background: #f0f4ff;
 }
 
 main > section > form > #item1{
@@ -100,9 +121,10 @@ main > section > form > #item6{
 main > section > form > #item6 > textarea{
     height: 200px;
     resize: none;
-    padding: 10px;
-    border: 2px solid var(--color-bg-primary-blue);
+    padding: 12px;
+    border: 2px solid royalblue;
     border-radius: 5px;
+    background: #f0f4ff;
 }
 
 main > section > form > button{
