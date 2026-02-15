@@ -45,7 +45,7 @@ main > .title-report > h1{
     align-items: center;
     column-gap: 5px;
     font-size: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     
 }
 .title-report > h1 > i{
@@ -129,12 +129,26 @@ main > section > form > #item6 > textarea{
 
 main > section > form > button{
     margin-top: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     grid-area: btn;
     justify-self: end;
     align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
     color: white;
-    background-color: var(--color-bg-primary-blue);
+    width: 50%;
+    height: 100%;
+    background-color: royalblue;
+}
+
+section > form > button > i{
+    font-size: 1.2rem;
+}
+
+main > section > form > button:hover{
+    background-color: var(--color-bg-blue-darker);
 }
 
 

@@ -20,14 +20,12 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
-        </header>
+        
         <nav id="sidebar">
             <div id="sidebar-content">
                 <i class="ph-bold ph-list"></i>
                 <ul id="sidebar-items">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item active">
                         <a href="/inicio">
                             <i class="ph-bold ph-map-trifold"></i>
                             <span class="item-title">Mapa</span>
@@ -60,8 +58,13 @@
                 </button>
             </div>
         </nav>
+        <header>
+            <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
+        </header>
         <main>
-            <div id="map"></div>
+            <section>
+                <div id="map"></div>
+            </section>
         </main>
     </div>
     <script src="../assets/JS/mapa.js"></script>
