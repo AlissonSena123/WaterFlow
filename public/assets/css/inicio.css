@@ -26,47 +26,56 @@ main{
     background-size: cover;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
 }
 
 main > section{
-    margin-bottom: 10px;
     padding: 20px;
     box-shadow: var(--shadow-soft);
     border-radius: 12px;
     background-color: white;
 }
 
-main > #section-search{
+main > #section-map{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    row-gap: 10px;
+}
+
+#section-map > #div-search {
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 400px max-content;
+    justify-content: flex-end;
+    background-color: white;
+    padding: 15px;
+    column-gap: 10px;
+    border-radius: 9px;
+}
+
+main > #section-map > #div-search > input{
+    padding: 13px;
+    border: 2px solid var(--color-bg-primary-blue);
+    background-color: #f0f4ff;
+    border-radius: 6px;
+}
+
+main > #section-map > #div-search > button{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    border-radius: 6px;
+    padding: 13px;
+    width: 100px;
+}
+
+#section-map > #div-search > button:hover{
     background-color: var(--color-bg-blue-darker);
 }
 
-main > #section-search > .barraDePesquisa{
-    display: flex;
-    align-items: center;
-}
-
-main > #section-search > .barraDePesquisa > input{
-    padding: 10px;
-    border-radius: 6px 0px 0px 6px;
-    border: none;
-    background-color: #f0f4ff;
-    width: 30%;
-}
-
-main > #section-search > .barraDePesquisa > button{
-    border-radius: 0px 6px 6px 0px;
-    padding: 11px;
-    width: 5%;
-    background-color: royalblue;
-    color: white;
-}
-
-main > section#section-map > #map{
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
+main > #section-map > #map{
     box-shadow: var(--shadow-soft);
+    border-radius: 9px;
 }
 
