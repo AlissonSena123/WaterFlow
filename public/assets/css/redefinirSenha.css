@@ -36,8 +36,28 @@ header{
     position: relative;
 }
 
-header > img{
-    width: 100px;
+header > a{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: var(--color-bg-primary-blue);
+    width: max-content;
+    padding: 10px;
+    transition: all .2s ease-in-out;
+    border-radius: 50px;
+}
+
+header > a > i{
+    font-size: 1.5rem;
+}
+
+header > a:hover{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    transform: translateY(-4px);
+    
 }
 
 main{
@@ -49,42 +69,7 @@ main{
     background: var(--color-bg-primary-blue) url(../Img/backgroundWeveEffect.svg) no-repeat top center;
 }
 
-.section-redefinirSenha{
-    box-shadow: 0px 0px 10px black;
-    background-color: white;
-}
 
-.section-redefinirSenha > form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.section-redefinirSenha > form > input{
-    padding: 20px;
-    width: 100%;
-    border: 2px solid royalblue;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-.section-redefinirSenha > form > button{
-    width: 100%;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-footer {
-    background-color: rgb(37, 69, 165);
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-
-footer > p{
-    padding: 10px;
-    color: white;
+.sctForgottenPassword > form{
+    gap: 10px;
 }

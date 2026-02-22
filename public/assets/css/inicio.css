@@ -45,27 +45,26 @@ main > #section-map{
 }
 
 #section-map > #div-search {
-    box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.248);
     display: grid;
     grid-template-columns: 400px max-content;
     justify-content: flex-end;
     background-color: white;
     padding: 15px;
-    column-gap: 10px;
-    border-radius: 9px;
+    border-radius: 50px;
 }
 
 main > #section-map > #div-search > input{
     padding: 13px;
     border: 2px solid var(--color-bg-primary-blue);
     background-color: #f0f4ff;
-    border-radius: 6px;
+    border-radius: 50px 0px 0px 50px;
 }
 
 main > #section-map > #div-search > button{
     background-color: var(--color-bg-primary-blue);
     color: white;
-    border-radius: 6px;
+    border-radius: 0px 50px 50px 0px;
     padding: 13px;
     width: 100px;
 }
