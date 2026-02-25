@@ -39,10 +39,8 @@ main{
 }
 
 main > .section-login{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
     gap: 20px;
     width: 90%;
     max-width: 500px;
@@ -51,18 +49,20 @@ main > .section-login{
     box-shadow: var(--shadow-soft);
     padding: 40px;
     border-radius: 10px;
-    color: var(--color-text-primary-black);
+    border: 2px solid var(--color-bg-blue-darker);
+    color: black;
 }
 
-main > .section-login > .form-header{
-    text-align: center;
+main > .section-login > .section-login-header{
+    font-weight: lighter;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 main > .section-login > form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 10px;
     width: 100%;
 }
 
@@ -71,7 +71,6 @@ main > .section-login > form > .form-item-login{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
     width: 100%;
 }
 
@@ -96,14 +95,14 @@ main > .section-login > form > .form-item-login > input{
 }
 
 main > .section-login > form > a{
-    align-self: flex-end;
+    justify-self: flex-end;
     margin: 0px 0px 25px 0px;
     color: var(--color-bg-blue-darker);
 }
 
 main > .section-login > form > button{
     padding: 15px;
-    width: 50%;
+    width: 100%;
     background-color: royalblue;
     display: flex;
     justify-content: center;
@@ -113,4 +112,12 @@ main > .section-login > form > button{
 
 main > .section-login > form > button > span{
     font-size: 1.5rem;
+}
+
+main > .section-login > p{
+    text-align: center;
+}
+
+hr{
+    border: 1px solid var(--color-bg-blue-darker);
 }
