@@ -1,4 +1,5 @@
 const btnLogin = document.getElementById("btnLogin");
+
 btnLogin.addEventListener("click", async (event) => {
     event.preventDefault();
 
