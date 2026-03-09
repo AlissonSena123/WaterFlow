@@ -15,9 +15,6 @@
     <div class="container">
         <header>
             <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
-            <nav>
-                <button type="button" class="btn-outline" onclick="window.location.href = '/cadastro'">Cadastrar</button>
-            </nav>
         </header>
         <main>
             <section class="section-login">
@@ -28,19 +25,22 @@
                 <form action="/login" method="post" autocomplete="off">
                     <div class="form-item-login">
                         <label for="idEmail" class="ph-fill ph-at"></label>
-                        <input type="email" name="email" id="idEmail" required placeholder="@email.com" autocomplete="email">
+                        <input type="email" name="email" id="idEmail" required placeholder="Digite seu email" autocomplete="email">
                     </div>
                     <div class="form-item-login">
                         <label for="idSenha" class="ph-fill ph-password"></label>
-                        <input type="password" name="senha" id="idSenha" required placeholder="************" autocomplete="current-password" minlength="10" maxlength="15">
+                        <input type="password" name="senha" id="idSenha" required placeholder="Digite sua senha" autocomplete="current-password" minlength="10" maxlength="15">
+                        <span class="toggle-senha" id="toggleMostrarSenha">
+                            <i class="ph-fill ph-eye" id="iconToggle"></i>
+                        </span>
                     </div>
                     <a href="/redefinir">Esqueceu sua senha?</a>
-                    <button type="submit" class="btn-primary"><span class="ph-fill ph-sign-in"></span>Entrar</button>
+                    <button type="submit"><span class="ph-fill ph-sign-in"></span>Entrar</button>
                 </form>
-                <hr>
                 <p>Primeira vez aqui? <a href="/cadastro">Cadastra-se</a></p>
             </section>
         </main>
     </div>
+    <script src="../assets/JS/login.js"></script>
 </body>
 </html>

@@ -11,49 +11,51 @@
 <body>
     <div class="container">
         <main>
-            <section class="section-left"> 
-                <img src="../assets/Img/LogoWhiteV1.png" alt="">
-            </section>
-            <section class="section-right">
-                <h2>Criar uma conta no WaterFlow gratuitamente</h2>
-                <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
-                <form action="/api/cadastrar" method="post" autocomplete="off">
-                    <div class="form-item-register item1">
-                        <label for="idNome">Nome Completo</label>
-                        <input type="text" name="nome_completo" id="idNome" placeholder="Seu Nome" required>
-                    </div>
-                    <div class="form-item-register item2">
-                        <label for="idEmail">Email</label>
-                        <input type="email" name="email" id="idEmail" placeholder="seuemail@exemplo.com" required>
-                    </div>
-                    <div class="form-item-register item3">
-                        <label for="idSenha">Senha</label>
-                        <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
-                        <p>*Digite senhas de 10 a 15 caracteres</p>
-                    </div>
-                    <div class="form-item-register item4">
-                        <label for="idData">Data de Nascimento</label>
-                        <input type="date" name="data_nascimento" id="idData" required>
-                    </div>
-                    <div class="form-item-register item5">
-                        <label for="idTelefone">Telefone</label>
-                        <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" inputmode="numeric">
-                    </div>
-                    <div class="form-item-register item6">
-                        <label for="idCEP">CEP</label>
-                        <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
-                        <p id="errorCEP"></p>
-                    </div>
-                    <div class="form-item-register itemCep item7">
-                        <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
-                        <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
-                        <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
-                        <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
-                    </div>
-                    <button type="submit">Cadastrar-se</button>
-                </form>
-                <hr>
-                <p class="link-login">Já tem conta? <a href="/login">Entrar</a></p>
+            <section class="section-register">
+                <section class="section-left">
+                    <img src="../assets/Img/LogoWhiteV1.png" alt="">
+                </section>
+                <section class="section-right">
+                    <h2>Criar uma conta no WaterFlow gratuitamente</h2>
+                    <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
+                    <form action="/api/cadastrar" method="post" autocomplete="off">
+                        <div class="form-item-register item1">
+                            <label for="idNome">Nome Completo</label>
+                            <input type="text" name="nome_completo" id="idNome" placeholder="Seu Nome" required>
+                        </div>
+                        <div class="form-item-register item2">
+                            <label for="idEmail">Email</label>
+                            <input type="email" name="email" id="idEmail" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                        <div class="form-item-register item3">
+                            <label for="idSenha">Senha</label>
+                            <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
+                            <p>*Digite senhas de 10 a 15 caracteres</p>
+                        </div>
+                        <div class="form-item-register item4">
+                            <label for="idData">Data de Nascimento</label>
+                            <input type="date" name="data_nascimento" id="idData" required>
+                        </div>
+                        <div class="form-item-register item5">
+                            <label for="idTelefone">Telefone</label>
+                            <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" inputmode="numeric">
+                        </div>
+                        <div class="form-item-register item6">
+                            <label for="idCEP">CEP</label>
+                            <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
+                            <p id="errorCEP"></p>
+                        </div>
+                        <div class="form-item-register itemCep item7">
+                            <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
+                            <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
+                            <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
+                            <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
+                        </div>
+                        <button type="submit">Cadastrar-se</button>
+                    </form>
+                    <hr>
+                    <p class="link-login">Já tem conta? <a href="/login">Entrar</a></p>
+                </section>
             </section>
         </main>
     </div>

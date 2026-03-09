@@ -1,3 +1,11 @@
+.container{
+    grid-template-areas: 
+    "header"
+    "main";
+    background-color: rgba(208, 237, 255, 0.478);
+    backdrop-filter: blur(5px);
+}
+
 body{
     background: url(../Img/backgroundWeveEffect.svg) no-repeat top center;
     background-size: cover;
@@ -5,22 +13,13 @@ body{
 
 header{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: rgb(255, 255, 255);
-    position: relative;
 }
 
 header > img{
-    width: 100px;
-}
-
-header > nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    width: 150px;
 }
 
 header > nav > button{
@@ -42,13 +41,12 @@ main > .section-login{
     gap: 20px;
     width: 90%;
     max-width: 500px;
-    background-image: linear-gradient(to top, white, rgba(255, 255, 255, 0.152));
+    background: white;
     backdrop-filter: blur(12px);
-    box-shadow: var(--shadow-soft);
-    padding: 40px;
+    box-shadow: var(--shadow-medium);
+    padding: 50px;
     border-radius: 10px;
-    border: 2px solid var(--color-bg-blue-darker);
-    color: black;
+    color: var(--color-bg-primary-blue);
 }
 
 main > .section-login > .section-login-header{
@@ -74,7 +72,7 @@ main > .section-login > form > .form-item-login{
 
 main > .section-login > form > .form-item-login > label{
     font-size: 2rem;
-    background-color: var(--color-bg-blue-darker);
+    background-color: var(--color-bg-primary-blue);
     padding: 11.1px;
     color: white;
     display: flex;
@@ -86,27 +84,34 @@ main > .section-login > form > .form-item-login > label{
 
 main > .section-login > form > .form-item-login > input{
     width: 100%;
-    border: 2px solid var(--color-bg-blue-darker);
+    border: 2px solid var(--color-bg-primary-blue);
+    background-color: var(--color-bg-white-opacity);
     padding: 16.7px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
+.section-login > form > .form-item-login > input#idSenha{
+    position: relative;
+}
+
 main > .section-login > form > a{
     justify-self: flex-end;
-    margin: 0px 0px 25px 0px;
+    margin-bottom: 15px;
     color: var(--color-bg-blue-darker);
 }
 
 main > .section-login > form > button{
     padding: 15px;
     width: 100%;
-    background-color: royalblue;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 5px;
 }
+
 
 main > .section-login > form > button > span{
     font-size: 1.5rem;
@@ -116,6 +121,46 @@ main > .section-login > p{
     text-align: center;
 }
 
+main > .section-login > p > a{
+    color: var(--color-bg-primary-blue);
+    
+}
+
 hr{
     border: 1px solid var(--color-bg-blue-darker);
+}
+
+a{
+    transition: .2s;
+}
+
+.toggle-senha{
+    position: absolute;
+    right: 60px;
+    top: 52.2%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+
+.toggle-senha > i{
+    font-size: 1.3rem;
+}
+/* HOVER */
+
+.section-login > form > button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-4px);
+}
+
+.section-login > p > a:hover,
+.section-login > form > a:hover{
+    color: var(--color-bg-secondary-blue);
+}
+
+
+/* FOCUS */
+
+.section-login > form > .form-item-login > input:focus{
+    background-color: white;
 }
