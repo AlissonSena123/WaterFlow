@@ -103,7 +103,7 @@ main > .section-login > form > a{
 
 main > .section-login > form > button{
     padding: 15px;
-    width: 90%;
+    width: 100%;
     background-color: var(--color-bg-primary-blue);
     color: white;
     display: flex;
@@ -127,10 +127,6 @@ main > .section-login > p > a{
     
 }
 
-hr{
-    border: 1px solid var(--color-bg-blue-darker);
-}
-
 a{
     transition: .2s;
 }
@@ -138,7 +134,7 @@ a{
 .toggle-senha{
     position: absolute;
     right: 60px;
-    top: 49.7%;
+    top: 52.1%;
     transform: translateY(-50%);
     cursor: pointer;
 }

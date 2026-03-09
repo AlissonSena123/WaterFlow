@@ -26,8 +26,8 @@ main{
     background-size: cover;
     padding: 10px;
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+    grid-template-rows: auto 1fr;
+    row-gap: 10px;
 }
 
 main > section{
@@ -40,37 +40,35 @@ main > section{
 main > #section-map{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    row-gap: 10px;
+    grid-template-rows: 1fr;
 }
 
-#section-map > #div-search {
-    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.248);
+#section-search {
     display: grid;
-    grid-template-columns: 400px max-content;
+    grid-template-columns: 500px auto;
     justify-content: flex-end;
-    background-color: white;
+    background-color: var(--color-bg-blue-darker);
     padding: 15px;
-    border-radius: 50px;
+    column-gap: 10px;
 }
 
-main > #section-map > #div-search > input{
+#section-search > input{
     padding: 13px;
-    border: 2px solid var(--color-bg-primary-blue);
+    border: none;
     background-color: #f0f4ff;
-    border-radius: 50px 0px 0px 50px;
+    border-radius: 9px;
 }
 
-main > #section-map > #div-search > button{
-    background-color: var(--color-bg-primary-blue);
+#section-search > button{
+    background-color: royalblue;
     color: white;
-    border-radius: 0px 50px 50px 0px;
+    border-radius: 9px;
     padding: 13px;
     width: 100px;
 }
 
-#section-map > #div-search > button:hover{
-    background-color: var(--color-bg-blue-darker);
+#section-search > button:hover{
+    background-color: var(--color-bg-secondary-blue);
 }
 
 main > #section-map > #map{

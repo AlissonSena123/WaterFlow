@@ -86,10 +86,10 @@ main > section > form > div > label{
 }
 
 main > section > form > div > input{
-    padding: 12px;
-    border: 2px solid royalblue;
+    padding: 16.7px;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
-    background: #f0f4ff;
+    background: var(--color-bg-white-opacity);
 }
 
 main > section > form > #item1{
@@ -121,10 +121,10 @@ main > section > form > #item6{
 main > section > form > #item6 > textarea{
     height: 200px;
     resize: none;
-    padding: 12px;
-    border: 2px solid royalblue;
+    padding: 16.7px;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
-    background: #f0f4ff;
+    background: var(--color-bg-white-opacity);
 }
 
 main > section > form > button{
@@ -152,6 +152,17 @@ main > section > form > button:hover{
 }
 
 
+/* FOCUS */
+form > div > input:focus,
+form > #item6 > textarea:focus{
+    background-color: white;
+    outline: none;
+    border-color: black;
+    box-shadow: 0 0 5px var(--color-bg-secondary-blue);
+}
+
+
+/* MEDIA QUERYS */
 @media (max-width: 850px){
     main > section > form{
         grid-template-columns: 1fr;

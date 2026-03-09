@@ -21,7 +21,7 @@ document.getElementById("btn-logout").addEventListener("click", async () => {
 
     } catch (error) {
         console.error(error);
-        mostrarToast("Erro interno no Servidor!");
+        mostrarToast("Erro interno no servidor!");
     }
 });
 
