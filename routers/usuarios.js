@@ -53,31 +53,38 @@ router.post("/api/cadastrar", async (req, res) => {
   }
 });
 
+// ROTA DE LOGIN
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
+
+  if(!email || !senha){
+    return res.json({success:false, message:"Preencha todos os campos"});
+  }
 
   try {
     const usuario = await Usuario.findOne({ where: { email } });
 
     if (!usuario) {
-      return res.send("<script>alert('Email não encontrado'); window.history.back();</script>");
+      return res.json({success:false, message:"Email ou senha inválidos"});
     }
 
     // Compara a senha digitada com o hash armazenado
     const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaCorreta) {
-      return res.send("<script>alert('Senha incorreta'); window.history.back();</script>");
+      return res.json({success:false, message:"Email ou senha inválidos"});
     }
 
     //salvar sessao do usuario;
     req.session.userId = usuario.id;
     req.session.username = usuario.nome_completo;
     // Login bem-sucedido
-    res.redirect("/inicio");
+    
+    res.json({success:true});
+
   } catch (err) {
     console.error("Erro no login:", err);
-    res.status(500).send("Erro interno no servidor");
+    res.status(500).json({success:false, message:"Erro interno no servidor, tente de novo mais tarde"});
   }
 });
 
@@ -133,7 +140,7 @@ router.post("/redefinirSenha", async (req, res) => {
       subject: "Redefinir senha WaterFlow",
       html: `
       <h2>Redefinir Senha</h2>
-      <p>Voce pediu par redefinir sua senha.</p>
+      <p>Voce pediu para redefinir sua senha.</p>
       <p>Clique no link abaixo para continuar:</p>
       <a href="${resetURL}">${resetURL}</a>
       <p>O link expira em 1 hora.</p>`
