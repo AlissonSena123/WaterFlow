@@ -72,6 +72,10 @@ server.get("/redefinir/confirmar", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/redefinirsenha.html"));
 })
 
+server.get("/funcionario/poligonos", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/pages/funcionario/poligonos.html"))
+});
+
 server.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}/login`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/funcionario/poligonos`);
 });
