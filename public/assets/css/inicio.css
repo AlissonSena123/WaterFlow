@@ -24,15 +24,14 @@ header img{
 main{
     background: white url(../Img/backgroundWeveEffect.svg) no-repeat center center;
     background-size: cover;
-    padding: 10px;
+    padding: 24px;
     display: grid;
-    grid-template-rows: auto 1fr;
-    row-gap: 10px;
+    grid-template-rows: 1fr;
 }
 
 main > section{
     padding: 20px;
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-medium);
     border-radius: 12px;
     background-color: white;
 }
@@ -40,39 +39,42 @@ main > section{
 main > #section-map{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: auto 1fr;
+    row-gap: 10px;
 }
 
-#section-search {
-    display: grid;
-    grid-template-columns: 500px auto;
-    justify-content: flex-end;
-    background-color: var(--color-bg-blue-darker);
-    padding: 15px;
+main > #section-map > .div-search{
+    display: flex;
+    width: 50%;
     column-gap: 10px;
 }
 
-#section-search > input{
+.div-search > input{
     padding: 13px;
-    border: none;
     background-color: #f0f4ff;
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 9px;
+    width: 100%;
 }
 
-#section-search > button{
-    background-color: royalblue;
+.div-search > button{
+    background-color: var(--color-bg-primary-blue);
     color: white;
-    border-radius: 9px;
-    padding: 13px;
-    width: 100px;
-}
-
-#section-search > button:hover{
-    background-color: var(--color-bg-secondary-blue);
 }
 
 main > #section-map > #map{
     box-shadow: var(--shadow-soft);
     border-radius: 9px;
+    border: 2px solid var(--color-bg-primary-blue);
 }
 
+/* HOVER */
+.div-search > button:hover{
+    background-color: var(--color-bg-secondary-blue);
+}
+
+/* FOCUS */
+
+.div-search > input:focus{
+    background-color: white;
+}
