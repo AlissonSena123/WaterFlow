@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     
     <link rel="stylesheet" href="../../assets/css/global.css">
-    <link rel="stylesheet" href="../../assets/css/reporteAdmin.css">
+    <link rel="stylesheet" href="../../assets/css/funcionario/reporteAdmin.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
 
 </head>
@@ -73,6 +73,26 @@
                     <p>Status: <strong>Pronto para gerar</strong> � Última atualizacao: 12:40</p>
                 </div>
             </section>
+            <section class="filtro">
+
+              <div class="field">
+                <label for="dataReport">Data:</label>
+                <input type="date" name="dataReport" id="dataReport">
+              </div>
+
+              <div class="field">
+                <label for="regionReport">Região:</label>
+                <input type="tel" name="regionReport" id="regionReport" placeholder="Ex: Centro">
+              </div>
+
+              <button type="button"> <i class="ph-fill ph-file-magnifying-glass"></i> Filtrar</button>
+
+            </section>
+
+            <section class="reportUserList">
+              
+            </section>
+
         </main>
 
     </div>

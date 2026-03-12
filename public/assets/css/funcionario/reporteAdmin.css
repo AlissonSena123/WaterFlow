@@ -62,3 +62,44 @@ main > section > h2 > i{
 .status > div > h1 > i{
   font-size: 3rem;
 }
+
+.filtro{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 200px;
+  gap: 16px;
+}
+
+.filtro > .field{ display: flex; flex-direction: column; gap: 6px; }
+
+.field > input{
+  background: #f0f4ff;
+  padding: 12px;
+  border: 2px solid rgba(54, 101, 255, 0.76);
+  border-radius: 6px;
+  width: 100%; 
+}
+
+.filtro > button{
+  width: 100%;
+  background-color: royalblue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.filtro > button > i{
+  font-size: 2rem;
+}
+
+/* HOVER */
+.filtro > button:hover{
+  background-color: var(--color-bg-blue-darker);
+}
+
+/* FOCUS */
+
+.field > input:focus{
+  background-color: white;
+}
