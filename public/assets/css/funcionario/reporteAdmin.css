@@ -65,7 +65,7 @@ main > section > h2 > i{
 
 .filtro{
   display: grid;
-  grid-template-columns: repeat(2, 1fr) 200px;
+  grid-template-columns: repeat(3, 1fr) 200px;
   gap: 16px;
 }
 
@@ -91,6 +91,23 @@ main > section > h2 > i{
 
 .filtro > button > i{
   font-size: 2rem;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td{
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
+}
+
+thead{
+  background: #f0f4ff;
 }
 
 /* HOVER */
