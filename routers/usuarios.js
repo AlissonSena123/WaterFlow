@@ -1,14 +1,13 @@
+const { supabase } = require("../config/supabase");
 const express = require("express");
 const bcrypt = require("bcrypt");
-const Usuario = require("../models/Usuario");
 const router = express.Router();
 const crypto = require("crypto");
-const { Op } = require('sequelize');
-const { Sequelize } = require('sequelize');
 const nodemailer = require("nodemailer")
 const path = require("path");
-// --- ROTAS DE CADASTRO E LOGIN (MANTIDAS) ---
 
+
+// --- ROTAS DE CADASTRO E LOGIN (MANTIDAS) ---
 router.post("/api/cadastrar", async (req, res) => {
   const {
     nome_completo,
@@ -23,30 +22,41 @@ router.post("/api/cadastrar", async (req, res) => {
   } = req.body;
 
   try {
-    // Verifica se o e-mail já existe
-    const usuarioExistente = await Usuario.findOne({ where: { email } });
-    if (usuarioExistente) {
+    const { data, error } = await supabase
+      .from("Users")
+      .select("id")
+      .eq("email", email);
+
+    if (error) throw error;
+
+    if (data.length > 0) {
       return res
         .status(400)
         .send("<script>alert('E-mail já cadastrado!'); window.history.back();</script>");
     }
 
-    // Criptografa a senha antes de salvar
     const senhaHash = await bcrypt.hash(senha, 10);
 
-    await Usuario.create({
-      nome_completo,
-      data_nascimento,
-      email,
-      senha: senhaHash,
-      telefone,
-      CEP,
-      cidade,
-      estado,
-      pais,
-    });
+    const { error: insertError } = await supabase
+      .from("Users")
+      .insert([
+        {
+          nome_completo,
+          data_nascimento,
+          email,
+          senha: senhaHash,
+          telefone,
+          CEP,
+          cidade,
+          estado,
+          pais,
+        },
+      ]);
+
+    if (insertError) throw insertError;
 
     res.send(`<script>alert('Usuário ${nome_completo} cadastrado com sucesso!'); window.location.href = '/login';</script>`);
+
   } catch (err) {
     console.error("Erro ao cadastrar:", err);
     res.status(500).send("Erro ao cadastrar usuário!");
@@ -62,22 +72,28 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const usuario = await Usuario.findOne({ where: { email } });
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("email", email)
+      .single();
 
-    if (!usuario) {
+    if (error || !data) {
       return res.json({success:false, message:"Email ou senha inválidos"});
     }
 
+    const users = data;
+
     // Compara a senha digitada com o hash armazenado
-    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+    const senhaCorreta = await bcrypt.compare(senha, users.senha);
 
     if (!senhaCorreta) {
       return res.json({success:false, message:"Email ou senha inválidos"});
     }
 
     //salvar sessao do usuario;
-    req.session.userId = usuario.id;
-    req.session.username = usuario.nome_completo;
+    req.session.userId = users.id;
+    req.session.username = users.nome_completo;
     // Login bem-sucedido
     
     res.json({success:true});
@@ -88,8 +104,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO (POST /redefinirSenha) ---
 
+// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO (POST /redefinirSenha) ---
 router.post("/redefinirSenha", async (req, res) => {
   const { email } = req.body;
 
@@ -100,23 +116,30 @@ router.post("/redefinirSenha", async (req, res) => {
   const emailLimpo = email.trim().toLowerCase();
 
   try {
-    const usuario = await Usuario.findOne({
-      where: { email: emailLimpo }
-    });
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("email", emailLimpo)
+      .single()
 
     // Regra de Segurança: Não diz se o email foi encontrado, mas simula o envio
-    if (!usuario) {
+    if (!data || error) {
       return res.redirect("/instrucoes_enviadas");
     };
+
+    const users = data;
 
     const token = crypto.randomBytes(32).toString('hex')
 
     const expirar = new Date();
     expirar.setHours(expirar.getHours() + 1);
 
-    usuario.resetToken = token;
-    usuario.tokenExpiration = expirar;
-    await usuario.save();
+    const { error: updateError } = await supabase
+      .from("Users")
+      .update({resetToken: token, tokenExpiration: expirar})
+      .eq("id", users.id);
+
+    if (updateError) throw updateError;
 
     const transporte = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -169,14 +192,14 @@ router.get("/redefinir-senha/:token", async (req, res) => {
   const now = new Date();
 
   try {
-    const usuario = await Usuario.findOne({
-      where: {
-        resetToken: token,
-        tokenExpiration: { [Op.gt]: now }
-      }
-    });
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("resetToken", token)
+      .gt("tokenExpiration", now.toISOString())
+      .single();
 
-    if (!usuario) {
+    if (!data || error) {
       return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
     }
 
@@ -190,7 +213,8 @@ router.get("/redefinir-senha/:token", async (req, res) => {
 
 
 router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
-  const { senha, token } = req.body; // AGORA bate com o frontend
+  const { senha } = req.body; // AGORA bate com o frontend
+  const { token } = req.params;
   const now = new Date();
 
   try {
@@ -201,14 +225,14 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
       });
     }
 
-    const usuario = await Usuario.findOne({
-      where: {
-        resetToken: token,
-        tokenExpiration: { [Op.gt]: now }
-      }
-    });
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("resetToken", token)
+      .gt("tokenExpiration", now.toISOString())
+      .single();
 
-    if (!usuario) {
+    if (!data || error) {
       return res.status(400).json({
         sucesso: false,
         error: "Link inválido ou expirado."
@@ -217,10 +241,16 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 
     const hash = await bcrypt.hash(senha, 10);
 
-    usuario.senha = hash;
-    usuario.resetToken = null;
-    usuario.tokenExpiration = null;
-    await usuario.save();
+    const { error: updateError } = await supabase
+      .from("Users")
+      .update({
+        senha: hash,
+        resetToken: null,
+        tokenExpiration: null
+      })
+      .eq("id", data.id);
+
+      if(updateError) throw updateError;
 
     return res.json({
       sucesso: true,
