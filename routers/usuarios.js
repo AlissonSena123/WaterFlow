@@ -263,6 +263,44 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
+router.post("/reporte/enviar", async (req, res) => {
+  const { nome, email, rua, bairro, descricao } = req.body
+
+  if(!email || !nome || !rua || !bairro){
+    return res.json({success:false, message:"Preencha todos os campos"});
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("reportUsers")
+      .insert([
+        {
+          nome: nome,
+          email: email,
+          rua: rua,
+          bairro: bairro,
+          descricao: descricao
+        }
+      ]);
+
+      if (!data || error) {
+        return res.status(400).json({
+          sucesso: false,
+          error: "Erro ao enviar reporte"
+        });
+      }
+
+      if(error) throw error;
+
+      return res.json({ success: true, message: "Dados enviados com sucesso!" });
+
+  } catch (error) {
+    console.error("Erro na validação do token:", error);
+    res.status(500).send("Erro interno do servidor.");
+  }
+
+});
+
 //rota de logout
 router.post("/logout", (req, res) => {
   if(req.session.userId){
