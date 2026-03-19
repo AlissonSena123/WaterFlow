@@ -15,10 +15,10 @@ router.post("/api/cadastrar", async (req, res) => {
     email,
     senha,
     telefone,
-    CEP,
     cidade,
     estado,
     pais,
+    bairro,
   } = req.body;
 
   try {
@@ -46,10 +46,10 @@ router.post("/api/cadastrar", async (req, res) => {
           email,
           senha: senhaHash,
           telefone,
-          CEP,
           cidade,
           estado,
           pais,
+          bairro,
         },
       ]);
 
