@@ -1,5 +1,7 @@
 const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe";
 
+let municipiosData;
+
 // Criar mapa
 const map = new maplibregl.Map({
     container: "map",
@@ -30,9 +32,41 @@ const draw = new MapboxDraw({
 map.on("load", () => {
 
     map.addControl(draw);
+
+    fetch("/assets/mapas/salvador_bairros.geojson").then(res => res.json()).then(data => {
+
+        municipiosData = data
+
+        console.log("Carregado", data)
+
+        map.addSource("municipios", {
+            type: "geojson",
+            data: data,
+        });
+
+        map.addLayer({
+            id: "municipios-layer",
+            type: "fill",
+            source: "municipios",
+            paint: {
+                "fill-color": "#0080ff",
+                "fill-opacity": 0.2,
+                "fill-outline-color": "#003366"
+            }
+        });
+    })
+
     carregarPoligonos();
 
 });
+
+map.on("click", "municipios-layer", (e) => {
+    const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
+
+    document.getElementById("buscarArea").value = nomeMunicipio;
+
+    console.log("Municipios clicado", nomeMunicipio);
+})
 
 //identificar quando o mapa é apagado no front
 map.on("draw.delete", (e) => {
@@ -41,7 +75,7 @@ map.on("draw.delete", (e) => {
 
         const id = feature.properties?.id;
 
-        if(id){
+        if (id) {
 
             deletarPoligono(id);
 
@@ -56,7 +90,7 @@ document.getElementById("btnSalvar").addEventListener("click", () => {
 
     const data = draw.getAll();
 
-    if(data.features.length === 0){
+    if (data.features.length === 0) {
         alert("Desenhe um poligono primeiro!")
         return;
     }
@@ -70,7 +104,7 @@ document.getElementById("btnSalvar").addEventListener("click", () => {
 });
 
 // SALVAR NO BACKEND
-function salvarPoligono(geojson){
+function salvarPoligono(geojson) {
 
     const status = document.getElementById("status").value;
 
@@ -78,7 +112,7 @@ function salvarPoligono(geojson){
 
         method: "POST",
 
-        headers:{
+        headers: {
             "Content-Type": "application/json"
         },
 
@@ -91,42 +125,81 @@ function salvarPoligono(geojson){
         })
 
     })
-    .then(res => res.json())
-    .then(data => {
+        .then(res => res.json())
+        .then(data => {
 
-        console.log("Poligono salvo", data);
+            console.log("Poligono salvo", data);
 
-        // adiciona o id do banco no poligono
-        const features = draw.getAll().features;
+            // adiciona o id do banco no poligono
+            const features = draw.getAll().features;
 
-        const ultimo = features[features.length - 1];
+            const ultimo = features[features.length - 1];
 
-        ultimo.properties = {
-            id: data.id
-        };
+            ultimo.properties = {
+                id: data.id
+            };
 
-    });
+        });
 
 }
 
-function carregarPoligonos(){
+function carregarPoligonos() {
     fetch("/poligonos")
 
-    .then(res => res.json())
-    .then(poligonos => {
-        poligonos.forEach(p => {
-            if(p.geojson){
-                draw.add(p.geojson);
-            }
+        .then(res => res.json())
+        .then(poligonos => {
+            poligonos.forEach(p => {
+                if (p.geojson) {
+                    draw.add(p.geojson);
+                }
+            })
         })
-    })
 }
 
 //funçao para deletar o poligono
-function deletarPoligono(id){
+function deletarPoligono(id) {
     fetch(`/poligonos/${id}`, {
         method: "DELETE"
     }).then(res => res.json()).then(data => {
         console.log("Poligono deletado", data);
     })
 }
+
+function buscarRegiao(nome) { 
+
+    if(!municipiosData) return;
+
+    const regiao = municipiosData.features.find(f =>
+        f.properties.NM_BAIRRO.toLowerCase().includes(nome.toLowerCase())
+    );
+
+    if(!regiao){
+        alert("Região não encontrada!");
+        return;
+    }
+
+    const bbox = turf.bbox(regiao);
+
+    map.fitBounds(bbox, {
+        padding: 40
+    });
+}
+
+document.getElementById("buscarArea").addEventListener("keypress", (e) => {
+
+    if(e.key === "Enter") {
+        buscarRegiao(e.target.value);
+    }
+
+})
+
+map.setPaintProperty(
+    "municipios-layer",
+    "fill-color",
+    [
+        "case",
+        ["==", ["get", "name"], nome],
+        "#ff0000",
+        "#0080ff"
+    ]
+)
