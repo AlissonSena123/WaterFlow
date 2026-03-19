@@ -72,7 +72,7 @@ main > .section-login > form > .form-item-login{
 
 main > .section-login > form > .form-item-login > label{
     font-size: 2rem;
-    background-color: royalblue;
+    background-color: var(--color-bg-blue-darker);
     padding: 11.1px;
     color: white;
     display: flex;
@@ -84,7 +84,7 @@ main > .section-login > form > .form-item-login > label{
 
 main > .section-login > form > .form-item-login > input{
     width: 100%;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     background-color: var(--color-bg-white-opacity);
     padding: 16.7px;
     border-top-right-radius: 5px;
