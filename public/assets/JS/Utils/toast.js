@@ -1,4 +1,4 @@
-export function mostrarToast(msg) {
+export function mostrarToast(msg, color) {
     const toast = document.getElementById("toast");
 
     if (!toast) {
@@ -7,6 +7,7 @@ export function mostrarToast(msg) {
     }
 
     toast.innerHTML = msg;
+    toast.style.backgroundColor = color;
     toast.classList.add("show");
 
     setTimeout(() => {

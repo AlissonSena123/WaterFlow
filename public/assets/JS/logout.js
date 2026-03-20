@@ -1,3 +1,5 @@
+import { mostrarToast } from "./utils/toast.js";
+
 document.getElementById("btn-logout").addEventListener("click", async () => {
     try {
         const response = await fetch("/logout", {
@@ -8,14 +10,14 @@ document.getElementById("btn-logout").addEventListener("click", async () => {
         const data = await response.json();
 
         if(!response.ok){
-            return alert(data.error);
+            return mostrarToast(data.error, "red");
         }
 
-        alert(data.message);
+        mostrarToast(data.message, "red");
         window.location.href = data.redirect;
 
     } catch (error) {
         console.error(error);
-        alert("Erro interno de servidor");
+        mostrarToast("Erro interno de servidor", "red");
     }
 });

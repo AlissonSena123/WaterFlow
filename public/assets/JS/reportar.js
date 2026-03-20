@@ -1,3 +1,6 @@
+import { buscarCEP } from "../../API/viaCEP.js";
+import { mostrarToast } from "./utils/toast.js";
+
 const btnEnviar = document.getElementById("btnEnviarReport");
 
 btnEnviar.addEventListener("click", async (event) => {
@@ -23,10 +26,10 @@ btnEnviar.addEventListener("click", async (event) => {
         const data = await response.json();
 
         if(data.success){
-            mostrarToast(data.message);
+            mostrarToast(data.message, "green");
             form.reset();
         }else{
-            mostrarToast(data.error);
+            mostrarToast(data.error, "red");
         }
     } catch (error) {
         mostrarToast("Erro ao conectar com o servidor");
@@ -35,17 +38,13 @@ btnEnviar.addEventListener("click", async (event) => {
 });
 
 /** Função de Buscar CEP */
-
-import { buscarCEP } from "../../API/viaCEP.js";
-import { mostrarToast } from "../../assets/JS/Utils/toast.js";
-
 const inputCEP = document.getElementById("idCEP");
 
 inputCEP.addEventListener("blur", async () => {
     const data = await buscarCEP(inputCEP.value);
 
     if(!data) {
-        mostrarToast("CEP inválido");
+        mostrarToast("CEP inválido", "red");
         return;
     }
 

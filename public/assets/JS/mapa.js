@@ -1,3 +1,5 @@
+import { mostrarToast } from "./utils/toast.js";
+
 const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe"; // Chave do Mapa
 
 //Configurando o Mapa
@@ -33,7 +35,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         .toLowerCase();
 
     if(!inputSearch){ // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
-        mostrarToast("Digite um bairro");
+        mostrarToast("Digite um bairro", "red");
         return;
     }
 
@@ -51,7 +53,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         );
 
         if(!result){
-            mostrarToast("Bairro não encontrado em Salvador");
+            mostrarToast("Bairro não encontrado em Salvador", "red");
             return;
         }
 
@@ -77,20 +79,8 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
     } catch (error) {
 
         console.error(error);
-        mostrarToast("Erro ao pesquisar localização");
+        mostrarToast("Erro ao pesquisar localização", "red");
 
     }
 
 });
-
-function mostrarToast(msg){
-    const toast = document.getElementById("toast");
-
-    toast.innerHTML = msg;
-    toast.style.backgroundColor = "red";
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);    
-}
