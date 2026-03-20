@@ -1,3 +1,5 @@
+import { mostrarToast } from "./Utils/toast.js";
+
 const btnLogin = document.getElementById("btnLogin");
 
 btnLogin.addEventListener("click", async (event) => {
@@ -45,18 +47,6 @@ function MostrarSenha(){ // Função para mostrar senha
         iconToggle.classList.add("ph-eye");
         iconToggle.classList.remove("ph-eye-slash");
     }
-}
-
-// Função de Toast ( Quando o usuário errar a senha )
-function mostrarToast(msg){
-    const toast = document.getElementById("toast");
-
-    toast.innerHTML = msg;
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);    
 }
 
 

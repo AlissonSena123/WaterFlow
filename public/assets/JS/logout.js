@@ -1,6 +1,3 @@
-import { mostrarToast } from "./Utils/toast.js";
-
-// Função de logout da tela de inicio
 document.getElementById("btn-logout").addEventListener("click", async () => {
     try {
         const response = await fetch("/logout", {
@@ -11,18 +8,14 @@ document.getElementById("btn-logout").addEventListener("click", async () => {
         const data = await response.json();
 
         if(!response.ok){
-            return mostrarToast(data.error);
+            return alert(data.error);
         }
 
-        mostrarToast(data.message);
-
-        setInterval(() => {
-            window.location.href = data.redirect;
-        }, 3000);
-        
+        alert(data.message);
+        window.location.href = data.redirect;
 
     } catch (error) {
         console.error(error);
-        mostrarToast("Erro interno no servidor!");
+        alert("Erro interno de servidor");
     }
 });

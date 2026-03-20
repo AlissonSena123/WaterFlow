@@ -263,6 +263,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
+/* Reportar Falta de água */
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, rua, bairro, descricao } = req.body
 
@@ -283,20 +284,21 @@ router.post("/reporte/enviar", async (req, res) => {
         }
       ]);
 
-      if (!data || error) {
+      if (error) {
         return res.status(400).json({
           sucesso: false,
           error: "Erro ao enviar reporte"
         });
       }
 
-      if(error) throw error;
-
       return res.json({ success: true, message: "Dados enviados com sucesso!" });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
-    res.status(500).send("Erro interno do servidor.");
+    res.status(500).json({
+      success: false,
+      message: "Erro interno do servidor"
+    });
   }
 
 });
