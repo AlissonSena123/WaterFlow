@@ -1,4 +1,4 @@
-import { mostrarToast } from "./Utils/toast.js";
+import { mostrarToast } from "./utils/toast.js";
 
 const btnLogin = document.getElementById("btnLogin");
 
