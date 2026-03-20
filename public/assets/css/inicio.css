@@ -52,7 +52,7 @@ main > #section-map > .div-search{
 .div-search > input{
     padding: 13px;
     background-color: #f0f4ff;
-    border: 2px solid var(--color-bg-primary-blue);
+    border: 2px solid royalblue;
     border-radius: 9px;
     width: 100%;
 }
@@ -65,7 +65,8 @@ main > #section-map > .div-search{
 main > #section-map > #map{
     box-shadow: var(--shadow-soft);
     border-radius: 9px;
-    border: 2px solid var(--color-bg-primary-blue);
+    border: 2px solid royalblue;
+    height: 600px;
 }
 
 /* HOVER */
