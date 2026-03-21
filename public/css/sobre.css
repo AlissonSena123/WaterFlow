@@ -47,7 +47,7 @@ main{
 #section-sobre{
     padding: 50px;
     text-align: center;
-    background: url(../Img/backgroundWeveEffect.svg) no-repeat center top;
+    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
     background-size: cover;
 }
 
@@ -67,7 +67,7 @@ main{
     box-shadow: inset 0px 10px 10px rgba(0, 0, 0, 0.205);
     padding: 50px;
     text-align: center;
-    background: url(../Img/layered-waves-haikei.svg) no-repeat center bottom;
+    background: url(../assets/Img/layered-waves-haikei.svg) no-repeat center bottom;
     background-size: cover;
 }
 
@@ -147,7 +147,7 @@ main{
 }
 
 #section-developers{
-    background: url(../Img/backgroundWeveEffect.svg) no-repeat center top;
+    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
     background-size: cover;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

@@ -3,7 +3,7 @@
     grid-template-areas: 
     "header"
     "main";
-    background: url(../Img/backgroundWeveEffect.svg) center top no-repeat;
+    background: url(../assets/Img/backgroundWeveEffect.svg) center top no-repeat;
     background-size: cover;
 }
 

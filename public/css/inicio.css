@@ -22,7 +22,7 @@ header img{
 }
 
 main{
-    background: white url(../Img/backgroundWeveEffect.svg) no-repeat center center;
+    background: white url(../assets/Img/backgroundWeveEffect.svg) no-repeat center center;
     background-size: cover;
     padding: 24px;
     display: grid;

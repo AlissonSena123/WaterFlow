@@ -66,7 +66,7 @@ main{
     align-items: center;
     background-size: cover;
     padding: 20px;
-    background: var(--color-bg-primary-blue) url(../Img/backgroundWeveEffect.svg) no-repeat top center;
+    background: var(--color-bg-primary-blue) url(../assets/Img/backgroundWeveEffect.svg) no-repeat top center;
 }
 
 

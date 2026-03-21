@@ -1,5 +1,5 @@
 .container{
-    background: url(../Img/backgroundWeveEffect.svg) no-repeat center center;
+    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center center;
     background-size: cover;
 }
 
@@ -25,7 +25,7 @@ main{
 .register-left{
     padding: 30px;
     grid-area: regLeft;
-    background: url(../Img/backgroundBannerGradient.svg) no-repeat center center;
+    background: url(../assets/Img/backgroundBannerGradient.svg) no-repeat center center;
     background-size: cover;
     border-radius: 10px;
     display: grid;

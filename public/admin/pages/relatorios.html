@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Usuários - Funcionario</title>
+  <title>Relatórios - Funcionario</title>
   <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
 
-  <link rel="stylesheet" href="../../assets/css/global.css">
-  <link rel="stylesheet" href="../../assets/css/sidebar.css">
-  <link rel="stylesheet" href="../../assets/css/funcionario/usuarios.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../css/relatorios.css">
 </head>
 <body>
   <div class="container">
+    
     <header>
       <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
     </header>
@@ -35,13 +36,13 @@
               <span class="item-title">Polígonos</span>
             </a>
           </li>
-          <li class="sidebar-item">
+          <li class="sidebar-item active">
             <a href="/funcionario/relatorios">
               <i class="ph-bold ph-file-text"></i>
               <span class="item-title">Relatórios</span>
             </a>
           </li>
-          <li class="sidebar-item active">
+          <li class="sidebar-item">
             <a href="/funcionario/usuarios">
               <i class="ph-bold ph-users"></i>
               <span class="item-title">Usuários</span>
@@ -66,69 +67,70 @@
     <main>
       <section class="status">
         <div>
-          <h1> <i class="ph-fill ph-users"></i> Usuários</h1>
-          <p>Status: <strong>Controle de acesso ativo</strong> � Última atualizacao: 12:40</p>
+          <h1> <i class="ph-fill ph-file-text"></i> Relatórios</h1>
+          <p>Status: <strong>Pronto para gerar</strong> � Última atualizacao: 12:40</p>
         </div>
-        <div class="groupBtnUser">
-          <button class="btn-primary"> <i class="ph-fill ph-user-circle-plus"></i> Novo Usuário</button>
-          <button class="btn-outline"> <i class="ph-fill ph-file-csv"></i> Importar CSV</button>
+        <div class="groupBtnRelatorio">
+          <button class="btn-primary"> <i class="ph-fill ph-file-pdf"></i> Gerar PDF</button>
+          <button class="btn-outline"> <i class="ph-fill ph-file-csv"></i> Exportar CSV</button>
         </div>
       </section>
 
       <section class="filtros">
+
         <div class="field">
-          <label>Buscar</label>
-          <input class="input-form" type="text" placeholder="Nome ou Email" />
+          <label>Período:</label>
+          <div class="range">
+            <input class="input-form" type="date" />
+            <input class="input-form" type="date" />
+          </div>
         </div>
+
         <div class="field">
-          <label>Perfil</label>
+          <label>Tipo:</label>
           <select class="input-form">
-            <option>Todos</option>
-            <option>Funcionario</option>
-            <option>Administrador</option>
-            <option>Usuário</option>
+            <option>Resumo geral</option>
+            <option>Falta de agua</option>
+            <option>Risco futuro</option>
           </select>
         </div>
+
         <div class="field">
-          <label>Status</label>
-          <select class="input-form">
-            <option>Todos</option>
-            <option>Ativo</option>
-            <option>Bloqueado</option>
-          </select>
+          <label>Região:</label>
+          <input class="input-form" type="text" placeholder="Ex: Centro" />
         </div>
+        
       </section>
 
       <section>
-        <h2> <i class="ph-bold ph-list-bullets"></i> Lista de usuarios</h2>
+        <h2> <i class="ph-fill ph-clock"></i> Últimos relatórios:</h2>
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Perfil</th>
-              <th>Status</th>
-              <th>Ações</th>
+              <th>Nome:</th>
+              <th>Periodo:</th>
+              <th>Status:</th>
+              <th>Ações:</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Marina Lopes</td>
-              <td>marina@exemplo.com</td>
-              <td>Funcionario</td>
-              <td><span class="badge badge-active">Ativo</span></td>
+              <td>Resumo Semanal</td>
+              <td>01/02 - 07/02</td>
+              <td><span class="badge badge-ready">Pronto</span></td>
               <td class="itemTableAcoes">
-                <button class="btn-primary"> <i class="ph-fill ph-pen"></i> Editar</button>
-                <button class="btn-outline"> <i class="ph-fill ph-prohibit"></i> Bloquear</button>
+                <button class="btn-primary"> <i class="ph-fill ph-download"></i> Baixar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-eye"></i> Visualizar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-clipboard-text"></i> Detalhes</button>
               </td>
             </tr>
             <tr>
-              <td>Joao Pereira</td>
-              <td>joao@exemplo.com</td>
-              <td>Administrador</td>
-              <td><span class="badge badge-review">Revisão</span></td>
+              <td>Mapa Critico</td>
+              <td>01/02 - 07/02</td>
+              <td><span class="badge badge-process">Em processamento</span></td>
               <td class="itemTableAcoes">
-                <button class="btn-primary"> <i class="ph-fill ph-check-fat"></i> Aprovar</button>
+                <button class="btn-primary"> <i class="ph-fill ph-download"></i> Baixar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-eye"></i> Visualizar</button>
                 <button class="btn-outline"> <i class="ph-fill ph-clipboard-text"></i> Detalhes</button>
               </td>
             </tr>
@@ -139,14 +141,14 @@
       <section class="ajuda">
         <h2> <i class="ph-fill ph-info"></i> Ajuda rápida</h2>
         <ul>
-          <li>Evite mudar perfis sem confirmação do gestor.</li>
-          <li>Use bloquear quando houver suspeita de abuso.</li>
-          <li>Importar CSV agiliza cadastro em massa.</li>
+          <li>Use filtros antes de gerar para evitar retrabalho.</li>
+          <li>Relatorios em processamento podem demorar alguns minutos.</li>
+          <li>Exportar CSV facilita integracao com planilhas.</li>
         </ul>
       </section>
     </main>
   </div>
 
-  <script src="../../assets/JS/logout.js"></script>
+  <script src="../../js/logout.js"></script>
 </body>
 </html>
