@@ -6,8 +6,7 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer")
 const path = require("path");
 
-
-// --- ROTAS DE CADASTRO E LOGIN (MANTIDAS) ---
+// --- ROTAS DE CADASTRO (POST /api/cadastrar) ---
 router.post("/api/cadastrar", async (req, res) => {
   const {
     nome_completo,
@@ -63,7 +62,7 @@ router.post("/api/cadastrar", async (req, res) => {
   }
 });
 
-// ROTA DE LOGIN
+// ---- ROTA DE LOGIN (POST /login) ---- 
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
@@ -179,14 +178,12 @@ router.post("/redefinirSenha", async (req, res) => {
 });
 
 // --- ROTA DE FEEDBACK DE ENVIO (GET /instrucoes_enviadas) ---
-
 router.get("/instrucoes_enviadas", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"))
 });
 
 // --- ROTA DE VALIDAÇÃO DE TOKEN (GET /novaSenha/:token) ---
 // Formato de rota tradicional para maior compatibilidade
-
 router.get("/redefinir-senha/:token", async (req, res) => {
   const { token } = req.params;
   const now = new Date();
@@ -211,7 +208,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
   }
 });
 
-
+// ---- ROTA DE ATUALIZAR SENHA (PUT /usuarios/atualizar-senha/:token) ---- 
 router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   const { senha } = req.body; // AGORA bate com o frontend
   const { token } = req.params;
@@ -263,7 +260,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
-/* Reportar Falta de água */
+/* ROTA DE REPORTAR FALTA D'ÁGUA */
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, rua, bairro, descricao } = req.body
 

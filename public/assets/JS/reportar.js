@@ -1,4 +1,4 @@
-import { buscarCEP } from "../../API/viaCEP.js";
+import { buscarCEP } from "../../services/viaCEP.js";
 import { mostrarToast } from "./utils/toast.js";
 
 const btnEnviar = document.getElementById("btnEnviarReport");
@@ -32,7 +32,7 @@ btnEnviar.addEventListener("click", async (event) => {
             mostrarToast(data.error, "red");
         }
     } catch (error) {
-        mostrarToast("Erro ao conectar com o servidor");
+        mostrarToast("Erro ao conectar com o servidor", "red");
         console.error(error);
     }
 });

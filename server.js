@@ -2,19 +2,18 @@ const express = require("express");
 require("dotenv").config();
 const session = require("express-session"); //criando sessao de login
 const path = require("path");
-const usuarioRouter = require("./routers/usuarios");
+const usuarioRouter = require("./routes/usuarios");
 const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
-const funcionarioRouter = require("./routers/funcionario.js")
-const poligonosRouter = require("./routers/poligonos.js")
+const funcionarioRouter = require("./routes/funcionario.js")
+const poligonosRouter = require("./routes/poligonos.js")
+
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-
-
 
 //middleware de sessao
 server.use(session({

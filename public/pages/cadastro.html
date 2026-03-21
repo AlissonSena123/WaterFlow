@@ -12,36 +12,45 @@
     <div class="container">
         <main>
             <section class="section-register">
-                <section class="section-left">
+                <div class="register-left">
                     <img src="../assets/Img/LogoWhiteV1.png" alt="">
-                </section>
-                <section class="section-right">
-                    <h2>Criar uma conta no WaterFlow gratuitamente</h2>
-                    <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
+                    <div class="content">
+                        <h1>Bem vindo ao WaterFlow</h1>
+                        <p>O WaterFlow é uma plataforma que ajuda você a <span>acompanhar o abastecimento de água em Salvador de forma simples e rápida.</span></p>
+                        <p>Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
+                        <p>Crie sua conta e faça parte dessa iniciativa.</p>
+                    </div>
+                    <p>WaterFlow - Projeto de TCC Senai Cimatec</p>
+                </div>
+                <div class="register-right">
+                    <div class="content">
+                        <h1>Criar uma conta no WaterFlow</h1>
+                        <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
+                    </div>
                     <form action="/api/cadastrar" method="post" autocomplete="off">
                         <div class="form-item-register item1">
-                            <label for="idNome">Nome Completo</label>
+                            <label for="idNome">Nome Completo:</label>
                             <input type="text" name="nome_completo" id="idNome" placeholder="Seu Nome" required>
                         </div>
                         <div class="form-item-register item2">
-                            <label for="idEmail">Email</label>
+                            <label for="idEmail">Email:</label>
                             <input type="email" name="email" id="idEmail" placeholder="seuemail@exemplo.com" required>
                         </div>
                         <div class="form-item-register item3">
-                            <label for="idSenha">Senha</label>
+                            <label for="idSenha">Senha:</label>
                             <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
                             <p>*Digite senhas de 10 a 15 caracteres</p>
                         </div>
                         <div class="form-item-register item4">
-                            <label for="idData">Data de Nascimento</label>
+                            <label for="idData">Data de Nascimento:</label>
                             <input type="date" name="data_nascimento" id="idData" required>
                         </div>
                         <div class="form-item-register item5">
-                            <label for="idTelefone">Telefone</label>
+                            <label for="idTelefone">Telefone:</label>
                             <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" inputmode="numeric">
                         </div>
                         <div class="form-item-register item6">
-                            <label for="idCEP">CEP</label>
+                            <label for="idCEP">CEP:</label>
                             <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
                             <p id="errorCEP"></p>
                         </div>
@@ -55,10 +64,10 @@
                     </form>
                     <hr>
                     <p class="link-login">Já tem conta? <a href="/login">Entrar</a></p>
-                </section>
+                </div>
             </section>
         </main>
     </div>
-    <script src="../API/viaCEP.js"></script>
+    <script src="../services/viaCEP.js"></script>
 </body>
 </html>

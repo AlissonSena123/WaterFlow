@@ -41,6 +41,7 @@ main > #section-map{
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     row-gap: 10px;
+    height: 700px;
 }
 
 main > #section-map > .div-search{
