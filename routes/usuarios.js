@@ -6,8 +6,8 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer")
 const path = require("path");
 
-// --- ROTAS DE CADASTRO (POST /api/cadastrar) ---
-router.post("/api/cadastrar", async (req, res) => {
+// --- ROTAS DE CADASTRO (POST /cadastrar) ---
+router.post("/cadastrar", async (req, res) => {
   const {
     nome_completo,
     data_nascimento,
@@ -20,22 +20,35 @@ router.post("/api/cadastrar", async (req, res) => {
     bairro,
   } = req.body;
 
+  
+  if (!nome_completo || !email || !senha || !bairro) {
+    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios",});
+  }
+
+  if(senha.length < 10 || senha.length > 15){
+    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres "});
+  }
+
   try {
-    const { data, error } = await supabase
+    
+    const { data: userExistente, error: selectError } = await supabase
       .from("Users")
       .select("id")
       .eq("email", email);
 
-    if (error) throw error;
+    if (selectError) throw selectError;
 
-    if (data.length > 0) {
-      return res
-        .status(400)
-        .send("<script>alert('E-mail já cadastrado!'); window.history.back();</script>");
+    if (userExistente.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Usuário já cadastrado",
+      });
     }
 
+    // Criptografa a senha
     const senhaHash = await bcrypt.hash(senha, 10);
 
+    // Insere novo usuário
     const { error: insertError } = await supabase
       .from("Users")
       .insert([
@@ -54,11 +67,18 @@ router.post("/api/cadastrar", async (req, res) => {
 
     if (insertError) throw insertError;
 
-    res.send(`<script>alert('Usuário ${nome_completo} cadastrado com sucesso!'); window.location.href = '/login';</script>`);
+    return res.status(200).json({
+      success: true,
+      message: `Usuário ${nome_completo} cadastrado com sucesso!`,
+    });
 
   } catch (err) {
     console.error("Erro ao cadastrar:", err);
-    res.status(500).send("Erro ao cadastrar usuário!");
+
+    return res.status(500).json({
+      success: false,
+      message: "Erro ao cadastrar usuário!",
+    });
   }
 });
 
@@ -99,7 +119,7 @@ router.post("/login", async (req, res) => {
 
   } catch (err) {
     console.error("Erro no login:", err);
-    res.status(500).json({success:false, message:"Erro interno no servidor, tente de novo mais tarde"});
+    res.status(500).json({success:false, message:"Erro interno no servidor"});
   }
 });
 

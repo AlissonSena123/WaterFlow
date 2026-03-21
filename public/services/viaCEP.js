@@ -16,7 +16,7 @@ export async function buscarCEP(cep) {
 
         return data;
     } catch (error) {
-        console.erro("Erro ao buscar CEP: ", error);
+        console.error("Erro ao buscar CEP: ", error);
         return null;
     }
 }

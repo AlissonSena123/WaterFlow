@@ -6,10 +6,12 @@
     <link rel="shortcut icon" href="../assets/Img/LogoIcon.svg" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
     <title>Cadastrar</title>
 </head>
 <body>
     <div class="container">
+        <span id="toast" class="toast"></span>
         <main>
             <section class="section-register">
                 <div class="register-left">
@@ -55,12 +57,15 @@
                             <p id="errorCEP"></p>
                         </div>
                         <div class="form-item-register itemCep item7">
-                            <input type="text" name="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
-                            <input type="text" name="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
-                            <input type="text" name="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
-                            <input type="text" name="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
+                            <input type="text" name="cidade" id="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
+
+                            <input type="text" name="estado" id="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
+
+                            <input type="text" name="pais" id="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
+
+                            <input type="text" name="bairro" id="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
                         </div>
-                        <button type="submit">Cadastrar-se</button>
+                        <button type="submit" id="btnCadastrar">Cadastrar-se</button>
                     </form>
                     <hr>
                     <p class="link-login">Já tem conta? <a href="/login">Entrar</a></p>
@@ -68,6 +73,6 @@
             </section>
         </main>
     </div>
-    <script src="../services/viaCEP.js"></script>
+    <script type="module" src="../assets/js/cadastro.js"></script>
 </body>
 </html>
