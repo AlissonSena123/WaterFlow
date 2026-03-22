@@ -1,4 +1,4 @@
-import { buscarCEP } from "../../services/viaCEP.js";
+import { buscarCEP } from "../services/viaCEP.js";
 import { mostrarToast } from "./utils/toast.js";
 
 const btnCadastrar = document.getElementById("btnCadastrar");

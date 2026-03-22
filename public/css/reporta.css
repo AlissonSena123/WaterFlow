@@ -62,6 +62,7 @@ main > section{
     box-shadow: var(--shadow-soft);
     background: white;
     padding: 20px;
+    min-height: 100%;
 }
 
 main > section > form{
@@ -74,6 +75,7 @@ main > section > form{
     "item3 item4 item5"
     "item6 item6 item6"
     "none none btn";
+    color: var(--color-bg-primary-blue);
 }
 
 main > section > form > div{
@@ -156,8 +158,6 @@ main > section > form > button:hover{
 form > div > input:focus,
 form > #item6 > textarea:focus{
     background-color: white;
-    outline: none;
-    border-color: black;
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
 }
 

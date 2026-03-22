@@ -1,4 +1,4 @@
-import { buscarCEP } from "../../services/viaCEP.js";
+import { buscarCEP } from "../services/viaCEP.js";
 import { mostrarToast } from "./utils/toast.js";
 
 const btnEnviar = document.getElementById("btnEnviarReport");
@@ -41,7 +41,13 @@ btnEnviar.addEventListener("click", async (event) => {
 const inputCEP = document.getElementById("idCEP");
 
 inputCEP.addEventListener("blur", async () => {
-    const data = await buscarCEP(inputCEP.value);
+    const cep = inputCEP.value.trim();
+    
+        if (!cep) {
+            return mostrarToast("Digite o CEP", "red");
+        }
+    
+        const data = await buscarCEP(cep);
 
     if(!data) {
         mostrarToast("CEP inválido", "red");
