@@ -73,7 +73,6 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 
 /* ---- ROTAS DE ADMIN ---- */
-
 server.get("/admin/reports", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
 });

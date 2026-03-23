@@ -175,8 +175,21 @@ tbody > tr > td > button:hover{
 
 .modal-content > .modal-header{
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-content > .modal-header > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.modal-content > .modal-header > h2 > i{
+  font-size: 2rem;
 }
 
 .modal-content > button{
@@ -198,3 +211,4 @@ tbody > tr > td > button:hover{
 .modal-content > .modal-body > p{
   margin-bottom: 15px;
 }
+

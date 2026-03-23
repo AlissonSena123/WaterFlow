@@ -4,7 +4,7 @@ async function carregarReports() {
     const dados = await res.json();
 
     if (!dados.success) {
-      console.error("Erro ao buscar reports");
+      console.error("Erro ao buscar reportes");
       return;
     }
 
@@ -29,19 +29,25 @@ async function carregarReports() {
   }
 }
 
-carregarReports();
+carregarReports(); // Chama a função quando a pagina recarregar
+
+setInterval(() => {
+  carregarReports(); // Chama a função a cada 10s
+}, 10000); 
 
 /** Função de verDetalhes */
 function verDetalhes(report) {
-  document.getElementById("mNome").textContent = report.nome;
-  document.getElementById("mEmail").textContent = report.email;
-  document.getElementById("mRua").textContent = report.rua;
-  document.getElementById("mBairro").textContent = report.bairro;
-  document.getElementById("mDescricao").textContent = report.descricao;
+
+  document.getElementById("mNome").innerHTML = report.nome;
+  document.getElementById("mEmail").innerHTML = report.email;
+  document.getElementById("mRua").innerHTML = report.rua;
+  document.getElementById("mBairro").innerHTML = report.bairro;
+  document.getElementById("mDescricao").innerHTML = report.descricao || "Sem Descrição";
 
   document.getElementById("modal").style.display = "flex";
 }
 
+/** Função para fechar o modal */
 function fecharModal() {
   document.getElementById("modal").style.display = "none";
 }
