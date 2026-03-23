@@ -12,16 +12,12 @@
     
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/sidebar.css">
-    <link rel="stylesheet" href="../css/reporte.css">
+    <link rel="stylesheet" href="../../css/toast.css">
+    <link rel="stylesheet" href="/admin/css/reporte.css">
     
 </head>
 <body>
     <div class="container">
-
-        <header>
-            <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
-        </header>
-
         <nav id="sidebar">
           <div id="sidebar-content">
             <i class="ph-bold ph-list"></i>
@@ -66,6 +62,12 @@
           </div>
         </nav>
 
+        <span id="toast" class="toast"></span>
+
+        <header>
+            <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+        </header>
+
         <main>
             <section class="status">
                 <div>
@@ -95,15 +97,17 @@
             </section>
 
             <section class="reportUserList">
+              <h2> <i class="ph-bold ph-list-bullets"></i> Lista de Reporte de Usuários</h2>
               <table>
                 <thead>
                   <tr>
                     <th>Nome:</th>
                     <th>Data:</th>
                     <th>Região:</th>
+                    <th>Ações:</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabelaReports">
                   <tr>
 
                   </tr>
@@ -112,9 +116,26 @@
             </section>
 
         </main>
+        <div id="modal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <button onclick="fecharModal()" class="ph-fill ph-x-circle"></button>
+            <div class="modal-header">
+              <h2>Detalhes do Reporte</h2>
+            </div>
+            
+            <div class="modal-body">
+              <p><strong>Nome:</strong> <span id="mNome"></span></p>
+              <p><strong>Email:</strong> <span id="mEmail"></span></p>
+              <p><strong>Rua:</strong> <span id="mRua"></span></p>
+              <p><strong>Bairro:</strong> <span id="mBairro"></span></p>
+              <p><strong>Descrição:</strong> <span id="mDescricao"></span></p>
+            </div>
 
+          </div>
+        </div>
     </div>
+
     <script type="module" src="../../js/logout.js"></script>
-    <script src="../js/reporte.js"></script>
+    <script src="/admin/js/reporte.js"></script>
 </body>
 </html>

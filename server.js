@@ -7,7 +7,7 @@ const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
-const funcionarioRouter = require("./routes/funcionario.js")
+const funcionarioRouter = require("./routes/admin.js")
 const poligonosRouter = require("./routes/poligonos.js")
 
 // Middlewares
@@ -27,7 +27,7 @@ server.use(session({
 }));
 
 server.use(usuarioRouter);
-server.use("/funcionario", funcionarioRouter)
+server.use("/admin", funcionarioRouter)
 server.use("/poligonos", poligonosRouter)
 
 server.get("/session", (req, res) => {
@@ -69,8 +69,16 @@ server.get("/redefinir", (req, res) => {
 
 server.get("/redefinir/confirmar", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/redefinirsenha.html"));
-})
+});
+
+
+/* ---- ROTAS DE ADMIN ---- */
+
+server.get("/admin/reports", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
+});
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/admin/reports`);
 });

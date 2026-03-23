@@ -98,6 +98,7 @@ main{
     "item7 item7"
     "btn   btn";
     color: var(--color-bg-primary-blue);
+    padding: 0px 30px;
 }
 
 .register-right > form > .item1{ grid-area: item1; }
@@ -178,6 +179,10 @@ main{
         "item7 item7"
         "btn btn";
     }
+
+    .register-right > form{
+        padding: 0px;
+    }
     
 }
 
@@ -206,6 +211,8 @@ main{
     .register-right{
         padding: 40px;
     }
+
+    
     
     
 }
