@@ -2,19 +2,18 @@ const express = require("express");
 require("dotenv").config();
 const session = require("express-session"); //criando sessao de login
 const path = require("path");
-const usuarioRouter = require("./routers/usuarios");
+const usuarioRouter = require("./routes/usuarios");
 const server = express();
 const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
-const funcionarioRouter = require("./routers/funcionario.js")
-const poligonosRouter = require("./routers/poligonos.js")
+const funcionarioRouter = require("./routes/admin.js")
+const poligonosRouter = require("./routes/poligonos.js")
+
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "public")));
-
-
 
 //middleware de sessao
 server.use(session({
@@ -28,7 +27,7 @@ server.use(session({
 }));
 
 server.use(usuarioRouter);
-server.use("/funcionario", funcionarioRouter)
+server.use("/admin", funcionarioRouter)
 server.use("/poligonos", poligonosRouter)
 
 server.get("/session", (req, res) => {
@@ -70,12 +69,15 @@ server.get("/redefinir", (req, res) => {
 
 server.get("/redefinir/confirmar", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/redefinirsenha.html"));
-})
+});
 
-server.get("/funcionario/poligonos", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/pages/funcionario/poligonos.html"))
+
+/* ---- ROTAS DE ADMIN ---- */
+server.get("/admin/reports", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
 });
 
 server.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}/funcionario/poligonos`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/login`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/admin/reports`);
 });

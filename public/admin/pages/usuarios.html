@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuários - Funcionario</title>
+  <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../css/usuarios.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+    </header>
+
+    <nav id="sidebar">
+      <div id="sidebar-content">
+        <i class="ph-bold ph-list"></i>
+        <ul id="sidebar-items">
+          <li class="sidebar-item">
+            <a href="/funcionario/dashboard">
+              <i class="ph-bold ph-gauge"></i>
+              <span class="item-title">Painel</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/poligonos">
+              <i class="ph-bold ph-map-trifold"></i>
+              <span class="item-title">Polígonos</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/relatorios">
+              <i class="ph-bold ph-file-text"></i>
+              <span class="item-title">Relatórios</span>
+            </a>
+          </li>
+          <li class="sidebar-item active">
+            <a href="/funcionario/usuarios">
+              <i class="ph-bold ph-users"></i>
+              <span class="item-title">Usuários</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/usuarios">
+              <i class="ph-bold ph-warning-circle"></i>
+              <span class="item-title">Reporte</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="logout">
+        <button id="btn-logout">
+          <i class="ph-fill ph-sign-out"></i>
+          <span>Sair</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="status">
+        <div>
+          <h1> <i class="ph-fill ph-users"></i> Usuários</h1>
+          <p>Status: <strong>Controle de acesso ativo</strong> � Última atualizacao: 12:40</p>
+        </div>
+        <div class="groupBtnUser">
+          <button class="btn-primary"> <i class="ph-fill ph-user-circle-plus"></i> Novo Usuário</button>
+          <button class="btn-outline"> <i class="ph-fill ph-file-csv"></i> Importar CSV</button>
+        </div>
+      </section>
+
+      <section class="filtros">
+        <div class="field">
+          <label>Buscar</label>
+          <input class="input-form" type="text" placeholder="Nome ou Email" />
+        </div>
+        <div class="field">
+          <label>Perfil</label>
+          <select class="input-form">
+            <option>Todos</option>
+            <option>Funcionario</option>
+            <option>Administrador</option>
+            <option>Usuário</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select class="input-form">
+            <option>Todos</option>
+            <option>Ativo</option>
+            <option>Bloqueado</option>
+          </select>
+        </div>
+      </section>
+
+      <section>
+        <h2> <i class="ph-bold ph-list-bullets"></i> Lista de usuarios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Perfil</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Marina Lopes</td>
+              <td>marina@exemplo.com</td>
+              <td>Funcionario</td>
+              <td><span class="badge badge-active">Ativo</span></td>
+              <td class="itemTableAcoes">
+                <button class="btn-primary"> <i class="ph-fill ph-pen"></i> Editar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-prohibit"></i> Bloquear</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Joao Pereira</td>
+              <td>joao@exemplo.com</td>
+              <td>Administrador</td>
+              <td><span class="badge badge-review">Revisão</span></td>
+              <td class="itemTableAcoes">
+                <button class="btn-primary"> <i class="ph-fill ph-check-fat"></i> Aprovar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-clipboard-text"></i> Detalhes</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="ajuda">
+        <h2> <i class="ph-fill ph-info"></i> Ajuda rápida</h2>
+        <ul>
+          <li>Evite mudar perfis sem confirmação do gestor.</li>
+          <li>Use bloquear quando houver suspeita de abuso.</li>
+          <li>Importar CSV agiliza cadastro em massa.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/logout.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "Projeto de TCC do curso de DS",
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.3",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "bcrypt": "^6.0.0",

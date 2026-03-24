@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Funcionário</title>
+  <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="/admin/css/dashboard.css">
+  
+</head>
+<body>
+  <div class="container">
+
+    <nav id="sidebar">
+      <div id="sidebar-content">
+        <i class="ph-bold ph-list"></i>
+        <ul id="sidebar-items">
+          <li class="sidebar-item active">
+            <a href="/funcionario/dashboard">
+              <i class="ph-bold ph-gauge"></i>
+              <span class="item-title">Painel</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/poligonos">
+              <i class="ph-bold ph-map-trifold"></i>
+              <span class="item-title">Polígonos</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/relatorios">
+              <i class="ph-bold ph-file-text"></i>
+              <span class="item-title">Relatórios</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/usuarios">
+              <i class="ph-bold ph-users"></i>
+              <span class="item-title">Usuários</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/funcionario/usuarios">
+              <i class="ph-bold ph-warning-circle"></i>
+              <span class="item-title">Reporte</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="logout">
+        <button id="btn-logout">
+          <i class="ph-fill ph-sign-out"></i>
+          <span>Sair</span>
+        </button>
+      </div>
+    </nav>
+    
+    <header>
+      <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+    </header>
+
+    <main>
+
+      <section id="titleDashboard">
+        <h1> <i class="ph-fill ph-gauge"></i> Dashboard do Funcionário</h1>
+        <p>Status do sistema: <strong>Sincronizado</strong> • Última atualização: 12:40</p>
+      </section>
+
+      <section id="groupButtonDashboard">
+        <button class="btn-primary"> <i class="ph-fill ph-file-plus"></i> Novo Polígono</button>
+        <button class="btn-outline"> <i class="ph-fill ph-file-arrow-down"></i> Importar GeoJSON</button>
+        <button class="btn-outline"> <i class="ph-fill ph-file-arrow-up"></i> Exportar Relatório</button>
+      </section>
+      
+      <section id="sctSummaryDashboard">
+        <h2> <i class="ph-fill ph-clipboard-text"></i> Resumo rápido</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Polígonos ativos:</h3>
+            <p>18</p>
+          </div>
+          <div class="card">
+            <h3>Em validação:</h3>
+            <p>4</p>
+          </div>
+          <div class="card">
+            <h3>Alertas críticos:</h3>
+            <p>2</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ReviewDashboard">
+        <h2> <i class="ph-fill ph-check-circle"></i> Fila de revisão</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Área:</th>
+              <th>Tipo:</th>
+              <th>Risco:</th>
+              <th>Ações:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Zona Norte</td>
+              <td>Falta de água</td>
+              <td>Alto</td>
+              <td class="itemTableAcoes">
+                <button class="btn-primary"> <i class="ph-fill ph-check-fat"></i> Aprovar</button>
+                <button class="btn-outline"> <i class="ph-fill ph-file-magnifying-glass"></i> Revisar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="ajuda">
+        <h2> <i class="ph-fill ph-info"></i> Ajuda rápida</h2>
+        <ul>
+          <li>Importe GeoJSON para agilizar o cadastro</li>
+          <li>Revise polígonos pendentes antes de publicar</li>
+          <li>Use “Revisar” para evitar aprovações erradas</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/logout.js"></script>
+</body>
+</html>

@@ -13,10 +13,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
 
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/inicio.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/toast.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/toast.css">
 
 </head>
 <body>
@@ -67,15 +67,16 @@
         <main>
             <section id="section-map">
                 <div class="div-search">
-                    <input type="search" name="" id="search" placeholder="Pesquisar Bairro">
-                    <button type="button" class="ph-bold ph-magnifying-glass"></button>
+                    <input type="search" name="" id="search" placeholder="Pesquisar Bairro" autocomplete="off">
+                    <button type="button" class="ph-bold ph-magnifying-glass" id="btnSearch"></button>
                 </div>
                 <div id="map"></div>
             </section>
         </main>
         
     </div>
-    <script src="../assets/JS/mapa.js"></script>
-    <script src="../assets/JS/inicio.js"></script>
+    <script type="module" src="../js/mapa.js"></script>
+    <script src="../js/inicio.js"></script>
+    <script type="module" src="../js/logout.js"></script>
 </body>
 </html>
