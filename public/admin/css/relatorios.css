@@ -143,7 +143,8 @@ th, td{
 }
 
 thead{
-  background: #f0f4ff;
+  background: royalblue;
+  color: white;
 }
 
 tbody > tr> .itemTableAcoes{

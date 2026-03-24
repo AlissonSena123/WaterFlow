@@ -48,7 +48,7 @@ async function carregarReports() {
         <td>${report.bairro}</td>
         <td class="itemTableAcoes">
           <button class="btn-detalhes">
-            <i class="ph-fill ph-list-magnifying-glass"></i> Detalhes
+            <i class="ph-fill ph-clipboard-text"></i> Detalhes
           </button>
         </td>
       `;
@@ -77,29 +77,6 @@ function debounceCarregarReports() {
   }, 400);
 }
 
-// ===== MODAL =====
-const modal = document.getElementById("modal");
-
-function verDetalhes(report) {
-  document.getElementById("mNome").textContent = report.nome;
-  document.getElementById("mEmail").textContent = report.email;
-  document.getElementById("mRua").textContent = report.rua;
-  document.getElementById("mBairro").textContent = report.bairro;
-  document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
-
-  modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparece o modal
-}
-
-function fecharModal() {
-  modal.classList.remove("show"); // Fechar apertando no botão
-}
-
-// Fechar clicando fora do conteúdo
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) fecharModal();
-});
-
-
 // ===== EVENTOS DE INPUT =====
 document.getElementById("userReport").addEventListener("input", debounceCarregarReports);
 document.getElementById("regionReport").addEventListener("input", debounceCarregarReports);
@@ -127,3 +104,25 @@ supabaseClient
 
 // ===== CARREGAR AO ABRIR =====
 carregarReports();
+
+// ===== MODAL =====
+const modal = document.getElementById("modal");
+
+function verDetalhes(report) {
+  document.getElementById("mNome").textContent = report.nome;
+  document.getElementById("mEmail").textContent = report.email;
+  document.getElementById("mRua").textContent = report.rua;
+  document.getElementById("mBairro").textContent = report.bairro;
+  document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
+
+  modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparece o modal
+}
+
+function fecharModal() {
+  modal.classList.remove("show"); // Fechar apertando no botão
+}
+
+// Fechar clicando fora do conteúdo
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) fecharModal();
+});

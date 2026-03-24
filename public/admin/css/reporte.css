@@ -107,7 +107,8 @@ th, td{
 }
 
 thead{
-  background: #f0f4ff;
+  background: royalblue;
+  color: white;
 }
 
 tbody > tr:nth-child(odd){
@@ -117,6 +118,8 @@ tbody > tr:nth-child(odd){
 tbody > tr > .itemTableAcoes{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 tbody > tr > .itemTableAcoes > button{
@@ -141,10 +144,6 @@ tbody > tr > td > button:hover{
   background-color: var(--color-bg-blue-darker);
 }
 
-.modal-content > .modal-header > button:hover{
-  color: royalblue;
-}
-
 /* FOCUS */
 
 .field > input:focus{
@@ -158,36 +157,33 @@ tbody > tr > td > button:hover{
 /* MODAL */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0);
+  inset: 0; /* substitui top, left, width, height */
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0);
   opacity: 0;
-  pointer-events: none; /* desabilita clique quando fechado */
-  transition: opacity 0.3s ease;
-  z-index: 999; /* garante que fique acima de tudo */
+  pointer-events: none;
+  transition: background 0.3s ease, opacity 0.3s ease;
+  z-index: 999;
 }
 
 .modal.show {
   background: rgba(0,0,0,0.5);
   opacity: 1;
-  pointer-events: auto; /* habilita clique quando aberto */
+  pointer-events: auto;
 }
 
 .modal-content {
-  background: white;
+  background: #fff;
+  border-radius: 12px;
   padding: 20px;
-  border-radius: 10px;
   width: 90%;
-  max-width: 600px;
-  display: grid;
-  row-gap: 20px;
+  max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  display: grid;
+  row-gap: 20px;
 
   transform: scale(0.8);
   opacity: 0;
@@ -199,62 +195,65 @@ tbody > tr > td > button:hover{
   opacity: 1;
 }
 
-.modal-content > .modal-header{
+/* Cabeçalho */
+.modal-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   color: var(--color-bg-blue-darker);
-  border-radius: 10px;
 }
 
-.modal-content > .modal-header > h2{
+.modal-header h2 {
   display: flex;
   align-items: center;
   column-gap: 10px;
-  font-weight: lighter;
+  font-weight: 400; /* mais leve que normal */
+  font-size: 1.25rem;
 }
 
-.modal-content > .modal-header > h2 > i{
-  font-size: 2rem;
+.modal-header h2 i {
+  font-size: 1.8rem;
 }
 
-.modal-content > .modal-header > button{
-  background: none;
-  box-shadow: none;
-  width: max-content;
-  padding: 0px;
-  font-size: 2rem;
-  justify-self: flex-end;
+.modal-header button {
+  background: royalblue;
+  border: none;
+  font-size: 1.8rem;
   color: var(--color-bg-blue-darker);
   cursor: pointer;
+  transition: color 0.2s ease;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: .1s all ease-in-out;
 }
 
-.modal-content > .modal-body{
-  text-align: justify;
-  padding: 20px;
-  border-radius: 10px;
-  width: 100%;
+.modal-header button:hover {
+  background-color: var(--color-bg-blue-darker); /* destaque sutil no hover */
+}
+
+/* Corpo do modal */
+.modal-body {
   display: grid;
-  row-gap: 20px;
+  row-gap: 16px;
 }
 
-.modal-content > .modal-body > p{
-  width: 100%;
+.modal-body p {
   display: flex;
   flex-direction: column;
-  color: var(--color-bg-blue-darker);
   gap: 6px;
-  font-weight: lighter;
+  color: var(--color-bg-blue-darker);
+  font-weight: 300;
+  margin: 0;
 }
 
-.modal-content > .modal-body > p > span{
-  width: 100%;
-  display: block;
+.modal-body span {
   background: #f0f4ff;
-  border: 1px solid #dbeafe;
   border-radius: 8px;
-  padding: 12px;
-  font-weight: normal;
+  padding: 10px;
   color: #333;
+  font-weight: 400;
 }
 
