@@ -2,258 +2,254 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Polígonos - Funcionário</title>
+    <title>Polígonos - Funcionário</title>
 
-<link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg">
+    <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg">
 
-<!-- ICONES -->
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <!-- ICONES -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
 
-<!-- CSS DO PROJETO -->
-<link rel="stylesheet" href="../../assets/css/global.css">
-<link rel="stylesheet" href="../../assets/css/sidebar.css">
-<link rel="stylesheet" href="../../assets/css/funcionario/poligonos.css">
+    <!-- CSS DO PROJETO -->
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/funcionario/poligonos.css">
 
-<!-- MAPLIBRE -->
-<link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
-<script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+    <!-- MAPLIBRE -->
+    <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
 
-<!-- MAPBOX DRAW -->
-<link rel="stylesheet"
-href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css">
+    <!-- MAPBOX DRAW -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css">
 
-<script
-src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<header>
-<img src="../../assets/Img/LogoV1.png">
-</header>
+        <header>
+            <img src="../../assets/Img/LogoV1.png">
+        </header>
 
-<nav id="sidebar">
+        <nav id="sidebar">
 
-<div id="sidebar-content">
+            <div id="sidebar-content">
 
-<i class="ph-bold ph-list"></i>
+                <i class="ph-bold ph-list"></i>
 
-<ul id="sidebar-items">
+                <ul id="sidebar-items">
 
-<li class="sidebar-item">
-<a href="/funcionario/dashboard">
-<i class="ph-bold ph-gauge"></i>
-<span class="item-title">Painel</span>
-</a>
-</li>
+                    <li class="sidebar-item">
+                        <a href="/funcionario/dashboard">
+                            <i class="ph-bold ph-gauge"></i>
+                            <span class="item-title">Painel</span>
+                        </a>
+                    </li>
 
-<li class="sidebar-item active">
-<a href="/funcionario/poligonos">
-<i class="ph-bold ph-map-trifold"></i>
-<span class="item-title">Polígonos</span>
-</a>
-</li>
+                    <li class="sidebar-item active">
+                        <a href="/funcionario/poligonos">
+                            <i class="ph-bold ph-map-trifold"></i>
+                            <span class="item-title">Polígonos</span>
+                        </a>
+                    </li>
 
-<li class="sidebar-item">
-<a href="/funcionario/relatorios">
-<i class="ph-bold ph-file-text"></i>
-<span class="item-title">Relatórios</span>
-</a>
-</li>
+                    <li class="sidebar-item">
+                        <a href="/funcionario/relatorios">
+                            <i class="ph-bold ph-file-text"></i>
+                            <span class="item-title">Relatórios</span>
+                        </a>
+                    </li>
 
-<li class="sidebar-item">
-<a href="/funcionario/usuarios">
-<i class="ph-bold ph-users"></i>
-<span class="item-title">Usuários</span>
-</a>
-</li>
+                    <li class="sidebar-item">
+                        <a href="/funcionario/usuarios">
+                            <i class="ph-bold ph-users"></i>
+                            <span class="item-title">Usuários</span>
+                        </a>
+                    </li>
 
-</ul>
-</div>
+                </ul>
+            </div>
 
-<div id="logout">
-<button id="btn-logout">
-<i class="ph-fill ph-sign-out"></i>
-<span>Sair</span>
-</button>
-</div>
+            <div id="logout">
+                <button id="btn-logout">
+                    <i class="ph-fill ph-sign-out"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
 
-</nav>
+        </nav>
 
-<main>
+        <main>
 
-<!-- STATUS -->
+            <!-- STATUS -->
 
-<section class="status">
+            <section class="status">
 
-<div>
-<h1>
-<i class="ph-fill ph-map-trifold"></i>
-Polígonos
-</h1>
+                <div>
+                    <h1>
+                        <i class="ph-fill ph-map-trifold"></i>
+                        Polígonos
+                    </h1>
 
-<p>
-Status: <strong>Pronto para edição</strong> • Última atualização: 12:40
-</p>
-</div>
+                    <p>
+                        Status: <strong>Pronto para edição</strong> • Última atualização: 12:40
+                    </p>
+                </div>
 
-<div class="groupBtnPoligonos">
+                <div class="groupBtnPoligonos">
 
-<button class="btn-primary">
-<i class="ph-fill ph-file-plus"></i>
-Novo Polígono
-</button>
+                    <button class="btn-primary">
+                        <i class="ph-fill ph-file-plus"></i>
+                        Novo Polígono
+                    </button>
 
-<button class="btn-outline">
-<i class="ph-fill ph-file-arrow-down"></i>
-Importar GeoJSON
-</button>
+                    <button class="btn-outline">
+                        <i class="ph-fill ph-file-arrow-down"></i>
+                        Importar GeoJSON
+                    </button>
 
-<button class="btn-outline">
-<i class="ph-fill ph-megaphone-simple"></i>
-Publicar Selecionados
-</button>
+                    <button class="btn-outline">
+                        <i class="ph-fill ph-megaphone-simple"></i>
+                        Publicar Selecionados
+                    </button>
 
-</div>
+                </div>
 
-</section>
+            </section>
 
-<!-- FILTROS -->
+            <!-- FILTROS -->
 
-<section class="filtros">
+            <section class="filtros">
 
-<div class="field">
-<label for="inputArea">Buscar por área:</label>
-<input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte" id="inputArea">
-</div>
+                <div class="field">
+                    <label for="inputArea">Buscar por área:</label>
+                    <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte" id="inputArea">
+                </div>
 
-<div class="field">
-<label for="slctTipo">Tipo:</label>
-<select class="input-form" id="slctTipo">
-<option disabled selected>Todos</option>
-<option>Falta de água</option>
-<option>Risco futuro</option>
-</select>
-</div>
+                <div class="field">
+                    <label for="slctTipo">Tipo:</label>
+                    <select class="input-form" id="slctTipo">
+                        <option disabled selected>Todos</option>
+                        <option>Falta de água</option>
+                        <option>Risco futuro</option>
+                    </select>
+                </div>
 
-<div class="field">
-<label for="slctStatus">Status:</label>
-<select class="input-form" id="slctStatus">
-<option disabled selected>Todos</option>
-<option>Ativo</option>
-<option>Em revisão</option>
-<option>Rascunho</option>
-</select>
-</div>
+                <div class="field">
+                    <label for="slctStatus">Status:</label>
+                    <select class="input-form" id="slctStatus">
+                        <option disabled selected>Todos</option>
+                        <option>Ativo</option>
+                        <option>Em revisão</option>
+                        <option>Rascunho</option>
+                    </select>
+                </div>
 
-<div class="field">
-<label for="inputData">Período:</label>
-<input class="input-form" type="date" id="inputData">
-</div>
+                <div class="field">
+                    <label for="inputData">Período:</label>
+                    <input class="input-form" type="date" id="inputData">
+                </div>
 
-<button id="btnSalvar">
-<i class="ph-fill ph-floppy-disk-back"></i>
-Salvar Polígono
-</button>
+                <button id="btnSalvar">
+                    <i class="ph-fill ph-floppy-disk-back"></i>
+                    Salvar Polígono
+                </button>
 
-<!-- MAPA -->
+                <!-- MAPA -->
 
-<div id="map"></div>
+                <div id="map"></div>
 
-</section>
+            </section>
 
-<!-- LISTA -->
+            <!-- LISTA -->
 
-<section id="sctListPoligonos">
+            <section id="sctListPoligonos">
 
-<h2>
-<i class="ph-bold ph-list-bullets"></i>
-Lista de Polígonos
-</h2>
+                <h2>
+                    <i class="ph-bold ph-list-bullets"></i>
+                    Lista de Polígonos
+                </h2>
 
-<table>
+                <table>
 
-<thead>
-<tr>
-<th>Área:</th>
-<th>Tipo:</th>
-<th>Risco:</th>
-<th>Status:</th>
-<th>Ações:</th>
-</tr>
-</thead>
+                    <thead>
+                        <tr>
+                            <th>Área:</th>
+                            <th>Tipo:</th>
+                            <th>Risco:</th>
+                            <th>Status:</th>
+                            <th>Ações:</th>
+                        </tr>
+                    </thead>
 
-<tbody>
+                    <tbody>
 
-<tr>
-<td>Zona Norte</td>
-<td>Falta de água</td>
-<td><span class="badge badge-high">Alto</span></td>
-<td><span class="badge badge-review">Em revisão</span></td>
+                        <tr>
+                            <td>Zona Norte</td>
+                            <td>Falta de água</td>
+                            <td><span class="badge badge-high">Alto</span></td>
+                            <td><span class="badge badge-review">Em revisão</span></td>
 
-<td class="itemTableAcoes">
+                            <td class="itemTableAcoes">
 
-<button class="btn-primary">
-<i class="ph-fill ph-pen"></i>
-Editar
-</button>
+                                <button class="btn-primary">
+                                    <i class="ph-fill ph-pen"></i>
+                                    Editar
+                                </button>
 
-<button class="btn-primary">
-<i class="ph-fill ph-file-magnifying-glass"></i>
-Revisar
-</button>
+                                <button class="btn-primary">
+                                    <i class="ph-fill ph-file-magnifying-glass"></i>
+                                    Revisar
+                                </button>
 
-<button class="btn-outline">
-<i class="ph-fill ph-eye"></i>
-Visualizar
-</button>
+                                <button class="btn-outline">
+                                    <i class="ph-fill ph-eye"></i>
+                                    Visualizar
+                                </button>
 
-<button class="btn-outline">
-<i class="ph-fill ph-box-arrow-down"></i>
-Arquivar
-</button>
+                                <button class="btn-outline">
+                                    <i class="ph-fill ph-box-arrow-down"></i>
+                                    Arquivar
+                                </button>
 
-</td>
-</tr>
+                            </td>
+                        </tr>
 
-</tbody>
+                    </tbody>
 
-</table>
+                </table>
 
-</section>
+            </section>
 
-<!-- AJUDA -->
+            <!-- AJUDA -->
 
-<section class="ajuda">
+            <section class="ajuda">
 
-<h2>
-<i class="ph-fill ph-info"></i>
-Ajuda rápida
-</h2>
+                <h2>
+                    <i class="ph-fill ph-info"></i>
+                    Ajuda rápida
+                </h2>
 
-<ul>
-<li>Use filtros para evitar edição errada.</li>
-<li>Polígonos em revisão precisam de dupla checagem.</li>
-<li>Importação de GeoJSON reduz erros de desenho manual.</li>
-</ul>
+                <ul>
+                    <li>Use filtros para evitar edição errada.</li>
+                    <li>Polígonos em revisão precisam de dupla checagem.</li>
+                    <li>Importação de GeoJSON reduz erros de desenho manual.</li>
+                </ul>
 
-</section>
+            </section>
 
-</main>
+        </main>
 
-</div>
+    </div>
 
-<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-<script src="../../assets/mapas/salvador_bairros.geojson"></script>
-
+    <script src="../../assets/JS/mapa-poligono.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 </body>
+
 </html>

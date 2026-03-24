@@ -65,8 +65,23 @@ map.on("click", "municipios-layer", (e) => {
 
     document.getElementById("buscarArea").value = nomeMunicipio;
 
-    console.log("Municipios clicado", nomeMunicipio);
-})
+    map.setFilter("municipios-layer-highlight", [
+        "==",
+        ["get", "NM_BAIRRO"],
+        bairro
+    ]);
+
+    map.addLayer({
+        id: "municipios-layer-highlight",
+        type: "fill",
+        source: "municipios",
+        paint: {
+            "fill-color": "#ff0000",
+            "fill-opacity": 0.4
+        },
+        filter: ["==", ["get", "NM_BAIRRO"], ""]
+    });
+});
 
 //identificar quando o mapa é apagado no front
 map.on("draw.delete", (e) => {
@@ -165,15 +180,15 @@ function deletarPoligono(id) {
     })
 }
 
-function buscarRegiao(nome) { 
+function buscarRegiao(nome) {
 
-    if(!municipiosData) return;
+    if (!municipiosData) return;
 
     const regiao = municipiosData.features.find(f =>
         f.properties.NM_BAIRRO.toLowerCase().includes(nome.toLowerCase())
     );
 
-    if(!regiao){
+    if (!regiao) {
         alert("Região não encontrada!");
         return;
     }
@@ -187,19 +202,9 @@ function buscarRegiao(nome) {
 
 document.getElementById("buscarArea").addEventListener("keypress", (e) => {
 
-    if(e.key === "Enter") {
+    if (e.key === "Enter") {
         buscarRegiao(e.target.value);
     }
 
 })
 
-map.setPaintProperty(
-    "municipios-layer",
-    "fill-color",
-    [
-        "case",
-        ["==", ["get", "name"], nome],
-        "#ff0000",
-        "#0080ff"
-    ]
-)
