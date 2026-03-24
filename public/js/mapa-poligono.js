@@ -1,3 +1,5 @@
+import { mostrarToast } from "./utils/toast.js";
+
 const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe";
 
 let municipiosData;
@@ -106,7 +108,7 @@ document.getElementById("btnSalvar").addEventListener("click", () => {
     const data = draw.getAll();
 
     if (data.features.length === 0) {
-        alert("Desenhe um poligono primeiro!")
+        mostrarToast("Desenhe um poligono primeiro!", "red");
         return;
     }
 
@@ -180,31 +182,65 @@ function deletarPoligono(id) {
     })
 }
 
-function buscarRegiao(nome) {
 
-    if (!municipiosData) return;
+document.getElementById("buscarArea").addEventListener("keydown", (input) => {
 
-    const regiao = municipiosData.features.find(f =>
-        f.properties.NM_BAIRRO.toLowerCase().includes(nome.toLowerCase())
-    );
+    if(input.key === "Enter"){
+        buscarRegiao(input.target.value);
+    }
+});
 
-    if (!regiao) {
-        alert("Região não encontrada!");
+async function buscarRegiao(nome) {
+    if(!nome){
+        mostrarToast("Digite um bairro!", "red");
         return;
     }
-
-    const bbox = turf.bbox(regiao);
-
-    map.fitBounds(bbox, {
-        padding: 40
-    });
 }
 
-document.getElementById("buscarArea").addEventListener("keypress", (e) => {
+// async function buscarRegiao(nome) {
 
-    if (e.key === "Enter") {
-        buscarRegiao(e.target.value);
-    }
+//     if (!municipiosData) return;
 
-})
+//     if (!nome || nome.trim() === "") {
+//         mostrarToast("Digite um bairro!", "red");
+//         return;
+//     }
+
+//     const nomeBusca = nome.toLowerCase().trim();
+
+//     let regiao = municipiosData.features.find(f =>
+//         f.properties.NM_BAIRRO.toLowerCase() === nomeBusca
+//     );
+
+//     if (!regiao) {
+//         regiao = municipiosData.features.find(f =>
+//             f.properties.NM_BAIRRO.toLowerCase().includes(nomeBusca)
+//         );
+//     }
+
+//     if (!regiao) {
+//         mostrarToast("Bairro não encontrado", "red");
+//         return;
+//     }
+
+//     const centro = turf.center(regiao).geometry.coordinates;
+
+//     map.flyTo({
+//         center: centro,
+//         zoom: 15,
+//         speed: 1.2,
+//         curve: 1.4,
+//         essential: true
+//     });
+
+//     mostrarToast("Bairro encontrado!", "green");
+// }
+
+// document.getElementById("buscarArea").addEventListener("keydown", (e) => {
+
+//     if (e.key === "Enter") {
+//         buscarRegiao(e.target.value);
+//     }
+
+// });
 

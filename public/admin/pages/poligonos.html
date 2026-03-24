@@ -5,27 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
     <title>Polígonos - Funcionário</title>
 
-<<<<<<< HEAD:public/admin/pages/poligonos.html
   <link rel="stylesheet" href="../../css/global.css">
   <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="../css/poligonos.css">
   
   <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet" />
   <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
-=======
-    <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg">
->>>>>>> a3a963d11f6711c4a878098a66a88d3716a937a5:public/pages/funcionario/poligonos.html
 
     <!-- ICONES -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
 
     <!-- CSS DO PROJETO -->
-    <link rel="stylesheet" href="../../assets/css/global.css">
-    <link rel="stylesheet" href="../../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../../assets/css/funcionario/poligonos.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="../css/poligonos.css">
+    <link rel="stylesheet" href="../../css/toast.css">
 
     <!-- MAPLIBRE -->
     <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
@@ -40,7 +38,9 @@
 
 <body>
   <div class="container">
-    
+
+    <span id="toast" class="toast"></span>
+
     <header>
       <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
     </header>
@@ -143,10 +143,6 @@
 
         <main>
 
-<<<<<<< HEAD:public/admin/pages/poligonos.html
-  <script src="../../js/logout.js"></script>
-  <script src="../../js/mapa-poligono.js"></script> <!-- Acho que não precisamos criar mais um arquivo JS para o mapa, já temos o JS que inicia o mapa da tela, podemos colocar todas as funções relacionadas ao mapa lá, podemos criar funções e só chamadas quando acontecer alguma interação na tela, mas se essa separação for importante, deixe como estar -->
-=======
             <!-- STATUS -->
 
             <section class="status">
@@ -308,9 +304,8 @@
 
     </div>
 
-    <script src="../../assets/JS/mapa-poligono.js"></script>
+    <script type="module" src="../../js/mapa-poligono.js"></script>
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
->>>>>>> a3a963d11f6711c4a878098a66a88d3716a937a5:public/pages/funcionario/poligonos.html
 </body>
 
 </html>
