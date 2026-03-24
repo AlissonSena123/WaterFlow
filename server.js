@@ -77,7 +77,16 @@ server.get("/admin/reports", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
 });
 
+<<<<<<< HEAD
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
   console.log(`Servidor rodando em http://localhost:${PORT}/admin/reports`);
+=======
+server.get("/funcionario/poligonos", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/pages/funcionario/poligonos.html"))
+});
+
+server.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}/funcionario/poligonos`);
+>>>>>>> a3a963d11f6711c4a878098a66a88d3716a937a5
 });

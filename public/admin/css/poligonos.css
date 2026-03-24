@@ -144,8 +144,9 @@ main > section > h2 > i{
   margin-bottom: 18px;
   border-radius: 12px;
   border: 2px solid royalblue;
-  padding: 20px;
   grid-column: 1/-1;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Seção da Lista de Polígonos */
@@ -213,4 +214,13 @@ tr > .itemTableAcoes > button > i{
   list-style: inside;
   font-weight: lighter;
   margin-bottom: 5px;
+}
+
+
+.mapboxgl-ctrl-group{
+  z-index: 5;
+}
+
+.mapboxgl-ctrl{
+  pointer-events: auto;
 }
