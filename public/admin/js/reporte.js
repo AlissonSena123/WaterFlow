@@ -53,7 +53,8 @@ async function carregarReports() {
         </td>
       `;
 
-      tr.querySelector(".btn-detalhes").addEventListener("click", () => {
+      //Ele seleciona qualquer tag "tr" que tenha a classe "btn-detalhes", caso clique no botão, a função é chamada
+      tr.querySelector(".btn-detalhes").addEventListener("click", () => { 
         verDetalhes(report);
       });
 
@@ -68,6 +69,7 @@ async function carregarReports() {
 // ===== DEBOUNCE =====
 let timeout;
 
+/** Essa função serve para carregar a tabela mesmo sem nenhum filtro */
 function debounceCarregarReports() {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
@@ -75,8 +77,9 @@ function debounceCarregarReports() {
   }, 400);
 }
 
-
 // ===== MODAL =====
+const modal = document.getElementById("modal");
+
 function verDetalhes(report) {
   document.getElementById("mNome").textContent = report.nome;
   document.getElementById("mEmail").textContent = report.email;
@@ -84,14 +87,20 @@ function verDetalhes(report) {
   document.getElementById("mBairro").textContent = report.bairro;
   document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
 
-  document.getElementById("modal").style.display = "flex";
+  modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparece o modal
 }
 
 function fecharModal() {
-  document.getElementById("modal").style.display = "none";
+  modal.classList.remove("show"); // Fechar apertando no botão
 }
 
-// ===== EVENTOS =====
+// Fechar clicando fora do conteúdo
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) fecharModal();
+});
+
+
+// ===== EVENTOS DE INPUT =====
 document.getElementById("userReport").addEventListener("input", debounceCarregarReports);
 document.getElementById("regionReport").addEventListener("input", debounceCarregarReports);
 document.getElementById("dataReport").addEventListener("change", carregarReports);
