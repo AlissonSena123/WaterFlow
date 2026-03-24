@@ -114,8 +114,8 @@ function verDetalhes(report) {
   document.getElementById("mRua").textContent = report.rua;
   document.getElementById("mBairro").textContent = report.bairro;
   document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
-
-  modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparece o modal
+  
+  modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparecer o modal
 }
 
 function fecharModal() {
