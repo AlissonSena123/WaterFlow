@@ -1,5 +1,5 @@
-import { mostrarToast } from "./utils/toast.js";
-import { criarMapa } from "./utils/mapaConfig.js";
+import { mostrarToast } from "../../js/utils/toast.js";
+import { criarMapa } from "../../js/utils/mapaConfig.js";
 
 let map;
 let municipiosData;
@@ -58,7 +58,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         type: "fill",
                         source: "municipios",
                         paint: {
-                            "fill-color": "#7f7aff",
+                            "fill-color": "#0011ff",
                             "fill-opacity": 0.2,
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
@@ -69,7 +69,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         type: "line",
                         source: "municipios",
                         paint: {
-                            "line-color": "#00025e",
+                            "line-color": "#180071",
                             "line-width": 2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
