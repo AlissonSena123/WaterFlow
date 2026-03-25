@@ -81,6 +81,12 @@ server.get("/admin/poligonos", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin/pages/poligonos.html"));
 });
 
+/** ---- API DO MAPA ---- */
+
+server.get("/api/mapKey", (req, res) => {
+  res.json({key: process.env.MAP_KEY});
+});
+
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
   console.log(`Servidor rodando em http://localhost:${PORT}/admin/reports`);

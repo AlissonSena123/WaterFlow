@@ -1,62 +1,58 @@
 import { mostrarToast } from "./utils/toast.js";
+import { criarMapa } from "./utils/mapaConfig.js";
 
+let map;
 let municipiosData;
 
-const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe"; // Chave do Mapa
+criarMapa("map", [-38.5167, -12.9704], 12)
+    .then(m => {
+        map = m;
 
+        // Definindo valor maximo e minimo do zoom
+        map.setMinZoom(10);
+        map.setMaxZoom(16); 
 
-//Configurando o Mapa
-const map = new maplibregl.Map({
-    container: "map", // id do seletor html. EX: <div id="map"></div>
-    style: `https://api.maptiler.com/maps/basic/style.json?key=${MAP_KEY}`, // Estilo do mapa
-    center: [-38.4767, -12.9688], // Localização
-    zoom: 12 // Zoom do Mapa
-});
+        // Limitando o movimento do mapa
+        map.setMaxBounds([
+            [-38.70, -13.20], 
+            [-38.20, -12.70] 
+        ]);
 
-// Definindo valor maximo e minimo do zoom
-map.setMinZoom(10);
-map.setMaxZoom(16);
+        map.on("load", () => {
+            fetch("/assets/mapas/salvador_bairros.geojson")
+                .then(res => res.json())
+                .then(data => {
+                    municipiosData = data;
 
-// Limitando o movimento do mapa
-map.setMaxBounds([
-    [-38.70, -13.20], 
-    [-38.20, -12.70] 
-]);
+                    map.addSource("municipios", {
+                        type: "geojson",
+                        data: data
+                    });
 
-map.on("load", () => {
-    fetch("/assets/mapas/salvador_bairros.geojson")
-        .then(res => res.json())
-        .then(data => {
-            municipiosData = data;
+                    map.addLayer({
+                        id: "municipios-fill",
+                        type: "fill",
+                        source: "municipios",
+                        paint: {
+                            "fill-color": "#6cb5ff",
+                            "fill-opacity": 0.2,
+                        },
+                        filter: ["==", ["get", "NM_BAIRRO"], ""]
+                    });
 
-            map.addSource("municipios", {
-                type: "geojson",
-                data: data
-            });
-
-            map.addLayer({
-                id: "municipios-fill",
-                type: "fill",
-                source: "municipios",
-                paint: {
-                    "fill-color": "#6cb5ff",
-                    "fill-opacity": 0.2,
-                },
-                filter: ["==", ["get", "NM_BAIRRO"], ""]
-            });
-
-            map.addLayer({
-                id: "municipios-line",
-                type: "line",
-                source: "municipios",
-                paint: {
-                    "line-color": "#00377e",
-                    "line-width": 1
-                },
-                filter: ["==", ["get", "NM_BAIRRO"], ""]
-            });
+                    map.addLayer({
+                        id: "municipios-line",
+                        type: "line",
+                        source: "municipios",
+                        paint: {
+                            "line-color": "#00377e",
+                            "line-width": 1
+                        },
+                        filter: ["==", ["get", "NM_BAIRRO"], ""]
+                    });
+                });
         });
-});
+    })
 
 // Função da Barra de Pesquisa
 const btnSearch = document.getElementById("btnSearch"); // Botão da barra de pesquisa

@@ -1,146 +1,161 @@
 import { mostrarToast } from "./utils/toast.js";
+import { criarMapa } from "./utils/mapaConfig.js";
 
-const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe";
-
+let map;
 let municipiosData;
 
-// Criar mapa
-const map = new maplibregl.Map({
-    container: "map",
-    style: `https://api.maptiler.com/maps/basic/style.json?key=${MAP_KEY}`,
-    center: [-38.4767, -12.9688],
-    zoom: 12
-});
+criarMapa("map", [-38.5167, -12.9704], 12)
+    .then(m => {
+        map = m;
 
-// Limites do mapa
-map.setMinZoom(10);
-map.setMaxZoom(15);
+        // Definindo valor maximo e minimo do zoom
+        map.setMinZoom(10);
+        map.setMaxZoom(16); 
 
-map.setMaxBounds([
-    [-38.70, -13.20],
-    [-38.20, -12.70]
-]);
+        // Limitando o movimento do mapa
+        map.setMaxBounds([
+            [-38.70, -13.20], 
+            [-38.20, -12.70] 
+        ]);
 
-// Draw
-const draw = new MapboxDraw({
-    displayControlsDefault: false,
-    controls: {
-        polygon: true,
-        trash: true
-    }
-});
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                polygon: true,
+                trash: true
+            }
+        });
 
-map.on("load", () => {
+        map.on("load", () => {
 
-    map.addControl(draw);
+            map.addControl(draw);
 
-    fetch("/assets/mapas/salvador_bairros.geojson")
-        .then(res => res.json())
-        .then(data => {
+            fetch("/assets/mapas/salvador_bairros.geojson")
+                .then(res => res.json())
+                .then(data => {
 
-            municipiosData = data;
+                    municipiosData = data;
 
-            map.addSource("municipios", {
-                type: "geojson",
-                data: data,
-            });
+                    map.addSource("municipios", {
+                        type: "geojson",
+                        data: data,
+                    });
 
-            map.addLayer({
-                id: "municipios-layer",
-                type: "fill",
-                source: "municipios",
-                paint: {
-                    "fill-color": "#0080ff",
-                    "fill-opacity": 0.2,
-                    "fill-outline-color": "#003366"
-                }
-            });
+                    map.addLayer({
+                        id: "municipios-layer",
+                        type: "fill",
+                        source: "municipios",
+                        paint: {
+                            "fill-color": "#0080ff",
+                            "fill-opacity": 0.2,
+                            "fill-outline-color": "#003366"
+                        }
+                    });
 
-            // Layer de destaque
-            map.addLayer({
-                id: "municipios-layer-highlight",
-                type: "fill",
-                source: "municipios",
-                paint: {
-                    "fill-color": "#ff0000",
-                    "fill-opacity": 0.4
-                },
-                filter: ["==", ["get", "NM_BAIRRO"], ""]
-            });
+                    // Layer de destaque
+                    map.addLayer({
+                        id: "municipios-layer-highlight",
+                        type: "fill",
+                        source: "municipios",
+                        paint: {
+                            "fill-color": "#7f7aff",
+                            "fill-opacity": 0.2,
+                        },
+                        filter: ["==", ["get", "NM_BAIRRO"], ""]
+                    });
+
+                    map.addLayer({
+                        id: "municipios-line",
+                        type: "line",
+                        source: "municipios",
+                        paint: {
+                            "line-color": "#00025e",
+                            "line-width": 2
+                        },
+                        filter: ["==", ["get", "NM_BAIRRO"], ""]
+                    })
+
+                });
+
+            carregarPoligonos();
+        });
+
+        // CLICK NO MAPA
+        map.on("click", "municipios-layer", (e) => {
+
+            const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
+
+            document.getElementById("buscarArea").value = nomeMunicipio;
+
+            // agora só altera o filtro
+            map.setFilter("municipios-layer-highlight", [
+                "==",
+                ["get", "NM_BAIRRO"],
+                nomeMunicipio
+            ]);
+
+            map.setFilter("municipios-line", [
+                "==",
+                ["get", "NM_BAIRRO"],
+                nomeMunicipio
+            ]);
 
         });
 
-    carregarPoligonos();
-});
-
-// CLICK NO MAPA
-map.on("click", "municipios-layer", (e) => {
-
-    const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
-
-    document.getElementById("buscarArea").value = nomeMunicipio;
-
-    // agora só altera o filtro
-    map.setFilter("municipios-layer-highlight", [
-        "==",
-        ["get", "NM_BAIRRO"],
-        nomeMunicipio
-    ]);
-});
-
-// DELETE DRAW
-map.on("draw.delete", (e) => {
-
-    e.features.forEach(feature => {
-        const id = feature.properties?.id;
-        if (id) deletarPoligono(id);
     });
 
-});
+// // DELETE DRAW
+// map.on("draw.delete", (e) => {
 
-// SALVAR
-document.getElementById("btnSalvar").addEventListener("click", () => {
+//     e.features.forEach(feature => {
+//         const id = feature.properties?.id;
+//         if (id) deletarPoligono(id);
+//     });
 
-    const data = draw.getAll();
+// });
 
-    if (data.features.length === 0) {
-        mostrarToast("Desenhe um poligono primeiro!", "red");
-        return;
-    }
+// // SALVAR
+// document.getElementById("btnSalvar").addEventListener("click", () => {
+//     const data = draw.getAll();
 
-    const geojson = data.features[0];
+//     if (data.features.length === 0) {
+//         mostrarToast("Desenhe um poligono primeiro!", "red");
+//         return;
+//     }
 
-    salvarPoligono(geojson);
-});
+//     const geojson = data.features[0];
 
-// BACKEND
-function salvarPoligono(geojson) {
+//     salvarPoligono(geojson);
+// });
 
-    const status = document.getElementById("status")?.value;
+// // BACKEND
+// function salvarPoligono(geojson) {
 
-    fetch("/poligonos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nome_area: "Area sem agua",
-            status: status,
-            geojson: geojson
-        })
-    })
-        .then(res => res.json())
-        .then(data => {
+//     const status = document.getElementById("status")?.value;
 
-            const features = draw.getAll().features;
-            const ultimo = features[features.length - 1];
+//     fetch("/poligonos", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             nome_area: "Area sem agua",
+//             status: status,
+//             geojson: geojson
+//         })
+//     })
+//         .then(res => res.json())
+//         .then(data => {
 
-            ultimo.properties = {
-                id: data.id
-            };
+//             const features = draw.getAll().features;
+//             const ultimo = features[features.length - 1];
 
-        });
-}
+//             ultimo.properties = {
+//                 id: data.id
+//             };
+
+//         });
+// }
 
 function carregarPoligonos() {
     fetch("/poligonos")
@@ -152,15 +167,16 @@ function carregarPoligonos() {
         });
 }
 
-function deletarPoligono(id) {
-    fetch(`/poligonos/${id}`, {
-        method: "DELETE"
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Poligono deletado", data);
-        });
-}
+// function deletarPoligono(id) {
+//     fetch(`/poligonos/${id}`, {
+//         method: "DELETE"
+//     })
+//         .then(res => res.json())
+//         .then(data => {
+//             console.log("Poligono deletado", data);
+//         });
+// }
+
 
 // INPUT
 document.getElementById("buscarArea").addEventListener("keydown", (input) => {
@@ -233,6 +249,12 @@ async function buscarRegiao(nome) {
     });
 
     map.setFilter("municipios-layer-highlight", [
+        "==",
+        ["get", "NM_BAIRRO"],
+        featureEncontrada.properties.NM_BAIRRO
+    ]);
+
+    map.setFilter("municipios-line", [
         "==",
         ["get", "NM_BAIRRO"],
         featureEncontrada.properties.NM_BAIRRO
