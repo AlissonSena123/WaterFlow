@@ -1,139 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Usuário</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte de Usuário</title>
 
-    <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
-    
-    <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/sidebar.css">
-    <link rel="stylesheet" href="../../css/toast.css">
-    <link rel="stylesheet" href="/css/admin/reporte.css">
-    
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/toast.css">
+  <link rel="stylesheet" href="/css/admin/reporte.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <nav id="sidebar">
-          <div id="sidebar-content">
-            <i class="ph-bold ph-list"></i>
-            <ul id="sidebar-items">
-              <li class="sidebar-item">
-                <a href="/funcionario/dashboard">
-                  <i class="ph-bold ph-gauge"></i>
-                  <span class="item-title">Painel</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="/funcionario/poligonos">
-                  <i class="ph-bold ph-map-trifold"></i>
-                  <span class="item-title">Polígonos</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="/funcionario/relatorios">
-                  <i class="ph-bold ph-file-text"></i>
-                  <span class="item-title">Relatórios</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="/funcionario/usuarios">
-                  <i class="ph-bold ph-users"></i>
-                  <span class="item-title">Usuários</span>
-                </a>
-              </li>
-              <li class="sidebar-item active">
-                <a href="/admin/reports">
-                  <i class="ph-bold ph-warning-circle"></i>
-                  <span class="item-title">Reporte</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div id="logout">
-            <button id="btn-logout">
-              <i class="ph-fill ph-sign-out"></i>
-              <span>Sair</span>
-            </button>
-          </div>
-        </nav>
+  <div class="container">
+    <nav id="sidebar">
+      <div id="sidebar-content">
+        <i class="ph-bold ph-list"></i>
+        <ul id="sidebar-items">
+          <li class="sidebar-item">
+            <a href="/admin/dashboard">
+              <i class="ph-bold ph-gauge"></i>
+              <span class="item-title">Painel</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/poligonos">
+              <i class="ph-bold ph-map-trifold"></i>
+              <span class="item-title">Polígonos</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/relatorios">
+              <i class="ph-bold ph-file-text"></i>
+              <span class="item-title">Relatórios</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/usuarios">
+              <i class="ph-bold ph-users"></i>
+              <span class="item-title">Usuários</span>
+            </a>
+          </li>
+          <li class="sidebar-item active">
+            <a href="/admin/reports">
+              <i class="ph-bold ph-warning-circle"></i>
+              <span class="item-title">Reporte</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="logout">
+        <button id="btn-logout">
+          <i class="ph-fill ph-sign-out"></i>
+          <span>Sair</span>
+        </button>
+      </div>
+    </nav>
 
-        <span id="toast" class="toast"></span>
+    <span id="toast" class="toast"></span>
 
-        <header>
-            <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
-        </header>
+    <header>
+      <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+    </header>
 
-        <main>
-            <section class="status">
-                <div>
-                    <h1> <i class="ph-fill ph-warning-circle"></i> Reporte dos Usuários</h1>
-                    <p>Status: <strong>Pronto para gerar</strong> � Última atualizacao: 12:40</p>
-                </div>
-            </section>
-            <section class="filtro">
-
-              <div class="field">
-                <label for="userReport">Nome:</label>
-                <input type="tel" name="userReport" id="userReport" placeholder="Nome do Usuário">
-              </div>
-
-              <div class="field">
-                <label for="dataReport">Data:</label>
-                <input type="date" name="dataReport" id="dataReport">
-              </div>
-
-              <div class="field">
-                <label for="regionReport">Região:</label>
-                <input type="tel" name="regionReport" id="regionReport" placeholder="Ex: Centro">
-              </div>
-
-            </section>
-
-            <section class="reportUserList">
-              <h2> <i class="ph-bold ph-list-bullets"></i> Lista de Reporte de Usuários</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Nome:</th>
-                    <th>Data:</th>
-                    <th>Região:</th>
-                    <th>Ações:</th>
-                  </tr>
-                </thead>
-                <tbody id="tabelaReports">
-                  <tr>
-
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-        </main>
-        
-        <div id="modal" class="modal">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2><i class="ph-fill ph-list-magnifying-glass"></i> Detalhes do Reporte</h2>
-              <button onclick="fecharModal()" class="ph-fill ph-x-circle"></button>
-            </div>
-            
-            <div class="modal-body">
-              <p><strong>Nome:</strong> <span id="mNome"></span></p>
-              <p><strong>Email:</strong> <span id="mEmail"></span></p>
-              <p><strong>Rua:</strong> <span id="mRua"></span></p>
-              <p><strong>Bairro:</strong> <span id="mBairro"></span></p>
-              <p><strong>Descrição:</strong> <span id="mDescricao"></span></p>
-            </div>
-          </div>
+    <main>
+      <section class="status">
+        <div>
+          <h1> <i class="ph-fill ph-warning-circle"></i> Reporte dos Usuários</h1>
+          <p>Status: <strong>Pronto para gerar</strong> � Última atualizacao: 12:40</p>
         </div>
-    </div>
+      </section>
+      <section class="filtro">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script type="module" src="../../js/logout.js"></script>
-    <script src="/js/admin/reporte.js"></script>
+        <div class="field">
+          <label for="userReport">Nome:</label>
+          <input type="tel" name="userReport" id="userReport" placeholder="Nome do Usuário">
+        </div>
+
+        <div class="field">
+          <label for="dataReport">Data:</label>
+          <input type="date" name="dataReport" id="dataReport">
+        </div>
+
+        <div class="field">
+          <label for="regionReport">Região:</label>
+          <input type="tel" name="regionReport" id="regionReport" placeholder="Ex: Centro">
+        </div>
+
+      </section>
+
+      <section class="reportUserList">
+        <h2> <i class="ph-bold ph-list-bullets"></i> Lista de Reporte de Usuários</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome:</th>
+              <th>Data:</th>
+              <th>Região:</th>
+              <th>Ações:</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaReports">
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="ph-fill ph-list-magnifying-glass"></i> Detalhes do Reporte</h2>
+          <button onclick="fecharModal()" class="ph-fill ph-x-circle"></button>
+        </div>
+
+        <div class="modal-body">
+          <p><strong>Nome:</strong> <span id="mNome"></span></p>
+          <p><strong>Email:</strong> <span id="mEmail"></span></p>
+          <p><strong>Rua:</strong> <span id="mRua"></span></p>
+          <p><strong>Bairro:</strong> <span id="mBairro"></span></p>
+          <p><strong>Descrição:</strong> <span id="mDescricao"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module" src="../../js/logout.js"></script>
+  <script src="/js/admin/reporte.js"></script>
 </body>
+
 </html>
