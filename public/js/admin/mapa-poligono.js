@@ -1,5 +1,5 @@
-import { mostrarToast } from "../../js/utils/toast.js";
-import { criarMapa } from "../../js/utils/mapaConfig.js";
+import { mostrarToast } from "../utils/toast.js";
+import { criarMapa } from "../utils/mapaConfig.js";
 
 let map;
 let municipiosData;

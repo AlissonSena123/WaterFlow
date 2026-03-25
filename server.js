@@ -74,11 +74,11 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 /* ---- ROTAS DE ADMIN ---- */
 server.get("/admin/reports", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
+  res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
 });
 
 server.get("/admin/poligonos", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/admin/pages/poligonos.html"));
+  res.sendFile(path.join(__dirname, "admin/pages/poligonos.html"));
 });
 
 /** ---- API DO MAPA ---- */
