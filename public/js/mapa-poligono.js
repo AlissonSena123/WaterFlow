@@ -62,7 +62,7 @@ map.on("load", () => {
                 type: "fill",
                 source: "municipios",
                 paint: {
-                    "fill-color": "#ff3a3a",
+                    "fill-color": "#ff0000",
                     "fill-opacity": 0.4
                 },
                 filter: ["==", ["get", "NM_BAIRRO"], ""]
