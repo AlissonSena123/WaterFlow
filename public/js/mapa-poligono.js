@@ -34,7 +34,7 @@ map.on("load", () => {
 
     map.addControl(draw);
 
-    fetch("../../assets/mapas/salvador_bairros.geojson")
+    fetch("/assets/mapas/salvador_bairros.geojson")
         .then(res => res.json())
         .then(data => {
 
@@ -56,7 +56,7 @@ map.on("load", () => {
                 }
             });
 
-            // 🔥 Layer de destaque (criada UMA vez)
+            // Layer de destaque
             map.addLayer({
                 id: "municipios-layer-highlight",
                 type: "fill",
@@ -80,7 +80,7 @@ map.on("click", "municipios-layer", (e) => {
 
     document.getElementById("buscarArea").value = nomeMunicipio;
 
-    // 🔥 agora só altera o filtro
+    // agora só altera o filtro
     map.setFilter("municipios-layer-highlight", [
         "==",
         ["get", "NM_BAIRRO"],

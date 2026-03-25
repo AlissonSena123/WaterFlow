@@ -1,6 +1,9 @@
 import { mostrarToast } from "./utils/toast.js";
 
+let municipiosData;
+
 const MAP_KEY = "5yDkAyUnk2OjVK3NqvCe"; // Chave do Mapa
+
 
 //Configurando o Mapa
 const map = new maplibregl.Map({
@@ -20,11 +23,43 @@ map.setMaxBounds([
     [-38.20, -12.70] 
 ]);
 
+map.on("load", () => {
+    fetch("/assets/mapas/salvador_bairros.geojson")
+        .then(res => res.json())
+        .then(data => {
+            municipiosData = data;
+
+            map.addSource("municipios", {
+                type: "geojson",
+                data: data
+            });
+
+            map.addLayer({
+                id: "municipios-fill",
+                type: "fill",
+                source: "municipios",
+                paint: {
+                    "fill-color": "#6cb5ff",
+                    "fill-opacity": 0.2,
+                },
+                filter: ["==", ["get", "NM_BAIRRO"], ""]
+            });
+
+            map.addLayer({
+                id: "municipios-line",
+                type: "line",
+                source: "municipios",
+                paint: {
+                    "line-color": "#00377e",
+                    "line-width": 1
+                },
+                filter: ["==", ["get", "NM_BAIRRO"], ""]
+            });
+        });
+});
 
 // Função da Barra de Pesquisa
-
 const btnSearch = document.getElementById("btnSearch"); // Botão da barra de pesquisa
-let marker = null // Variavel do marcador
 
 btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do botão em uma lista de evento e criamos uma função assincrona
 
@@ -39,48 +74,57 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         return;
     }
 
+    if (!municipiosData) {
+        mostrarToast("Mapa ainda carregando", "red");
+        return;
+    }
+
     try {
 
-        const url = `https://api.maptiler.com/geocoding/${encodeURIComponent(inputSearch)}.json?key=${MAP_KEY}&bbox=-38.60,-13.05,-38.30,-12.80&proximity=-38.5016,-12.9714&country=br`; // Link da API
-
-        const response = await fetch(url); // Chamando a API com o fetch();
-        const data = await response.json(); // Transformamos a resposta retorna pela variavel do fetch em um JSON
-        
-        // A API retorna o valor dentro de uma "features"
-        const result = data.features.find(f => // o "find()" ele percorre toda a array até encontrar o valor que satisfaça a condição
-            f.place_name.includes("Salvador") &&
-            f.text.toLowerCase() === inputSearch
+        const feature = municipiosData.features.find(f =>
+            f.properties.NM_BAIRRO.toLowerCase() === inputSearch
         );
 
-        if(!result){
-            mostrarToast("Bairro não encontrado em Salvador", "red");
+        if(!feature){
+            mostrarToast("Bairro não encontrado", "red");
             return;
         }
 
-        const coordenadas = result.center;
+        const centro = turf.centerOfMass(feature).geometry.coordinates;
+
+        const bbox = turf.bbox(feature);
+
+        map.fitBounds(bbox, {
+            padding: 40,
+            duration: 1000
+        });
+
+        map.setFilter("municipios-fill", [
+            "==",
+            ["get", "NM_BAIRRO"],
+            feature.properties.NM_BAIRRO
+        ]);
+
+        map.setFilter("municipios-line", [
+            "==",
+            ["get", "NM_BAIRRO"],
+            feature.properties.NM_BAIRRO
+        ]);
 
         // mover mapa
         map.flyTo({
-            center: coordenadas,
-            zoom: 16,
+            center: centro,
+            zoom: 13.5,
             speed: 1.2,
             curve: 1.4,
             essential: true
         });
 
-        // remover marcador antigo
-        if(marker){
-            marker.remove();
-        }
-
-        // criar novo pin
-        marker = new maplibregl.Marker({color: "red"}).setLngLat(coordenadas).addTo(map);
-
     } catch (error) {
-
         console.error(error);
         mostrarToast("Erro ao pesquisar localização", "red");
-
     }
-
 });
+
+
+
