@@ -48,7 +48,7 @@ async function carregarReports() {
         <td>${report.bairro}</td>
         <td class="itemTableAcoes">
           <button class="btn-detalhes">
-            <i class="ph-fill ph-clipboard-text"></i> Detalhes
+            <i class="ph-fill ph-clipboard-text"></i> <p>Detalhes</p>
           </button>
         </td>
       `;

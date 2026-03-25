@@ -139,7 +139,6 @@ tbody > tr > .itemTableAcoes{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 
 tbody > tr > .itemTableAcoes > button{
@@ -251,7 +250,7 @@ tbody > tr > td > button:hover{
 }
 
 .modal-header button:hover {
-  background-color: var(--color-bg-blue-darker); /* destaque sutil no hover */
+  background-color: var(--color-bg-blue-darker);
 }
 
 /* Corpo do modal */
@@ -275,5 +274,21 @@ tbody > tr > td > button:hover{
   padding: 10px;
   color: #333;
   font-weight: 400;
+}
+
+
+/* ---- MEDIA ---- */
+
+@media (max-width: 860px ) {
+  tbody > tr > .itemTableAcoes{
+    justify-content: center;
+  }
+  
+  tbody > tr > .itemTableAcoes > button{
+    width: max-content;
+  }
+  tbody > tr > .itemTableAcoes > button > p{
+    display: none;
+  }
 }
 
