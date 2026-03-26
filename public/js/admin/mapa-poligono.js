@@ -30,7 +30,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
 
             map.addControl(draw);
 
-            fetch("/assets/mapas/salvador_bairros.geojson")
+            fetch("/assets/mapas/salvador_bairros.geojson") // Chamando o geojson
                 .then(res => res.json())
                 .then(data => {
 
