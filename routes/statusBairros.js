@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const supabase = require("../config/supabase.js");
+const { supabase } = require("../config/supabase.js");
 
 //buscar status dos bairros
-router.get("/", async(req, res) => {
+router.get("/", async (req, res) => {
     const { data, error } = await supabase.from("status_bairros").select("*");
 
-    if(error) return res.status(500).json(error);
+    if (error) return res.status(500).json(error);
 
     res.json(data);
 });
@@ -14,7 +14,24 @@ router.get("/", async(req, res) => {
 //salvar status dos bairros
 
 router.post("/", async (req, res) => {
-    const {bairro, status, tipo, periodo} = req.body;
 
-    const {data, erro} = await 
-})
+    const { bairro, tipo, status, periodo } = req.body;
+
+    const { data, error } = await supabase
+        .from("status_bairros")
+        .upsert({
+            bairro,
+            tipo,
+            status,
+            periodo
+        });
+
+    if (error) {
+        return res.status(500).json(error);
+    }
+
+    res.json(data);
+
+});
+
+module.exports = router;

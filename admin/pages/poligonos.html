@@ -31,41 +31,41 @@
 </head>
 
 <body>
-  <div class="container">
-    
-    <header>
-      <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
-    </header>
+    <div class="container">
 
-    <nav id="sidebar">
-      <div id="sidebar-content">
-                            <i class="ph-bold ph-gauge"></i>
-                        </a>
-                    </li>
-                    <li class="sidebar-item active">
-                        <a href="/admin/poligonos">
-                            <i class="ph-bold ph-map-trifold"></i>
-                            <span class="item-title">Polígonos</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/admin/relatorios">
-                            <i class="ph-bold ph-file-text"></i>
-                            <span class="item-title">Relatórios</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/admin/usuarios">
-                            <i class="ph-bold ph-users"></i>
-                            <span class="item-title">Usuários</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/admin/reports">
-                            <i class="ph-bold ph-warning-circle"></i>
-                            <span class="item-title">Reporte</span>
-                        </a>
-                    </li>
+        <header>
+            <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+        </header>
+
+        <nav id="sidebar">
+            <div id="sidebar-content">
+                <i class="ph-bold ph-gauge"></i>
+                </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a href="/admin/poligonos">
+                        <i class="ph-bold ph-map-trifold"></i>
+                        <span class="item-title">Polígonos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/admin/relatorios">
+                        <i class="ph-bold ph-file-text"></i>
+                        <span class="item-title">Relatórios</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/admin/usuarios">
+                        <i class="ph-bold ph-users"></i>
+                        <span class="item-title">Usuários</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/admin/reports">
+                        <i class="ph-bold ph-warning-circle"></i>
+                        <span class="item-title">Reporte</span>
+                    </a>
+                </li>
                 </ul>
             </div>
             <div id="logout">
@@ -160,6 +160,33 @@
                 <!-- MAPA -->
 
                 <div id="map"></div>
+
+                <div id="painel-bairro" class="painel-bairro">
+
+                    <h3 id="bairro-nome">Bairro</h3>
+
+                    <label>Tipo</label>
+                    <select id="tipo">
+                        <option value="falta_agua">Falta de água</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="instabilidade">Instabilidade</option>
+                        <option value="normal">Normal</option>
+                    </select>
+
+                    <label>Status</label>
+                    <select id="status">
+                        <option value="critico">Crítico</option>
+                        <option value="alto">Alto</option>
+                        <option value="medio">Médio</option>
+                        <option value="baixo">Baixo</option>
+                    </select>
+
+                    <label>Período</label>
+                    <input type="date" id="periodo">
+
+                    <button id="salvar-status">Atualizar Status</button>
+
+                </div>
 
             </section>
 

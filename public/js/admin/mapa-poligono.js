@@ -12,12 +12,12 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
 
         // Definindo valor maximo e minimo do zoom
         map.setMinZoom(10);
-        map.setMaxZoom(16); 
+        map.setMaxZoom(16);
 
         // Limitando o movimento do mapa
         map.setMaxBounds([
-            [-38.70, -13.20], 
-            [-38.20, -12.70] 
+            [-38.70, -13.20],
+            [-38.20, -12.70]
         ]);
 
         // Com isso, podemos desenha poligonos pelo mapa
@@ -45,13 +45,24 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
                         data: municipiosData,
                     });
 
+                    //layer do mapa todo de salvador
                     map.addLayer({
                         id: "municipios-layer",
                         type: "fill",
                         source: "municipios",
                         paint: {
-                            "fill-color": "#0080ff",
-                            "fill-opacity": 0.2,
+                            "fill-color": [
+                                "match",
+                                ["feature-state", "status"],
+
+                                "falta_agua", "#ff0000",
+                                "manutencao", "#ffaa00",
+                                "ok", "#00cc66",
+
+                                "#2b72e4"
+                            ],
+
+                            "fill-opacity": 0.35,
                             "fill-outline-color": "#003366"
                         }
                     });
@@ -62,18 +73,19 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
                         type: "fill",
                         source: "municipios",
                         paint: {
-                            "fill-color": "#0011ff",
+                            "fill-color": "#0ec49d",
                             "fill-opacity": 0.2,
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
 
+                    //layer de borda do destaque
                     map.addLayer({
                         id: "municipios-line",
                         type: "line",
                         source: "municipios",
                         paint: {
-                            "line-color": "#180071",
+                            "line-color": "#2c2927",
                             "line-width": 2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
@@ -82,6 +94,7 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
                 });
 
             carregarPoligonos();
+            carregarStatusBairros();
         });
 
         // CLICK NO MAPA
@@ -105,7 +118,6 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
             ]);
 
         });
-
     });
 
 // // DELETE DRAW
@@ -264,3 +276,47 @@ async function buscarRegiao(nome) {
         featureEncontrada.properties.NM_BAIRRO
     ]);
 }
+
+async function carregarStatusBairros() {
+
+    const res = await fetch("/status-bairros");
+    const dados = await res.json();
+
+    dados.forEach(bairro => {
+
+        map.setFeatureState({
+            source: "municipios",
+            id: bairro.bairro
+        }, {
+            status: bairro.status
+        })
+    })
+}
+
+document
+    .querySelector("#salvar-status")
+    .addEventListener("click", async () => {
+
+        const bairro = document.querySelector("#buscar-area").value;
+        const tipo = document.querySelector("#tipo").value;
+        const status = document.querySelector("#status").value;
+        const periodo = document.querySelector("#periodo").value;
+
+        const response = await fetch("/status-bairros", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                bairro,
+                tipo,
+                status,
+                periodo
+            })
+        });
+
+        const data = await response.json();
+
+        alert("Status atualizado!");
+
+    });

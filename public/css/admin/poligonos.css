@@ -224,3 +224,41 @@ tr > .itemTableAcoes > button > i{
 .mapboxgl-ctrl{
   pointer-events: auto;
 }
+
+.painel-bairro{
+position:absolute;
+right:20px;
+top:120px;
+
+width:260px;
+background:white;
+
+border-radius:8px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+
+padding:15px;
+
+display:none;
+z-index:1000;
+}
+
+.painel-bairro h3{
+margin-top:0;
+}
+
+.painel-bairro label{
+display:block;
+margin-top:10px;
+font-weight:bold;
+}
+
+.painel-bairro select,
+.painel-bairro input{
+width:100%;
+margin-top:5px;
+}
+
+.painel-bairro button{
+margin-top:15px;
+width:100%;
+}
