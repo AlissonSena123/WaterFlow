@@ -70,7 +70,7 @@ main > section > h2 > i{
 
 .status > .groupBtnPoligonos{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   column-gap: 10px;
 }
 
@@ -133,9 +133,20 @@ main > section > h2 > i{
 }
 
 .field > input,
-.field > select{
+.field > select,
+.field > .divSearch > input{
   background: #f0f4ff;
   padding: 12px;
+}
+
+.field > .divSearch{
+  display: flex;
+  column-gap: 10px;
+}
+
+.field > .divSearch > button{
+  background-color: var(--color-bg-primary-blue);
+  color: white;
 }
 
 .filtros > div#map{
@@ -165,10 +176,11 @@ th, td{
 }
 
 thead{
-  background: #f0f4ff;
+  background: royalblue;
+  color: white;
 } 
 
-tbody > tr> .itemTableAcoes{
+tbody > tr > .itemTableAcoes{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 10px;
@@ -223,4 +235,10 @@ tr > .itemTableAcoes > button > i{
 
 .mapboxgl-ctrl{
   pointer-events: auto;
+}
+
+/* HOVER */
+
+.field > .divSearch > button:hover{
+  background-color: royalblue;
 }

@@ -99,25 +99,9 @@
                     </p>
                 </div>
 
-                <div class="groupBtnPoligonos">
+                <!-- <div class="groupBtnPoligonos">
 
-                    <button class="btn-primary">
-                        <i class="ph-fill ph-file-plus"></i>
-                        Novo Polígono
-                    </button>
-
-                    <button class="btn-outline">
-                        <i class="ph-fill ph-file-arrow-down"></i>
-                        Importar GeoJSON
-                    </button>
-
-                    <button class="btn-outline">
-                        <i class="ph-fill ph-megaphone-simple"></i>
-                        Publicar Selecionados
-                    </button>
-
-                </div>
-
+                </div> -->
             </section>
 
             <!-- FILTROS -->
@@ -125,8 +109,11 @@
             <section class="filtros">
 
                 <div class="field">
-                    <label for="inputArea">Buscar por área:</label>
-                    <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
+                    <label for="buscarArea">Buscar por área:</label>
+                    <div class="divSearch">
+                        <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
+                        <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -187,7 +174,7 @@
 
                     <tbody>
 
-                        <tr>
+                        <!-- <tr>
                             <td>Zona Norte</td>
                             <td>Falta de água</td>
                             <td><span class="badge badge-high">Alto</span></td>
@@ -216,7 +203,7 @@
                                 </button>
 
                             </td>
-                        </tr>
+                        </tr> -->
 
                     </tbody>
 

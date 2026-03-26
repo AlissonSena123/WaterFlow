@@ -189,6 +189,10 @@ document.getElementById("buscarArea").addEventListener("keydown", (input) => {
     }
 });
 
+document.getElementById("btnSeach").addEventListener("click", () => {
+    buscarRegiao(document.getElementById("buscarArea").value);
+});
+
 async function buscarRegiao(nome) {
 
     if (!nome) {
@@ -201,7 +205,7 @@ async function buscarRegiao(nome) {
         return;
     }
 
-    const nomeBusca = nome.toLowerCase().trim();
+    const nomeBusca = normalizarTexto(nome);
 
     if (nomeBusca.length < 3) {
         mostrarToast("Digite pelo menos 3 letras", "orange");
@@ -211,12 +215,12 @@ async function buscarRegiao(nome) {
     let featureEncontrada = null;
 
     featureEncontrada = municipiosData.features.find(f =>
-        f.properties.NM_BAIRRO.toLowerCase() === nomeBusca
+        normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
     );
 
     if (!featureEncontrada) {
         const resultados = municipiosData.features.filter(f =>
-            f.properties.NM_BAIRRO.toLowerCase().startsWith(nomeBusca)
+            normalizarTexto(f.properties.NM_BAIRRO).startsWith(nomeBusca)
         );
 
         if (resultados.length === 1) {
@@ -229,7 +233,7 @@ async function buscarRegiao(nome) {
 
     if (!featureEncontrada) {
         const resultados = municipiosData.features.filter(f =>
-            f.properties.NM_BAIRRO.toLowerCase().includes(nomeBusca)
+            normalizarTexto(f.properties.NM_BAIRRO).includes(nomeBusca)
         );
 
         if (resultados.length === 1) {
@@ -263,4 +267,14 @@ async function buscarRegiao(nome) {
         ["get", "NM_BAIRRO"],
         featureEncontrada.properties.NM_BAIRRO
     ]);
+}
+
+function normalizarTexto(texto){
+    return texto
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
 }
