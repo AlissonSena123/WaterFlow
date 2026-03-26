@@ -45,14 +45,14 @@ map.on("load", () => {
         });
 
         map.addLayer({
-            id: "municipios-layer",
+            id: "municipios-layer-highlight",
             type: "fill",
             source: "municipios",
             paint: {
-                "fill-color": "#0080ff",
-                "fill-opacity": 0.2,
-                "fill-outline-color": "#003366"
-            }
+                "fill-color": "#ff0000",
+                "fill-opacity": 0.5
+            },
+            filter: ["==", ["get", "NM_BAIRRO"], ""]
         });
     })
 
@@ -65,22 +65,20 @@ map.on("click", "municipios-layer", (e) => {
 
     document.getElementById("buscarArea").value = nomeMunicipio;
 
-    map.setFilter("municipios-layer-highlight", [
-        "==",
-        ["get", "NM_BAIRRO"],
-        bairro
-    ]);
+    if (!map.getLayer("municipios-layer-highlight")) {
 
-    map.addLayer({
-        id: "municipios-layer-highlight",
-        type: "fill",
-        source: "municipios",
-        paint: {
-            "fill-color": "#ff0000",
-            "fill-opacity": 0.4
-        },
-        filter: ["==", ["get", "NM_BAIRRO"], ""]
-    });
+        map.addLayer({
+            id: "municipios-layer-highlight",
+            type: "fill",
+            source: "municipios",
+            paint: {
+                "fill-color": "#ff0000",
+                "fill-opacity": 0.4
+            },
+            filter: ["==", ["get", "NM_BAIRRO"], ""]
+        });
+
+    }
 });
 
 //identificar quando o mapa é apagado no front
@@ -110,7 +108,11 @@ document.getElementById("btnSalvar").addEventListener("click", () => {
         return;
     }
 
-    const geojson = draw.getAll().features[0];
+    const draw = draw.getAll();
+
+    data.features.forEach(feature => {
+        salvarPoligono(feature);
+    })
 
     console.log("GeoJSON:", geojson);
 
@@ -164,9 +166,9 @@ function carregarPoligonos() {
         .then(res => res.json())
         .then(poligonos => {
             poligonos.forEach(p => {
-                if (p.geojson) {
-                    draw.add(p.geojson);
-                }
+                const geo = p.geojson;
+                geo.properties = { id: p.id }
+                draw.add(geo);
             })
         })
 }
@@ -180,31 +182,45 @@ function deletarPoligono(id) {
     })
 }
 
-function buscarRegiao(nome) {
+function selecionarBairro(nome) {
 
-    if (!municipiosData) return;
-
-    const regiao = municipiosData.features.find(f =>
-        f.properties.NM_BAIRRO.toLowerCase().includes(nome.toLowerCase())
+    const bairro = municipiosData.features.find(f =>
+        f.properties.NM_BAIRRO.toLowerCase() === nome.toLowerCase()
     );
 
-    if (!regiao) {
-        alert("Região não encontrada!");
+    if (!bairro) {
+        alert("Bairro não encontrado");
         return;
     }
 
-    const bbox = turf.bbox(regiao);
+    const bbox = turf.bbox(bairro);
 
     map.fitBounds(bbox, {
         padding: 40
     });
+
+    destacarBairro(nome);
 }
 
 document.getElementById("buscarArea").addEventListener("keypress", (e) => {
-
     if (e.key === "Enter") {
         buscarRegiao(e.target.value);
     }
-
 })
 
+function destacarBairro(nome) {
+
+    map.setFilter("municipios-layer-highlight", [
+        "==",
+        ["get", "NM_BAIRRO"],
+        nome
+    ]);
+}
+
+function corStatus(status){
+
+    switch(status) {
+
+        case
+    }
+}
