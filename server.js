@@ -51,10 +51,6 @@ server.get("/inicio", auth,  (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/inicio.html"));
 });
 
-server.get("/forum", auth,  (req, res) => {
-  res.sendFile(path.join(__dirname, "public/pages/forum.html"));
-});
-
 server.get("/perfil", auth, (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/perfil.html"));
 });
