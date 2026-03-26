@@ -1,12 +1,14 @@
 import { mostrarToast } from "../utils/toast.js";
-import { criarMapa } from "../utils/mapaConfig.js";
+import { criarMapa } from "../utils/mapaConfig.js"; // Importamos o script das configurações do mapa
 
+// Variaveis importantes, vai permitir que a gente utilize os métodos do mapa fora da função a seguir
 let map;
 let municipiosData;
 
-criarMapa("map", [-38.5167, -12.9704], 12)
-    .then(m => {
-        map = m;
+criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback assincrona
+    .then(m => { // O valor retornado pela função do mapaConfig.js é armazenado em "m"
+
+        map = m; // Agora a variavel "map" tem o valor de "m", agora podemos utilizar os recursos do mapa fora da função de callback assincrona
 
         // Definindo valor maximo e minimo do zoom
         map.setMinZoom(10);
@@ -18,6 +20,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
             [-38.20, -12.70] 
         ]);
 
+        // Com isso, podemos desenha poligonos pelo mapa
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             controls: {
@@ -26,19 +29,20 @@ criarMapa("map", [-38.5167, -12.9704], 12)
             }
         });
 
-        map.on("load", () => {
+        // Método para escutar eventos no mapa
+        map.on("load", () => { // Após o mapa carregar
 
-            map.addControl(draw);
+            map.addControl(draw); // Adicionamos a função de desenhar no controle do mapa
 
-            fetch("/assets/mapas/salvador_bairros.geojson") // Chamando o geojson
+            fetch("/assets/mapas/salvador_bairros.geojson") // Chamando o geojson e criando mais uma função de callback, dessa vez sem ser assincrona
                 .then(res => res.json())
                 .then(data => {
 
-                    municipiosData = data;
+                    municipiosData = data; // Armazenamos o valor de data na variavel "municipiosData"
 
                     map.addSource("municipios", {
                         type: "geojson",
-                        data: data,
+                        data: municipiosData,
                     });
 
                     map.addLayer({
