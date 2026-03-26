@@ -59,11 +59,7 @@ const btnSearch = document.getElementById("btnSearch"); // Botão da barra de pe
 
 btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do botão em uma lista de evento e criamos uma função assincrona
 
-    const inputSearch = document // Variavel do input da pesquisa, só pegamos o valor digitado dentro do input
-        .getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
+    const inputSearch = normalizarTexto(document.getElementById("search").value);
 
     if(!inputSearch){ // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
         mostrarToast("Digite um bairro", "red");
@@ -78,7 +74,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
     try {
 
         const feature = municipiosData.features.find(f =>
-            f.properties.NM_BAIRRO.toLowerCase() === inputSearch
+            normalizarTexto(f.properties.NM_BAIRRO) === inputSearch
         );
 
         if(!feature){
@@ -122,5 +118,14 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
     }
 });
 
+function normalizarTexto(texto){
+    return texto
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^\w\s-]/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+}
 
 

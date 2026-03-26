@@ -3,7 +3,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const crypto = require("crypto");
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 const path = require("path");
 
 // --- ROTAS DE CADASTRO (POST /cadastrar) ---
