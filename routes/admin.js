@@ -2,6 +2,7 @@ const { supabase } = require("../config/supabase");
 const express = require("express");
 const router = express.Router();
 
+/**  ---- ROTA de Verificar Reports ( GET /api/reports ) ---- */
 router.get("/api/reports", async (req, res) => {
     try {
         let { nome, bairro, data } = req.query;

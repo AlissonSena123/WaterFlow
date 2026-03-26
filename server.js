@@ -73,11 +73,34 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 
 /* ---- ROTAS DE ADMIN ---- */
+
+server.get("/admin/dashboard", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin/pages/dashboard.html"));
+})
+
 server.get("/admin/reports", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/admin/pages/reporte.html"));
+  res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
+});
+
+server.get("/admin/poligonos", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin/pages/poligonos.html"));
+});
+
+server.get("/admin/relatorios", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
+})
+
+server.get("/admin/usuarios", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin/pages/usuarios.html"));
+})
+
+/** ---- API DO MAPA ---- */
+
+server.get("/api/mapKey", (req, res) => {
+  res.json({key: process.env.MAP_KEY});
 });
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
-  console.log(`Servidor rodando em http://localhost:${PORT}/admin/reports`);
+  console.log(`Servidor rodando em http://localhost:${PORT}/admin/dashboard`);
 });
