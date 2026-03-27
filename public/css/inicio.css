@@ -79,3 +79,10 @@ main > #section-map > #map{
 .div-search > input:focus{
     background-color: white;
 }
+
+@media (max-width: 1164px){
+    main > #section-map > .div-search{
+        justify-self: center;
+        width: 100%;
+    }
+}

@@ -29,6 +29,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         data: data
                     });
 
+                    //layer do poligono
                     map.addLayer({
                         id: "municipios-fill",
                         type: "fill",
@@ -40,17 +41,20 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
 
+                    //Layer da borda 
                     map.addLayer({
                         id: "municipios-line",
                         type: "line",
                         source: "municipios",
                         paint: {
-                            "line-color": "#00377e",
-                            "line-width": 1
+                            "line-color": "#3b3737",
+                            "line-width": 2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
                 });
+
+                carregarStatusBairros();
         });
     })
 
@@ -127,5 +131,18 @@ function normalizarTexto(texto){
             .replace(/\s+/g, " ")
             .trim();
 }
+async function carregarStatusBairros() {
+    
+    const res = await fetch("/status-bairros");
+    const dados = await res.json();
 
+    dados.forEach(bairro => {
 
+        map.setFeatureState({
+            source: "municipios",
+            id: bairro.bairro
+        },{
+            status: bairro.status
+        })
+    })
+}
