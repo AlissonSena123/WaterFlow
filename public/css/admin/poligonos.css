@@ -6,8 +6,6 @@
     "nav main";
 }
 
-
-
 header{
   display: flex;
   justify-content: center;
@@ -98,32 +96,12 @@ main > section > h2 > i{
   color: var(--color-bg-blue-darker);
 }
 
-
-
 /* Seção de Filtro */
 .filtros{
   display: grid;
-  grid-template-columns: 2fr repeat(4, 1fr);
+  grid-template-columns: 1fr;
   grid-auto-rows: auto;
   gap: 16px;
-}
-
-.filtros > #btnSalvar{
-  width: 100%;
-  background-color: royalblue;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 6px;
-}
-
-.filtros > #btnSalvar > i{
-  font-size: 1.5rem;
-}
-
-.filtros > #btnSalvar:hover{
-  background-color: var(--color-bg-blue-darker);
 }
 
 .field{
@@ -144,6 +122,11 @@ main > section > h2 > i{
   column-gap: 10px;
 }
 
+.field > .divSearch > input{
+  width: 100%;
+  max-width: 500px;
+}
+
 .field > .divSearch > button{
   background-color: var(--color-bg-primary-blue);
   color: white;
@@ -152,7 +135,6 @@ main > section > h2 > i{
 .filtros > div#map{
   height: 750px;
   width: 100%;
-  margin-bottom: 18px;
   border-radius: 12px;
   border: 2px solid royalblue;
   grid-column: 1/-1;
@@ -228,7 +210,6 @@ tr > .itemTableAcoes > button > i{
   margin-bottom: 5px;
 }
 
-
 .mapboxgl-ctrl-group{
   z-index: 5;
 }
@@ -237,48 +218,26 @@ tr > .itemTableAcoes > button > i{
   pointer-events: auto;
 }
 
-<<<<<<< HEAD
 /* HOVER */
 
 .field > .divSearch > button:hover{
   background-color: royalblue;
 }
-=======
-.painel-bairro{
-position:absolute;
-right:20px;
-top:120px;
 
-width:260px;
-background:white;
-
-border-radius:8px;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-
-padding:15px;
-
-display:none;
-z-index:1000;
+/* .painel-bairro{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) max-content;
+  column-gap: 20px;
 }
 
-.painel-bairro h3{
-margin-top:0;
+.painel-bairro > .sectPainelBairro{
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
 }
 
-.painel-bairro label{
-display:block;
-margin-top:10px;
-font-weight:bold;
-}
-
-.painel-bairro select,
-.painel-bairro input{
-width:100%;
-margin-top:5px;
-}
-
-.painel-bairro button{
-margin-top:15px;
-width:100%;
-}
->>>>>>> e3c979be734ec240129ed7d9a22c595ce18bff08
+.painel-bairro > .sectPainelBairro > select,
+.painel-bairro > .sectPainelBairro > input{
+  background: #f0f4ff;
+  padding: 12px;
+} */
