@@ -201,9 +201,9 @@ async function modal(nome) { // Função do Modal
         <div class="painel-item">
             <div class="painel-item-header">
                 <span class="painel-nome">${(bairro.bairro).toUpperCase()}</span>
-                <span class="badge ${colorStatus(bairro.status)}">${bairro.status}</span>
             </div>
             <div class="painel-info">
+                <div> <b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}"> ${bairro.status}</span></div>
                 <span><b>Nível:</b> ${bairro.intensidade || "-"}</span>
                 <span><b>Retorno:</b> ${bairro.retorno || "-"}</span>
                 <span><b>Descrição:</b> ${bairro.descricao || "Sem Descrição"}</span>

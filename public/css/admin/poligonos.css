@@ -302,7 +302,7 @@ thead{
 }
 
 .painel-nome {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: lighter;
   color: #000000;
 }
@@ -328,12 +328,26 @@ thead{
   color: #000000;
 }
 
+.painel-info > span,
+.painel-info > div {
+  background-color: rgba(216, 226, 255, 0.407);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px
+}
+
+.painel-info > div > b{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
 .painel-item-header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(206, 218, 255, 0.763);
-  padding: 10px;
   border-radius: 5px;
 }
 
