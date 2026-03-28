@@ -49,4 +49,28 @@ router.get("/api/reports", async (req, res) => {
     }
 });
 
+router.get("/api/status/:nome", async (req, res) => {
+    const nome = req.params.nome;
+
+    try {
+        const { data, error } = await supabase
+            .from("abastecimento")
+            .select("*")
+            .eq("bairro", nome);
+
+        if (error) {
+            console.error("ERRO SUPABASE:", error);
+            return res.status(500).json({ erro: error.message });
+        }
+
+        console.log("DADOS:", data); 
+
+        res.json(data);
+
+    } catch (error) {
+        console.error("ERRO GERAL:", error);
+        res.status(500).json({ erro: error.message });
+    }
+});
+
 module.exports = router;

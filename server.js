@@ -8,7 +8,6 @@ const PORT = 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
 const funcionarioRouter = require("./routes/admin.js")
-const poligonosRouter = require("./routes/poligonos.js")
 const statusRouter = require("./routes/statusBairros.js")
 
 // Middlewares
@@ -30,7 +29,6 @@ server.use(session({
 //Middlewares de routers
 server.use(usuarioRouter);
 server.use("/admin", funcionarioRouter)
-server.use("/poligonos", poligonosRouter)
 server.use("/status-bairros", statusRouter);
 
 server.get("/session", (req, res) => {

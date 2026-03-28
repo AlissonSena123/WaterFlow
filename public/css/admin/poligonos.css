@@ -181,15 +181,6 @@ tr > .itemTableAcoes > button > i{
   font-size: 1.5rem;
 }
 
-/* BADGE */
-.badge{
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
 .badge-high{ background: #ffe5e5; color: #a40000; }
 .badge-med{ background: #fff1d6; color: #9c5a00; }
 .badge-active{ background: #e6f7ed; color: #0c7a3f; }
@@ -223,21 +214,3 @@ tr > .itemTableAcoes > button > i{
 .field > .divSearch > button:hover{
   background-color: royalblue;
 }
-
-/* .painel-bairro{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) max-content;
-  column-gap: 20px;
-}
-
-.painel-bairro > .sectPainelBairro{
-  display: flex;
-  flex-direction: column;
-  row-gap: 6px;
-}
-
-.painel-bairro > .sectPainelBairro > select,
-.painel-bairro > .sectPainelBairro > input{
-  background: #f0f4ff;
-  padding: 12px;
-} */

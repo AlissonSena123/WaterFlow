@@ -92,16 +92,13 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
                     })
 
                 });
-
-            carregarPoligonos();
-            carregarStatusBairros();
         });
 
         // CLICK NO MAPA
         map.on("click", "municipios-layer", (e) => {
 
             const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
-
+            
             document.getElementById("buscarArea").value = nomeMunicipio;
 
             // agora só altera o filtro
@@ -116,83 +113,10 @@ criarMapa("map", [-38.5167, -12.9704], 12) // Fazemos uma função de callback a
                 ["get", "NM_BAIRRO"],
                 nomeMunicipio
             ]);
-
+            const nomeBairro = normalizarTexto(nomeMunicipio);
+            carregarStatusBairro(nomeBairro);
         });
     });
-
-// // DELETE DRAW
-// map.on("draw.delete", (e) => {
-
-//     e.features.forEach(feature => {
-//         const id = feature.properties?.id;
-//         if (id) deletarPoligono(id);
-//     });
-
-// });
-
-// // SALVAR
-// document.getElementById("btnSalvar").addEventListener("click", () => {
-//     const data = draw.getAll();
-
-//     if (data.features.length === 0) {
-//         mostrarToast("Desenhe um poligono primeiro!", "red");
-//         return;
-//     }
-
-//     const geojson = data.features[0];
-
-//     salvarPoligono(geojson);
-// });
-
-// // BACKEND
-// function salvarPoligono(geojson) {
-
-//     const status = document.getElementById("status")?.value;
-
-//     fetch("/poligonos", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             nome_area: "Area sem agua",
-//             status: status,
-//             geojson: geojson
-//         })
-//     })
-//         .then(res => res.json())
-//         .then(data => {
-
-//             const features = draw.getAll().features;
-//             const ultimo = features[features.length - 1];
-
-//             ultimo.properties = {
-//                 id: data.id
-//             };
-
-//         });
-// }
-
-function carregarPoligonos() {
-    fetch("/poligonos")
-        .then(res => res.json())
-        .then(poligonos => {
-            poligonos.forEach(p => {
-                if (p.geojson) draw.add(p.geojson);
-            });
-        });
-}
-
-// function deletarPoligono(id) {
-//     fetch(`/poligonos/${id}`, {
-//         method: "DELETE"
-//     })
-//         .then(res => res.json())
-//         .then(data => {
-//             console.log("Poligono deletado", data);
-//         });
-// }
-
 
 // INPUT
 document.getElementById("buscarArea").addEventListener("keydown", (input) => {
@@ -279,6 +203,8 @@ async function buscarRegiao(nome) {
         ["get", "NM_BAIRRO"],
         featureEncontrada.properties.NM_BAIRRO
     ]);
+
+    carregarStatusBairro(nomeBusca);
 }
 
 function normalizarTexto(texto){
@@ -290,46 +216,48 @@ function normalizarTexto(texto){
             .replace(/\s+/g, " ")
             .trim();
 }
-async function carregarStatusBairros() {
 
-    const res = await fetch("/status-bairros");
-    const dados = await res.json();
+async function carregarStatusBairro(nome) {
+    const tbody = document.querySelector("#statusBairro tbody");
+    tbody.innerHTML = "";
 
-    dados.forEach(bairro => {
+    try {
 
-        map.setFeatureState({
-            source: "municipios",
-            id: bairro.bairro
-        }, {
-            status: bairro.status
-        })
-    })
-}
-
-document
-    .querySelector("#salvar-status")
-    .addEventListener("click", async () => {
-
-        const bairro = document.querySelector("#buscar-area").value;
-        const tipo = document.querySelector("#tipo").value;
-        const status = document.querySelector("#status").value;
-        const periodo = document.querySelector("#periodo").value;
-
-        const response = await fetch("/status-bairros", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                bairro,
-                tipo,
-                status,
-                periodo
-            })
-        });
-
+        const response = await fetch(`/admin/api/status/${encodeURIComponent(nome)}`);
         const data = await response.json();
 
-        alert("Status atualizado!");
+        if(!data || data.length === 0){
+            tbody.innerHTML = `<tr> <td colspan="6">Nenhum resultado encontrado</td> </tr>`;
+            return;
+        }
 
-    });
+        data.forEach(bairro => {
+            const colorClass = colorStatus(bairro.status);
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${(bairro.bairro).toLowerCase().split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
+                <td class="${colorClass}">${bairro.status}</td>
+                <td>${bairro.intensidade || "-"}</td>
+                <td>${bairro.retorno || "-"}</td>
+                <td>${bairro.descricao || "-"}</td>
+            `;
+
+            tbody.appendChild(tr);
+        })
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Definir cores do status
+function colorStatus(status) {
+    const s = status.toUpperCase();
+
+    if (s === "NORMAL") return "badge-active";
+    if (s === "FALTA_DE_AGUA") return "badge-high";
+    if (s === "INSTABILIDADE") return "badge-med";
+    if (s === "MANUTENCAO") return "badge-review";
+
+}
