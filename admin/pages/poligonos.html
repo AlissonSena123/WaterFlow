@@ -103,48 +103,36 @@
                     </p>
                 </div>
 
-                <!-- <div class="groupBtnPoligonos">
-
-                </div> -->
             </section>
 
             <!-- FILTROS -->
 
             <section class="filtros">
 
-                <div class="field">
-                    <label for="buscarArea">Buscar por área:</label>
-                    <div class="divSearch">
-                        <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
-                        <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
-                    </div>
+            <div class="field">
+                <label for="buscarArea">Buscar por área:</label>
+                <div class="divSearch">
+                    <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
+                    <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
                 </div>
-                
-                <!-- MAPA -->
+            </div>
+
+            <!-- MAPA -->
+            <div class="mapa-wrapper">
 
                 <div id="map"></div>
 
-            </section>
+                <aside id="statusBairro" class="painel-status oculto">
+                    <div class="painel-header">
+                        <h2><i class="ph-fill ph-chart-bar"></i> Status do Bairro</h2>
+                        <button id="fecharPainel" class="ph-bold ph-x"></button>
+                    </div>
+                    <div class="painel-body"></div>
+                </aside>
 
-            <section id="statusBairro">
-                <h2> <i class="ph-fill ph-chart-bar"></i> Status do Bairro:</h2>
+            </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome:</th>
-                            <th>Status:</th>
-                            <th>Nível:</th>
-                            <th>Retorno:</th>
-                            <th>Descrição:</th>
-                            <!-- <th>Ações:</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </section>
+        </section>
 
             <!-- AJUDA -->
 

@@ -128,7 +128,7 @@ tbody{
 tbody > tr{
   width: 100%;
   display: table;
-  table-layout: fixed;;
+  table-layout: fixed;
 }
 
 tbody > tr:nth-child(odd){

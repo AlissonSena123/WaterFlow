@@ -49,6 +49,28 @@ router.get("/api/reports", async (req, res) => {
     }
 });
 
+/** ---- API BUSCAR TODOS OS STATUS (GET /api/status ) ---- */
+router.get("/api/status", async (req, res) => {
+
+    try {
+        const { data, error } = await supabase
+            .from("abastecimento")
+            .select("*");
+
+        if (error) {
+            return res.status(500).json({ erro: error.message });
+        }
+
+        res.json(data);
+
+    } catch (error) {
+        console.error("ERRO GERAL:", error);
+        res.status(500).json({ erro: error.message });
+    }
+
+});
+
+/** ---- API BUSCAR OS STATUS POR NOME (GET /api/status/:nome ) ---- */
 router.get("/api/status/:nome", async (req, res) => {
     const nome = req.params.nome;
 

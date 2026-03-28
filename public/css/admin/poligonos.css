@@ -66,36 +66,6 @@ main > section > h2 > i{
   font-size: 3rem;
 }
 
-.status > .groupBtnPoligonos{
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: 10px;
-}
-
-.status > .groupBtnPoligonos > button{
-  width: 100%;
-  padding: 10px;
-  justify-self: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: 5px;
-}
-
-.status > .groupBtnPoligonos > button > i{
-  font-size: 2rem;
-}
-
-.status > .groupBtnPoligonos > button.btn-outline{
-  border: 3px solid royalblue;
-  color: white;
-}
-
-.status > .groupBtnPoligonos > button.btn-primary:hover{
-  background-color: white;
-  color: var(--color-bg-blue-darker);
-}
-
 /* Seção de Filtro */
 .filtros{
   display: grid;
@@ -132,19 +102,22 @@ main > section > h2 > i{
   color: white;
 }
 
-.filtros > div#map{
+.mapa-wrapper {
+  grid-column: 1/-1;
+  position: relative;
+}
+
+#map {
   height: 750px;
   width: 100%;
   border-radius: 12px;
   border: 2px solid royalblue;
-  grid-column: 1/-1;
-  position: relative;
   overflow: hidden;
 }
 
 /* Seção da Lista de Polígonos */
 
-table{
+/* table{
   width: 100%;
   border-collapse: collapse;
   margin-top: 12px;
@@ -160,33 +133,29 @@ th, td{
 thead{
   background: royalblue;
   color: white;
-} 
+  /* display: block; */
 
-tbody > tr > .itemTableAcoes{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 10px;
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-tbody > tr > .itemTableAcoes > button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: 5px;
-  justify-self: center;
-  width: 100%;
-}
-
-tr > .itemTableAcoes > button > i{
-  font-size: 1.5rem;
-}
-
-.badge-high{ background: #ffe5e5; color: #a40000; }
-.badge-med{ background: #fff1d6; color: #9c5a00; }
-.badge-active{ background: #e6f7ed; color: #0c7a3f; }
-.badge-review{ background: #e7edff; color: #2447a6; }
+.badge-active  { background: #d1f5e0; color: #0a6e37; border: 1px solid #a3e8c0; }
+.badge-high    { background: #ffe0e0; color: #960000; border: 1px solid #f5b0b0; }
+.badge-med     { background: #fff0cc; color: #8a4f00; border: 1px solid #f5d98a; }
+.badge-review  { background: #e0e9ff; color: #1e3fa0; border: 1px solid #aabfff; }
 
 /* Ajuda Rapida */
+
+.ajuda{
+  margin-bottom: 0px;
+}
+
 .ajuda > ul{
   margin-top: 15px;
   display: flex;
@@ -209,8 +178,180 @@ tr > .itemTableAcoes > button > i{
   pointer-events: auto;
 }
 
+/* Container do popup */
+.maplibregl-popup-content {
+  position: relative;
+  padding: 0 !important; /* remove o padding padrão do MapLibre */
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+}
+
+/* Botão × */
+.maplibregl-popup-close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #999;
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: max-content;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10;
+}
+
+.maplibregl-popup-close-button:hover {
+  color: #111;
+}
+
+/* Seu conteúdo */
+.popup-bairro {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  width: 220px;
+  padding: 12px 14px;
+  color: #1a1a1a;
+}
+
+.popup-bairro strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 6px;
+  padding-right: 20px; /* evita sobrepor o × */
+}
+
+.popup-bairro div {
+  font-size: 0.8125rem;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.painel-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: min(420px, calc(100% - 24px)); 
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 10;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.painel-status.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+}
+
+.painel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.painel-header h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.painel-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-bg-blue-darker);
+  width: max-content;
+  padding: 0;
+  box-shadow: none;
+}
+
+.painel-header button:hover {
+  color: #333;
+}
+
+.painel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.painel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+}
+
+.painel-nome {
+  font-size: 1rem;
+  font-weight: lighter;
+  color: #000000;
+}
+
+.painel-item .badge {
+  align-self: flex-start;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+}
+
+.painel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 10px 0px;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: lighter;
+}
+
+.painel-info span b {
+  color: #000000;
+}
+
+.painel-item-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(206, 218, 255, 0.763);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.painel-item-footer > button{
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: royalblue;
+}
+
 /* HOVER */
 
 .field > .divSearch > button:hover{
   background-color: royalblue;
 }
+
+.painel-item-footer > button:hover{
+  background-color: var(--color-bg-blue-darker);
+}
+
+
