@@ -109,30 +109,64 @@
 
             <section class="filtros">
 
-            <div class="field">
-                <label for="buscarArea">Buscar por área:</label>
-                <div class="divSearch">
-                    <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
-                    <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
-                </div>
-            </div>
-
-            <!-- MAPA -->
-            <div class="mapa-wrapper">
-
-                <div id="map"></div>
-
-                <aside id="statusBairro" class="painel-status oculto">
-                    <div class="painel-header">
-                        <h2><i class="ph-fill ph-chart-bar"></i> Status do Bairro</h2>
-                        <button id="fecharPainel" class="ph-bold ph-x"></button>
+                <div class="field">
+                    <label for="buscarArea">Buscar por área:</label>
+                    <div class="divSearch">
+                        <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
+                        <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
                     </div>
-                    <div class="painel-body"></div>
-                </aside>
+                </div>
 
-            </div>
+                <!-- MAPA -->
+                <div class="mapa-wrapper">
 
-        </section>
+                    <div id="map"></div>
+
+                    <aside id="statusBairro" class="painel-status oculto">
+                        <div class="painel-header">
+                            <h2><i class="ph-fill ph-chart-bar"></i> Status do Bairro</h2>
+                            <button id="fecharPainel" class="ph-bold ph-x"></button>
+                        </div>
+                        <div class="painel-body"></div>
+                    </aside>
+
+                </div>
+
+            </section>
+
+            <!-- ATUALIZAR DADOS DO BAIRRO -->
+
+            <section id="painelStatusUpdate">
+                <h2> <i class="ph-fill ph-gear-six"></i> Atualizar Status: </h2>
+                <div class="painelStatusContent">
+                    <div class="painelStatusItemBairro">
+                        <label for="idBairro">Bairro:</label>
+                        <input type="text" id="idBairro" readonly>
+                    </div>
+                    <div class="painelStatusItemStatus">
+                        <label for="idStatus">Status:</label>
+                        <select id="idStatus">
+                            <option value="NORMAL">NORMAL</option>
+                            <option value="FALTA_DE_AGUA">FALTA DE ÁGUA</option>
+                            <option value="INSTABILIDADE">INSTABILIDADE</option>
+                            <option value="MANUNTENCAO">MANUTENÇÃO</option>
+                        </select>
+                    </div>
+                    <div class="painelStatusItemBNivel">
+                        <label for="idNivel">Nivel:</label>
+                        <select id="idNivel">
+                            <option value="ALTA">ALTA</option>
+                            <option value="MEDIA">MEDIA</option>
+                            <option value="BAIXA">BAIXA</option>
+                        </select>
+                    </div>
+                    <div class="painelStatusItemDesc">
+                        <label for="idDesc">Descrição:</label>
+                        <textarea id="idDesc"></textarea>
+                    </div>
+                    <button type="button"> <i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
+                </div>
+            </section>
 
             <!-- AJUDA -->
 
@@ -144,9 +178,8 @@
                 </h2>
 
                 <ul>
-                    <li>Use filtros para evitar edição errada.</li>
-                    <li>Polígonos em revisão precisam de dupla checagem.</li>
-                    <li>Importação de GeoJSON reduz erros de desenho manual.</li>
+                    <li>Digite o nome do bairro para ou clique no mapa para selecionar.</li>
+                    <li>Poderá atualizar o status do abastecimento de água do bairro.</li>
                 </ul>
 
             </section>

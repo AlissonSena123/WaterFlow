@@ -115,26 +115,6 @@ main > section > h2 > i{
   overflow: hidden;
 }
 
-/* Seção da Lista de Polígonos */
-
-/* table{
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-}
-
-th, td{
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #e2e8f0;
-  font-weight: lighter;
-}
-
-thead{
-  background: royalblue;
-  color: white;
-  /* display: block; */
-
 .badge {
   display: inline-block;
   padding: 3px 10px;
@@ -366,6 +346,59 @@ thead{
 
 .painel-item-footer > button:hover{
   background-color: var(--color-bg-blue-darker);
+}
+
+#painelStatusUpdate > h2{
+  margin-bottom: 20px;
+}
+
+#painelStatusUpdate > .painelStatusContent{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 10px;
+}
+
+#painelStatusUpdate > .painelStatusContent > div{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#painelStatusUpdate > .painelStatusContent > div > input,
+#painelStatusUpdate > .painelStatusContent > div > select,
+#painelStatusUpdate > .painelStatusContent > div > textarea{
+  background: #f0f4ff;
+  padding: 12px;
+  border-radius: 7px;
+  border: 2px solid royalblue;
+}
+
+#painelStatusUpdate > .painelStatusContent > .painelStatusItemDesc{
+  grid-column: 1/-1;
+  grid-row: 2/3;
+  height: 200px;
+}
+
+#painelStatusUpdate > .painelStatusContent > .painelStatusItemDesc > textarea{
+  resize: none;
+  height: 100%;
+}
+
+#painelStatusUpdate > .painelStatusContent > button{
+  grid-column: 3/-1;
+  justify-self: flex-end;
+  background-color: royalblue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  padding: 20px;
+  width: 100%;  
+}
+
+#painelStatusUpdate > .painelStatusContent > button > i{
+  font-size: 1.5rem;;
 }
 
 

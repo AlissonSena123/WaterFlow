@@ -124,40 +124,12 @@ async function buscarRegiao(nome) { // Essa função vai buscar a região no map
 
     const nomeBusca = normalizarTexto(nome);
 
-    if (nomeBusca.length < 3) {
-        mostrarToast("Digite pelo menos 3 letras", "orange");
-        return;
-    }
 
     let featureEncontrada = null;
 
     featureEncontrada = municipiosData.features.find(f =>
         normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
     );
-
-    if (!featureEncontrada) {
-        const resultados = municipiosData.features.filter(f =>
-            normalizarTexto(f.properties.NM_BAIRRO).startsWith(nomeBusca)
-        );
-
-        if (resultados.length === 1) featureEncontrada = resultados[0];
-        else if (resultados.length > 1) {
-            mostrarToast("Vários bairros encontrados. Seja mais específico.", "orange");
-            return;
-        }
-    }
-
-    if (!featureEncontrada) {
-        const resultados = municipiosData.features.filter(f =>
-            normalizarTexto(f.properties.NM_BAIRRO).includes(nomeBusca)
-        );
-
-        if (resultados.length === 1) featureEncontrada = resultados[0];
-        else if (resultados.length > 1) {
-            mostrarToast("Digite mais específico (vários bairros encontrados)", "orange");
-            return;
-        }
-    }
 
     if (!featureEncontrada) {
         mostrarToast("Bairro não encontrado!", "red");
