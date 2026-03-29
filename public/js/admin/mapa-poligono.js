@@ -181,10 +181,31 @@ async function modal(nome) { // Função do Modal
                 <span><b>Descrição:</b> ${bairro.descricao || "Sem Descrição"}</span>
             </div>
             <div class="painel-item-footer">
-                <button type="button">Atualizar Status</button>
+                <button type="button" class="btn-update"
+                    data-bairro="${bairro.bairro}"
+                    data-status="${bairro.status}"
+                    data-intensidade="${bairro.intensidade || ""}"
+                    data-retorno="${bairro.retorno || ""}"
+                    data-descricao="${bairro.descricao || ""}">
+                    Atualizar Status
+                </button>
             </div>
         </div>
     `).join("");
+
+    document.querySelectorAll(".btn-update").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const { bairro, status, intensidade, retorno, descricao } = btn.dataset;
+
+            document.getElementById("idBairro").value = bairro;
+            document.getElementById("idStatus").value = status;
+            document.getElementById("idNivel").value = intensidade;
+            document.getElementById("idRetorn").value = retorno;
+            document.getElementById("idDesc").value = descricao;
+
+            document.getElementById("painelStatusUpdate").style.display = "block";
+        });
+    });
 
     document.getElementById("statusBairro").classList.remove("oculto");
 

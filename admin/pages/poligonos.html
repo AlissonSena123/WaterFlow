@@ -141,11 +141,12 @@
                 <div class="painelStatusContent">
                     <div class="painelStatusItemBairro">
                         <label for="idBairro">Bairro:</label>
-                        <input type="text" id="idBairro" readonly>
+                        <input type="text" id="idBairro" readonly placeholder="Bairro">
                     </div>
                     <div class="painelStatusItemStatus">
                         <label for="idStatus">Status:</label>
                         <select id="idStatus">
+                            <option value="" selected disabled>Status do Bairro</option>
                             <option value="NORMAL">NORMAL</option>
                             <option value="FALTA_DE_AGUA">FALTA DE ÁGUA</option>
                             <option value="INSTABILIDADE">INSTABILIDADE</option>
@@ -155,14 +156,18 @@
                     <div class="painelStatusItemBNivel">
                         <label for="idNivel">Nivel:</label>
                         <select id="idNivel">
+                            <option value="" selected disabled>Nivel de Risco</option>
                             <option value="ALTA">ALTA</option>
                             <option value="MEDIA">MEDIA</option>
                             <option value="BAIXA">BAIXA</option>
                         </select>
+                    </div><div class="painelStatusItemRetorno">
+                        <label for="idRetorn">Retorno:</label>
+                        <input type="date" id="idRetorn">
                     </div>
                     <div class="painelStatusItemDesc">
                         <label for="idDesc">Descrição:</label>
-                        <textarea id="idDesc"></textarea>
+                        <textarea id="idDesc" placeholder="Descrição do problema"></textarea>
                     </div>
                     <button type="button"> <i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
                 </div>

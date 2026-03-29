@@ -348,13 +348,19 @@ main > section > h2 > i{
   background-color: var(--color-bg-blue-darker);
 }
 
+/* UPDATE */
+
+#painelStatusUpdate{
+  display: none;
+}
+
 #painelStatusUpdate > h2{
   margin-bottom: 20px;
 }
 
 #painelStatusUpdate > .painelStatusContent{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px 10px;
 }
 
@@ -385,7 +391,7 @@ main > section > h2 > i{
 }
 
 #painelStatusUpdate > .painelStatusContent > button{
-  grid-column: 3/-1;
+  grid-column: 4/-1;
   justify-self: flex-end;
   background-color: royalblue;
   color: white;
