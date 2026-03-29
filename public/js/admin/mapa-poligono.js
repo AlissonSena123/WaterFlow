@@ -196,6 +196,13 @@ async function modal(nome) { // Função do Modal
     document.querySelectorAll(".btn-update").forEach(btn => {
         btn.addEventListener("click", () => {
             const { bairro, status, intensidade, retorno, descricao } = btn.dataset;
+            const painelUpdate = document.getElementById("painelStatusUpdate");
+
+            if(status === "NORMAL"){
+                document.getElementById("idNivel").disabled = true;
+                document.getElementById("idRetorn").disabled = true;
+                document.getElementById("idDesc").disabled = true;
+            }
 
             document.getElementById("idBairro").value = bairro;
             document.getElementById("idStatus").value = status;
@@ -203,7 +210,9 @@ async function modal(nome) { // Função do Modal
             document.getElementById("idRetorn").value = retorno;
             document.getElementById("idDesc").value = descricao;
 
-            document.getElementById("painelStatusUpdate").style.display = "block";
+            painelUpdate.style.display = "block";
+            painelUpdate.scrollIntoView({ behavior: "smooth", block: "center"}); // Função para scrollar até o painel de update
+
         });
     });
 

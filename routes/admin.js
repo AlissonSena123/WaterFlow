@@ -95,4 +95,8 @@ router.get("/api/status/:nome", async (req, res) => {
     }
 });
 
+router.put("/api/status/update/:id", async (req, res) => {
+
+});
+
 module.exports = router;

@@ -338,16 +338,6 @@ main > section > h2 > i{
   background-color: royalblue;
 }
 
-/* HOVER */
-
-.field > .divSearch > button:hover{
-  background-color: royalblue;
-}
-
-.painel-item-footer > button:hover{
-  background-color: var(--color-bg-blue-darker);
-}
-
 /* UPDATE */
 
 #painelStatusUpdate{
@@ -404,7 +394,16 @@ main > section > h2 > i{
 }
 
 #painelStatusUpdate > .painelStatusContent > button > i{
-  font-size: 1.5rem;;
+  font-size: 1.5rem;
 }
 
+/* HOVER */
+
+.field > .divSearch > button:hover{
+  background-color: royalblue;
+}
+
+.painel-item-footer > button:hover{
+  background-color: var(--color-bg-blue-darker);
+}
 
