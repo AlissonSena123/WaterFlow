@@ -26,22 +26,23 @@ criarMapa("map", [-38.5167, -12.9704], 12)
 
                     map.addSource("municipios", {
                         type: "geojson",
-                        data: data
+                        data: data,
+                        promoteId: "NM_BAIRRO"
                     });
 
                     //layer do poligono
-                    map.addLayer({
+                     map.addLayer({
                         id: "municipios-fill",
                         type: "fill",
                         source: "municipios",
                         paint: {
-                            "fill-color": "#6cb5ff",
-                            "fill-opacity": 0.2,
+                            "fill-color": "#3b3737",
+                            "fill-opacity": 0.2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
 
-                    //Layer da borda 
+                    // Layer da borda
                     map.addLayer({
                         id: "municipios-line",
                         type: "line",
@@ -52,9 +53,9 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
-                });
 
-                carregarStatusBairros();
+                });
+                
         });
     })
 
@@ -85,6 +86,23 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
             mostrarToast("Bairro não encontrado", "red");
             return;
         }
+
+        const res = await fetch("/status/bairro");
+        const dados = await res.json();
+        
+        const bairroStatus = dados.find(b => b.bairro === feature.properties.NM_BAIRRO.toLowerCase());
+
+        const coresPorStatus = {
+            "NORMAL":        "#22c55e",
+            "FALTA_DE_AGUA": "#ef4444",
+            "INSTABILIDADE": "#f97316",
+            "MANUNTENCAO":   "#eab308"
+        };
+
+        const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
+
+        map.setPaintProperty("municipios-fill", "fill-color", cor);
+        map.setPaintProperty("municipios-line", "line-color", cor);
 
         const centro = turf.centerOfMass(feature).geometry.coordinates;
 
@@ -130,19 +148,4 @@ function normalizarTexto(texto){
             .replace(/[^\w\s-]/g, "")
             .replace(/\s+/g, " ")
             .trim();
-}
-async function carregarStatusBairros() {
-    
-    const res = await fetch("/status-bairros");
-    const dados = await res.json();
-
-    dados.forEach(bairro => {
-
-        map.setFeatureState({
-            source: "municipios",
-            id: bairro.bairro
-        },{
-            status: bairro.status
-        })
-    })
 }
