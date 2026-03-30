@@ -28,7 +28,7 @@ header > .btn-links{
 
 header > .btn-links > a{
     text-decoration: none;
-    color: var(--color-bg-primary-blue);
+    color: var(--color-bg-blue-darker);
 }
 
 header > .btn-links > a:hover{
@@ -67,10 +67,11 @@ main{
 #section-sobre{
     padding: 50px;
     text-align: start;
-    background: linear-gradient(to top,  rgb(185, 226, 255) 5%, white 50%);
+    background: linear-gradient(to top,  var(--color-bg-tertiary-blue) 5%, white 50%);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
+    color: var(--color-bg-blue-darker);
 }
 
 #section-sobre > .section-sobre-contant{
@@ -101,6 +102,7 @@ main{
 #section-projeto{
     padding: 100px;
     background: white;
+    color: var(--color-bg-blue-darker);
 }
 
 #section-projeto > .section-projeto-contant{
@@ -133,93 +135,75 @@ main{
 
 /* ----- FUNCIONALIDADES ----- */
 #section-funcionalidades{
-    padding: 50px;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    background-color: royalblue;
+}
+
+#section-funcionalidades > .sctFuncionContent{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     color: white;
+    column-gap: 20px;
 }
 
-#section-funcionalidades > div{
+#section-funcionalidades > .sctFuncionContent > div{
     justify-self: center;
     align-self: center;
     padding: 50px;
 }
 
-#section-funcionalidades > div > h1{
-    font-size: 3rem;
+#section-funcionalidades > .sctFuncionContent > div > h1{
+    font-size: 2rem;
     margin-bottom: 10px;
 }
 
-#section-funcionalidades > div > p{
+#section-funcionalidades > .sctFuncionContent > div > p{
     margin-bottom: 10px;
     text-align: justify;
     font-size: 1.2rem;
 }
 
-#section-funcionalidades > div > h2{
+#section-funcionalidades > .sctFuncionContent > div > h2{
     font-size: 1.5rem;
     margin: 10px 0px;
 }
 
 
-#section-funcionalidades > img{
+#section-funcionalidades > .sctFuncionContent > img{
     width: 500px;
     justify-self: center;
     align-self: center;
 }
 
-#section-projeto > .section-projeto-contant > .cards > .card-item1,
-#section-projeto > .section-projeto-contant > .cards > .card-item2,
-#section-projeto > .section-projeto-contant > .cards > .card-item3{
-    width: 100%;
-    padding: 50px;
+/* ----- SEÇÃO DE CADASTRAR ----- */
+
+.sctRegister{
     background-color: white;
-    color: var(--color-bg-primary-blue);
+    padding: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.295);
-    transition: .2s all ease-in-out;
+    row-gap: 50px;
+    color: var(--color-bg-blue-darker);
 }
 
-#section-projeto > .section-projeto-contant > .cards > .card-item1 > span,
-#section-projeto > .section-projeto-contant > .cards > .card-item2 > span,
-#section-projeto > .section-projeto-contant > .cards > .card-item3 > span{
-    font-size: 6rem;
-    margin-bottom: 20px;
-}
-
-#section-projeto > .section-projeto-contant > .cards > .card-item1 > .card-item-content > h2,
-#section-projeto > .section-projeto-contant > .cards > .card-item2 > .card-item-content > h2,
-#section-projeto > .section-projeto-contant > .cards > .card-item3 > .card-item-content > h2{
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#section-projeto > .section-projeto-contant > .cards > .card-item1 > p,
-#section-projeto > .section-projeto-contant > .cards > .card-item2 > p,
-#section-projeto > .section-projeto-contant > .cards > .card-item3 > p{
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-#section-projeto > .section-projeto-contant > .cards > .card-item1:hover,
-#section-projeto > .section-projeto-contant > .cards > .card-item2:hover,
-#section-projeto > .section-projeto-contant > .cards > .card-item3:hover{
-    transform: translateY(-10px);
-    box-shadow: 0px 15px 12px rgba(0, 0, 0, 0.295);
-}
-
-
-.section-projeto-contant > .btn-outline{
-    margin: 10px;
-    width: 90%;
-    max-width: 500px;
+.sctRegister > button{
     padding: 30px;
-    justify-self: center;
+    background-color: royalblue;
+    width: 500px;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
+}
+
+.sctRegister > button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.29);
 }
 
 #section-developers{
