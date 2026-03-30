@@ -7,57 +7,59 @@
     <link rel="shortcut icon" href="../assets/Img/LogoIcon.svg" type="image/x-icon">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/sobre.css">
+
 </head>
 <body>
     <div class="container">
+
         <header>
             <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
             <div class="btn-links">
+                <a href="#section-sobre">Sobre nós</a>
+                <a href="#section-projeto">Projeto</a>
+                <a href="#section-developers">Desenvolvedores</a>
                 <button class="btn-primary" onclick="window.location.href = '/login'"> <i class="ph-fill ph-sign-in"></i> Entrar</button>
-                <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastrar</button>
+                <!-- <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastrar</button> -->
             </div>
         </header>
+
         <main>
+
             <section id="section-sobre">
+                <img src="../assets/Img/illustrationVectorDEV.svg" alt="">
                 <article class="section-sobre-contant" data-aos="fade-right">
                     <h1>Bem Vindo ao WaterFlow</h1>
                     <p>Receba informações sobre a situação da água em seu bairro!</p>
-                    <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador. Utilizando nosso sistema, as empresas de abastecimento, como a Embasa, terão um maior entendimento da situação da água nos bairros de Salvador, além de ter uma maior conectividade com a população.</p>
+                    <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador.</p>
                 </article>
             </section>
+
             <section id="section-projeto">
                 <article class="section-projeto-contant" data-aos="fade-up">
-                    <h1>Junte-se ao WaterFlow</h1>
-                    <p>Com o sistema do WaterFlow podemos melhorar o atendimento de grandes distribuidoras de água e tirar a sua dúvida com relação ao abastecimento de água em seu bairro!</p>
-                    <p>Para a população soteropolitana, o nosso site disponibilizar:</p>
-                    <div class="cards" data-aos="fade-up">
-                        <div class="card-item1">
-                            <span class="ph-fill ph-map-pin"></span>
-                            <div class="card-item-content">
-                                <h2>Mapa</h2>
-                                <p>Um mapa interativo onde os usuários poderão ver a situação do abastecimento de água em seu e em outros bairros de Salvador.</p>
-                            </div>
-                        </div>
-                        <div class="card-item2">
-                            <span class="ph-fill ph-chat-circle-text"></span>
-                            <div class="card-item-content">
-                                <h2>Fórum</h2>
-                                <p>Uma comunidade, os usuário poderão compartilhar ideias, dicas, problemas que vem passando e se ajudar mutuamente.</p>
-                            </div>
-                        </div>
-                        <div class="card-item3">
-                            <span class="ph-fill ph-warning"></span>
-                            <div class="card-item-content">
-                                <h2>Reporte</h2>
-                                <p>Sistema de reporte, aqui os usuários reportarão o problema que estão passando para as distribuidoras.</p>
-                            </div>
-                        </div>
+                    <div>
+                        <h1>Sobre o projeto</h1>
+                        <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador de forma simples e rápida. Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
+                        <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao abastecimento de água nos bairros de Salvador.</p>
                     </div>
+                    <img src="../assets/Img/LogoV2.png" alt="LogoTipo">
                 </article>
             </section>
+
+            <section id="section-funcionalidades">
+                <div>
+                    <h1>Funcionalidades</h1>
+                    <p>A seguir, temos duas funcionalidades importantes que compõem o projeto WaterFlow:</p>
+                    <h2>MAPA INTERATIVO:</h2>
+                    <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do abastecimento de água em seu bairro. Podemos trazer informações atuais, quanto problemas futuros. Assim podemos trazer mais informação para a população.</p>
+                </div>
+                <img src="../assets/Img/illustrationVectorMAP.svg" alt="">
+            </section>
+
             <hr>
+
             <section id="section-developers">
                 <h1>Área dos Desenvolvedores</h1>
                 <article id="ges-joao">
@@ -83,6 +85,7 @@
                     <p>Desenvolvedor das páginas HTML, responsável pelo estilo das páginas do projeto (CSS), criador do logotipo do projeto.</p>
                 </article>
             </section>
+            
         </main>
         <footer>
             <p>WaterFlow - Projeto de TCC Senai Cimatec</p>
