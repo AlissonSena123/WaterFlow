@@ -192,9 +192,9 @@ main{
 }
 
 .sctRegister > button{
-    padding: 30px;
+    padding: 25px;
     background-color: royalblue;
-    width: 500px;
+    width: 420px;
     font-size: 1.5rem;
     color: white;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
@@ -206,16 +206,16 @@ main{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.29);
 }
 
+/* ----- SEÇÃO DE DESENVOLVEDORES ----- */
+
 #section-developers{
     background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
     background-size: cover;
+    padding: 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
-    gap: 40px;
-    padding: 50px;
+    gap: 10px;
 }
-
 
 #section-developers > h1{
     grid-column: 1/-1;
@@ -224,41 +224,21 @@ main{
     font-size: 3rem;
 }
 
-#section-developers > #ges-joao{
-    grid-column: 1 / 2;
-    grid-row: 2/3;
-    justify-self: flex-start;
-    text-align: start;
-}
-
-#section-developers > #dev-matheus{
-    grid-column: 2 / 3;
-    grid-row: 3/4;
-    justify-self: flex-end;
-    text-align: end;
-}
-
-#section-developers > #dev-alisson{
-    grid-column: 1 / 2;
-    grid-row: 4/5;
-    justify-self: flex-start;
-    text-align: start;
-}
-
 #section-developers > article{
-    padding: 50px;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0px 0px 5px black;
+    background-color: var(--color-bg-blue-darker);
+    color: white;
+    padding: 30px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
 }
 
-#section-developers > article > .article-developers{
-    margin-bottom: 10px;
+#section-developers > article > .article-developers > h2{
+    text-align: center;
 }
 
-#section-developers > article > .article-developers > h3{
-    font-weight: normal;
-    color: var(--color-bg-primary-blue);
+#section-developers > article:nth-last-child(1){
+    grid-column: 1/-1;
+    justify-self: center;
+    width: 50%;
 }
 
 
