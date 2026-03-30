@@ -90,7 +90,8 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         const res = await fetch("/status/bairro");
         const dados = await res.json();
         
-        const bairroStatus = dados.find(b => b.bairro === feature.properties.NM_BAIRRO.toLowerCase());
+        const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
+        console.log("Status encontrado:", bairroStatus);
 
         const coresPorStatus = {
             "NORMAL":        "#22c55e",
