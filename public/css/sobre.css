@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 /* ----- HEADER ----- */
 
 header{
@@ -209,8 +213,7 @@ main{
 /* ----- SEÇÃO DE DESENVOLVEDORES ----- */
 
 #section-developers{
-    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
-    background-size: cover;
+    background-color: white;
     padding: 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -222,6 +225,7 @@ main{
     justify-self: center;
     margin-bottom: 50px;
     font-size: 3rem;
+    color: var(--color-bg-blue-darker);
 }
 
 #section-developers > article{
@@ -241,11 +245,16 @@ main{
     width: 50%;
 }
 
+/* ----- FOOTER ----- */
 
 footer{
-    background-color: var(--color-bg-primary-blue);
-    padding: 50px;
-    color: white;
+    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
+    background-size: cover;
+    padding: 100px;
+    color: var(--color-bg-blue-darker);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 @media (max-width: 900px) {

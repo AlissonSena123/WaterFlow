@@ -87,7 +87,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
             return;
         }
 
-        const res = await fetch("/status/bairro");
+        const res = await fetch("/status/bairro"); // Chamando a api de status
         const dados = await res.json();
         
         const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
