@@ -123,7 +123,7 @@ main{
 .register-right > form > .form-item-register > input{
     padding: 14px;
     border-radius: 5px;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     background-color: var(--color-bg-white-opacity);
     width: 100%;
 }

@@ -97,7 +97,7 @@ main{
 }
 
 #section-sobre > img{
-    width: 600px;
+    width: clamp(300px, 40vw, 600px);
     align-self: center;
     justify-self: center;
 }
@@ -134,7 +134,7 @@ main{
 #section-projeto > .section-projeto-contant > img{
     justify-self: center;
     align-self: center;
-    width: 600px
+    width: clamp(300px, 40vw, 600px);
 }
 
 /* ----- FUNCIONALIDADES ----- */
@@ -177,7 +177,7 @@ main{
 
 
 #section-funcionalidades > .sctFuncionContent > img{
-    width: 500px;
+    width: clamp(300px, 40vw, 500px);
     justify-self: center;
     align-self: center;
 }
@@ -288,6 +288,45 @@ footer{
     #section-developers > #dev-alisson{
         grid-column: 1/-1;
         justify-self: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1165px){
+
+    #section-sobre{
+        grid-template-columns: 1fr;
+    }
+
+    #section-sobre > .section-sobre-contant > h1{
+        text-align: center;
+    }
+
+    #section-sobre > .section-sobre-contant > p{
+        justify-self: center;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    #section-sobre > img{
+        display: none;
+    }
+
+    #section-projeto > .section-projeto-contant{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    #section-projeto > .section-projeto-contant > img{
+        width: 400px;
+    }
+
+    #section-projeto > .section-projeto-contant > div{
+        text-align: center;
+    }
+
+    #section-projeto > .section-projeto-contant > div > p{
         text-align: center;
     }
 }
