@@ -124,7 +124,7 @@ main{
     padding: 14px;
     border-radius: 5px;
     border: 2px solid royalblue;
-    background-color: #f0f4ff;
+    background-color: var(--color-bg-white-opacity);
     width: 100%;
 }
 

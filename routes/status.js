@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/bairro", async (req, res) => {
-    console.log("✅ Rota /status/bairro chamada");
     try {
         const { data, error } = await supabase
             .from("abastecimento")   
