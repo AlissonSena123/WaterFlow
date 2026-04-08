@@ -95,8 +95,31 @@ router.get("/api/status/:nome", async (req, res) => {
     }
 });
 
-router.put("/api/status/update/:id", async (req, res) => {
+router.put("/api/status/:bairro", async (req, res) => {
+    try {
+        const { bairro } = req.params;
+        const { status, intensidade, retorno, descricao } = req.body;
 
+        const isNormal = status === "NORMAL";
+
+        const { data, error } = await supabase
+            .from("abastecimento")
+            .update({ 
+                status, 
+                intensidade: isNormal ? null : (intensidade || null),
+                estimativa_retorno: isNormal ? null : (retorno || null),
+                descricao: isNormal ? null : (descricao || null),
+                atualizado_em: new Date().toISOString()
+            })
+            .eq("bairro", bairro);
+
+        if (error) throw error;
+
+        res.json({ mensagem: "Status atualizado com sucesso!", data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao atualizar status do bairro" });
+    }
 });
 
 module.exports = router;

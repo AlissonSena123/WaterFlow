@@ -195,11 +195,18 @@ async function modal(nome) { // Função do Modal
         btn.addEventListener("click", () => {
             const { bairro, status, intensidade, retorno, descricao } = btn.dataset;
             const painelUpdate = document.getElementById("painelStatusUpdate");
-
-            if(status === "NORMAL"){
+            
+            if (status === "NORMAL") {
                 document.getElementById("idNivel").disabled = true;
                 document.getElementById("idRetorn").disabled = true;
                 document.getElementById("idDesc").disabled = true;
+                document.getElementById("idNivel").value = "";
+                document.getElementById("idRetorn").value = "";
+                document.getElementById("idDesc").value = "";
+            } else {
+                document.getElementById("idNivel").disabled = false;
+                document.getElementById("idRetorn").disabled = false;
+                document.getElementById("idDesc").disabled = false;
             }
 
             document.getElementById("idBairro").value = bairro;
@@ -221,6 +228,47 @@ async function modal(nome) { // Função do Modal
     };
 }
 
+// Ativar e Desativar as outras opções caso o status seja Normal ou Diferente de Normal
+document.getElementById("idStatus").addEventListener("change", () => {
+    const status = document.getElementById("idStatus").value;
+
+    if (status === "NORMAL") {
+        document.getElementById("idNivel").disabled = true;
+        document.getElementById("idRetorn").disabled = true;
+        document.getElementById("idDesc").disabled = true;
+        document.getElementById("idNivel").value = "";
+        document.getElementById("idRetorn").value = "";
+        document.getElementById("idDesc").value = "";
+    } else {
+        document.getElementById("idNivel").disabled = false;
+        document.getElementById("idRetorn").disabled = false;
+        document.getElementById("idDesc").disabled = false;
+    }
+});
+
+document.querySelector("#painelStatusUpdate button").addEventListener("click", async () => {
+    const bairro = document.getElementById("idBairro").value;
+    const status = document.getElementById("idStatus").value;
+    const intensidade = document.getElementById("idNivel").value;
+    const retorno = document.getElementById("idRetorn").value;
+    const descricao = document.getElementById("idDesc").value;
+
+    const response = await fetch(`/admin/api/status/${encodeURIComponent(bairro)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, intensidade, retorno, descricao })
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        mostrarToast("Status atualizado com sucesso!", "green");
+        document.getElementById("painelStatusUpdate").style.display = "none";
+        document.getElementById("map").scrollIntoView({behavior: "smooth", block: "center"});
+    } else {
+        mostrarToast(result.erro || "Erro ao atualizar!", "red");
+    }
+});
 
 function colorStatus(status) { // Dependendo do status do bairro, o estilo da variavel muda
     const s = status.toUpperCase();

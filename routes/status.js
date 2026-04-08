@@ -17,5 +17,6 @@ router.get("/bairro", async (req, res) => {
     }
 });
 
+
 module.exports = router;
 

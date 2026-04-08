@@ -397,6 +397,25 @@ main > section > h2 > i{
   font-size: 1.5rem;
 }
 
+#painelStatusUpdate > .painelStatusContent > div > input:disabled,
+#painelStatusUpdate > .painelStatusContent > div > select:disabled,
+#painelStatusUpdate > .painelStatusContent > div > textarea:disabled {
+    background: #e8e8e8;
+    border-color: #ccc;
+    color: #aaa;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#idBairro {
+    background: #e8e8e8;
+    border-color: #ccc;
+    color: #555;
+    cursor: default;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 /* HOVER */
 
 .field > .divSearch > button:hover{
@@ -407,3 +426,10 @@ main > section > h2 > i{
   background-color: var(--color-bg-blue-darker);
 }
 
+#painelStatusUpdate > .painelStatusContent > button:hover {
+    background-color: #2a52be;
+}
+
+#painelStatusUpdate > .painelStatusContent > button:active {
+    transform: scale(0.98);
+}
