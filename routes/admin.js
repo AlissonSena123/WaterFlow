@@ -95,6 +95,8 @@ router.get("/api/status/:nome", async (req, res) => {
     }
 });
 
+
+/** ---- API ATUALIZAR STATUS DO BAIRRO (PUT /api/status/:bairro ) ---- */
 router.put("/api/status/:bairro", async (req, res) => {
     try {
         const { bairro } = req.params;
