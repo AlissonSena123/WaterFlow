@@ -465,6 +465,30 @@ main > section > h2 > i{
   border-radius: 10px;
 }
 
+.campo-invalido {
+    border: 2px solid #e53e3e !important;
+    border-radius: 6px;
+    animation: shake 0.3s ease;
+}
+
+.campo-invalido + label,
+label.label-invalido {
+    color: #e53e3e;
+}
+
+.erro-msg {
+    font-size: 0.75rem;
+    color: #e53e3e;
+    margin-top: 4px;
+    display: block;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-6px); }
+    75%       { transform: translateX(6px); }
+}
+
 /* HOVER */
 
 .field > .divSearch > button:hover{

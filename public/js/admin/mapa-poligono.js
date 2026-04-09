@@ -99,6 +99,8 @@ criarMapa("map", [-38.5167, -12.9704], 12)
         });
     });
 
+
+
 // INPUT
 document.getElementById("buscarArea").addEventListener("keydown", (input) => {
     if (input.key === "Enter") {
@@ -111,7 +113,8 @@ document.getElementById("btnSeach").addEventListener("click", () => {
 });
 
 
-async function buscarRegiao(nome) { // Essa função vai buscar a região no mapa quando o admin digitar o nome do bairro na barra de pesquisa
+/* ---- FUNÇÃO ASSINCRONA PARA BUSCAR A REGIÃO NO MAPA ---- */
+async function buscarRegiao(nome) { 
 
     if (!nome) {
         mostrarToast("Digite um bairro!", "red");
@@ -148,17 +151,9 @@ async function buscarRegiao(nome) { // Essa função vai buscar a região no map
 }
 
 
-async function buscarDadosBairro(nome) { // Nessa função, vamos buscar as informações de status do mapa
-    try {
-        const response = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`); // Chamando a api 
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
 
-async function modal(nome) { // Função do Modal
+/* ---- FUNÇÃO ASSINCRONA DO MODAL COM OS STATUS DO BAIRRO ---- */
+async function modal(nome) {
     const painel = document.querySelector(".painel-body");
     painel.innerHTML = "<p style='color:#aaa;font-size:0.8rem'>Carregando...</p>";
 
@@ -199,6 +194,8 @@ async function modal(nome) { // Função do Modal
         btn.addEventListener("click", () => {
             const { bairro, status, causa, inicio, retorno, area, pressao, medida, descricao } = btn.dataset;
 
+            limparErros();
+
             const painelUpdate = document.getElementById("painelStatusUpdate");
             const isNormal = status === "NORMAL";
 
@@ -214,7 +211,7 @@ async function modal(nome) { // Função do Modal
             document.getElementById("idBairro").textContent = bairro;
             document.getElementById("idStatus").value = status;
             
-            if (!isNormal) {
+            if (!isNormal) { // Se o status for diferente de Normal preenche os campos com os dados passados no botão 
                 document.getElementById("idCausa").value   = causa;
                 document.getElementById("idInicio").value  = inicio;
                 document.getElementById("idRetorno").value = retorno;
@@ -225,7 +222,7 @@ async function modal(nome) { // Função do Modal
             }
 
             painelUpdate.style.display = "block";
-            painelUpdate.scrollIntoView({ behavior: "smooth", block: "center"}); // Função para scrollar até o painel de update
+            painelUpdate.scrollIntoView({ behavior: "smooth", block: "center"}); // Scrolla até o painel de update
 
         });
     });
@@ -237,23 +234,43 @@ async function modal(nome) { // Função do Modal
     };
 }
 
-// Ativar e Desativar as outras opções caso o status seja Normal ou Diferente de Normal
+
+
+/* ---- FUNÇÃO ASSINCRONA PARA BUSCAR OS DADOS DO BAIRRO SELECIONADO ---- */
+async function buscarDadosBairro(nome) { 
+    try {
+        const response = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`); // Chamando a api 
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+
+
+/* ---- ATIVAR OU DESATIVAR OS OUTROS CAMPOS DO PAINEL DE ATUALIZAÇÃO ---- */
 document.getElementById("idStatus").addEventListener("change", () => {
-    const isNormal = document.getElementById("idStatus").value === "NORMAL";
+    const isNormal = document.getElementById("idStatus").value === "NORMAL"; 
     const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
     camposExtras.forEach(id => {
         const el = document.getElementById(id);
         el.disabled = isNormal;
-        if (isNormal) el.value = "";
+        if (isNormal) limparErros(); // Se for Normal, tira a destaque
     });
 });
 
-// Função para o botão de cancelar
-document.getElementById("btnCancelar").addEventListener("click", () => {
+
+
+/* ---- FUNÇÃO DO BOTÃO DE CANCELAR ---- */
+document.getElementById("btnCancelar").addEventListener("click", () => { // Esconde o painel de atualização e rola a tela de volta para o mapa.
     document.getElementById("painelStatusUpdate").style.display = "none";
     document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
 })
 
+
+
+/* ---- FUNÇÃO PARA ATUALIZAR O STATUS DO BAIRRO ---- */
 document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click", async () => {
     
     const bairro = document.getElementById("idBairro").textContent;
@@ -265,6 +282,21 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
     const pressao = document.getElementById("idPressao").value;
     const medida = document.getElementById("idMedida").value;
     const descricao = document.getElementById("idDesc").value;
+
+    limparErros();
+
+    if (status !== "NORMAL") { // Só valida os campos obrigatórios se o status não for NORMAL
+        const obrigatorios = ["idCausa", "idRetorno", "idArea"];
+
+        //O .filter() retorna apenas os que estão vazios. Se houver algum inválido, destaca todos de uma vez
+        const invalidos = obrigatorios.filter(id => !document.getElementById(id).value);
+
+        if (invalidos.length > 0) {
+            invalidos.forEach(id => destacarCampo(id));
+            mostrarToast("Preencha os campos obrigatórios", "red");
+            return;
+        }
+    }
  
     const response = await fetch(`/status/update/dados/${encodeURIComponent(bairro)}`, {
         method: "PUT",
@@ -279,10 +311,31 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
         document.getElementById("painelStatusUpdate").style.display = "none";
         document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
-        mostrarToast(result.erro || "Erro ao atualizar!", "red");
+        mostrarToast(result.erro, "red");
     }
 });
 
+
+/* ---- FUNÇÃO QUE DESTACA OS INPUTS QUE PRECISAM SER PREENCHIDOS ---- */
+function destacarCampo(id) {
+    const campo = document.getElementById(id);
+    campo.classList.add("campo-invalido"); // Adiciona a classe aos campos obrigatorios
+
+    campo.addEventListener("change", () => {
+        campo.classList.remove("campo-invalido");
+    }, { once: true });
+}
+
+
+
+/* ---- FUNÇÃO PARA LIMPAR OS ERROS DO INPUT ---- */
+function limparErros() { // Percorre todos os elementos com a classe campo-invalido na página e remove o destaque de todos de uma vez
+    document.querySelectorAll(".campo-invalido").forEach(el => el.classList.remove("campo-invalido"));
+}
+
+
+
+/* ---- FUNÇÃO PARA ESTILIZAR O STATUS DO MODAL ---- */
 function colorStatus(status) { // Dependendo do status do bairro, o estilo da variavel muda
     const s = status.toUpperCase();
     if (s === "NORMAL") return "badge-active";
@@ -291,6 +344,9 @@ function colorStatus(status) { // Dependendo do status do bairro, o estilo da va
     if (s === "MANUTENCAO_PROGRAMADA") return "badge-review";
 }
 
+
+
+/* ---- FUNÇÃO PARA FORMATAR O TEXTO ---- */
 function normalizarTexto(texto) { // Formatar o texto
     return texto
         .toLowerCase()

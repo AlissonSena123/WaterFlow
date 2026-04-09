@@ -39,6 +39,10 @@ router.put("/update/dados/:bairro", async (req, res) => {
     try {
         const { status, causa_interrupcao, inicio_interrupcao, previsao_retorno, area_afetada, pressao_rede, medida_solucao, descricao } = req.body;
 
+        if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada)) {
+            return res.status(400).json({ message: "Preencha os valores obrigatórios" });
+        }
+
         const payload =
             status === "NORMAL"
                 ? {
@@ -54,10 +58,10 @@ router.put("/update/dados/:bairro", async (req, res) => {
                 }
                 : {
                     status,
-                    causa_interrupcao: causa_interrupcao || null,
+                    causa_interrupcao: causa_interrupcao,
                     inicio_interrupcao: inicio_interrupcao || null,
-                    previsao_retorno: previsao_retorno || null,
-                    area_afetada: area_afetada || null,
+                    previsao_retorno: previsao_retorno,
+                    area_afetada: area_afetada,
                     pressao_rede: pressao_rede || "NORMAL",
                     medida_solucao: medida_solucao || null,
                     descricao: descricao || null,
@@ -77,7 +81,7 @@ router.put("/update/dados/:bairro", async (req, res) => {
         console.log(data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ erro: "Erro ao atualizar status" });
+        res.status(500).json({ message: "Erro ao atualizar status" });
     }
 });
 
