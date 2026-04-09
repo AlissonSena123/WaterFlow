@@ -94,10 +94,30 @@ main > #groupButtonDashboard > button{
 }
 
 .card{
-  padding: 16px;
+  padding: 20px;
   border-radius: 10px;
-  background: #f2f6ff;
   border: 1px solid #dfe8ff;
+}
+
+.card > .cardHeader{
+  display: flex;
+  justify-content: space-between;
+}
+
+.card > .cardHeader > i{
+  font-size: 2rem;
+}
+
+.card.red{
+  background: rgba(230, 46, 46, 0.568);
+}
+
+.card.orange{
+  background: rgb(255, 123, 0, 0.568);
+}
+
+.card.green{
+  background: rgba(40, 179, 27, 0.568);
 }
 
 .card h3{

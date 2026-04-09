@@ -88,9 +88,6 @@ server.get("/admin/relatorios", (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
 })
 
-server.get("/admin/usuarios", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin/pages/usuarios.html"));
-})
 
 /** ---- API DO MAPA ---- */
 

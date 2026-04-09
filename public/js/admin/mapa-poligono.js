@@ -223,6 +223,7 @@ async function modal(nome) {
 
             painelUpdate.style.display = "block";
             painelUpdate.scrollIntoView({ behavior: "smooth", block: "center"}); // Scrolla até o painel de update
+            
 
         });
     });
@@ -311,6 +312,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
         mostrarToast(result.message, "green");
         document.getElementById("painelStatusUpdate").style.display = "none";
         document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
+        modal(bairro.toLowerCase());
     } else {
         mostrarToast(result.erro, "red");
     }

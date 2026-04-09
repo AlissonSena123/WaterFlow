@@ -97,7 +97,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
             "NORMAL":        "#22c55e",
             "SEM_ABASTECIMENTO": "#ef4444",
             "FORNECIMENTO_IRREGULAR": "#f97316",
-            "MANUNTENCAO_PROGRAMADA":   "#2f67ff"
+            "MANUTENCAO_PROGRAMADA":   "#2f67ff"
         };
 
         const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
