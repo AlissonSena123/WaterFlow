@@ -73,7 +73,8 @@ router.put("/update/dados/:bairro", async (req, res) => {
         if (error) throw error;
         if (!data || data.length === 0) return res.status(404).json({ erro: "Bairro não encontrado" });
 
-        res.json({ mensagem: "Status atualizado com sucesso!", data: data[0] });
+        res.json({ message: "Status atualizado com sucesso!", data: data[0] });
+        console.log(data);
     } catch (error) {
         console.error(error);
         res.status(500).json({ erro: "Erro ao atualizar status" });

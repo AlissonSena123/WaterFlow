@@ -421,7 +421,8 @@ main > section > h2 > i{
 }
 
 /* ===== BOTÃO ===== */
-#painelStatusUpdate > .painelStatusContent > button {
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button {
   background-color: royalblue;
   color: white;
   display: flex;
@@ -433,6 +434,10 @@ main > section > h2 > i{
   border: none;
   border-radius: 10px;
   cursor: pointer;
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button#btnCancelar{
+  background-color: red;
 }
 
 #painelStatusUpdate > .painelStatusContent > button > i {
@@ -470,10 +475,66 @@ main > section > h2 > i{
   background-color: var(--color-bg-blue-darker);
 }
 
-#painelStatusUpdate > .painelStatusContent > button:hover {
-    background-color: #2a52be;
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button:hover {
+    background-color: #091d53;
 }
 
-#painelStatusUpdate > .painelStatusContent > button:active {
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button:active {
     transform: scale(0.98);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* tablets */
+@media (max-width: 1100px) {
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* celulares */
+@media (max-width: 800px) {
+
+  #painelStatusUpdate > .painelStatusContent {
+    row-gap: 20px;
+  }
+
+  #painelStatusUpdate fieldset {
+    padding: 15px;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento,
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+    grid-template-columns: 1fr;
+  }
+
+ 
+  #painelStatusUpdate input,
+  #painelStatusUpdate select,
+  #painelStatusUpdate textarea {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  
+  #painelStatusUpdate > .painelStatusContent > .btnGroup {
+    flex-direction: column;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > .btnGroup > button {
+    width: 100%;
+  }
+
+  #painelStatusUpdate textarea {
+    height: 150px;
+  }
+
+  #idBairro {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
 }

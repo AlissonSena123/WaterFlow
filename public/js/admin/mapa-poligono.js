@@ -212,6 +212,7 @@ async function modal(nome) { // Função do Modal
 
             document.getElementById("idBairro").value = bairro;
             document.getElementById("idBairro").textContent = bairro;
+            document.getElementById("idStatus").value = status;
             
             if (!isNormal) {
                 document.getElementById("idCausa").value   = causa;
@@ -247,7 +248,14 @@ document.getElementById("idStatus").addEventListener("change", () => {
     });
 });
 
-document.querySelector("#painelStatusUpdate button").addEventListener("click", async () => {
+// Função para o botão de cancelar
+document.getElementById("btnCancelar").addEventListener("click", () => {
+    document.getElementById("painelStatusUpdate").style.display = "none";
+    document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
+})
+
+document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click", async () => {
+    
     const bairro = document.getElementById("idBairro").textContent;
     const status = document.getElementById("idStatus").value;
     const causa  = document.getElementById("idCausa").value;
@@ -267,7 +275,7 @@ document.querySelector("#painelStatusUpdate button").addEventListener("click", a
     const result = await response.json();
  
     if (response.ok) {
-        mostrarToast("Status atualizado com sucesso!", "green");
+        mostrarToast(result.message, "green");
         document.getElementById("painelStatusUpdate").style.display = "none";
         document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
