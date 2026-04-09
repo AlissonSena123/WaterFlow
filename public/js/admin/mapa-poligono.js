@@ -286,7 +286,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
     limparErros();
 
     if (status !== "NORMAL") { // Só valida os campos obrigatórios se o status não for NORMAL
-        const obrigatorios = ["idCausa", "idRetorno", "idArea"];
+        const obrigatorios = ["idCausa", "idRetorno", "idArea", "idMedida"];
 
         //O .filter() retorna apenas os que estão vazios. Se houver algum inválido, destaca todos de uma vez
         const invalidos = obrigatorios.filter(id => !document.getElementById(id).value);
