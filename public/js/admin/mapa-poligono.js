@@ -256,8 +256,9 @@ document.getElementById("idStatus").addEventListener("change", () => {
     camposExtras.forEach(id => {
         const el = document.getElementById(id);
         el.disabled = isNormal;
-        if (isNormal) limparErros(); // Se for Normal, tira a destaque
+        if (isNormal) el.value = "";
     });
+    if (isNormal) limparErros(); // Se for Normal, tira a destaque
 });
 
 
