@@ -137,39 +137,89 @@
             <!-- ATUALIZAR DADOS DO BAIRRO -->
 
             <section id="painelStatusUpdate">
-                <h2> <i class="ph-fill ph-gear-six"></i> Atualizar Status: </h2>
-                <div class="painelStatusContent">
-                    <div class="painelStatusItemBairro">
-                        <label for="idBairro">Bairro:</label>
-                        <input type="text" id="idBairro" readonly placeholder="Bairro">
-                    </div>
-                    <div class="painelStatusItemStatus">
-                        <label for="idStatus">Status:</label>
-                        <select id="idStatus">
-                            <option value="" selected disabled>Status do Bairro</option>
-                            <option value="NORMAL">NORMAL</option>
-                            <option value="FALTA_DE_AGUA">FALTA DE ÁGUA</option>
-                            <option value="INSTABILIDADE">INSTABILIDADE</option>
-                            <option value="MANUNTENCAO">MANUTENÇÃO</option>
-                        </select>
-                    </div>
-                    <div class="painelStatusItemBNivel">
-                        <label for="idNivel">Nivel:</label>
-                        <select id="idNivel">
-                            <option value="" selected disabled>Nivel de Risco</option>
-                            <option value="ALTA">ALTA</option>
-                            <option value="MEDIA">MEDIA</option>
-                            <option value="BAIXA">BAIXA</option>
-                        </select>
-                    </div><div class="painelStatusItemRetorno">
-                        <label for="idRetorn">Previsão de Retorno:</label>
-                        <input type="date" id="idRetorn">
-                    </div>
-                    <div class="painelStatusItemDesc">
-                        <label for="idDesc">Descrição:</label>
-                        <textarea id="idDesc" placeholder="Descrição do problema"></textarea>
-                    </div>
-                    <button type="button"> <i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
+                <h2><i class="ph-fill ph-gear-six"></i> Atualizar Status:</h2>
+ 
+                <div class="painelStatusItemBairro">
+                    <p id="idBairro"></p>
+                </div>
+ 
+                <div  class="painelStatusContent">
+
+                    <fieldset class="statusFornecimento">
+                        <legend>Status do Fornecimento:</legend>
+
+                        <div class="painelStatusItemStatus">
+                            <label for="idStatus">Situação atual:</label>
+                            <select id="idStatus">
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="NORMAL">Normal</option>
+                                <option value="FORNECIMENTO_IRREGULAR">Fornecimento Irregular</option>
+                                <option value="SEM_ABASTECIMENTO">Sem Abastecimento</option>
+                                <option value="MANUTENCAO_PROGRAMADA">Manutenção programada</option>
+                            </select>
+                        </div>
+
+                        <div class="painelStatusItemCausa">
+                            <label for="idCausa">Causa da interrupção:</label>
+                            <select id="idCausa" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="ROMPIMENTO">Rompimento</option>
+                                <option value="MANUTENCAO">Manutenção</option>
+                                <option value="OBRA_NA_REGIAO">Obra na Região</option>
+                                <option value="DESCONHECIDA">Desconhecida</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemInicio">
+                            <label for="idInicio">Início da interrupção:</label>
+                            <input type="datetime-local" id="idInicio" disabled>
+                        </div>
+    
+                        <div class="painelStatusItemRetorno">
+                            <label for="idRetorno">Previsão de retorno:</label>
+                            <input type="datetime-local" id="idRetorno" disabled>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="statusDetalhes">
+                        <legend>Detalhes:</legend> 
+                        <div class="painelStatusItemArea">
+                            <label for="idArea">Área afetada:</label>
+                            <select id="idArea" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="BAIRRO_INTEIRO">Bairro inteiro</option>
+                                <option value="PARTE_DO_BAIRRO">Parte do bairro</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemPressao">
+                            <label for="idPressao">Pressão da rede:</label>
+                            <select id="idPressao" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="SEM_PRESSAO">Sem pressão</option>
+                                <option value="BAIXA">Baixa</option>
+                                <option value="MEDIA">Média</option>
+                                <option value="ALTA">Alta</option>
+                                <option value="NORMAL">Normal</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemMedida">
+                            <label for="idMedida">Medida para solucionar:</label>
+                            <select id="idMedida" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="EQUIPE_REPARO_NO_LOCAL">Equipe de reparo no local</option>
+                                <option value="AGUARDANDO_DISTRIBUIDORA">Aguardando Distribuidora</option>
+                                <option value="MANUTENCAO_EM_ANDAMENTO">Manutenção em andamento</option>
+                                <option value="SEM_MEDIDAS_ATIVAS">Sem medidas ativas</option>
+                            </select>
+                        </div>
+    
+                        <div class="painelStatusItemDesc">
+                            <label for="idDesc">Descrição:</label>
+                            <textarea id="idDesc" placeholder="Descrição do problema" disabled></textarea>
+                        </div>
+                    </fieldset>
+                    
+                    <button type="button"><i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
+ 
                 </div>
             </section>
 

@@ -95,9 +95,9 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
 
         const coresPorStatus = {
             "NORMAL":        "#22c55e",
-            "FALTA_DE_AGUA": "#ef4444",
-            "INSTABILIDADE": "#f97316",
-            "MANUNTENCAO":   "#eab308"
+            "SEM_ABASTECIMENTO": "#ef4444",
+            "FORNECIMENTO_IRREGULAR": "#f97316",
+            "MANUNTENCAO_PROGRAMADA":   "#2f67ff"
         };
 
         const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";

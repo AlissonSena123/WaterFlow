@@ -339,50 +339,89 @@ main > section > h2 > i{
 }
 
 /* UPDATE */
-
-#painelStatusUpdate{
+#painelStatusUpdate {
   display: none;
 }
 
-#painelStatusUpdate > h2{
+#painelStatusUpdate > h2 {
   margin-bottom: 20px;
 }
 
-#painelStatusUpdate > .painelStatusContent{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px 10px;
-}
-
-#painelStatusUpdate > .painelStatusContent > div{
+/* container principal */
+#painelStatusUpdate > .painelStatusContent {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  margin-top: 25px;
+  row-gap: 30px;
 }
 
-#painelStatusUpdate > .painelStatusContent > div > input,
-#painelStatusUpdate > .painelStatusContent > div > select,
-#painelStatusUpdate > .painelStatusContent > div > textarea{
+#painelStatusUpdate fieldset {
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e0e6ff;
+  background: #f9fbff;
+}
+
+/* ===== STATUS FORNECIMENTO ===== */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* legend ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > legend {
+  grid-column: 1 / -1;
+}
+
+/* itens */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+/* ===== DETALHES ===== */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* legend ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > legend {
+  grid-column: 1 / -1;
+}
+
+/* itens */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+/* textarea ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > .painelStatusItemDesc {
+  grid-column: 1 / -1;
+}
+
+#painelStatusUpdate textarea {
+  resize: none;
+  height: 200px;
+}
+
+/* ===== INPUTS ===== */
+#painelStatusUpdate input,
+#painelStatusUpdate select,
+#painelStatusUpdate textarea {
   background: #f0f4ff;
   padding: 12px;
   border-radius: 7px;
   border: 2px solid royalblue;
 }
 
-#painelStatusUpdate > .painelStatusContent > .painelStatusItemDesc{
-  grid-column: 1/-1;
-  grid-row: 2/3;
-  height: 200px;
-}
-
-#painelStatusUpdate > .painelStatusContent > .painelStatusItemDesc > textarea{
-  resize: none;
-  height: 100%;
-}
-
-#painelStatusUpdate > .painelStatusContent > button{
-  grid-column: 4/-1;
-  justify-self: flex-end;
+/* ===== BOTÃO ===== */
+#painelStatusUpdate > .painelStatusContent > button {
   background-color: royalblue;
   color: white;
   display: flex;
@@ -390,30 +429,35 @@ main > section > h2 > i{
   align-items: center;
   column-gap: 10px;
   padding: 20px;
-  width: 100%;  
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-#painelStatusUpdate > .painelStatusContent > button > i{
+#painelStatusUpdate > .painelStatusContent > button > i {
   font-size: 1.5rem;
 }
 
-#painelStatusUpdate > .painelStatusContent > div > input:disabled,
-#painelStatusUpdate > .painelStatusContent > div > select:disabled,
-#painelStatusUpdate > .painelStatusContent > div > textarea:disabled {
-    background: #e8e8e8;
-    border-color: #ccc;
-    color: #aaa;
-    cursor: not-allowed;
-    opacity: 0.6;
+/* ===== DISABLED ===== */
+#painelStatusUpdate fieldset input:disabled,
+#painelStatusUpdate fieldset select:disabled,
+#painelStatusUpdate fieldset textarea:disabled {
+  background: #e8e8e8;
+  border-color: #ccc;
+  color: #aaa;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
+/* ===== BAIRRO ===== */
 #idBairro {
-    background: #e8e8e8;
-    border-color: #ccc;
-    color: #555;
-    cursor: default;
-    font-weight: bold;
-    text-transform: uppercase;
+  background: #e8e8e8;
+  color: #555;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 /* HOVER */

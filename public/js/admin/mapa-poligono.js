@@ -48,10 +48,11 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                             "fill-color": [
                                 "match",
                                 ["feature-state", "status"],
-                                "falta_agua", "#ff0000",
-                                "manutencao", "#ffaa00",
+                                "SEM_ABASTECIMENTO", "#ff0000",
+                                "FORNECIMENTO_IRREGULAR", "#ff7700",
                                 "NORMAL", "#00cc66",
-                                "#2b72e4"
+                                "MANUNTENCAO_PROGRAMADA", "#2f67ff",
+                                "#aeffd5"
                             ],
                             "fill-opacity": 0.35,
                             "fill-outline-color": "#003366"
@@ -149,7 +150,7 @@ async function buscarRegiao(nome) { // Essa função vai buscar a região no map
 
 async function buscarDadosBairro(nome) { // Nessa função, vamos buscar as informações de status do mapa
     try {
-        const response = await fetch(`/admin/api/status/${encodeURIComponent(nome)}`); // Chamando a api 
+        const response = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`); // Chamando a api 
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -175,15 +176,18 @@ async function modal(nome) { // Função do Modal
                 <span class="painel-nome">${(bairro.bairro).toUpperCase()}</span>
             </div>
             <div class="painel-info">
-                <div> <b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}"> ${bairro.status}</span></div>
-                <span><b>Nível:</b> ${bairro.intensidade || "-"}</span>
+                <div><b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status}</span></div>
             </div>
             <div class="painel-item-footer">
                 <button type="button" class="btn-update"
                     data-bairro="${bairro.bairro}"
                     data-status="${bairro.status}"
-                    data-intensidade="${bairro.intensidade || ""}"
-                    data-retorno="${bairro.retorno || ""}"
+                    data-causa="${bairro.causa_interrupcao || ""}"
+                    data-inicio="${bairro.inicio_interrupcao || ""}"
+                    data-retorno="${bairro.previsao_retorno || ""}"
+                    data-area="${bairro.area_afetada || ""}"
+                    data-pressao="${bairro.pressao_rede || ""}"
+                    data-medida="${bairro.medida_solucao || ""}"
                     data-descricao="${bairro.descricao || ""}">
                     Atualizar Status
                 </button>
@@ -193,27 +197,31 @@ async function modal(nome) { // Função do Modal
 
     document.querySelectorAll(".btn-update").forEach(btn => {
         btn.addEventListener("click", () => {
-            const { bairro, status, intensidade, retorno, descricao } = btn.dataset;
+            const { bairro, status, causa, inicio, retorno, area, pressao, medida, descricao } = btn.dataset;
+
             const painelUpdate = document.getElementById("painelStatusUpdate");
-            
-            if (status === "NORMAL") {
-                document.getElementById("idNivel").disabled = true;
-                document.getElementById("idRetorn").disabled = true;
-                document.getElementById("idDesc").disabled = true;
-                document.getElementById("idNivel").value = "";
-                document.getElementById("idRetorn").value = "";
-                document.getElementById("idDesc").value = "";
-            } else {
-                document.getElementById("idNivel").disabled = false;
-                document.getElementById("idRetorn").disabled = false;
-                document.getElementById("idDesc").disabled = false;
-            }
+            const isNormal = status === "NORMAL";
+
+            const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
+
+            camposExtras.forEach(id => {
+                const el = document.getElementById(id);
+                el.disabled = isNormal;
+                if (isNormal) el.value = "";
+            });
 
             document.getElementById("idBairro").value = bairro;
-            document.getElementById("idStatus").value = status;
-            document.getElementById("idNivel").value = intensidade;
-            document.getElementById("idRetorn").value = retorno;
-            document.getElementById("idDesc").value = descricao;
+            document.getElementById("idBairro").textContent = bairro;
+            
+            if (!isNormal) {
+                document.getElementById("idCausa").value   = causa;
+                document.getElementById("idInicio").value  = inicio;
+                document.getElementById("idRetorno").value = retorno;
+                document.getElementById("idArea").value    = area;
+                document.getElementById("idPressao").value = pressao;
+                document.getElementById("idMedida").value  = medida;
+                document.getElementById("idDesc").value    = descricao;
+            }
 
             painelUpdate.style.display = "block";
             painelUpdate.scrollIntoView({ behavior: "smooth", block: "center"}); // Função para scrollar até o painel de update
@@ -230,41 +238,38 @@ async function modal(nome) { // Função do Modal
 
 // Ativar e Desativar as outras opções caso o status seja Normal ou Diferente de Normal
 document.getElementById("idStatus").addEventListener("change", () => {
-    const status = document.getElementById("idStatus").value;
-
-    if (status === "NORMAL") {
-        document.getElementById("idNivel").disabled = true;
-        document.getElementById("idRetorn").disabled = true;
-        document.getElementById("idDesc").disabled = true;
-        document.getElementById("idNivel").value = "";
-        document.getElementById("idRetorn").value = "";
-        document.getElementById("idDesc").value = "";
-    } else {
-        document.getElementById("idNivel").disabled = false;
-        document.getElementById("idRetorn").disabled = false;
-        document.getElementById("idDesc").disabled = false;
-    }
+    const isNormal = document.getElementById("idStatus").value === "NORMAL";
+    const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
+    camposExtras.forEach(id => {
+        const el = document.getElementById(id);
+        el.disabled = isNormal;
+        if (isNormal) el.value = "";
+    });
 });
 
 document.querySelector("#painelStatusUpdate button").addEventListener("click", async () => {
-    const bairro = document.getElementById("idBairro").value;
+    const bairro = document.getElementById("idBairro").textContent;
     const status = document.getElementById("idStatus").value;
-    const intensidade = document.getElementById("idNivel").value;
-    const retorno = document.getElementById("idRetorn").value;
+    const causa  = document.getElementById("idCausa").value;
+    const inicio = document.getElementById("idInicio").value;
+    const retorno = document.getElementById("idRetorno").value;
+    const area = document.getElementById("idArea").value;
+    const pressao = document.getElementById("idPressao").value;
+    const medida = document.getElementById("idMedida").value;
     const descricao = document.getElementById("idDesc").value;
-
-    const response = await fetch(`/admin/api/status/${encodeURIComponent(bairro)}`, {
+ 
+    const response = await fetch(`/status/update/dados/${encodeURIComponent(bairro)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status, intensidade, retorno, descricao })
+        body: JSON.stringify({ status, causa_interrupcao: causa, inicio_interrupcao: inicio, previsao_retorno: retorno, area_afetada: area, pressao_rede: pressao, medida_solucao: medida, descricao })
     });
-
+ 
     const result = await response.json();
-
+ 
     if (response.ok) {
         mostrarToast("Status atualizado com sucesso!", "green");
         document.getElementById("painelStatusUpdate").style.display = "none";
-        document.getElementById("map").scrollIntoView({behavior: "smooth", block: "center"});
+        document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
         mostrarToast(result.erro || "Erro ao atualizar!", "red");
     }
@@ -273,9 +278,9 @@ document.querySelector("#painelStatusUpdate button").addEventListener("click", a
 function colorStatus(status) { // Dependendo do status do bairro, o estilo da variavel muda
     const s = status.toUpperCase();
     if (s === "NORMAL") return "badge-active";
-    if (s === "FALTA_DE_AGUA") return "badge-high";
-    if (s === "INSTABILIDADE") return "badge-med";
-    if (s === "MANUTENCAO") return "badge-review";
+    if (s === "SEM_ABASTECIMENTO") return "badge-high";
+    if (s === "FORNECIMENTO_IRREGULAR") return "badge-med";
+    if (s === "MANUTENCAO_PROGRAMADA") return "badge-review";
 }
 
 function normalizarTexto(texto) { // Formatar o texto
