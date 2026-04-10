@@ -51,7 +51,6 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                                 "SEM_ABASTECIMENTO", "#ff0000",
                                 "FORNECIMENTO_IRREGULAR", "#ff7700",
                                 "NORMAL", "#00cc66",
-                                "MANUNTENCAO_PROGRAMADA", "#2f67ff",
                                 "#aeffd5"
                             ],
                             "fill-opacity": 0.35,
@@ -288,7 +287,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
     limparErros();
 
     if (status !== "NORMAL") { // Só valida os campos obrigatórios se o status não for NORMAL
-        const obrigatorios = ["idCausa", "idRetorno", "idArea", "idMedida"];
+        const obrigatorios = ["idCausa", "idInicio", "idRetorno", "idArea", "idMedida"];
 
         //O .filter() retorna apenas os que estão vazios. Se houver algum inválido, destaca todos de uma vez
         const invalidos = obrigatorios.filter(id => !document.getElementById(id).value);
