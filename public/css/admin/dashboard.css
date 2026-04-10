@@ -63,34 +63,27 @@ main > #titleDashboard > h1{
   font-size: 3rem;
 }
 
-
-/* Segunda Seção */
-main > #groupButtonDashboard{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-main > #groupButtonDashboard > button{
-  justify-self: center;
+div#map{
   width: 100%;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: 5px;
+  height: 100%;
+  border-radius: 10px;
 }
 
-#groupButtonDashboard > button > i{
-  font-size: 2rem;
+.sctStatus > .sctStatusHeader{
+  margin-bottom: 20px;
+}
+
+.sctStatus > .sctStatusBody{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
 }
 
 /* Cards */
 .cards{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  margin-top: 12px;
 }
 
 .card{
@@ -99,13 +92,17 @@ main > #groupButtonDashboard > button{
   border: 1px solid #dfe8ff;
 }
 
-.card > .cardHeader{
-  display: flex;
-  justify-content: space-between;
+.card > .card-header{
+  display: grid;
+  grid-template-columns: max-content auto;
+  margin-bottom: 20px;
 }
 
-.card > .cardHeader > i{
-  font-size: 2rem;
+
+.card > .card-header > i{
+  font-size: 3rem;
+  justify-self: flex-end;
+  align-self: center;
 }
 
 .card.red{
@@ -169,6 +166,8 @@ tr > .itemTableAcoes > button{
 tr > .itemTableAcoes > button > i{
   font-size: 1.5rem;
 }
+
+
 
 /* Lista */
 

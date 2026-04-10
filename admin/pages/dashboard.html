@@ -12,6 +12,9 @@
   <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
+  <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+
   <link rel="stylesheet" href="../../css/global.css">
   <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="/css/admin/dashboard.css">
@@ -34,7 +37,7 @@
           <li class="sidebar-item">
             <a href="/admin/poligonos">
               <i class="ph-bold ph-map-trifold"></i>
-              <span class="item-title">Polígonos</span>
+              <span class="item-title">Status</span>
             </a>
           </li>
           <li class="sidebar-item">
@@ -70,38 +73,38 @@
         <p>Status do sistema: <strong>Sincronizado</strong> • Última atualização: 12:40</p>
       </section>
 
-      <!-- <section id="groupButtonDashboard">
-        <button class="btn-primary"> <i class="ph-fill ph-file-plus"></i> Novo Polígono</button>
-        <button class="btn-outline"> <i class="ph-fill ph-file-arrow-down"></i> Importar GeoJSON</button>
-        <button class="btn-outline"> <i class="ph-fill ph-file-arrow-up"></i> Exportar Relatório</button>
-      </section> -->
-
-      <section id="sctSummaryDashboard">
-        <h2> <i class="ph-fill ph-clipboard-text"></i> Resumo rápido</h2>
-        <div class="cards">
-          <div class="card red">
-            <div class="cardHeader">
-              <h3>Bairros sem Abastecimento:</h3>
-              <i class="ph-fill ph-drop-slash"></i>
+      <section class="sctStatus">
+        <div class="sctStatusHeader">
+          <h2> <i class="ph-fill ph-chart-bar"></i> Status dos Bairros:</h2>
+        </div>
+        <div class="sctStatusBody">
+          <div id="map"></div>
+          <div class="cards">
+            <div class="card red">
+              <div class="card-header">
+                <h3>Bairros sem Abastecimento:</h3>
+                <i class="ph-fill ph-drop-slash"></i>
+              </div>
+              <p id="statusFalta">8</p>
             </div>
-            <p></p>
-          </div>
-          <div class="card orange">
-            <div class="cardHeader">
-              <h3>Bairros com Fornecimento Irregular:</h3>
-              <i class="ph-fill ph-drop-half-bottom"></i>
+            <div class="card orange">
+              <div class="card-header">
+                <h3>Bairros com Fornecimento Irregular:</h3>
+                <i class="ph-fill ph-drop-half-bottom"></i>
+              </div>
+              <p id="statusIrregular">8</p>
             </div>
-            <p></p>
-          </div>
-          <div class="card green">
-            <div class="cardHeader">
-              <h3>Bairros em Normalidade:</h3>
-              <i class="ph-fill ph-drop"></i>
+            <div class="card green">
+              <div class="card-header">
+                <h3>Bairros em Normalidade:</h3>
+                <i class="ph-fill ph-drop"></i>
+              </div>
+              <p id="statusNormal">8</p>
             </div>
-            <p></p>
           </div>
         </div>
       </section>
+
 
       <!-- <section id="ReviewDashboard">
         <h2> <i class="ph-fill ph-check-circle"></i> Fila de revisão</h2>
@@ -139,7 +142,9 @@
     </main>
   </div>
 
+  <script type="module" src="/js/admin/dashboard.js"></script>
   <script src="../../js/logout.js"></script>
+  
 </body>
 
 </html>
