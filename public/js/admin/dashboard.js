@@ -88,6 +88,28 @@ criarMapa("map", [-38.5167, -12.9704], 12)
         });
     });
 
+async function contagemDeStatusIguais() {
+    try {
+        const res = await fetch("/status/contagem");
+        const data = await res.json();
+
+        document.getElementById("statusFalta").innerHTML = data.SEM_ABASTECIMENTO || 0;
+        document.getElementById("statusIrregular").innerHTML = data.FORNECIMENTO_IRREGULAR || 0;
+        document.getElementById("statusNormal").innerHTML = data.NORMAL || 0;
+
+    } catch (error) {
+        console.error("Erro ao buscar contagem de status:", error);
+    }
+}
+
+function normalizar(str) {
+    return str
+        .trim()
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+}
+
 supabase
     .channel("abastecimento-changes")
     .on(
@@ -109,10 +131,6 @@ supabase
     )
     .subscribe();
 
-function normalizar(str) {
-    return str
-        .trim()
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""); // remove acentos
-}
+// Chamando a função de contagem
+contagemDeStatusIguais();
+setInterval(contagemDeStatusIguais, 5000) // Atualizar a cada 5 segundos

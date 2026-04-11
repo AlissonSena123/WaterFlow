@@ -85,4 +85,24 @@ router.put("/update/dados/:bairro", async (req, res) => {
     }
 });
 
+router.get("/contagem", async (req, res) => {
+    try {
+        const {data, error} = await supabase
+            .from("abastecimento")
+            .select("status")
+
+        if (error) return res.status(500).json({ error })
+
+        const contagem = data.reduce((result, row) => {
+            result[row.status] = (result[row.status] || 0) + 1
+            return result;
+        }, {});
+
+        res.json(contagem)
+
+    } catch (error) {
+        return res.status(500).json({ error });
+    }
+})
+
 module.exports = router;
