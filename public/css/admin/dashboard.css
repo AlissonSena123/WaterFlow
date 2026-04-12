@@ -75,7 +75,7 @@ div#map{
 
 .sctStatus > .sctStatusBody{
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 10px;
 }
 
@@ -87,32 +87,39 @@ div#map{
 }
 
 .card{
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
-  border: 1px solid #dfe8ff;
-}
-
-.card > .card-header{
+  box-shadow: var(--shadow-medium);
   display: grid;
-  grid-template-columns: max-content auto;
-  margin-bottom: 20px;
+  grid-template-columns: max-content 1fr;
+  column-gap: 20px;
+}
+
+.card > .card-content{
+  display: grid;
+  grid-template-rows: max-content 1fr;
 }
 
 
-.card > .card-header > i{
+.card > i{
   font-size: 3rem;
   justify-self: flex-end;
   align-self: center;
+  padding: 20px;
+  border-radius: 10px;
 }
 
+.card.red > i,
 .card.red{
   background: rgba(230, 46, 46, 0.568);
 }
 
+.card.orange > i,
 .card.orange{
   background: rgb(255, 123, 0, 0.568);
 }
 
+.card.green > i,
 .card.green{
   background: rgba(40, 179, 27, 0.568);
 }
@@ -123,11 +130,11 @@ div#map{
   font-weight: lighter;
 }
 
-.card p{
-  font-size: 2rem;
+.card > .card-content > p{
+  font-size: 2.3rem;
   font-weight: 600;
+  align-self: flex-end;
 }
-
 
 /* Tabela */
 main > #ReviewDashboard > table{

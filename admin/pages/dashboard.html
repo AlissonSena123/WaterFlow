@@ -78,30 +78,32 @@
           <h2> <i class="ph-fill ph-chart-bar"></i> Status dos Bairros:</h2>
         </div>
         <div class="sctStatusBody">
-          <div id="map"></div>
           <div class="cards">
             <div class="card red">
-              <div class="card-header">
+              <i class="ph-fill ph-drop-slash"></i>
+              <div class="card-content">
                 <h3>Bairros sem Abastecimento:</h3>
-                <i class="ph-fill ph-drop-slash"></i>
+                <p id="statusFalta"></p>
               </div>
-              <p id="statusFalta"></p>
+              
             </div>
             <div class="card orange">
-              <div class="card-header">
+              <i class="ph-fill ph-drop-half-bottom"></i>
+              <div class="card-content">
                 <h3>Bairros com Fornecimento Irregular:</h3>
-                <i class="ph-fill ph-drop-half-bottom"></i>
+                <p id="statusIrregular"></p>
               </div>
-              <p id="statusIrregular"></p>
+              
             </div>
             <div class="card green">
-              <div class="card-header">
+              <i class="ph-fill ph-drop"></i>
+              <div class="card-content">
                 <h3>Bairros em Normalidade:</h3>
-                <i class="ph-fill ph-drop"></i>
+                <p id="statusNormal"></p>
               </div>
-              <p id="statusNormal"></p>
             </div>
           </div>
+          <div id="map"></div>
         </div>
       </section>
 
