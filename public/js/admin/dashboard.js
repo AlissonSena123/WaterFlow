@@ -102,6 +102,37 @@ async function contagemDeStatusIguais() {
     }
 }
 
+async function buscarBairrosSemAbastecimento() {
+    try {
+        const res = await fetch("/status/buscar/bairros/sem-abastecimento");
+        const bairros = await res.json();
+
+        console.log(bairros);
+
+        const tbody = document.querySelector('#ReviewDashboard table tbody');
+        tbody.innerHTML = '';
+
+        if(bairros.length === 0){
+            tbody.innerHTML = '<tr><td colspan="4">Nenhum bairro sem abastecimento</td></tr>';
+            return;
+        }
+
+        bairros.forEach(b => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${b.bairro}</td>
+                    <td>${b.causa_interrupcao.replace(/_/g, ' ').toLowerCase()}</td>
+                    <td>${b.medida_solucao.replace(/_/g, ' ').toUpperCase()}</td>
+                </tr>
+            `
+        });
+    } catch (error) {
+        console.log("Erro: ", error);
+    }
+}
+
+buscarBairrosSemAbastecimento();
+
 function normalizar(str) {
     return str
         .trim()

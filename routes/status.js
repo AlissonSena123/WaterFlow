@@ -85,6 +85,7 @@ router.put("/update/dados/:bairro", async (req, res) => {
     }
 });
 
+/** ---- API DE CONTAGEM DE BAIRROS COM STATUS IGUAIS (GET /contagem ) ---- */
 router.get("/contagem", async (req, res) => {
     try {
         const {data, error} = await supabase
@@ -98,11 +99,28 @@ router.get("/contagem", async (req, res) => {
             return result;
         }, {});
 
-        res.json(contagem)
+        res.json(contagem);
 
     } catch (error) {
         return res.status(500).json({ error });
     }
-})
+});
+
+/** ---- API BUSCAR OS BAIRROS SEM ABASTECIMENTO (GET /buscar/bairros/sem-abastecimento ) ---- */
+router.get("/buscar/bairros/sem-abastecimento", async (req, res) => {
+    try {
+        const {data, error} = await supabase
+        .from("abastecimento")
+        .select("bairro, causa_interrupcao, medida_solucao")
+        .eq("status", "SEM_ABASTECIMENTO")
+        .order("atualizado_em", {ascending: true})
+
+        if(error) return res.status(500).json({ error: error.message });
+        res.json(data)
+
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
 
 module.exports = router;

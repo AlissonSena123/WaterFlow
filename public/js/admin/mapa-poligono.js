@@ -170,7 +170,7 @@ async function modal(nome) {
                 <span class="painel-nome">${(bairro.bairro).toUpperCase()}</span>
             </div>
             <div class="painel-info">
-                <div><b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status}</span></div>
+                <div><b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</span></div>
             </div>
             <div class="painel-item-footer">
                 <button type="button" class="btn-update"
