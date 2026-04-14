@@ -10,12 +10,12 @@ criarMapa("map", [-38.5167, -12.9704], 12)
 
         // Definindo valor maximo e minimo do zoom
         map.setMinZoom(10);
-        map.setMaxZoom(16); 
+        map.setMaxZoom(16);
 
         // Limitando o movimento do mapa
         map.setMaxBounds([
-            [-38.70, -13.20], 
-            [-38.20, -12.70] 
+            [-38.70, -13.20],
+            [-38.20, -12.70]
         ]);
 
         map.on("load", () => {
@@ -31,7 +31,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     });
 
                     //layer do poligono
-                     map.addLayer({
+                    map.addLayer({
                         id: "municipios-fill",
                         type: "fill",
                         source: "municipios",
@@ -55,7 +55,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     });
 
                 });
-                
+
         });
     })
 
@@ -66,7 +66,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
 
     const inputSearch = normalizarTexto(document.getElementById("search").value);
 
-    if(!inputSearch){ // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
+    if (!inputSearch) { // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
         mostrarToast("Digite um bairro", "red");
         return;
     }
@@ -82,22 +82,22 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
             normalizarTexto(f.properties.NM_BAIRRO) === inputSearch
         );
 
-        if(!feature){
+        if (!feature) {
             mostrarToast("Bairro não encontrado", "red");
             return;
         }
 
         const res = await fetch("/status/bairro"); // Chamando a api de status
         const dados = await res.json();
-        
+
         const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
         console.log("Status encontrado:", bairroStatus);
 
         const coresPorStatus = {
-            "NORMAL":        "#22c55e",
+            "NORMAL": "#22c55e",
             "SEM_ABASTECIMENTO": "#ef4444",
             "FORNECIMENTO_IRREGULAR": "#f97316",
-            "MANUNTENCAO_PROGRAMADA":   "#2f67ff"
+            "MANUNTENCAO_PROGRAMADA": "#2f67ff"
         };
 
         const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
@@ -141,12 +141,53 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
     }
 });
 
-function normalizarTexto(texto){
+document.getElementById("search").addEventListener("keydown", async (input) => {
+    if (input.key === "Enter") {
+        buscarRegiao(input.target.value);
+    }
+});
+
+async function buscarRegiao(nome) {
+
+    if (!nome) {
+        mostrarToast("Digite um bairro!", "red");
+        return;
+    }
+
+    if (!municipiosData) {
+        mostrarToast("Mapa ainda carregando...", "orange");
+        return;
+    }
+
+    const nomeBusca = normalizarTexto(nome);
+
+
+    let featureEncontrada = null;
+
+    featureEncontrada = municipiosData.features.find(f =>
+        normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
+    );
+
+    if (!featureEncontrada) {
+        mostrarToast("Bairro não encontrado!", "red");
+        return;
+    }
+
+    const bbox = turf.bbox(featureEncontrada);
+
+    map.fitBounds(bbox, { padding: 40, duration: 1000 });
+
+    map.setFilter("municipios-layer-highlight", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
+    map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
+
+}
+
+function normalizarTexto(texto) {
     return texto
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/[^\w\s-]/g, "")
-            .replace(/\s+/g, " ")
-            .trim();
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 }

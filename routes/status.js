@@ -1,6 +1,7 @@
 const { supabase } = require("../config/supabase");
 const express = require("express");
 const router = express.Router();
+const { enviarAlertaEmail } = require("../public/services/emailServices.js");
 
 router.get("/bairro", async (req, res) => {
     try {
@@ -39,9 +40,30 @@ router.put("/update/dados/:bairro", async (req, res) => {
     try {
         const { status, causa_interrupcao, inicio_interrupcao, previsao_retorno, area_afetada, pressao_rede, medida_solucao, descricao } = req.body;
 
-        if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada || !medida_solucao)) {
-            return res.status(400).json({ message: "Preencha os valores obrigatórios" });
-        }
+        const bairro = req.params.bairro;
+
+        const { data: statusAtualData, error: errorStatus } = await supabase
+            .from("abastecimento")
+            .select("status")
+            .eq("bairro", bairro)
+            .single();
+
+        console.log("ERRO STATUS:", errorStatus);
+        console.log("DATA STATUS:", statusAtualData);
+
+        const statusAtual = statusAtualData?.status;
+
+        const statusMudou = statusAtual !== status;
+
+        console.log("StatusAtualData:", statusAtualData);
+
+        // if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada || !medida_solucao)) {
+        //     return res.status(400).json({ message: "Preencha os valores obrigatórios" });
+        // }
+
+        console.log("ANTES:", statusAtual);
+        console.log("DEPOIS:", status);
+        console.log("Mudou?", statusMudou);
 
         const payload =
             status === "NORMAL"
@@ -71,11 +93,34 @@ router.put("/update/dados/:bairro", async (req, res) => {
         const { data, error } = await supabase
             .from("abastecimento")
             .update(payload)
-            .eq("bairro", req.params.bairro)
+            .eq("bairro", bairro)
             .select();
 
         if (error) throw error;
         if (!data || data.length === 0) return res.status(404).json({ erro: "Bairro não encontrado" });
+
+        if (statusMudou) {
+            const { data: usuarios } = await supabase
+                .from("Users")
+                .select("email, bairro");
+            console.log("Usuarios encontrados:", usuarios);
+
+            const usuariosFiltrados = usuarios.filter(u => {
+                const b = u.bairro?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const bairroNormalizado = bairro.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                console.log("Comparando:", b, "==", bairroNormalizado);
+
+                return b === bairroNormalizado;
+            });
+
+            console.log(`Enviando email para ${usuariosFiltrados.length} usuários`);
+
+            usuariosFiltrados.forEach(user => {
+                enviarAlertaEmail(user.email, bairro, status)
+                    .catch(err => console.log("Erro ao enviar email: ", err))
+            })
+        };
 
         res.json({ message: "Status atualizado com sucesso!", data: data[0] });
         console.log(data);

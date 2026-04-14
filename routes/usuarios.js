@@ -20,17 +20,17 @@ router.post("/cadastrar", async (req, res) => {
     bairro,
   } = req.body;
 
-  
+
   if (!nome_completo || !email || !senha || !bairro) {
-    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios",});
+    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
   }
 
-  if(senha.length < 10 || senha.length > 15){
-    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres "});
+  if (senha.length < 10 || senha.length > 15) {
+    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
   }
 
   try {
-    
+
     const { data: userExistente, error: selectError } = await supabase
       .from("Users")
       .select("id")
@@ -86,40 +86,60 @@ router.post("/cadastrar", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
-  if(!email || !senha){
-    return res.json({success:false, message:"Preencha todos os campos"});
+  if (!email || !senha) {
+    return res.json({ success: false, message: "Preencha todos os campos" });
   }
 
   try {
-    const { data, error } = await supabase
+    const { data: usuario, error } = await supabase
       .from("Users")
       .select("*")
       .eq("email", email)
       .single();
 
-    if (error || !data) {
-      return res.json({success:false, message:"Email ou senha inválidos"});
+    if (error || !usuario) {
+      return res.json({ success: false, message: "Email ou senha inválidos" });
     }
-
-    const users = data;
 
     // Compara a senha digitada com o hash armazenado
-    const senhaCorreta = await bcrypt.compare(senha, users.senha);
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaCorreta) {
-      return res.json({success:false, message:"Email ou senha inválidos"});
+      return res.json({ success: false, message: "Email ou senha inválidos" });
+    }
+    //*---Forma de salvar sessao antiga---*
+    //salvar sessao do usuario;
+    //req.session.userId = users.id;
+    //req.session.username = users.nome_completo;
+
+    //*---Forma atualizada---*
+    req.session.user = {
+      id: usuario.id,
+      nome: usuario.nome_completo,
+      role: usuario.role
+    };
+
+    //*--Redirecionar por role--*
+    if (usuario.role === "users") {
+      return res.json({
+        success: true,
+        redirect: "/inicio"
+      });
     }
 
-    //salvar sessao do usuario;
-    req.session.userId = users.id;
-    req.session.username = users.nome_completo;
+    if (usuario.role === "funcionario" || usuario.role === "admin") {
+      return res.json({
+        success: true,
+        redirect: "/admin/dashboard"
+      });
+    }
     // Login bem-sucedido
-    
-    res.json({success:true});
+
+    res.json({ success: true });
 
   } catch (err) {
     console.error("Erro no login:", err);
-    res.status(500).json({success:false, message:"Erro interno no servidor"});
+    res.status(500).json({ success: false, message: "Erro interno no servidor" });
   }
 });
 
@@ -155,15 +175,15 @@ router.post("/redefinirSenha", async (req, res) => {
 
     const { error: updateError } = await supabase
       .from("Users")
-      .update({resetToken: token, tokenExpiration: expirar})
+      .update({ resetToken: token, tokenExpiration: expirar })
       .eq("id", users.id);
 
     if (updateError) throw updateError;
 
     const transporte = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,        
-      secure: false, 
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS
@@ -267,7 +287,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
       })
       .eq("id", data.id);
 
-      if(updateError) throw updateError;
+    if (updateError) throw updateError;
 
     return res.json({
       sucesso: true,
@@ -284,8 +304,8 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, rua, bairro, descricao } = req.body
 
-  if(!email || !nome || !rua || !bairro){
-    return res.json({success:false, message:"Preencha todos os campos"});
+  if (!email || !nome || !rua || !bairro) {
+    return res.json({ success: false, message: "Preencha todos os campos" });
   }
 
   try {
@@ -301,14 +321,14 @@ router.post("/reporte/enviar", async (req, res) => {
         }
       ]);
 
-      if (error) {
-        return res.status(400).json({
-          sucesso: false,
-          error: "Erro ao enviar reporte"
-        });
-      }
+    if (error) {
+      return res.status(400).json({
+        sucesso: false,
+        error: "Erro ao enviar reporte"
+      });
+    }
 
-      return res.json({ success: true, message: "Dados enviados com sucesso!" });
+    return res.json({ success: true, message: "Dados enviados com sucesso!" });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -322,14 +342,14 @@ router.post("/reporte/enviar", async (req, res) => {
 
 //rota de logout
 router.post("/logout", (req, res) => {
-  if(req.session.userId){
+  if (req.session.user) {
     req.session.destroy((err) => {
-      if(err){
+      if (err) {
         console.log(err);
-        return res.status(500).json({error: "Erro ao fazer logout!"});
+        return res.status(500).json({ error: "Erro ao fazer logout!" });
       }
       res.clearCookie("connect.sid");
-      return res.status(200).json({message: "Logout realizado com sucesso!", redirect: "/login"});
+      return res.status(200).json({ message: "Logout realizado com sucesso!", redirect: "/login" });
     });
   } else {
     res.status(400).json({ error: "Nenhum usuário logado." });
