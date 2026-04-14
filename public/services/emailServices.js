@@ -10,7 +10,7 @@ const transporte = nodemailer.createTransport({
 
 async function enviarAlertaEmail(destinatario, bairro, status) {
     const mensagem = `
-     WaterFlow
+        <h1>WaterFlow</h1>
 
         Atenção!
 
@@ -27,7 +27,7 @@ async function enviarAlertaEmail(destinatario, bairro, status) {
         from: `"WaterFlow" <process.env.MAIL_USER>`,
         to: destinatario,
         subject: "Alerta de abastecimento de água",
-        text: mensagem
+        html: mensagem
     });
 };
 
