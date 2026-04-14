@@ -27,6 +27,7 @@ main{
     padding: 24px;
     display: grid;
     grid-template-rows: 1fr;
+    gap: 10px;
 }
 
 main > section{
@@ -36,12 +37,21 @@ main > section{
     background-color: white;
 }
 
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.8rem;
+}
+
 main > #section-map{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     row-gap: 10px;
-    height: 700px;
 }
 
 main > #section-map > .div-search{
@@ -68,6 +78,33 @@ main > #section-map > #map{
     border-radius: 9px;
     border: 2px solid royalblue;
     height: 100%;
+}
+
+#infoStatus > h2{
+    margin-bottom: 5px;
+}
+
+#infoStatus > p{
+    margin-bottom: 5px;
+}
+
+#infoStatus > .infoItem{
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+#infoStatus > .infoItem > p{
+    margin-bottom: 5px;
+}
+
+#infoStatus > details{
+    border: 2px solid var(--color-bg-primary-blue);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#infoStatus > details{
+    margin-top: 10px;
 }
 
 /* HOVER */

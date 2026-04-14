@@ -39,9 +39,9 @@ router.put("/update/dados/:bairro", async (req, res) => {
     try {
         const { status, causa_interrupcao, inicio_interrupcao, previsao_retorno, area_afetada, pressao_rede, medida_solucao, descricao } = req.body;
 
-        if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada || !medida_solucao || !inicio_interrupcao)) {
-            return res.status(400).json({ message: "Preencha os valores obrigatórios" });
-        }
+        // if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada || !medida_solucao || !inicio_interrupcao)) {
+        //     return res.status(400).json({ message: "Preencha os valores obrigatórios" });
+        // }
 
         const payload =
             status === "NORMAL"
