@@ -59,14 +59,20 @@ criarMapa("map", [-38.5167, -12.9704], 12)
         });
     })
 
-// Função da Barra de Pesquisa
-const btnSearch = document.getElementById("btnSearch"); // Botão da barra de pesquisa
 
-btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do botão em uma lista de evento e criamos uma função assincrona
+document.getElementById("btnSearch").addEventListener("click", () =>{
+    buscarRegiao(document.getElementById("search").value);
+});
 
-    const inputSearch = normalizarTexto(document.getElementById("search").value);
+document.getElementById("search").addEventListener("keydown", (input) => {
+    if(input.key === "Enter"){
+        buscarRegiao(input.target.value);
+    }
+})
 
-    if (!inputSearch) { // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
+async function buscarRegiao(nome) {
+
+    if(!nome){ // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
         mostrarToast("Digite um bairro", "red");
         return;
     }
@@ -76,10 +82,12 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         return;
     }
 
+    const nomeBusca = normalizarTexto(nome);
+
     try {
 
         const feature = municipiosData.features.find(f =>
-            normalizarTexto(f.properties.NM_BAIRRO) === inputSearch
+            normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
         );
 
         if (!feature) {
@@ -97,7 +105,6 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
             "NORMAL": "#22c55e",
             "SEM_ABASTECIMENTO": "#ef4444",
             "FORNECIMENTO_IRREGULAR": "#f97316",
-            "MANUNTENCAO_PROGRAMADA": "#2f67ff"
         };
 
         const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
@@ -139,7 +146,7 @@ btnSearch.addEventListener("click", async () => { // Adicionamos a variavel do b
         console.error(error);
         mostrarToast("Erro ao pesquisar localização", "red");
     }
-});
+}
 
 document.getElementById("search").addEventListener("keydown", async (input) => {
     if (input.key === "Enter") {

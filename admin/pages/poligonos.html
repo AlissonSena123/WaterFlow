@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
-    <title>Polígonos - Funcionário</title>
+    <title>Status dos Bairros</title>
 
 
     <!-- ICONES -->
@@ -50,19 +50,13 @@
                 <li class="sidebar-item active">
                     <a href="/admin/poligonos">
                     <i class="ph-bold ph-map-trifold"></i>
-                    <span class="item-title">Polígonos</span>
+                    <span class="item-title">Status</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="/admin/relatorios">
                     <i class="ph-bold ph-file-text"></i>
                     <span class="item-title">Relatórios</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="/admin/usuarios">
-                    <i class="ph-bold ph-users"></i>
-                    <span class="item-title">Usuários</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -95,7 +89,7 @@
                 <div>
                     <h1>
                         <i class="ph-fill ph-map-trifold"></i>
-                        Polígonos
+                        Status dos Bairros
                     </h1>
 
                     <p>
@@ -155,7 +149,6 @@
                                 <option value="NORMAL">Normal</option>
                                 <option value="FORNECIMENTO_IRREGULAR">Fornecimento Irregular</option>
                                 <option value="SEM_ABASTECIMENTO">Sem Abastecimento</option>
-                                <option value="MANUTENCAO_PROGRAMADA">Manutenção programada</option>
                             </select>
                         </div>
 
@@ -245,7 +238,8 @@
         </main>
 
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script type="module" src="/js/admin/mapa-poligono.js"></script>
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 </body>

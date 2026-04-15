@@ -95,7 +95,7 @@ supabaseClient
     (payload) => {
       console.log("Novo report recebido:", payload);
 
-      // 🔥 Atualiza automaticamente
+      // Atualiza automaticamente
       carregarReports();
     }
   )
