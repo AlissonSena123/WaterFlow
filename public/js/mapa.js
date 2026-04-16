@@ -172,7 +172,6 @@ async function statusInfo(nome) {
                     </div>
                     <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</p>
                 </div>
-                <hr>
                 <details>
                     <summary>Detalhes do Abastecimento</summary>
                     <div class="cardBodyItem">
@@ -193,11 +192,15 @@ async function statusInfo(nome) {
                     </div>
                     <div class="cardBodyItem">
                         <p>Pressão da água:</p>
-                        <p>${bairro.pressao_rede || "-"}</p>
+                        <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <p>Medida de Resolução:</p>
+                        <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
                     </div>
                     <div class="cardBodyItem">
                         <div class="descInfo">
-                            ${bairro.descricao || `O abastecimento da água do bairro ${(bairro.bairro).toUpperCase()} se encontra em normalidade`}
+                            Descrição: <br> ${bairro.descricao || "Sem descrição"}
                         </div>
                     </div>
                 </details>

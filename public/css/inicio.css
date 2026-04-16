@@ -93,7 +93,7 @@ main > #section-map > #map{
 
 #cardStatus{
     background-color: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 10px;
     display: none;
 }
@@ -101,7 +101,7 @@ main > #section-map > #map{
 #cardStatus > .cardHeader{
     background-color: royalblue;
     color: white;
-    padding: 10px;
+    padding: 20px;
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
@@ -115,18 +115,19 @@ main > #section-map > #map{
 }
 
 #cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 #cardStatus > .cardHeader > .cardHeaderContant > p:last-child{
-    color: white;
+    color: rgba(255, 255, 255, 0.61);
+    font-weight: lighter;
     font-size: .9rem;
 }
 
 #cardStatus > .cardBody > .status{
     display: grid;
     grid-template-columns: max-content 1fr;
-    margin: 10px 0px 20px 0px;
+    margin: 10px 0px;
     align-items: center;
     background-color: #d7e8ff6b;
     padding: 10px;
@@ -150,26 +151,31 @@ main > #section-map > #map{
 
 #cardStatus > .cardBody > .status > p:last-child{
     justify-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+#cardStatus > .cardBody > details{
+    interpolate-size: allow-keywords;
+    padding: 15px;
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 10px;
 }
 
 #cardStatus > .cardBody > details > .cardBodyItem{
-    background-color: #D7E8FF;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-#cardStatus > .cardBody > details{
-    margin-top: 10px;
-    interpolate-size: allow-keywords;
     padding: 20px;
+    border-radius: 10px;
+    background-color: #d7e8ff6b;
 }
 
 #cardStatus > .cardBody > details::details-content{
     height: 0;
     overflow: hidden;
-    transition: height 0.5s ease;
+    transition: height 0.3s ease;
 }
 
 #cardStatus > .cardBody > details[open]::details-content {
@@ -188,7 +194,6 @@ main > #section-map > #map{
 
 .descInfo{
     width: 100%;
-    background-color: #D7E8FF;
     height: max-content;
     padding: 10px;
     border-radius: 10px;
