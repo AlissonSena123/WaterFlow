@@ -300,6 +300,88 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
+/*ATUALIZAR CAMPOS DE CADASTRO*/
+router.patch("/usuarios/atualizar-cadastro", async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.status(401).json({ success: false, message: "Usuário não autorizado" })
+    }
+    const id = req.session.user.id;
+    const { nome_completo, email, telefone, bairro } = req.body;
+    //Verificamos se o usuario existe no banco (passivo a mudanças).
+    const { data: user, error: erroBusca } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("id", id)
+      .single()
+    //condiçao onde se nao tiver para a rota e retorna esse json de erro.
+    if (!user || erroBusca) return res.status(404).json({ success: false, message: "Informações não foram encontradas!" });
+    //Objeto onde iremos pegar os novos dados inseridos pelo usuário e atualizar no banco 
+    const dadosAtualizados = {};
+
+    //se nome não vier vazio (undefined), manda a chave nome com o valor da variavel nome nome = nome;
+    if (nome_completo && nome_completo.trim() !== "") {
+      dadosAtualizados.nome_completo = nome_completo.trim();
+    }
+
+    //se email não vier vazio (undefined), manda a chave nome com o valor da variavel email = email;
+    if (email && email.trim() !== "") {
+      //limpamos e igualamos o email
+      const emailLimpo = email.trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //evitando que caracteres estranhos sejam adicionados ao email
+
+      //condicional que verifica se o email veio ou não com caractéres estranhos.
+      if (!emailRegex.test(emailLimpo)) {
+        return res.status(400).json({ success: false, message: "Email contém caractéres incomuns." });
+      };
+
+      dadosAtualizados.email = emailLimpo;
+    };
+
+    if (telefone && telefone.trim() !== "") {
+      dadosAtualizados.telefone = telefone.trim();
+    };
+
+    if (bairro && bairro.trim() !== "") {
+      dadosAtualizados.bairro = bairro
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    };
+
+    //Aqui verificamos se dados atualizados (em forma de array com as chaves), veio vazio ou com os elementos e se vier pula para alterar, se não retorna a mensagem
+    if (Object.keys(dadosAtualizados).length === 0) return res.status(400).json({ message: "Nenhum dado a ser atualizado." })
+    
+      //verifica se o novo email recebido é igual ao email antigo, evitando duplicidade.
+    if (dadosAtualizados.email) {
+      const { data: emailExistente} = await supabase
+      .from("Users")
+      .select("id")
+      .eq("email", dadosAtualizados.email)
+      .neq("id", id);
+
+      if (emailExistente.length > 0) {
+        return res.status(400).json({ success: false, message: "Este email é igual ao já cadastrado, mude o email!"});
+      };
+    };
+
+    if (dadosAtualizados.nome_completo) {
+      req.session.user.nome = dadosAtualizados.nome_completo;
+    }
+
+    const { error: updateError } = await supabase
+      .from("Users")
+      .update(dadosAtualizados)
+      .eq("id", id);
+    if (updateError) return res.status(400).json({ success: false, message: "Erro ao atualizar informações" });
+
+    return res.status(200).json({ success: true, message: "Campos atualizados com sucesso.", dados: dadosAtualizados});
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor." });
+  }
+});
+
 /* ROTA DE REPORTAR FALTA D'ÁGUA */
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, rua, bairro, descricao } = req.body
