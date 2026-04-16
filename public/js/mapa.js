@@ -99,7 +99,6 @@ async function buscarRegiao(nome) {
         const dados = await res.json();
         
         const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
-        console.log("Status encontrado:", bairroStatus);
 
         const coresPorStatus = {
             "NORMAL":        "#22c55e",

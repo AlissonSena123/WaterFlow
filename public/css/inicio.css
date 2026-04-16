@@ -24,10 +24,9 @@ header img{
 main{
     background: white url(../assets/Img/backgroundWeveEffect.svg) no-repeat center center;
     background-size: cover;
-    padding: 24px;
+    padding: 10px;
     display: grid;
-    grid-template-rows: 1fr;
-    gap: 10px;
+    grid-template-rows: 100vh;
 }
 
 main > section{
@@ -48,16 +47,22 @@ main > section > h2 > i{
 }
 
 main > #section-map{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    row-gap: 10px;
+    display: block;
+    position: relative;
+    height: 100%;
+    padding: 0;
 }
 
-main > #section-map > .div-search{
-    display: flex;
-    width: 50%;
+main > #section-map > .div-search {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 700px;
     column-gap: 10px;
+    z-index: 1000;
+    display: flex;
 }
 
 .div-search > input{
@@ -65,12 +70,16 @@ main > #section-map > .div-search{
     background-color: #f0f4ff;
     border: 2px solid royalblue;
     border-radius: 9px;
-    width: 100%;
+    flex: 1;
 }
 
 .div-search > button{
     background-color: var(--color-bg-primary-blue);
     color: white;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 main > #section-map > #map{
@@ -78,33 +87,7 @@ main > #section-map > #map{
     border-radius: 9px;
     border: 2px solid royalblue;
     height: 100%;
-}
-
-#infoStatus > h2{
-    margin-bottom: 5px;
-}
-
-#infoStatus > p{
-    margin-bottom: 5px;
-}
-
-#infoStatus > .infoItem{
-    margin-bottom: 5px;
-    padding: 10px;
-}
-
-#infoStatus > .infoItem > p{
-    margin-bottom: 5px;
-}
-
-#infoStatus > details{
-    border: 2px solid var(--color-bg-primary-blue);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#infoStatus > details{
-    margin-top: 10px;
+    width: 100%;
 }
 
 /* HOVER */
@@ -118,9 +101,19 @@ main > #section-map > #map{
     background-color: white;
 }
 
-@media (max-width: 1164px){
-    main > #section-map > .div-search{
-        justify-self: center;
-        width: 100%;
+@media (max-width: 1164px) {
+    main > #section-map > .div-search {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20px;
+        width: calc(100% - 40px);
+        max-width: none;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .div-search > button {
+        width: 56px;
+        flex-shrink: 0;
     }
 }
