@@ -95,21 +95,23 @@ main > #section-map > #map{
     background-color: white;
     padding: 15px;
     border-radius: 10px;
+    display: none;
 }
 
 #cardStatus > .cardHeader{
-    background-color: #D7E8FF;
+    background-color: royalblue;
+    color: white;
     padding: 10px;
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     border-radius: 10px;
 }
 
 #cardStatus > .cardHeader > i{
-    font-size: 2rem;
-    color: var(--color-bg-primary-blue);
+    font-size: 3rem;
+    color: white;
 }
 
 #cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
@@ -117,27 +119,51 @@ main > #section-map > #map{
 }
 
 #cardStatus > .cardHeader > .cardHeaderContant > p:last-child{
-    color: #0233737e;
+    color: white;
     font-size: .9rem;
-}
-
-#cardStatus > .cardBody{
-    padding: 15px;
 }
 
 #cardStatus > .cardBody > .status{
     display: grid;
     grid-template-columns: max-content 1fr;
     margin: 10px 0px 20px 0px;
+    align-items: center;
+    background-color: #d7e8ff6b;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#cardStatus > .cardBody > .status > .statusContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#cardStatus > .cardBody > .status > .statusContent > i{
+    font-size: 1.5rem;
+    background-color: royalblue;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
 }
 
 #cardStatus > .cardBody > .status > p:last-child{
     justify-self: flex-end;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#cardStatus > .cardBody > details > .cardBodyItem{
+    background-color: #D7E8FF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 #cardStatus > .cardBody > details{
-    margin-top: 20px;
+    margin-top: 10px;
     interpolate-size: allow-keywords;
+    padding: 20px;
 }
 
 #cardStatus > .cardBody > details::details-content{
@@ -164,8 +190,7 @@ main > #section-map > #map{
     width: 100%;
     background-color: #D7E8FF;
     height: max-content;
-    padding: 15px;
-    margin-top: 10px;
+    padding: 10px;
     border-radius: 10px;
 }
 

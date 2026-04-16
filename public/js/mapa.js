@@ -141,10 +141,83 @@ async function buscarRegiao(nome) {
             essential: true
         });
 
+        statusInfo(nomeBusca);
+
     } catch (error) {
         console.error(error);
         mostrarToast("Erro ao pesquisar localização", "red");
     }
+}
+
+async function statusInfo(nome) {
+    const painelStatusInfo = document.getElementById("cardStatus");
+
+    try {
+        const res = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`);
+        const data = await res.json();
+
+        painelStatusInfo.innerHTML = data.map(bairro => `
+            <div class="cardHeader">
+                <i class="ph-fill ph-map-pin-area"></i>
+                <div class="cardHeaderContant">
+                    <p>${(bairro.bairro).toUpperCase()}</p>
+                    <p>Salvador - BA</p>
+                </div>
+            </div>
+            <div class="cardBody">
+                <div class="status">
+                    <div class="statusContent">
+                        <i class="ph-fill ph-drop"></i>
+                        <p>Abastecimento da água:</p>
+                    </div>
+                    <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</p>
+                </div>
+                <hr>
+                <details>
+                    <summary>Detalhes do Abastecimento</summary>
+                    <div class="cardBodyItem">
+                        <p>Causa da Interrupção:</p>
+                        <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <p>Inicio da Interrupção:</p>
+                        <p>${bairro.inicio_interrupcao || "-"}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <p>Previsão de Retorno:</p>
+                        <p>${bairro.previsao_retorno || "-"}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <p>Área Afetada:</p>
+                        <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <p>Pressão da água:</p>
+                        <p>${bairro.pressao_rede || "-"}</p>
+                    </div>
+                    <div class="cardBodyItem">
+                        <div class="descInfo">
+                            ${bairro.descricao || `O abastecimento da água do bairro ${(bairro.bairro).toUpperCase()} se encontra em normalidade`}
+                        </div>
+                    </div>
+                </details>
+            </div>
+        `).join("");
+
+        painelStatusInfo.style.display = "block";
+        painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center"});
+
+    } catch (error) {
+        console.log("Erro: ", error);
+        mostrarToast("Informações não encontradas", "red");
+    }
+}
+
+function colorStatus(status) { 
+    const s = status.toUpperCase();
+    if (s === "NORMAL") return "badge-active";
+    if (s === "SEM_ABASTECIMENTO") return "badge-high";
+    if (s === "FORNECIMENTO_IRREGULAR") return "badge-med";
 }
 
 function normalizarTexto(texto){

@@ -287,7 +287,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
     limparErros();
 
     if (status !== "NORMAL") { // Só valida os campos obrigatórios se o status não for NORMAL
-        const obrigatorios = ["idCausa", "idInicio", "idRetorno", "idArea", "idMedida"];
+        const obrigatorios = ["idCausa", "idInicio", "idRetorno", "idArea", "idMedida", "idDesc", "idPressao"];
 
         //O .filter() retorna apenas os que estão vazios. Se houver algum inválido, destaca todos de uma vez
         const invalidos = obrigatorios.filter(id => !document.getElementById(id).value);
@@ -343,7 +343,6 @@ function colorStatus(status) { // Dependendo do status do bairro, o estilo da va
     if (s === "NORMAL") return "badge-active";
     if (s === "SEM_ABASTECIMENTO") return "badge-high";
     if (s === "FORNECIMENTO_IRREGULAR") return "badge-med";
-    if (s === "MANUTENCAO_PROGRAMADA") return "badge-review";
 }
 
 

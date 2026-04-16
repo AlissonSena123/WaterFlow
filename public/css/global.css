@@ -237,6 +237,20 @@ button {
     var(--color-white));
 }
 
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-active  { background: #d1f5e0; color: #0a6e37; border: 1px solid #a3e8c0; }
+.badge-high    { background: #ffe0e0; color: #960000; border: 1px solid #f5b0b0; }
+.badge-med     { background: #fff0cc; color: #8a4f00; border: 1px solid #f5d98a; }
+.badge-review  { background: #e0e9ff; color: #1e3fa0; border: 1px solid #aabfff; }
 
 @media (max-width: 600px) {
     .section-form-login{
