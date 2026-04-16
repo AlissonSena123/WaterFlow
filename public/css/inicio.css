@@ -27,6 +27,7 @@ main{
     padding: 10px;
     display: grid;
     grid-template-rows: 100vh;
+    gap: 10px;
 }
 
 main > section{
@@ -88,6 +89,84 @@ main > #section-map > #map{
     border: 2px solid royalblue;
     height: 100%;
     width: 100%;
+}
+
+#cardStatus{
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#cardStatus > .cardHeader{
+    background-color: #D7E8FF;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 5px;
+    border-radius: 10px;
+}
+
+#cardStatus > .cardHeader > i{
+    font-size: 2rem;
+    color: var(--color-bg-primary-blue);
+}
+
+#cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
+    font-size: 1.3rem;
+}
+
+#cardStatus > .cardHeader > .cardHeaderContant > p:last-child{
+    color: #0233737e;
+    font-size: .9rem;
+}
+
+#cardStatus > .cardBody{
+    padding: 15px;
+}
+
+#cardStatus > .cardBody > .status{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    margin: 10px 0px 20px 0px;
+}
+
+#cardStatus > .cardBody > .status > p:last-child{
+    justify-self: flex-end;
+}
+
+#cardStatus > .cardBody > details{
+    margin-top: 20px;
+    interpolate-size: allow-keywords;
+}
+
+#cardStatus > .cardBody > details::details-content{
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+#cardStatus > .cardBody > details[open]::details-content {
+  height: auto;
+}
+
+#cardStatus > .cardBody > details > .cardBodyItem:not(.cardBodyItem:last-child){
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    margin: 10px 0px;
+}
+
+#cardStatus > .cardBody > details > .cardBodyItem:not(.cardBodyItem:last-child) > p:last-child{
+    justify-self: flex-end;
+}
+
+.descInfo{
+    width: 100%;
+    background-color: #D7E8FF;
+    height: max-content;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 /* HOVER */

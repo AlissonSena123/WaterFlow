@@ -31,7 +31,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     });
 
                     //layer do poligono
-                     map.addLayer({
+                    map.addLayer({
                         id: "municipios-fill",
                         type: "fill",
                         source: "municipios",
