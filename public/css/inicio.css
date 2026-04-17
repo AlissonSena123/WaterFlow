@@ -103,7 +103,7 @@ main > #section-map > #map{
     color: white;
     padding: 20px;
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: max-content 1fr max-content;
     align-items: center;
     gap: 10px;
     border-radius: 10px;
@@ -147,6 +147,13 @@ main > #section-map > #map{
     padding: 10px;
     color: white;
     border-radius: 10px;
+}
+
+#cardStatus > .cardHeader > button{
+    background-color: white;
+    color: royalblue;
+    font-size: 2rem;
+    width: max-content;
 }
 
 #cardStatus > .cardBody > .status > p:last-child{

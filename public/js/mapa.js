@@ -163,6 +163,7 @@ async function statusInfo(nome) {
                     <p>${(bairro.bairro).toUpperCase()}</p>
                     <p>Salvador - BA</p>
                 </div>
+                <button type="button" class="ph-fill ph-x-circle" id="btnFecharPainel"></button>
             </div>
             <div class="cardBody">
                 <div class="status">
@@ -210,11 +211,18 @@ async function statusInfo(nome) {
         painelStatusInfo.style.display = "block";
         painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center"});
 
+        document.getElementById("btnFecharPainel").addEventListener("click", () => {
+            document.getElementById("cardStatus").style.display = "none",
+            document.getElementById("section-map").scrollIntoView({ behavior: "smooth", block: "start"});
+        });
+
     } catch (error) {
         console.log("Erro: ", error);
         mostrarToast("Informações não encontradas", "red");
     }
 }
+
+
 
 function colorStatus(status) { 
     const s = status.toUpperCase();

@@ -51,40 +51,39 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 });
 
                 //layer do poligono
-                    map.addLayer({
-                        id: "municipios-fill",
-                        type: "fill",
-                        source: "municipios",
-                        paint: {
-                            "fill-color": [
-                                "match", ["get", "status"],
-                                "NORMAL", coresStatus.NORMAL.fill,
-                                "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.fill,
-                                "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.fill,
-                                coresStatus.SEM_STATUS.fill 
-                            ],
-                            "fill-opacity": 0.5
-                        },
-                    });
+                map.addLayer({
+                    id: "municipios-fill",
+                    type: "fill",
+                    source: "municipios",
+                    paint: {
+                        "fill-color": [
+                            "match", ["get", "status"],
+                            "NORMAL", coresStatus.NORMAL.fill,
+                            "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.fill,
+                            "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.fill,
+                            coresStatus.SEM_STATUS.fill 
+                        ],
+                        "fill-opacity": 0.5
+                    },
+                });
 
-                    // Layer da borda
-                    map.addLayer({
-                        id: "municipios-line",
-                        type: "line",
-                        source: "municipios",
-                        paint: {
-                            "line-color": [
-                                "match", ["get", "status"],
-                                "NORMAL", coresStatus.NORMAL.line,
-                                "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.line,
-                                "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.line,
-                                coresStatus.SEM_STATUS.line 
-                            ],
-                            "line-width": 2
-                        },
-                    });
-            });
-                
+                // Layer da borda
+                map.addLayer({
+                    id: "municipios-line",
+                    type: "line",
+                    source: "municipios",
+                    paint: {
+                        "line-color": [
+                            "match", ["get", "status"],
+                            "NORMAL", coresStatus.NORMAL.line,
+                            "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.line,
+                            "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.line,
+                            coresStatus.SEM_STATUS.line 
+                        ],
+                        "line-width": 2
+                    },
+                });
+            });     
         });
     });
 
