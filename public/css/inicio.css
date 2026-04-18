@@ -22,7 +22,7 @@ header img{
 }
 
 main{
-    background: white url(../assets/Img/backgroundWeveEffect.svg) no-repeat center center;
+    background: white;
     background-size: cover;
     padding: 10px;
     display: grid;
@@ -92,7 +92,7 @@ main > #section-map > #map{
 }
 
 #cardStatus{
-    background-color: white;
+    background: none;
     padding: 20px;
     border-radius: 10px;
     display: none;
@@ -107,6 +107,7 @@ main > #section-map > #map{
     align-items: center;
     gap: 10px;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 #cardStatus > .cardHeader > i{
@@ -124,86 +125,64 @@ main > #section-map > #map{
     font-size: .9rem;
 }
 
-#cardStatus > .cardBody > .status{
+#cardStatus > .cardBody{
     display: grid;
-    grid-template-columns: max-content 1fr;
-    margin: 10px 0px;
-    align-items: center;
-    background-color: #d7e8ff6b;
-    padding: 10px;
-    border-radius: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-template-areas: 
+    "status status status"
+    "areaAfetada pressaoAgua inicioInterrupcao"
+    "retornoWrap retornoWrap retornoWrap"
+    "descInfo descInfo descInfo";
 }
 
-#cardStatus > .cardBody > .status > .statusContent{
+.cardItem {
+    background: rgba(221, 238, 255, 0.6);
+    border-radius: 12px;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
 }
 
-#cardStatus > .cardBody > .status > .statusContent > i{
-    font-size: 1.5rem;
-    background-color: royalblue;
-    padding: 10px;
-    color: white;
-    border-radius: 10px;
+.cardItem p:first-child {
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary-black);
+    margin: 0;
 }
 
-#cardStatus > .cardHeader > button{
-    background-color: white;
-    color: royalblue;
-    font-size: 2rem;
-    width: max-content;
+.cardItem p:last-child {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    margin: 0;
 }
 
-#cardStatus > .cardBody > .status > p:last-child{
-    justify-self: flex-end;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    width: 300px;
-}
+.status{ grid-area: status; }
+.areaAfetada{ grid-area: areaAfetada; }
+.pressaoAgua{ grid-area: pressaoAgua; }
+.inicioInterrupcao{ grid-area: inicioInterrupcao; }
+.retornoWrap{ grid-area: retornoWrap; }
+.descInfo{ grid-area: descInfo; }
 
-#cardStatus > .cardBody > details{
-    interpolate-size: allow-keywords;
-    padding: 15px;
-    border: 2px solid var(--color-bg-primary-blue);
-    border-radius: 10px;
-}
-
-#cardStatus > .cardBody > details > .cardBodyItem{
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #d7e8ff6b;
-}
-
-#cardStatus > .cardBody > details::details-content{
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease;
-}
-
-#cardStatus > .cardBody > details[open]::details-content {
-  height: auto;
-}
-
-#cardStatus > .cardBody > details > .cardBodyItem:not(.cardBodyItem:last-child){
+#cardStatus > .cardBody > .retornoWrap{ 
     display: grid;
-    grid-template-columns: max-content 1fr;
-    margin: 10px 0px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-#cardStatus > .cardBody > details > .cardBodyItem:not(.cardBodyItem:last-child) > p:last-child{
-    justify-self: flex-end;
+#cardStatus > .cardBody > .cardItem.status > p:last-child{
+    color: rgba(50, 50, 50, 0.61);
+    font-size: .9rem;
 }
 
-.descInfo{
-    width: 100%;
-    height: max-content;
-    padding: 10px;
-    border-radius: 10px;
+.bagde {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 5px;
+    width: fit-content;
 }
 
 /* HOVER */

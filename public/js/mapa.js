@@ -156,55 +156,48 @@ async function statusInfo(nome) {
         const res = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`);
         const data = await res.json();
 
+        console.log(data);
+
         painelStatusInfo.innerHTML = data.map(bairro => `
             <div class="cardHeader">
                 <i class="ph-fill ph-map-pin-area"></i>
                 <div class="cardHeaderContant">
                     <p>${(bairro.bairro).toUpperCase()}</p>
-                    <p>Salvador - BA</p>
+                    <p>Salvador - BA · <span> Atualizado em: ${bairro.atualizado_em || "Sem Atualização"}</span></p>
                 </div>
                 <button type="button" class="ph-fill ph-x-circle" id="btnFecharPainel"></button>
             </div>
             <div class="cardBody">
-                <div class="status">
-                    <div class="statusContent">
-                        <i class="ph-fill ph-drop"></i>
-                        <p>Abastecimento da água:</p>
-                    </div>
+                <div class="cardItem status">
+                    <p>Abastecimento da água:</p>
                     <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</p>
+                    <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
                 </div>
-                <details>
-                    <summary>Detalhes do Abastecimento</summary>
-                    <div class="cardBodyItem">
-                        <p>Causa da Interrupção:</p>
-                        <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
-                    </div>
-                    <div class="cardBodyItem">
-                        <p>Inicio da Interrupção:</p>
-                        <p>${bairro.inicio_interrupcao || "-"}</p>
-                    </div>
-                    <div class="cardBodyItem">
+                <div class="cardItem areaAfetada">
+                    <p>Área Afetada:</p>
+                    <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
+                </div>
+                <div class="cardItem pressaoAgua">
+                    <p>Pressão da água:</p>
+                    <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
+                </div>
+                <div class="cardItem inicioInterrupcao">
+                    <p>Inicio da Interrupção:</p>
+                    <p>${bairro.inicio_interrupcao || "-"}</p>
+                </div>
+                <div class="retornoWrap">
+                    <div class="cardItem prevRetorno">
                         <p>Previsão de Retorno:</p>
                         <p>${bairro.previsao_retorno || "-"}</p>
                     </div>
-                    <div class="cardBodyItem">
-                        <p>Área Afetada:</p>
-                        <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
-                    </div>
-                    <div class="cardBodyItem">
-                        <p>Pressão da água:</p>
-                        <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
-                    </div>
-                    <div class="cardBodyItem">
+                    <div class="cardItem medResolucao">
                         <p>Medida de Resolução:</p>
                         <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
                     </div>
-                    <div class="cardBodyItem">
-                        <div class="descInfo">
-                            Descrição: <br> ${bairro.descricao || "Sem descrição"}
-                        </div>
-                    </div>
-                </details>
+                </div>
+                <div class="cardItem descInfo">
+                    <p>Descrição: <br> ${bairro.descricao || "Sem descrição"}</p>
+                </div>
             </div>
         `).join("");
 
