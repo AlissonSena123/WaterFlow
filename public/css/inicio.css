@@ -107,12 +107,15 @@ main > #section-map > #map{
     align-items: center;
     gap: 10px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 #cardStatus > .cardHeader > i{
-    font-size: 3rem;
+    font-size: 2rem;
     color: white;
+    background-color: #aac1ff7d;
+    padding: 10px;
+    border-radius: 50px;
 }
 
 #cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
@@ -130,7 +133,6 @@ main > #section-map > #map{
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     grid-template-areas: 
-    "status status status"
     "areaAfetada pressaoAgua inicioInterrupcao"
     "retornoWrap retornoWrap retornoWrap"
     "descInfo descInfo descInfo";
@@ -138,27 +140,46 @@ main > #section-map > #map{
 
 .cardItem {
     background: rgba(221, 238, 255, 0.6);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 7px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.cardItem p:first-child {
-    font-size: 15px;
+.cardItemContent{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: rgba(204, 230, 255, 0.727);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cardItemContent > i{
+    font-size: 1.7rem;
+    background-color: royalblue;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cardItemContent > p{
+    font-size: 16px;
     letter-spacing: 0.05em;
-    color: var(--color-text-primary-black);
+    color: black;
     margin: 0;
 }
 
-.cardItem p:last-child {
-    font-size: 14px;
-    color: var(--color-text-primary);
-    margin: 0;
+.status{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    justify-self: flex-end;
 }
 
-.status{ grid-area: status; }
 .areaAfetada{ grid-area: areaAfetada; }
 .pressaoAgua{ grid-area: pressaoAgua; }
 .inicioInterrupcao{ grid-area: inicioInterrupcao; }
@@ -171,13 +192,15 @@ main > #section-map > #map{
     gap: 10px;
 }
 
-#cardStatus > .cardBody > .cardItem.status > p:last-child{
-    color: rgba(50, 50, 50, 0.61);
+#cardStatus > .cardHeader > .status > p:last-child{
+    color: rgba(255, 255, 255, 0.61);
     font-size: .9rem;
 }
 
 .bagde {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 20px;
     font-weight: 500;
     padding: 4px 12px;

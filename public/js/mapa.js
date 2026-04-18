@@ -156,23 +156,19 @@ async function statusInfo(nome) {
         const res = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`);
         const data = await res.json();
 
-        console.log(data);
-
         painelStatusInfo.innerHTML = data.map(bairro => `
             <div class="cardHeader">
-                <i class="ph-fill ph-map-pin-area"></i>
+                <i class="ph-fill ph-map-pin"></i>
                 <div class="cardHeaderContant">
                     <p>${(bairro.bairro).toUpperCase()}</p>
-                    <p>Salvador - BA · <span> Atualizado em: ${bairro.atualizado_em || "Sem Atualização"}</span></p>
+                    <p>Salvador - BA · <span> Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
                 </div>
-                <button type="button" class="ph-fill ph-x-circle" id="btnFecharPainel"></button>
-            </div>
-            <div class="cardBody">
-                <div class="cardItem status">
-                    <p>Abastecimento da água:</p>
+                <div class="status">
                     <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</p>
                     <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
                 </div>
+            </div>
+            <div class="cardBody">
                 <div class="cardItem areaAfetada">
                     <p>Área Afetada:</p>
                     <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
@@ -183,12 +179,12 @@ async function statusInfo(nome) {
                 </div>
                 <div class="cardItem inicioInterrupcao">
                     <p>Inicio da Interrupção:</p>
-                    <p>${bairro.inicio_interrupcao || "-"}</p>
+                    <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || "-"}</p>
                 </div>
                 <div class="retornoWrap">
                     <div class="cardItem prevRetorno">
                         <p>Previsão de Retorno:</p>
-                        <p>${bairro.previsao_retorno || "-"}</p>
+                        <p>${formatarData(bairro.previsao_retorno, bairro.status) || "-"}</p>
                     </div>
                     <div class="cardItem medResolucao">
                         <p>Medida de Resolução:</p>
@@ -204,17 +200,16 @@ async function statusInfo(nome) {
         painelStatusInfo.style.display = "block";
         painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center"});
 
-        document.getElementById("btnFecharPainel").addEventListener("click", () => {
-            document.getElementById("cardStatus").style.display = "none",
-            document.getElementById("section-map").scrollIntoView({ behavior: "smooth", block: "start"});
-        });
+        // document.getElementById("btnFecharPainel").addEventListener("click", () => {
+        //     document.getElementById("cardStatus").style.display = "none",
+        //     document.getElementById("section-map").scrollIntoView({ behavior: "smooth", block: "start"});
+        // });
 
     } catch (error) {
         console.log("Erro: ", error);
         mostrarToast("Informações não encontradas", "red");
     }
 }
-
 
 
 function colorStatus(status) { 
@@ -232,4 +227,23 @@ function normalizarTexto(texto){
             .replace(/[^\w\s-]/g, "")
             .replace(/\s+/g, " ")
             .trim();
+}
+
+function formatarData(data, status) {
+
+    if(status === "NORMAL"){
+        return null;
+    } else {
+        const dataFormatada = new Date(data);
+
+        return dataFormatada.toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    
 }
