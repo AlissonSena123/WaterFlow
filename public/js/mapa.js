@@ -10,12 +10,12 @@ criarMapa("map", [-38.5167, -12.9704], 12)
 
         // Definindo valor maximo e minimo do zoom
         map.setMinZoom(10);
-        map.setMaxZoom(16); 
+        map.setMaxZoom(16);
 
         // Limitando o movimento do mapa
         map.setMaxBounds([
-            [-38.70, -13.20], 
-            [-38.20, -12.70] 
+            [-38.70, -13.20],
+            [-38.20, -12.70]
         ]);
 
         map.on("load", () => {
@@ -55,24 +55,24 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     });
 
                 });
-                
+
         });
     })
 
 
-document.getElementById("btnSearch").addEventListener("click", () =>{
+document.getElementById("btnSearch").addEventListener("click", () => {
     buscarRegiao(document.getElementById("search").value);
 });
 
 document.getElementById("search").addEventListener("keydown", (input) => {
-    if(input.key === "Enter"){
+    if (input.key === "Enter") {
         buscarRegiao(input.target.value);
     }
 })
 
 async function buscarRegiao(nome) {
 
-    if(!nome){ // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
+    if (!nome) { // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
         mostrarToast("Digite um bairro", "red");
         return;
     }
@@ -90,18 +90,18 @@ async function buscarRegiao(nome) {
             normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
         );
 
-        if(!feature){
+        if (!feature) {
             mostrarToast("Bairro não encontrado", "red");
             return;
         }
 
         const res = await fetch("/status/bairro"); // Chamando a api de status
         const dados = await res.json();
-        
+
         const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
 
         const coresPorStatus = {
-            "NORMAL":        "#22c55e",
+            "NORMAL": "#22c55e",
             "SEM_ABASTECIMENTO": "#ef4444",
             "FORNECIMENTO_IRREGULAR": "#f97316",
         };
@@ -160,12 +160,23 @@ async function statusInfo(nome) {
             <div class="cardHeader">
                 <i class="ph-fill ph-map-pin"></i>
                 <div class="cardHeaderContant">
-                    <p>${(bairro.bairro).toUpperCase()}</p>
+                    <p>${(bairro.bairro).charAt(0).toUpperCase() + bairro.bairro.slice(1).toLowerCase()}</p>
                     <p>Salvador - BA · <span> Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
                 </div>
                 <div class="status">
-                    <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</p>
+                    <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}</p>
                     <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+                </div>
+            </div>
+            <div class="dataInterrupcaoRetorno">
+                <div class="inicioInterrupcao">
+                    <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
+                    <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || " "}</p>
+                </div>
+                <p>-</p>
+                <div class="prevRetorno">
+                    <p><i class="ph-fill ph-clock-clockwise"></i> Previsão de Retorno:</p>
+                    <p>${formatarData(bairro.previsao_retorno, bairro.status) || " "}</p>
                 </div>
             </div>
             <div class="cardBody">
@@ -177,19 +188,9 @@ async function statusInfo(nome) {
                     <p>Pressão da água:</p>
                     <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
                 </div>
-                <div class="cardItem inicioInterrupcao">
-                    <p>Inicio da Interrupção:</p>
-                    <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || "-"}</p>
-                </div>
-                <div class="retornoWrap">
-                    <div class="cardItem prevRetorno">
-                        <p>Previsão de Retorno:</p>
-                        <p>${formatarData(bairro.previsao_retorno, bairro.status) || "-"}</p>
-                    </div>
-                    <div class="cardItem medResolucao">
-                        <p>Medida de Resolução:</p>
-                        <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
-                    </div>
+                <div class="cardItem medResolucao">
+                    <p>Medida de Resolução:</p>
+                    <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem descInfo">
                     <p>Descrição: <br> ${bairro.descricao || "Sem descrição"}</p>
@@ -198,7 +199,7 @@ async function statusInfo(nome) {
         `).join("");
 
         painelStatusInfo.style.display = "block";
-        painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center"});
+        painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center" });
 
         // document.getElementById("btnFecharPainel").addEventListener("click", () => {
         //     document.getElementById("cardStatus").style.display = "none",
@@ -212,26 +213,26 @@ async function statusInfo(nome) {
 }
 
 
-function colorStatus(status) { 
+function colorStatus(status) {
     const s = status.toUpperCase();
     if (s === "NORMAL") return "badge-active";
     if (s === "SEM_ABASTECIMENTO") return "badge-high";
     if (s === "FORNECIMENTO_IRREGULAR") return "badge-med";
 }
 
-function normalizarTexto(texto){
+function normalizarTexto(texto) {
     return texto
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/[^\w\s-]/g, "")
-            .replace(/\s+/g, " ")
-            .trim();
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 function formatarData(data, status) {
 
-    if(status === "NORMAL"){
+    if (status === "NORMAL") {
         return null;
     } else {
         const dataFormatada = new Date(data);
@@ -245,5 +246,5 @@ function formatarData(data, status) {
         });
     }
 
-    
+
 }

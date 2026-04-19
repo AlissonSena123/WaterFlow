@@ -93,21 +93,20 @@ main > #section-map > #map{
 
 #cardStatus{
     background: none;
-    padding: 20px;
+    padding: 0px;
     border-radius: 10px;
     display: none;
 }
 
 #cardStatus > .cardHeader{
-    background-color: royalblue;
+    background-color: var(--color-bg-primary-blue);
     color: white;
     padding: 20px;
     display: grid;
+    gap: 20px;
     grid-template-columns: max-content 1fr max-content;
     align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 10px 10px 0px 0px;
 }
 
 #cardStatus > .cardHeader > i{
@@ -128,14 +127,40 @@ main > #section-map > #map{
     font-size: .9rem;
 }
 
+.dataInterrupcaoRetorno{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ecf0ff9c;
+    padding: 15px 20px;
+    gap: 20px;
+}
+
+.dataInterrupcaoRetorno > .inicioInterrupcao,
+.dataInterrupcaoRetorno > .prevRetorno{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: .9rem;
+}
+
+.dataInterrupcaoRetorno > .inicioInterrupcao > p:first-child,
+.dataInterrupcaoRetorno > .prevRetorno > p:first-child{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 #cardStatus > .cardBody{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     grid-template-areas: 
-    "areaAfetada pressaoAgua inicioInterrupcao"
-    "retornoWrap retornoWrap retornoWrap"
+    "causaInterrupcao causaInterrupcao causaInterrupcao"
+    "areaAfetada pressaoAgua medResolucao"
     "descInfo descInfo descInfo";
+    padding: 20px;
 }
 
 .cardItem {
@@ -180,21 +205,19 @@ main > #section-map > #map{
     justify-self: flex-end;
 }
 
+.causaInterrupcao { grid-area: causaInterrupcao;}
 .areaAfetada{ grid-area: areaAfetada; }
 .pressaoAgua{ grid-area: pressaoAgua; }
-.inicioInterrupcao{ grid-area: inicioInterrupcao; }
-.retornoWrap{ grid-area: retornoWrap; }
+.medResolucao{ grid-area: medResolucao;}
 .descInfo{ grid-area: descInfo; }
 
-#cardStatus > .cardBody > .retornoWrap{ 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
 
 #cardStatus > .cardHeader > .status > p:last-child{
     color: rgba(255, 255, 255, 0.61);
     font-size: .9rem;
+    background-color: rgba(227, 241, 255, 0.186);
+    padding: 10px;
+    border-radius: 50px;
 }
 
 .bagde {
@@ -204,7 +227,7 @@ main > #section-map > #map{
     font-size: 20px;
     font-weight: 500;
     padding: 4px 12px;
-    border-radius: 5px;
+    border-radius: 50px;
     width: fit-content;
 }
 
