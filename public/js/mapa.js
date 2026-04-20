@@ -30,13 +30,31 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         promoteId: "NM_BAIRRO"
                     });
 
+                    map.addLayer({
+                        id: "municipios-layer",
+                        type: "fill",
+                        source: "municipios",
+                        paint: {
+                            "fill-color": "#aeffd500",
+                            "fill-opacity": 0.35,
+                            "fill-outline-color": "#003366"
+                        }
+                    });
+
                     //layer do poligono
                     map.addLayer({
                         id: "municipios-fill",
                         type: "fill",
                         source: "municipios",
                         paint: {
-                            "fill-color": "#3b3737",
+                            "fill-color": [
+                                "match",
+                                ["feature-state", "status"],
+                                "SEM_ABASTECIMENTO", "#ff0000",
+                                "FORNECIMENTO_IRREGULAR", "#ff7700",
+                                "NORMAL", "#00cc66",
+                                "#aeffd500"
+                            ],
                             "fill-opacity": 0.2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
@@ -48,16 +66,59 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         type: "line",
                         source: "municipios",
                         paint: {
-                            "line-color": "#3b3737",
+                            "line-color": "#ffe4e4",
                             "line-width": 2
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
 
                 });
+        });
+
+        map.on("click", "municipios-layer", async (e) => {
+            const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
+            const bairro = normalizarTexto(nomeMunicipio);
+            document.getElementById("search").value = nomeMunicipio;
+
+            try {
+
+                const feature = municipiosData.features.find(f =>
+                    normalizarTexto(f.properties.NM_BAIRRO) === bairro
+                );
+
+
+                if (!feature) {
+                    mostrarToast("Bairro não encontrado", "red");
+                    return;
+                }
+
+                const res = await fetch("/status/bairro");
+                const data = await res.json();
+
+                const bairroStatus = data.find(bairro => normalizarTexto(bairro.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
+
+                const coresPorStatus = {
+                    "NORMAL": "#22c55e",
+                    "SEM_ABASTECIMENTO": "#ef4444",
+                    "FORNECIMENTO_IRREGULAR": "#f97316"
+                }
+
+                const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
+
+                map.setPaintProperty("municipios-fill", "fill-color", cor);
+                map.setPaintProperty("municipios-line", "line-color", cor);
+
+                map.setFilter("municipios-fill", ["==", ["get", "NM_BAIRRO"], feature.properties.NM_BAIRRO]);
+                map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], feature.properties.NM_BAIRRO]);
+
+                statusInfo(feature.properties.NM_BAIRRO, bairro);
+
+            } catch (error) {
+                console.log(error);
+            }
 
         });
-    })
+    });
 
 
 document.getElementById("btnSearch").addEventListener("click", () => {
@@ -103,7 +164,7 @@ async function buscarRegiao(nome) {
         const coresPorStatus = {
             "NORMAL": "#22c55e",
             "SEM_ABASTECIMENTO": "#ef4444",
-            "FORNECIMENTO_IRREGULAR": "#f97316",
+            "FORNECIMENTO_IRREGULAR": "#f97316"
         };
 
         const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
@@ -141,7 +202,7 @@ async function buscarRegiao(nome) {
             essential: true
         });
 
-        statusInfo(nomeBusca);
+        statusInfo(feature.properties.NM_BAIRRO, nomeBusca);
 
     } catch (error) {
         console.error(error);
@@ -149,7 +210,7 @@ async function buscarRegiao(nome) {
     }
 }
 
-async function statusInfo(nome) {
+async function statusInfo(nomeExibicao, nome) {
     const painelStatusInfo = document.getElementById("cardStatus");
 
     try {
@@ -160,12 +221,11 @@ async function statusInfo(nome) {
             <div class="cardHeader">
                 <i class="ph-fill ph-map-pin"></i>
                 <div class="cardHeaderContant">
-                    <p>${(bairro.bairro).charAt(0).toUpperCase() + bairro.bairro.slice(1).toLowerCase()}</p>
+                    <p>${nomeExibicao.toUpperCase()}</p>
                     <p>Salvador - BA · <span> Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
                 </div>
                 <div class="status">
-                    <p class="bagde ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}</p>
-                    <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+                    <p class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}</p>
                 </div>
             </div>
             <div class="dataInterrupcaoRetorno">
@@ -173,27 +233,33 @@ async function statusInfo(nome) {
                     <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
                     <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || " "}</p>
                 </div>
-                <p>-</p>
+                <p>·</p>
                 <div class="prevRetorno">
                     <p><i class="ph-fill ph-clock-clockwise"></i> Previsão de Retorno:</p>
                     <p>${formatarData(bairro.previsao_retorno, bairro.status) || " "}</p>
                 </div>
             </div>
             <div class="cardBody">
+                <h3>Detalhes da Abastecimento:</h3>
+                <div class="cardItem causaInterrupcao">
+                    <p> <i class="ph-fill ph-warning-circle"></i> Causa da Interrupção:</p>
+                    <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+                </div>
                 <div class="cardItem areaAfetada">
-                    <p>Área Afetada:</p>
+                    <p> <i class="ph-fill ph-map-pin-area"></i> Área Afetada:</p>
                     <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem pressaoAgua">
-                    <p>Pressão da água:</p>
+                    <p> <i class="ph-fill ph-gauge"></i> Pressão da água:</p>
                     <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem medResolucao">
-                    <p>Medida de Resolução:</p>
+                    <p> <i class="ph-fill ph-check-circle"></i> Medida de Resolução:</p>
                     <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem descInfo">
-                    <p>Descrição: <br> ${bairro.descricao || "Sem descrição"}</p>
+                    <p> <i class="ph-fill ph-sort-ascending"></i> Descrição:</p>  
+                    <p>${bairro.descricao || "Sem descrição"}</p>
                 </div>
             </div>
         `).join("");
@@ -223,10 +289,10 @@ function colorStatus(status) {
 function normalizarTexto(texto) {
     return texto
         .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, " ")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // remove acento
+        .replace(/[^a-z0-9\s]/g, "")     // remove símbolos
+        .replace(/\s+/g, " ")            // remove espaços duplicados
         .trim();
 }
 

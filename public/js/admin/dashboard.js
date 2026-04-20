@@ -106,8 +106,6 @@ async function buscarBairrosSemAbastecimento() {
         const res = await fetch("/status/buscar/bairros/sem-abastecimento");
         const bairros = await res.json();
 
-        console.log(bairros);
-
         const tbody = document.querySelector('#ReviewDashboard table tbody');
         tbody.innerHTML = '';
 

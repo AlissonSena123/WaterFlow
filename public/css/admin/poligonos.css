@@ -25,12 +25,14 @@ main{
   padding: 24px;
   background: #f6f8fc;
   min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 20px;
 }
 
 main section{
   background: white;
   padding: 20px;
-  margin-bottom: 18px;
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
 }
@@ -113,26 +115,6 @@ main > section > h2 > i{
   border-radius: 12px;
   border: 2px solid royalblue;
   overflow: hidden;
-}
-
-/* Ajuda Rapida */
-
-.ajuda{
-  margin-bottom: 0px;
-}
-
-.ajuda > ul{
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.ajuda > ul > li{
-  margin-left: 10px;
-  list-style: inside;
-  font-weight: lighter;
-  margin-bottom: 5px;
 }
 
 .mapboxgl-ctrl-group{
