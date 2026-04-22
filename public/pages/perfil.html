@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="container">
+        <span id="toast" class="toast"></span>
         <nav id="sidebar">
             <div id="sidebar-content">
                 <i class="ph-bold ph-list"></i>
@@ -52,7 +53,7 @@
             <section class="titlePerfil">
                 <div class="User">
                     <i class="ph-fill ph-user-circle"></i>
-                    <h1>Perfil do Usuário <span>João Vitor</span></h1>
+                    <h1>Perfil do Usuário <span id="titleNome">João Vitor</span></h1>
                 </div>
                 <button type="button"> <i class="ph-fill ph-pen"></i> Editar Perfil</button>
             </section>
@@ -61,23 +62,23 @@
                 <div class="infoContant">
                     <div class="infoCard">
                         <p>Nome:</p>
-                        <p>Nome</p>
+                        <p id="userNome"></p>
                     </div>
                     <div class="infoCard">
                         <p>Email:</p>
-                        <p>Email</p>
+                        <p id="userEmail"></p>
                     </div>
                     <div class="infoCard">
                         <p>Telefone:</p>
-                        <p>Telefone</p>
+                        <p id="userTel"></p>
                     </div>
                     <div class="infoCard">
                         <p>Data de Nascimento:</p>
-                        <p>Data de Nascimento</p>
+                        <p id="userData"></p>
                     </div>
                     <div class="infoCard">
                         <p>Localidade:</p>
-                        <p>Bairro, <span>Salvador - BA</span></p>
+                        <p id="userBairro">Bairro, <span>Salvador - BA</span></p>
                     </div>
                 </div>
                 <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair</button>
@@ -86,5 +87,6 @@
     </div>
     
     <script type="module" src="/js/logout.js"></script>
+    <script src="/js/perfil.js"></script>
 </body>
 </html>

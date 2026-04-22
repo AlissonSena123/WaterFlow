@@ -117,6 +117,10 @@ router.post("/login", async (req, res) => {
     req.session.user = {
       id: usuario.id,
       nome: usuario.nome_completo,
+      email: usuario.email,
+      telefone: usuario.telefone,
+      nascimento: usuario.data_nascimento,
+      bairro: usuario.bairro,
       role: usuario.role
     };
 

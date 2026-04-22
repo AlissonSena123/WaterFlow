@@ -15,7 +15,10 @@ document.querySelectorAll("#btn-logout, #logout").forEach(btn => {
             }
 
             mostrarToast(data.message, "red");
-            window.location.href = data.redirect;
+            setTimeout(() => {
+                window.location.href = data.redirect;
+            }, 2000);
+            
 
         } catch (error) {
             console.error(error);

@@ -90,7 +90,7 @@ server.get("/admin/usuarios", funcionarioAuth, (req, res) => {
 });
 
 server.get("/admin/cadastro_funcionario", adminAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
+  res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
 });
 /** ---- API DO MAPA ---- */
 
@@ -99,15 +99,10 @@ server.get("/api/mapKey", (req, res) => {
 });
 
 /** ---- Rota ME ---- */
-server.get("/me", (req, res) => {
-  if (!req.session.user) {
-    return res.json({ user: null });
-  };
-
+server.get("/me", auth, (req, res) => {
   return res.json({
     user: req.session.user
   });
-  
 });
 
 server.listen(PORT, () => {
