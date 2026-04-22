@@ -74,7 +74,7 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 server.get("/admin/dashboard", (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/dashboard.html"));
-})
+});
 
 server.get("/admin/reports", (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
@@ -84,9 +84,7 @@ server.get("/admin/poligonos", (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/poligonos.html"));
 });
 
-server.get("/admin/relatorios", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
-})
+
 
 
 /** ---- API DO MAPA ---- */
