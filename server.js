@@ -10,7 +10,7 @@ const auth = require("./middleware/auth.js");
 const funcionarioRouter = require("./routes/admin.js")
 const statusMAP = require("./routes/status.js");
 const funcionarioAuth = require("./middleware/funcionarioAuth.js");
-
+const adminAuth = require("./middleware/adminAuth.js")
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
@@ -74,7 +74,7 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 server.get("/admin/dashboard", funcionarioAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/dashboard.html"));
-})
+});
 
 server.get("/admin/reports", funcionarioAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
@@ -86,12 +86,15 @@ server.get("/admin/poligonos", funcionarioAuth, (req, res) => {
 
 server.get("/admin/relatorios", funcionarioAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
-})
+});
 
 server.get("/admin/usuarios", funcionarioAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/usuarios.html"));
-})
+});
 
+server.get("/admin/cadastro_funcionario", adminAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
+});
 /** ---- API DO MAPA ---- */
 
 server.get("/api/mapKey", (req, res) => {
