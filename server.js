@@ -7,10 +7,10 @@ const server = express();
 const PORT = process.env.PORT || 8080;
 const { v4: uuidv4 } = require("uuid");
 const auth = require("./middleware/auth.js");
-const funcionarioRouter = require("./routes/admin.js")
+const funcionarioRouter = require("./routes/admin.js");
 const statusMAP = require("./routes/status.js");
-const funcionarioAuth = require("./middleware/funcionarioAuth.js");
-const adminAuth = require("./middleware/adminAuth.js")
+const autorizarRole = require("./middleware/autorizarRoles.js");
+
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
@@ -72,28 +72,28 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 /* ---- ROTAS DE ADMIN ---- */
 
-server.get("/admin/dashboard", funcionarioAuth, (req, res) => {
+server.get("/admin/dashboard", autorizarRole("funcionario", "admin"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/dashboard.html"));
 });
 
-server.get("/admin/reports", funcionarioAuth, (req, res) => {
+server.get("/admin/reports", autorizarRole("funcionario", "admin"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
 });
 
-server.get("/admin/poligonos", funcionarioAuth, (req, res) => {
+server.get("/admin/poligonos", autorizarRole("funcionario", "admin"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/poligonos.html"));
 });
 
-server.get("/admin/relatorios", funcionarioAuth, (req, res) => {
+server.get("/admin/relatorios", autorizarRole("funcionario", "admin"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
 });
 
-server.get("/admin/usuarios", funcionarioAuth, (req, res) => {
+server.get("/admin/usuarios", autorizarRole("funcionario", "admin"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/usuarios.html"));
 });
 
-server.get("/admin/cadastro_funcionario", adminAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
+server.get("/admin/cadastro_funcionario", autorizarRole("admin"), (req, res) => {
+  res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
 });
 /** ---- API DO MAPA ---- */
 
@@ -110,7 +110,7 @@ server.get("/me", (req, res) => {
   return res.json({
     user: req.session.user
   });
-  
+
 });
 
 server.listen(PORT, () => {
