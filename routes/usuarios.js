@@ -384,6 +384,7 @@ router.patch("/usuarios/atualizar-cadastro", async (req, res) => {
 });
 
 //Rota para cadastrar funcionarios na página do admin
+//Middleware para proteger a rota somente para admin
 router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
   const {
     nome_completo,
@@ -397,12 +398,14 @@ router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
     bairro,
   } = req.body;
 
+  //pegamos a chave e armazenamos na variavel roleRecebida
   const { role: roleRecebida } = req.body;
 
   if (!nome_completo || !email || !senha || !bairro || !roleRecebida) {
     return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
   };
 
+  //Validacao do email para nao haver caracteres estranhos
   const emailLimpo = email.trim().toLowerCase();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -418,18 +421,23 @@ router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
     return res.status(400).json({ success: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
   };
 
+  //Normalizar nome dos bairros para nao haver problema durante a busca
   const bairroNormalizado = normalizarBairro(bairro);
 
+  //caso nao haja retorno dos bairro (string vazia) retorna mensagem
   if (bairroNormalizado === "") {
     return res.status(400).json({ success: false, message: "Bairro inválido" });
   }
 
+  //array com as roles que sao permitidas de cadastrar no campo
   const rolesPermitidas = ["funcionario", "admin"];
 
+  //Caso nao seja nenhuma dessas duas opcoes retorna a mensagem
   if (!rolesPermitidas.includes(roleRecebida)) {
     return res.status(400).json({ success: false, message: "Role Inválida" })
   };
 
+  //Caso no cadastro role seja igual a admin ele retorna mensagem impedindo de cadastrar outro admin
   if (roleRecebida === "admin") {
     return res.status(403).json({ success: false, message: "Erro, admin nao pode cadastrar outro admin!" });
   };
@@ -446,6 +454,7 @@ router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
 
     if (selectError) throw selectError;
 
+    //Fazemos um tratamento com o isArray para ele nao retornar um array vazio, uma camada de protecao extra
     if (Array.isArray(userExistente) && userExistente.length > 0) {
       return res.status(400).json({
         success: false,
