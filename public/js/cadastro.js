@@ -63,6 +63,11 @@ inputCEP.addEventListener("blur", async () => {
         return mostrarToast("CEP inválido", "red");;
     }
 
+    if (data.localidade !== "Salvador") {
+        limparCamposEndereco();
+        return mostrarToast("Apenas CEPs de Salvador são permitidos", "red");
+    }
+
     document.getElementById("cidade").value = data.localidade || "";
     document.getElementById("bairro").value = data.bairro || "";
     document.getElementById("pais").value = "Brasil"; 

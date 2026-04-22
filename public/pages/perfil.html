@@ -3,10 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../Img/LogoIcon.svg" type="image/x-icon">
+    <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/perfil.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+
     <title>Perfil</title>
+
 </head>
 <body>
+    <div class="container">
+        <nav id="sidebar">
+            <div id="sidebar-content">
+                <i class="ph-bold ph-list"></i>
+                <ul id="sidebar-items">
+                    <li class="sidebar-item">
+                        <a href="/inicio">
+                            <i class="ph-bold ph-map-trifold"></i>
+                            <span class="item-title">Mapa</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/reporte">
+                            <i class="ph-bold ph-warning-circle"></i>
+                            <span class="item-title">Reporte</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item active">
+                        <a href="/perfil">
+                            <i class="ph-bold ph-user-circle"></i>
+                            <span class="item-title">Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <header>
+            <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+        </header>
+
+        <main>
+            <section class="titlePerfil">
+                <div class="User">
+                    <i class="ph-fill ph-user-circle"></i>
+                    <h1>Perfil do Usuário <span>João Vitor</span></h1>
+                </div>
+                <button type="button"> <i class="ph-fill ph-pen"></i> Editar Perfil</button>
+            </section>
+            <section>
+                <h3>Informações Pessoais:</h3>
+                <div class="infoContant">
+                    <div class="infoCard">
+                        <p>Nome:</p>
+                        <p>Nome</p>
+                    </div>
+                    <div class="infoCard">
+                        <p>Email:</p>
+                        <p>Email</p>
+                    </div>
+                    <div class="infoCard">
+                        <p>Telefone:</p>
+                        <p>Telefone</p>
+                    </div>
+                    <div class="infoCard">
+                        <p>Data de Nascimento:</p>
+                        <p>Data de Nascimento</p>
+                    </div>
+                    <div class="infoCard">
+                        <p>Localidade:</p>
+                        <p>Bairro, <span>Salvador - BA</span></p>
+                    </div>
+                </div>
+                <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair</button>
+            </section>
+        </main>
+    </div>
     
+    <script type="module" src="/js/logout.js"></script>
 </body>
 </html>

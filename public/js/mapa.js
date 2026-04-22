@@ -73,10 +73,6 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     });
 
                 });
-<<<<<<< HEAD
-=======
-
->>>>>>> b8004c30bd7edc0bd5f4d165699312aaad543c78
         });
 
         map.on("click", "municipios-layer", async (e) => {
@@ -214,7 +210,6 @@ async function buscarRegiao(nome) {
     }
 }
 
-<<<<<<< HEAD
 async function statusInfo(nomeExibicao, nome) {
     const painelStatusInfo = document.getElementById("cardStatus");
 
@@ -259,7 +254,7 @@ async function statusInfo(nomeExibicao, nome) {
                     <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem medResolucao">
-                    <p> <i class="ph-fill ph-check-circle"></i> Medida de Resolução:</p>
+                    <p> <i class="ph-fill ph-check-circle"></i> Medida de Solução:</p>
                     <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
                 </div>
                 <div class="cardItem descInfo">
@@ -289,53 +284,11 @@ function colorStatus(status) {
     if (s === "NORMAL") return "badge-active";
     if (s === "SEM_ABASTECIMENTO") return "badge-high";
     if (s === "FORNECIMENTO_IRREGULAR") return "badge-med";
-=======
-document.getElementById("search").addEventListener("keydown", async (input) => {
-    if (input.key === "Enter") {
-        buscarRegiao(input.target.value);
-    }
-});
-
-async function buscarRegiao(nome) {
-
-    if (!nome) {
-        mostrarToast("Digite um bairro!", "red");
-        return;
-    }
-
-    if (!municipiosData) {
-        mostrarToast("Mapa ainda carregando...", "orange");
-        return;
-    }
-
-    const nomeBusca = normalizarTexto(nome);
-
-
-    let featureEncontrada = null;
-
-    featureEncontrada = municipiosData.features.find(f =>
-        normalizarTexto(f.properties.NM_BAIRRO) === nomeBusca
-    );
-
-    if (!featureEncontrada) {
-        mostrarToast("Bairro não encontrado!", "red");
-        return;
-    }
-
-    const bbox = turf.bbox(featureEncontrada);
-
-    map.fitBounds(bbox, { padding: 40, duration: 1000 });
-
-    map.setFilter("municipios-layer-highlight", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
-    map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
-
->>>>>>> b8004c30bd7edc0bd5f4d165699312aaad543c78
 }
 
 function normalizarTexto(texto) {
     return texto
         .toLowerCase()
-<<<<<<< HEAD
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "") // remove acento
         .replace(/[^a-z0-9\s]/g, "")     // remove símbolos
@@ -360,11 +313,4 @@ function formatarData(data, status) {
     }
 
 
-=======
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
->>>>>>> b8004c30bd7edc0bd5f4d165699312aaad543c78
 }
