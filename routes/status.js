@@ -57,6 +57,10 @@ router.put("/update/dados/:bairro", async (req, res) => {
 
         console.log("StatusAtualData:", statusAtualData);
 
+        // if (status !== "NORMAL" && (!causa_interrupcao || !previsao_retorno || !area_afetada || !medida_solucao)) {
+        //     return res.status(400).json({ message: "Preencha os valores obrigatórios" });
+        // }
+
         console.log("ANTES:", statusAtual);
         console.log("DEPOIS:", status);
         console.log("Mudou?", statusMudou);

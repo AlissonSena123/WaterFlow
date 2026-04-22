@@ -5,6 +5,7 @@ const router = express.Router();
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const path = require("path");
+const adminAuth = require("../middleware/adminAuth");
 
 // --- ROTAS DE CADASTRO (POST /cadastrar) ---
 router.post("/cadastrar", async (req, res) => {
@@ -20,17 +21,17 @@ router.post("/cadastrar", async (req, res) => {
     bairro,
   } = req.body;
 
-  
+
   if (!nome_completo || !email || !senha || !bairro) {
-    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios",});
+    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
   }
 
-  if(senha.length < 10 || senha.length > 15){
-    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres "});
+  if (senha.length < 10 || senha.length > 15) {
+    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
   }
 
   try {
-    
+
     const { data: userExistente, error: selectError } = await supabase
       .from("Users")
       .select("id")
@@ -86,40 +87,60 @@ router.post("/cadastrar", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
-  if(!email || !senha){
-    return res.json({success:false, message:"Preencha todos os campos"});
+  if (!email || !senha) {
+    return res.json({ success: false, message: "Preencha todos os campos" });
   }
 
   try {
-    const { data, error } = await supabase
+    const { data: usuario, error } = await supabase
       .from("Users")
       .select("*")
       .eq("email", email)
       .single();
 
-    if (error || !data) {
-      return res.json({success:false, message:"Email ou senha inválidos"});
+    if (error || !usuario) {
+      return res.json({ success: false, message: "Email ou senha inválidos" });
     }
-
-    const users = data;
 
     // Compara a senha digitada com o hash armazenado
-    const senhaCorreta = await bcrypt.compare(senha, users.senha);
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaCorreta) {
-      return res.json({success:false, message:"Email ou senha inválidos"});
+      return res.json({ success: false, message: "Email ou senha inválidos" });
+    }
+    //*---Forma de salvar sessao antiga---*
+    //salvar sessao do usuario;
+    //req.session.userId = users.id;
+    //req.session.username = users.nome_completo;
+
+    //*---Forma atualizada---*
+    req.session.user = {
+      id: usuario.id,
+      nome: usuario.nome_completo,
+      role: usuario.role
+    };
+
+    //*--Redirecionar por role--*
+    if (usuario.role === "users") {
+      return res.json({
+        success: true,
+        redirect: "/inicio"
+      });
     }
 
-    //salvar sessao do usuario;
-    req.session.userId = users.id;
-    req.session.username = users.nome_completo;
+    if (usuario.role === "funcionario" || usuario.role === "admin") {
+      return res.json({
+        success: true,
+        redirect: "/admin/dashboard"
+      });
+    }
     // Login bem-sucedido
-    
-    res.json({success:true});
+
+    res.json({ success: true });
 
   } catch (err) {
     console.error("Erro no login:", err);
-    res.status(500).json({success:false, message:"Erro interno no servidor"});
+    res.status(500).json({ success: false, message: "Erro interno no servidor" });
   }
 });
 
@@ -155,15 +176,15 @@ router.post("/redefinirSenha", async (req, res) => {
 
     const { error: updateError } = await supabase
       .from("Users")
-      .update({resetToken: token, tokenExpiration: expirar})
+      .update({ resetToken: token, tokenExpiration: expirar })
       .eq("id", users.id);
 
     if (updateError) throw updateError;
 
     const transporte = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,        
-      secure: false, 
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS
@@ -267,7 +288,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
       })
       .eq("id", data.id);
 
-      if(updateError) throw updateError;
+    if (updateError) throw updateError;
 
     return res.json({
       sucesso: true,
@@ -280,12 +301,212 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
+/*ATUALIZAR CAMPOS DE CADASTRO*/
+router.patch("/usuarios/atualizar-cadastro", async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.status(401).json({ success: false, message: "Usuário não autorizado" })
+    }
+    const id = req.session.user.id;
+    const { nome_completo, email, telefone, bairro } = req.body;
+    //Verificamos se o usuario existe no banco (passivo a mudanças).
+    const { data: user, error: erroBusca } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("id", id)
+      .single()
+    //condiçao onde se nao tiver para a rota e retorna esse json de erro.
+    if (!user || erroBusca) return res.status(404).json({ success: false, message: "Informações não foram encontradas!" });
+    //Objeto onde iremos pegar os novos dados inseridos pelo usuário e atualizar no banco 
+    const dadosAtualizados = {};
+
+    //se nome não vier vazio (undefined), manda a chave nome com o valor da variavel nome nome = nome;
+    if (nome_completo && nome_completo.trim() !== "") {
+      dadosAtualizados.nome_completo = nome_completo.trim();
+    }
+
+    //se email não vier vazio (undefined), manda a chave nome com o valor da variavel email = email;
+    if (email && email.trim() !== "") {
+      //limpamos e igualamos o email
+      const emailLimpo = email.trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //evitando que caracteres estranhos sejam adicionados ao email
+
+      //condicional que verifica se o email veio ou não com caractéres estranhos.
+      if (!emailRegex.test(emailLimpo)) {
+        return res.status(400).json({ success: false, message: "Email contém caractéres incomuns." });
+      };
+
+      dadosAtualizados.email = emailLimpo;
+    };
+
+    if (telefone && telefone.trim() !== "") {
+      dadosAtualizados.telefone = telefone.trim();
+    };
+
+    if (bairro && bairro.trim() !== "") {
+      dadosAtualizados.bairro = bairro
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    };
+
+    //Aqui verificamos se dados atualizados (em forma de array com as chaves), veio vazio ou com os elementos e se vier pula para alterar, se não retorna a mensagem
+    if (Object.keys(dadosAtualizados).length === 0) return res.status(400).json({ message: "Nenhum dado a ser atualizado." })
+
+    //verifica se o novo email recebido é igual ao email antigo, evitando duplicidade.
+    if (dadosAtualizados.email) {
+      const { data: emailExistente } = await supabase
+        .from("Users")
+        .select("id")
+        .eq("email", dadosAtualizados.email)
+        .neq("id", id);
+
+      if (emailExistente && emailExistente.length > 0) {
+        return res.status(400).json({ success: false, message: "Este email é igual ao já cadastrado, mude o email!" });
+      };
+    };
+
+    if (dadosAtualizados.nome_completo) {
+      req.session.user.nome = dadosAtualizados.nome_completo;
+    }
+
+    const { error: updateError } = await supabase
+      .from("Users")
+      .update(dadosAtualizados)
+      .eq("id", id);
+    if (updateError) return res.status(400).json({ success: false, message: "Erro ao atualizar informações" });
+
+    return res.status(200).json({ success: true, message: "Campos atualizados com sucesso.", dados: dadosAtualizados });
+  } catch (error) {
+    return res.status(500).json({ error: "Erro interno no servidor." });
+  }
+});
+
+//Rota para cadastrar funcionarios na página do admin
+//Middleware para proteger a rota somente para admin
+router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
+  const {
+    nome_completo,
+    data_nascimento,
+    email,
+    senha,
+    telefone,
+    cidade,
+    estado,
+    pais,
+    bairro,
+  } = req.body;
+
+  //pegamos a chave e armazenamos na variavel roleRecebida
+  const { role: roleRecebida } = req.body;
+
+  if (!nome_completo || !email || !senha || !bairro || !roleRecebida) {
+    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
+  };
+
+  //Validacao do email para nao haver caracteres estranhos
+  const emailLimpo = email.trim().toLowerCase();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(emailLimpo)) {
+    return res.status(400).json({
+      success: false,
+      message: "Email inválido"
+    });
+  }
+
+  if (senha.length < 10 || senha.length > 15) {
+    return res.status(400).json({ success: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
+  };
+
+  //Normalizar nome dos bairros para nao haver problema durante a busca
+  const bairroNormalizado = normalizarBairro(bairro);
+
+  //caso nao haja retorno dos bairro (string vazia) retorna mensagem
+  if (bairroNormalizado === "") {
+    return res.status(400).json({ success: false, message: "Bairro inválido" });
+  }
+
+  //array com as roles que sao permitidas de cadastrar no campo
+  const rolesPermitidas = ["funcionario", "admin"];
+
+  //Caso nao seja nenhuma dessas duas opcoes retorna a mensagem
+  if (!rolesPermitidas.includes(roleRecebida)) {
+    return res.status(400).json({ success: false, message: "Role Inválida" })
+  };
+
+  //Caso no cadastro role seja igual a admin ele retorna mensagem impedindo de cadastrar outro admin
+  if (roleRecebida === "admin") {
+    return res.status(403).json({ success: false, message: "Erro, admin nao pode cadastrar outro admin!" });
+  };
+
+  const roleFinal = roleRecebida;
+
+  try {
+
+    const { data: userExistente, error: selectError } = await supabase
+      .from("Users")
+      .select("id")
+      .limit(1)
+      .eq("email", emailLimpo);
+
+    if (selectError) throw selectError;
+
+    //Fazemos um tratamento com o isArray para ele nao retornar um array vazio, uma camada de protecao extra
+    if (Array.isArray(userExistente) && userExistente.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Usuário já cadastrado",
+      });
+    }
+
+    // Criptografa a senha
+    const senhaHash = await bcrypt.hash(senha, 10);
+
+    // Insere novo usuário
+    const { error: insertError } = await supabase
+      .from("Users")
+      .insert([
+        {
+          nome_completo,
+          data_nascimento,
+          email: emailLimpo,
+          senha: senhaHash,
+          telefone,
+          cidade,
+          estado,
+          pais,
+          bairro: bairroNormalizado,
+          role: roleFinal
+        },
+      ]);
+
+    if (insertError) throw insertError;
+
+    return res.status(200).json({
+      success: true,
+      message: `Funcionário ${nome_completo} cadastrado com sucesso!`,
+    });
+
+  } catch (err) {
+    console.error("Erro ao cadastrar:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Erro ao cadastrar usuário!",
+    });
+  }
+});
+
+
 /* ROTA DE REPORTAR FALTA D'ÁGUA */
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, rua, bairro, descricao } = req.body
 
-  if(!email || !nome || !rua || !bairro){
-    return res.json({success:false, message:"Preencha todos os campos"});
+  if (!email || !nome || !rua || !bairro) {
+    return res.json({ success: false, message: "Preencha todos os campos" });
   }
 
   try {
@@ -301,14 +522,14 @@ router.post("/reporte/enviar", async (req, res) => {
         }
       ]);
 
-      if (error) {
-        return res.status(400).json({
-          sucesso: false,
-          error: "Erro ao enviar reporte"
-        });
-      }
+    if (error) {
+      return res.status(400).json({
+        sucesso: false,
+        error: "Erro ao enviar reporte"
+      });
+    }
 
-      return res.json({ success: true, message: "Dados enviados com sucesso!" });
+    return res.json({ success: true, message: "Dados enviados com sucesso!" });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -322,18 +543,27 @@ router.post("/reporte/enviar", async (req, res) => {
 
 //rota de logout
 router.post("/logout", (req, res) => {
-  if(req.session.userId){
+  if (req.session.user) {
     req.session.destroy((err) => {
-      if(err){
+      if (err) {
         console.log(err);
-        return res.status(500).json({error: "Erro ao fazer logout!"});
+        return res.status(500).json({ error: "Erro ao fazer logout!" });
       }
       res.clearCookie("connect.sid");
-      return res.status(200).json({message: "Logout realizado com sucesso!", redirect: "/login"});
+      return res.status(200).json({ message: "Logout realizado com sucesso!", redirect: "/login" });
     });
   } else {
     res.status(400).json({ error: "Nenhum usuário logado." });
   }
 });
+
+function normalizarBairro(bairro) {
+  return bairro
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 module.exports = router;

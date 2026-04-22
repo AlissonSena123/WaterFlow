@@ -11,17 +11,18 @@ btnLogin.addEventListener("click", async (event) => {
     try {
         const response = await fetch("/login", {
             method: "POST",
-            headers:{"Content-Type" : "application/json"},
-            body: JSON.stringify({email: email, senha: senha})
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ email, senha })
         });
 
         const data = await response.json();
 
-        if(data.success){
-            window.location.href = "/inicio";
+        if (data.success) {
+            window.location.href = data.redirect;
         } else {
-            mostrarToast(data.message)
+            mostrarToast(data.message);
         }
+
     } catch (error) {
         mostrarToast("Erro ao conectar com o servidor");
         console.error(error);
