@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
 
     <title>Cadastrar</title>
 </head>
+
 <body>
     <div class="container">
         <span id="toast" class="toast"></span>
@@ -20,7 +22,8 @@
                     <img src="/assets/Img/LogoWhiteV1.png" alt="">
                     <div class="content">
                         <h1>Bem vindo ao WaterFlow</h1>
-                        <p>O WaterFlow é uma plataforma que ajuda você a <span>acompanhar o abastecimento de água em Salvador de forma simples e rápida.</span></p>
+                        <p>O WaterFlow é uma plataforma que ajuda você a <span>acompanhar o abastecimento de água em
+                                Salvador de forma simples e rápida.</span></p>
                         <p>Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
                         <p>Crie sua conta e faça parte dessa iniciativa.</p>
                     </div>
@@ -29,7 +32,8 @@
                 <div class="register-right">
                     <div class="content">
                         <h1>Criar uma conta no WaterFlow</h1>
-                        <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao Waterflow.</p>
+                        <p>Preencha os campos abaixo e aperte em "cadastrar-se", após isso, sinta-se bem vindo ao
+                            Waterflow.</p>
                     </div>
                     <form action="/api/cadastrar" method="post" autocomplete="off">
                         <div class="form-item-register item1">
@@ -42,7 +46,8 @@
                         </div>
                         <div class="form-item-register item3">
                             <label for="idSenha">Senha:</label>
-                            <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10" maxlength="15" required >
+                            <input type="password" name="senha" id="idSenha" placeholder="Crie sua senha" minlength="10"
+                                maxlength="15" required>
                             <p>*Digite senhas de 10 a 15 caracteres</p>
                         </div>
                         <div class="form-item-register item4">
@@ -51,21 +56,27 @@
                         </div>
                         <div class="form-item-register item5">
                             <label for="idTelefone">Telefone:</label>
-                            <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX" inputmode="numeric">
+                            <input type="text" name="telefone" id="idTelefone" placeholder="(XX) XXXXX-XXXX"
+                                inputmode="numeric">
                         </div>
                         <div class="form-item-register item6">
                             <label for="idCEP">CEP:</label>
-                            <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric" maxlength="9">
+                            <input type="text" name="CEP" id="idCEP" placeholder="Digite seu CEP" inputmode="numeric"
+                                maxlength="9">
                             <p id="errorCEP"></p>
                         </div>
                         <div class="form-item-register itemCep item7">
-                            <input type="text" name="cidade" id="cidade" placeholder="Cidade" readonly aria-label="Cidade preenchida automaticamente pelo CEP">
+                            <input type="text" name="cidade" id="cidade" placeholder="Cidade" readonly
+                                aria-label="Cidade preenchida automaticamente pelo CEP">
 
-                            <input type="text" name="estado" id="estado" placeholder="Estado" readonly aria-label="Estado preenchido automaticamente pelo CEP">
+                            <input type="text" name="estado" id="estado" placeholder="Estado" readonly
+                                aria-label="Estado preenchido automaticamente pelo CEP">
 
-                            <input type="text" name="pais" id="pais" placeholder="País" readonly aria-label="País preenchido automaticamente pelo CEP">
+                            <input type="text" name="pais" id="pais" placeholder="País" readonly
+                                aria-label="País preenchido automaticamente pelo CEP">
 
-                            <input type="text" name="bairro" id="bairro" placeholder="Bairro" readonly aria-label="Bairro preenchido automaticamente pelo CEP">
+                            <input type="text" name="bairro" id="bairro" placeholder="Bairro" readonly
+                                aria-label="Bairro preenchido automaticamente pelo CEP">
                         </div>
                         <button type="submit" id="btnCadastrar">Cadastrar-se</button>
                     </form>
@@ -77,4 +88,5 @@
     </div>
     <script type="module" src="/js/cadastro.js"></script>
 </body>
+
 </html>

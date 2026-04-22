@@ -6,6 +6,9 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const adminAuth = require("../middleware/adminAuth");
+const buscarUsuario = require("../public/services/userService.js");
+const buscarFuncionario = require("../public/services/funcionarioService.js");
+
 
 // --- ROTAS DE CADASTRO (POST /cadastrar) ---
 router.post("/cadastrar", async (req, res) => {
@@ -92,15 +95,45 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const { data: usuario, error } = await supabase
-      .from("Users")
-      .select("*")
-      .eq("email", email)
-      .single();
+    const usuario = await buscarUsuario(email);
 
-    if (error || !usuario) {
-      return res.json({ success: false, message: "Email ou senha inválidos" });
-    }
+    if (!usuario) {
+      const funcionario = await buscarFuncionario(email);
+
+      if (!funcionario) return res.status(400).json({ success: false, message: "Usuário não existe." })
+
+      const senhaCorreta = await bcrypt.compare(senha, funcionario.senha);
+
+      if (!senhaCorreta) {
+        return res.json({ success: false, message: "Email ou senha inválidos" });
+      };
+
+      req.session.user = {
+        id: funcionario.id,
+        nome: funcionario.nome,
+        role: funcionario.role
+      };
+
+      res.json({ success: true});
+
+      return res.status(201).json({ success: true, redirect: "/admin/dashboard" });
+    };
+
+    senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+
+    if (!senhaCorreta) {
+      return res.json({ success: false, message: "Email ou senha inválidos." });
+    };
+
+    req.session.user = {
+      id: usuario.id,
+      nome: usuario.nome,
+      role: usuario.role
+    };
+
+    res.json({ success: true});
+
+    return res.status(201).json({ success: true, redirect: "/inicio"});
 
     // Compara a senha digitada com o hash armazenado
     const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
