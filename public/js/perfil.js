@@ -7,7 +7,7 @@ async function carregarPerfil() {
 
         const data = await res.json();
 
-        if (!data.user) {
+        if (!data) {
             window.location.href = "/login";
             return;
         }

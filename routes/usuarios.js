@@ -6,10 +6,8 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const adminAuth = require("../middleware/adminAuth");
-const buscarUsuario = require("../public/services/userService.js");
-const buscarFuncionario = require("../public/services/funcionarioService.js");
-const { fileURLToPathBuffer } = require("url");
-
+const { buscarUsuarioPorEmail } = require("../public/services/userService.js");
+const { buscarFuncionarioPorEmail } = require("../public/services/funcionarioService.js");
 
 // --- ROTAS DE CADASTRO (POST /cadastrar) ---
 router.post("/cadastrar", async (req, res) => {
@@ -96,12 +94,14 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const usuario = await buscarUsuario(email);
-    const funcionario = await buscarFuncionario(email);
+    const usuario = await buscarUsuarioPorEmail(email);
+    const funcionario = await buscarFuncionarioPorEmail(email);
+
+    console.log("Admin: ", funcionario);
 
     let conta = usuario || funcionario;
 
-    if (!conta) return res.status(400).json({ success: false, message: "Email ou senha inválidos." })
+    if (!conta) return res.status(400).json({ success: false, message: "..." })
 
     const senhaCorreta = await bcrypt.compare(senha, conta.senha);
 
@@ -112,7 +112,11 @@ router.post("/login", async (req, res) => {
     if (usuario) {
       req.session.user = {
         id: usuario.id,
-        nome: usuario.nome,
+        nome: usuario.nome_completo,
+        email: usuario.email,
+        telefone: usuario.telefone,
+        nascimento: usuario.data_nascimento,
+        bairro: usuario.bairro,
         role: usuario.role
       };
 
