@@ -6,6 +6,10 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const adminAuth = require("../middleware/adminAuth");
+const buscarUsuario = require("../public/services/userService.js");
+const buscarFuncionario = require("../public/services/funcionarioService.js");
+const { fileURLToPathBuffer } = require("url");
+
 
 // --- ROTAS DE CADASTRO (POST /cadastrar) ---
 router.post("/cadastrar", async (req, res) => {
@@ -88,56 +92,88 @@ router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || !senha) {
-    return res.json({ success: false, message: "Preencha todos os campos" });
+    return res.status(400).json({ success: false, message: "Preencha todos os campos" });
   }
 
   try {
-    const { data: usuario, error } = await supabase
-      .from("Users")
-      .select("*")
-      .eq("email", email)
-      .single();
+    const usuario = await buscarUsuario(email);
+    const funcionario = await buscarFuncionario(email);
 
-    if (error || !usuario) {
-      return res.json({ success: false, message: "Email ou senha inválidos" });
-    }
+    let conta = usuario || funcionario;
 
-    // Compara a senha digitada com o hash armazenado
-    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+    if (!conta) return res.status(400).json({ success: false, message: "Email ou senha inválidos." })
+
+    const senhaCorreta = await bcrypt.compare(senha, conta.senha);
 
     if (!senhaCorreta) {
-      return res.json({ success: false, message: "Email ou senha inválidos" });
-    }
-    //*---Forma de salvar sessao antiga---*
-    //salvar sessao do usuario;
-    //req.session.userId = users.id;
-    //req.session.username = users.nome_completo;
-
-    //*---Forma atualizada---*
-    req.session.user = {
-      id: usuario.id,
-      nome: usuario.nome_completo,
-      email: usuario.email,
-      telefone: usuario.telefone,
-      nascimento: usuario.data_nascimento,
-      bairro: usuario.bairro,
-      role: usuario.role
+      return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
     };
 
-    //*--Redirecionar por role--*
-    if (usuario.role === "users") {
-      return res.json({
-        success: true,
-        redirect: "/inicio"
-      });
+    if (usuario) {
+      req.session.user = {
+        id: usuario.id,
+        nome: usuario.nome,
+        role: usuario.role
+      };
+
+      return res.status(200).json({ success: true, redirect: "/inicio" });
     }
 
-    if (usuario.role === "funcionario" || usuario.role === "admin") {
-      return res.json({
-        success: true,
-        redirect: "/admin/dashboard"
-      });
+    if (funcionario) {
+      req.session.admin = {
+        id: funcionario.id,
+        nome: funcionario.nome,
+        role: funcionario.role
+      };
+
+      return res.status(200).json({ success: true, redirect: "/admin/dashboard" });
     }
+
+    //   req.session.user = {
+    //     id: conta.id,
+    //     nome: conta.nome_completo,
+    //     role: conta.role
+    //   };
+
+    // if (conta.role === "users") return res.status(200).json({ success: true, redirect: "/inicio"});
+
+    // if (conta.role === "funcionario") return res.status(200).json({ success: true, redirect: "/admin/dashboard"});
+
+    // // Compara a senha digitada com o hash armazenado
+    // const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+
+    // if (!senhaCorreta) {
+    //   return res.json({ success: false, message: "Email ou senha inválidos" });
+    // }
+    // //*---Forma de salvar sessao antiga---*
+    // //salvar sessao do usuario;
+    // //req.session.userId = users.id;
+    // //req.session.username = users.nome_completo;
+
+    // //*---Forma atualizada---*
+    // req.session.user = {
+    //   id: usuario.id,
+    //   nome: usuario.nome_completo,
+    //   role: usuario.role
+    // };
+
+    // //*--Redirecionar por role--*
+    // if (usuario.role === "users") {
+    //   return res.json({
+    //     success: true,
+    //     redirect: "/inicio"
+    //   });
+    // }
+
+    // if (usuario.role === "funcionario" || usuario.role === "admin") {
+    //   return res.json({
+    //     success: true,
+    //     redirect: "/admin/dashboard"
+    //   });
+    // }
+    // // Login bem-sucedido
+
+    // res.json({ success: true });
 
   } catch (err) {
     console.error("Erro no login:", err);
