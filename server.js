@@ -6,7 +6,7 @@ const usuarioRouter = require("./routes/usuarios");
 const server = express();
 const PORT = process.env.PORT || 8080;
 const { v4: uuidv4 } = require("uuid");
-const auth = require("./middleware/auth.js");
+// const auth = require("./middleware/auth.js");
 const funcionarioRouter = require("./routes/admin.js");
 const statusMAP = require("./routes/status.js");
 const autorizarRole = require("./middleware/autorizarRoles.js");
@@ -23,8 +23,8 @@ server.use(session({
   },
   secret: '=fmLV*U@FL`N]]~/zqtFCch.pBTGoU',
   resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60 * 60 * 1000 } // 1 hora
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000, httpOnly: true } // 1 hora
 }));
 
 //Middlewares de routers
@@ -40,7 +40,7 @@ server.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/sobre.html"));
 });
 
-// Páginas HTML
+/*---- Páginas gerais ----*/
 server.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/login.html"));
 });
@@ -49,15 +49,16 @@ server.get("/cadastro", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/cadastro.html"));
 });
 
-server.get("/inicio", auth, (req, res) => {
+/*---- Página de acesso de usuário ----*/
+server.get("/inicio", autorizarRole("users"), (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/inicio.html"));
 });
 
-server.get("/perfil", auth, (req, res) => {
+server.get("/perfil", autorizarRole("users"), (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/perfil.html"));
 });
 
-server.get("/reporte", auth, (req, res) => {
+server.get("/reporte", autorizarRole("users"), (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/reporte.html"));
 });
 
@@ -72,29 +73,26 @@ server.get("/redefinir/confirmar", (req, res) => {
 
 /* ---- ROTAS DE ADMIN ---- */
 
-server.get("/admin/dashboard", autorizarRole("funcionario", "admin"), (req, res) => {
+server.get("/admin/dashboard", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/dashboard.html"));
 });
 
-server.get("/admin/reports", autorizarRole("funcionario", "admin"), (req, res) => {
+server.get("/admin/reports", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/reporte.html"));
 });
 
-server.get("/admin/poligonos", autorizarRole("funcionario", "admin"), (req, res) => {
+server.get("/admin/poligonos", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/poligonos.html"));
 });
 
-server.get("/admin/relatorios", autorizarRole("funcionario", "admin"), (req, res) => {
+server.get("/admin/relatorios", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/relatorios.html"));
 });
 
-server.get("/admin/usuarios", autorizarRole("funcionario", "admin"), (req, res) => {
+server.get("/admin/usuarios", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(path.join(__dirname, "admin/pages/usuarios.html"));
 });
 
-server.get("/admin/cadastro_funcionario", autorizarRole("admin"), (req, res) => {
-  res.sendFile(path.join(__dirname, "admin/pages/cadastro.html"));
-});
 /** ---- API DO MAPA ---- */
 
 server.get("/api/mapKey", (req, res) => {
@@ -103,14 +101,26 @@ server.get("/api/mapKey", (req, res) => {
 
 /** ---- Rota ME ---- */
 server.get("/me", (req, res) => {
-  if (!req.session.user) {
-    return res.json({ user: null });
+
+  if (req.session.admin) {
+    return res.json({
+      tipo: "funcionario",
+      user: req.session.admin
+    });
+  };
+
+  if (req.session.user) {
+    return res.json({
+      tipo: "users",
+      user: req.session.user
+    });
   };
 
   return res.json({
-    user: req.session.user
+    tipo: null,
+    user: null
   });
-
+  
 });
 
 server.listen(PORT, () => {

@@ -6,7 +6,7 @@ function funcionarioAuth(req, res, next){
 
     const role = req.session.user.role;
 
-    if(role !== "funcionario" && role !== "admin"){
+    if(role !== "funcionario"){
         return res.status(403).send("Acesso negado");
     }
 

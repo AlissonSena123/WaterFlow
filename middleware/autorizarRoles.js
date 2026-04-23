@@ -2,11 +2,14 @@
 
 function autorizarRoles(...rolesPermitidas) {
     return (req, res, next) => {
-        if (!req.session.user) {
+
+        const session = req.session.user || req.session.admin;
+
+        if (!session) {
             return res.status(401).json({success: false, message: "Usuário não autenticado"});
         };
 
-        const role = req.session.user.role
+        const role = session.role;
 
         if(!rolesPermitidas.includes(role)) {
             return res.status(403).json({success: false, message: "Acesso negado"});

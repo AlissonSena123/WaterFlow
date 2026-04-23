@@ -6,9 +6,9 @@ export async function getUsers() {
             credentials: "include"
         });
 
-        const data = await response.json();
+        const data = await res.json();
 
-        return data.user;
+        return data;
     } catch (error) {
         console.error("Erro ao buscar usuário: ", error);
         return null;
