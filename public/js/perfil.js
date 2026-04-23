@@ -27,7 +27,10 @@ async function carregarPerfil() {
 }
 
 function formatarData(data) {
-    return new Date(data).toLocaleDateString("pt-BR");
+    const [ano, mes, dia] = data.split("-");
+    const dataFormatada = new Date(ano, mes - 1, dia);
+
+    return dataFormatada.toLocaleDateString("pt-BR");
 }
 
 carregarPerfil();

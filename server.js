@@ -99,10 +99,16 @@ server.get("/api/mapKey", (req, res) => {
 });
 
 /** ---- Rota ME ---- */
-server.get("/me", auth, (req, res) => {
-  return res.json({
-    user: req.session.user
-  });
+server.get("/me", (req, res) => {
+
+  if(!req.session.user){
+    return res.json({ user: null });
+  }
+
+  if(req.session.user.role === "users") return res.json({user: req.session.user});
+
+  if(req.session.user.role === "funcionario") return res.json({user: req.session.user});
+
 });
 
 server.listen(PORT, () => {

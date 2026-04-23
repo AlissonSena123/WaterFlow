@@ -94,10 +94,9 @@ criarMapa("map", [-38.5167, -12.9704], 12)
             map.setFilter("municipios-layer-highlight", ["==", ["get", "NM_BAIRRO"], nomeMunicipio]);
             map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], nomeMunicipio]);
 
-            modal(nomeBairro);
+            modal(nomeMunicipio, nomeBairro);
         });
     });
-
 
 
 // INPUT
@@ -146,13 +145,13 @@ async function buscarRegiao(nome) {
     map.setFilter("municipios-layer-highlight", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
     map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], featureEncontrada.properties.NM_BAIRRO]);
 
-    modal(nomeBusca);
+    modal(featureEncontrada.properties.NM_BAIRRO, nomeBusca);
 }
 
 
 
 /* ---- FUNÇÃO ASSINCRONA DO MODAL COM OS STATUS DO BAIRRO ---- */
-async function modal(nome) {
+async function modal(nomeExibicao, nome) {
     const painel = document.querySelector(".painel-body");
     painel.innerHTML = "<p style='color:#aaa;font-size:0.8rem'>Carregando...</p>";
 
@@ -167,7 +166,7 @@ async function modal(nome) {
     painel.innerHTML = data.map(bairro => `
         <div class="painel-item">
             <div class="painel-item-header">
-                <span class="painel-nome">${(bairro.bairro).toUpperCase()}</span>
+                <span class="painel-nome">${(nomeExibicao).toUpperCase()}</span>
             </div>
             <div class="painel-info">
                 <div><b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</span></div>

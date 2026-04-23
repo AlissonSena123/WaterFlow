@@ -71,7 +71,6 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
-
                 });
         });
 
@@ -217,6 +216,8 @@ async function statusInfo(nomeExibicao, nome) {
         const res = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`);
         const data = await res.json();
 
+        console.log(data);
+
         painelStatusInfo.innerHTML = data.map(bairro => `
             <div class="cardHeader">
                 <i class="ph-fill ph-map-pin"></i>
@@ -311,6 +312,4 @@ function formatarData(data, status) {
             minute: "2-digit"
         });
     }
-
-
 }

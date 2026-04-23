@@ -138,9 +138,6 @@ router.post("/login", async (req, res) => {
         redirect: "/admin/dashboard"
       });
     }
-    // Login bem-sucedido
-
-    res.json({ success: true });
 
   } catch (err) {
     console.error("Erro no login:", err);
