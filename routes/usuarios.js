@@ -580,17 +580,28 @@ router.post("/reporte/enviar", async (req, res) => {
 
 //rota de logout
 router.post("/logout", (req, res) => {
-  if (req.session.user) {
+  if (req.session.user || req.session.admin) {
+
     req.session.destroy((err) => {
       if (err) {
         console.log(err);
         return res.status(500).json({ error: "Erro ao fazer logout!" });
       }
+
       res.clearCookie("connect.sid");
-      return res.status(200).json({ message: "Logout realizado com sucesso!", redirect: "/login" });
+
+      return res.status(200).json({
+        success: true,
+        message: "Logout realizado com sucesso!",
+        redirect: "/login"
+      });
     });
+
   } else {
-    res.status(400).json({ error: "Nenhum usuário logado." });
+    return res.status(400).json({
+      success: false,
+      message: "Nenhum usuário logado."
+    });
   }
 });
 

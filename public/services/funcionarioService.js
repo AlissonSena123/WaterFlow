@@ -7,7 +7,7 @@ async function buscarFuncionarioPorEmail(email) {
     .eq("email", email)
     .maybeSingle();
 
-    if (error) throw error;
+    if (error) console.log("Erro:", error);
 
     return user;
 };
