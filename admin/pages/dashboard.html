@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Status</title>
+  <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="/css/admin/dashboard.css">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav id="sidebar">
+      <div id="sidebar-content">
+        <i class="ph-bold ph-list"></i>
+        <ul id="sidebar-items">
+          <li class="sidebar-item active">
+            <a href="/admin/dashboard">
+              <i class="ph-bold ph-gauge"></i>
+              <span class="item-title">Painel</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/poligonos">
+              <i class="ph-bold ph-map-trifold"></i>
+              <span class="item-title">Status</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/admin/reports">
+              <i class="ph-bold ph-warning-circle"></i>
+              <span class="item-title">Reporte</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="logout">
+        <button id="btn-logout">
+          <i class="ph-fill ph-sign-out"></i>
+          <span>Sair</span>
+        </button>
+      </div>
+    </nav>
+
+    <header>
+      <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+    </header>
+
+    <main>
+
+      <section id="titleDashboard">
+        <h1> <i class="ph-fill ph-gauge"></i> Painel de Status</h1>
+        <p>Status do sistema: <strong>Sincronizado</strong> • Última atualização: 12:40</p>
+      </section>
+
+      <section id="sctStatus">
+        <div class="cards">
+          <div class="card red">
+            <i class="ph-fill ph-drop-slash"></i>
+            <div class="card-content">
+              <h3>Sem Abastecimento:</h3>
+              <p id="statusFalta"></p>
+            </div>
+          </div>
+
+          <div class="card orange">
+            <i class="ph-fill ph-drop-half-bottom"></i>
+            <div class="card-content">
+              <h3>Fornecimento Irregular:</h3>
+              <p id="statusIrregular"></p>
+            </div>
+          </div>
+
+          <div class="card green">
+            <i class="ph-fill ph-drop"></i>
+            <div class="card-content">
+              <h3>Normalidade:</h3>
+              <p id="statusNormal"></p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="ReviewDashboard">
+        <h2> <i class="ph-fill ph-drop-slash"></i> Bairros sem abastecimento</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Região:</th>
+              <th>Causa:</th>
+              <th>Medida de Solução:</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="sctMap">
+
+        <aside class="mapCaption">
+
+          <div class="itemCaption">
+            <span class="capRed"></span>
+            <p>Sem Abastecimento</p>
+          </div>
+
+          <div class="itemCaption">
+            <span class="capOrange"></span>
+            <p>Fornecimento Irregular</p>
+          </div>
+
+          <div class="itemCaption">
+            <span class="capGreen"></span>
+            <p>Normalidade</p>
+          </div>
+
+        </aside>
+
+        <div id="map"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/js/admin/dashboard.js"></script>
+  <script type="module" src="/js/logout.js"></script>
+
+</body>
+
+</html>

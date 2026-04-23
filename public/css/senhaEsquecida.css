@@ -1,0 +1,21 @@
+.container{
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main";
+    background: url(../assets/Img/backgroundWeveEffect.svg) center top no-repeat;
+    background-size: cover;
+}
+
+header{
+    display: flex;
+    padding: 20px;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+

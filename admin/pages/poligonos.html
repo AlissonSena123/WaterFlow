@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
+    <title>Status dos Bairros</title>
+
+
+    <!-- ICONES -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+
+    <!-- CSS DO PROJETO -->
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="/css/admin/poligonos.css">
+    <link rel="stylesheet" href="../../css/toast.css">
+
+    <!-- MAPLIBRE -->
+    <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+
+    <!-- MAPBOX DRAW -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css">
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
+        </header>
+
+        <nav id="sidebar">
+            <div id="sidebar-content">
+                <i class="ph-bold ph-list"></i>
+                <ul id="sidebar-items">
+                <li class="sidebar-item">
+                    <a href="/admin/dashboard">
+                    <i class="ph-bold ph-gauge"></i>
+                    <span class="item-title">Painel</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a href="/admin/poligonos">
+                    <i class="ph-bold ph-map-trifold"></i>
+                    <span class="item-title">Status</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/admin/reports">
+                    <i class="ph-bold ph-warning-circle"></i>
+                    <span class="item-title">Reporte</span>
+                    </a>
+                </li>
+                </ul>
+            </div>
+            <div id="logout">
+                <button id="btn-logout">
+                <i class="ph-fill ph-sign-out"></i>
+                <span>Sair</span>
+                </button>
+            </div>
+        </nav>
+
+        <span id="toast" class="toast"></span>
+
+        <header>
+            <img src="../../assets/Img/LogoV1.png">
+        </header>
+
+        <main>
+            <!-- STATUS -->
+
+            <section class="status">
+
+                <div>
+                    <h1>
+                        <i class="ph-fill ph-map-trifold"></i>
+                        Status dos Bairros
+                    </h1>
+
+                    <p>
+                        Status: <strong>Pronto para edição</strong> • Última atualização: 12:40
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- FILTROS -->
+
+            <section class="filtros">
+
+                <div class="field">
+                    <label for="buscarArea">Buscar por área:</label>
+                    <div class="divSearch">
+                        <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte">
+                        <button class="ph-bold ph-magnifying-glass" id="btnSeach"></button>
+                    </div>
+                </div>
+
+                <!-- MAPA -->
+                <div class="mapa-wrapper">
+
+                    <div id="map"></div>
+
+                    <aside id="statusBairro" class="painel-status oculto">
+                        <div class="painel-header">
+                            <h2><i class="ph-fill ph-chart-bar"></i> Status do Bairro</h2>
+                            <button id="fecharPainel" class="ph-bold ph-x"></button>
+                        </div>
+                        <div class="painel-body"></div>
+                    </aside>
+
+                </div>
+
+            </section>
+
+            <!-- ATUALIZAR DADOS DO BAIRRO -->
+
+            <section id="painelStatusUpdate">
+                <h2><i class="ph-fill ph-gear-six"></i> Atualizar Status:</h2>
+ 
+                <div class="painelStatusItemBairro">
+                    <p id="idBairro"></p>
+                </div>
+ 
+                <div  class="painelStatusContent">
+
+                    <fieldset class="statusFornecimento">
+                        <legend>Status do Fornecimento:</legend>
+
+                        <div class="painelStatusItemStatus">
+                            <label for="idStatus">Situação atual:</label>
+                            <select id="idStatus">
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="NORMAL">Normal</option>
+                                <option value="FORNECIMENTO_IRREGULAR">Fornecimento Irregular</option>
+                                <option value="SEM_ABASTECIMENTO">Sem Abastecimento</option>
+                            </select>
+                        </div>
+
+                        <div class="painelStatusItemCausa">
+                            <label for="idCausa">Causa da interrupção:</label>
+                            <select id="idCausa" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="ROMPIMENTO">Rompimento</option>
+                                <option value="MANUTENCAO">Manutenção</option>
+                                <option value="OBRA_NA_REGIAO">Obra na Região</option>
+                                <option value="DESCONHECIDA">Desconhecida</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemInicio">
+                            <label for="idInicio">Início da interrupção:</label>
+                            <input type="datetime-local" id="idInicio" disabled>
+                        </div>
+    
+                        <div class="painelStatusItemRetorno">
+                            <label for="idRetorno">Previsão de retorno:</label>
+                            <input type="datetime-local" id="idRetorno" disabled>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="statusDetalhes">
+                        <legend>Detalhes:</legend> 
+                        <div class="painelStatusItemArea">
+                            <label for="idArea">Área afetada:</label>
+                            <select id="idArea" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="BAIRRO_INTEIRO">Bairro inteiro</option>
+                                <option value="PARTE_DO_BAIRRO">Parte do bairro</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemPressao">
+                            <label for="idPressao">Pressão da rede:</label>
+                            <select id="idPressao" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="SEM_PRESSAO">Sem pressão</option>
+                                <option value="BAIXA">Baixa</option>
+                                <option value="MEDIA">Média</option>
+                                <option value="ALTA">Alta</option>
+                                <option value="NORMAL">Normal</option>
+                            </select>
+                        </div>
+                        <div class="painelStatusItemMedida">
+                            <label for="idMedida">Medida para solucionar:</label>
+                            <select id="idMedida" disabled>
+                                <option value="" selected disabled>Selecionar...</option>
+                                <option value="EQUIPE_REPARO_NO_LOCAL">Equipe de reparo no local</option>
+                                <option value="AGUARDANDO_DISTRIBUIDORA">Aguardando Distribuidora</option>
+                                <option value="MANUTENCAO_EM_ANDAMENTO">Manutenção em andamento</option>
+                                <option value="SEM_MEDIDAS_ATIVAS">Sem medidas ativas</option>
+                            </select>
+                        </div>
+    
+                        <div class="painelStatusItemDesc">
+                            <label for="idDesc">Descrição:</label>
+                            <textarea id="idDesc" placeholder="Descrição do problema" disabled></textarea>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="btnGroup">
+                        <button type="button" id="btnCancelar">Cancelar</button>
+                        <button type="button" id="btnUpdate"><i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
+                    </div>
+ 
+                </div>
+            </section>
+        </main>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script type="module" src="/js/admin/mapa-poligono.js"></script>
+    <script type="module" src="/js/logout.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+</body>
+
+</html>

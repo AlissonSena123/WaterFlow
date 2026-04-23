@@ -1,0 +1,332 @@
+html{
+    scroll-behavior: smooth;
+}
+
+/* ----- HEADER ----- */
+
+header{
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    grid-column: 1/3;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-primary-black);
+    padding: 30px;
+}
+
+header > img{
+    width: 100px;
+}
+
+header > .btn-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+header > .btn-links > a{
+    text-decoration: none;
+    color: var(--color-bg-blue-darker);
+}
+
+header > .btn-links > a:hover{
+    text-decoration: underline;
+}
+
+header > .btn-links > a:active{
+    text-decoration: underline;
+    color: royalblue;
+}
+
+header > .btn-links > button{
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    width: 170px;
+}
+
+header > .btn-links > button > i{
+    font-size: 1.4rem;
+}
+
+
+/* ----- MAIN ----- */
+main{
+    background-color: royalblue;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    padding-top: 113px;
+}
+
+/* ----- SOBRE NÓS ----- */
+#section-sobre{
+    padding: 50px;
+    text-align: start;
+    background: linear-gradient(to top,  var(--color-bg-tertiary-blue) 5%, white 50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    color: var(--color-bg-blue-darker);
+}
+
+#section-sobre > .section-sobre-contant{
+    align-self: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+#section-sobre > .section-sobre-contant > h1{
+    margin-bottom: 20px;
+    font-size: 2.8rem;
+}
+
+#section-sobre > .section-sobre-contant > p{
+    justify-self: start;
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+#section-sobre > img{
+    width: clamp(300px, 40vw, 600px);
+    align-self: center;
+    justify-self: center;
+}
+
+/* ----- PROJETO ----- */
+#section-projeto{
+    padding: 100px;
+    background: white;
+    color: var(--color-bg-blue-darker);
+}
+
+#section-projeto > .section-projeto-contant{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#section-projeto > .section-projeto-contant > div{
+    justify-self: center;
+    align-self: center;
+    padding: 50px;
+}
+
+#section-projeto > .section-projeto-contant > div > h1{
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+#section-projeto > .section-projeto-contant > div > p{
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+#section-projeto > .section-projeto-contant > img{
+    justify-self: center;
+    align-self: center;
+    width: clamp(300px, 40vw, 600px);
+}
+
+/* ----- FUNCIONALIDADES ----- */
+#section-funcionalidades{
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    background-color: royalblue;
+}
+
+#section-funcionalidades > .sctFuncionContent{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: white;
+    column-gap: 20px;
+}
+
+#section-funcionalidades > .sctFuncionContent > div{
+    justify-self: center;
+    align-self: center;
+    padding: 50px;
+}
+
+#section-funcionalidades > .sctFuncionContent > div > h1{
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#section-funcionalidades > .sctFuncionContent > div > p{
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+#section-funcionalidades > .sctFuncionContent > div > h2{
+    font-size: 1.5rem;
+    margin: 10px 0px;
+}
+
+
+#section-funcionalidades > .sctFuncionContent > img{
+    width: clamp(300px, 40vw, 500px);
+    justify-self: center;
+    align-self: center;
+}
+
+/* ----- SEÇÃO DE CADASTRAR ----- */
+
+.sctRegister{
+    background-color: white;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+    color: var(--color-bg-blue-darker);
+}
+
+.sctRegister > button{
+    padding: 25px;
+    background-color: royalblue;
+    width: 420px;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
+}
+
+.sctRegister > button:hover{
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.29);
+}
+
+/* ----- SEÇÃO DE DESENVOLVEDORES ----- */
+
+#section-developers{
+    background-color: white;
+    padding: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+#section-developers > h1{
+    grid-column: 1/-1;
+    justify-self: center;
+    margin-bottom: 50px;
+    font-size: 3rem;
+    color: var(--color-bg-blue-darker);
+}
+
+#section-developers > article{
+    background-color: var(--color-bg-blue-darker);
+    color: white;
+    padding: 30px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
+}
+
+#section-developers > article > .article-developers > h2{
+    text-align: center;
+}
+
+#section-developers > article:nth-last-child(1){
+    grid-column: 1/-1;
+    justify-self: center;
+    width: 50%;
+}
+
+/* ----- FOOTER ----- */
+
+footer{
+    background: url(../assets/Img/backgroundWeveEffect.svg) no-repeat center top;
+    background-size: cover;
+    padding: 100px;
+    color: var(--color-bg-blue-darker);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+@media (max-width: 900px) {
+    #section-projeto > .section-projeto-contant > .cards{
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    #section-projeto > .section-projeto-contant > .cards > .card-item1,
+    #section-projeto > .section-projeto-contant > .cards > .card-item2,
+    #section-projeto > .section-projeto-contant > .cards > .card-item3{
+        justify-self: center;
+        align-self: center;
+        width: 90%;
+        max-width: 500px;
+    }
+
+    #section-developers{
+        grid-template-columns: 1fr;
+        row-gap: 70px;
+        column-gap: 0;
+    }
+
+    #section-developers > h1{
+        grid-column: 1/-1;
+        text-align: center;
+    }
+
+    #section-developers > #ges-joao,
+    #section-developers > #dev-matheus,
+    #section-developers > #dev-alisson{
+        grid-column: 1/-1;
+        justify-self: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1165px){
+
+    #section-sobre{
+        grid-template-columns: 1fr;
+    }
+
+    #section-sobre > .section-sobre-contant > h1{
+        text-align: center;
+    }
+
+    #section-sobre > .section-sobre-contant > p{
+        justify-self: center;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    #section-sobre > img{
+        display: none;
+    }
+
+    #section-projeto > .section-projeto-contant{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    #section-projeto > .section-projeto-contant > img{
+        width: 400px;
+    }
+
+    #section-projeto > .section-projeto-contant > div{
+        text-align: center;
+    }
+
+    #section-projeto > .section-projeto-contant > div > p{
+        text-align: center;
+    }
+}

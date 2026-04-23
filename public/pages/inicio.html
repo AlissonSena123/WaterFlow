@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="shortcut icon" href="../assets/Img/LogoIcon.svg" type="image/x-icon">
+    <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
 
     <link href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css" rel="stylesheet"/>
     <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
@@ -13,10 +13,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
 
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/inicio.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/toast.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/inicio.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 
 </head>
 <body>
@@ -33,12 +35,6 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/forum">
-                            <i class="ph-bold ph-chat-text"></i>
-                            <span class="item-title">Fórum</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
                         <a href="/reporte">
                             <i class="ph-bold ph-warning-circle"></i>
                             <span class="item-title">Reporte</span>
@@ -52,30 +48,28 @@
                     </li>
                 </ul>
             </div>
-            <div id="logout">
-                <button id="btn-logout">
-                    <i class="ph-fill ph-sign-out"></i>
-                    <span>Sair</span>
-                </button>
-            </div>
         </nav>
 
         <header>
-            <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
+            <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
         </header>
         
         <main>
+
             <section id="section-map">
                 <div class="div-search">
-                    <input type="search" name="" id="search" placeholder="Pesquisar Bairro">
+                    <input type="search" name="" id="search" placeholder="Pesquisar Bairro" autocomplete="off">
                     <button type="button" class="ph-bold ph-magnifying-glass" id="btnSearch"></button>
                 </div>
                 <div id="map"></div>
             </section>
+
+            <section id="cardStatus">
+                
+            </section>
         </main>
         
     </div>
-    <script src="../assets/JS/mapa.js"></script>
-    <script src="../assets/JS/inicio.js"></script>
+    <script type="module" src="/js/mapa.js"></script>
 </body>
 </html>

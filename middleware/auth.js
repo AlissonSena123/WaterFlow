@@ -1,10 +1,13 @@
-function protegersessao(req, res, next){
-    if(!req.session.userId){
-        console.error("Usuario nao autorizado!")
-        return res.redirect("/login");
-    }
+function auth(req,res,next){
 
-    next();
+   console.log("SESSION:", req.session);
+
+   if(!req.session.user){
+      console.log("Usuario não autorizado!");
+      return res.redirect("/login");
+   }
+
+   next();
 }
 
-module.exports = protegersessao;
+module.exports = auth;

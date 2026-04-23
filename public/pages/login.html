@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../assets/Img/LogoIcon.svg" type="image/x-icon">
+    <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
     
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
-    <link rel="stylesheet" href="../assets/css/toast.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/toast.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Entrar</title>
@@ -16,7 +16,7 @@
     <div class="container">
         <span id="toast" class="toast"></span>
         <header>
-            <img src="../assets/Img/LogoV1.png" alt="LogoTipo">
+            <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
         </header>
         <main>
             <section class="section-login">
@@ -24,7 +24,7 @@
                     <h1>ENTRAR</h1>
                     <h3>Bem vindo de volta ao WaterFlow</h3>
                 </div>
-                <form>
+                <form autocomplete="off">
                     <div class="form-item-login">
                         <label for="idEmail" class="ph-fill ph-at"></label>
                         <input type="email" name="email" id="idEmail" placeholder="Digite seu email" autocomplete="email">
@@ -43,6 +43,6 @@
             </section>
         </main>
     </div>
-    <script src="../assets/JS/login.js"></script>
+    <script type="module" src="/js/login.js"></script>
 </body>
 </html>

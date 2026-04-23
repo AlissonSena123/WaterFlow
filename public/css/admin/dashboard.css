@@ -1,0 +1,221 @@
+/* Layout base igual ao inicio */
+.container{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+  "nav header"
+  "nav main";
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+
+header img{
+  width: 100px;
+}
+
+main{
+  padding: 24px;
+  background: #f6f8fc;
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  "titleDash titleDash"
+  "status status"
+  "test map";
+  column-gap: 10px;
+  grid-auto-rows: auto;
+}
+
+/* Seções */
+main section{
+  background: white;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.8rem;
+}
+
+/* TITULO DASHBOARD */
+main > #titleDashboard{
+  background-color: var(--color-bg-blue-darker);
+  color: white;
+  grid-area: titleDash;
+}
+
+main > #titleDashboard > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+#titleDashboard > h1 > i{
+  font-size: 3rem;
+}
+
+/* SEÇÃO DE STATUS */
+#sctStatus{
+  grid-area: status;
+}
+
+/* Cards */
+.cards{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.card{
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-medium);
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 20px;
+}
+
+.card > .card-content{
+  display: grid;
+  grid-template-rows: max-content 1fr;
+}
+
+.card > i{
+  font-size: 3rem;
+  justify-self: center;
+  align-self: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.card.red > i,
+.card.red{
+  background: rgba(230, 46, 46, 0.568);
+}
+
+.card.orange > i,
+.card.orange{
+  background: rgb(255, 123, 0, 0.568);
+}
+
+.card.green > i,
+.card.green{
+  background: rgba(40, 179, 27, 0.568);
+}
+
+.card h3{
+  font-size: 1rem;
+  margin-bottom: 6px;
+  font-weight: lighter;
+}
+
+.card > .card-content > p{
+  font-size: 2.3rem;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+/* SEÇÃO DE MAPA */
+#sctMap{
+  grid-area: map;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  height: 500px;
+}
+
+#sctMap > .mapCaption{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 20px;
+  background-color: var(--color-bg-blue-darker);
+  padding: 10px;
+  border-radius: 10px 10px 0px 0px;
+  color: white;
+}
+
+#sctMap > .mapCaption > .itemCaption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#sctMap > .mapCaption > .itemCaption > span{
+  padding: 6px;
+  border-radius: 50%;
+}
+
+#sctMap > .mapCaption > .itemCaption > span.capRed{ background-color: #ff0000; }
+#sctMap > .mapCaption > .itemCaption > span.capOrange{ background-color: #ff7700; }
+#sctMap > .mapCaption > .itemCaption > span.capGreen{ background-color: #00cc66; }
+
+div#map{
+  width: 100%;
+  height: 100%;
+  border-radius: 0px 0px 10px 10px;
+}
+
+
+
+#ReviewDashboard{
+  grid-area: test;
+}
+
+/* Tabela */
+main > #ReviewDashboard > table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+
+th, td{
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
+}
+
+thead{
+  background: #f0f4ff;
+}
+
+tbody > tr > .itemTableAcoes{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+tr > .itemTableAcoes > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  justify-self: center;
+  width: 100%;
+}
+
+tr > .itemTableAcoes > button > i{
+  font-size: 1.5rem;
+}
+
