@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Funcionário</title>
+  <title>Painel de Status</title>
   <link rel="shortcut icon" href="../../assets/Img/LogoIcon.svg" type="image/x-icon">
 
   <link rel="stylesheet" type="text/css"
@@ -41,12 +41,6 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a href="/admin/relatorios">
-              <i class="ph-bold ph-file-text"></i>
-              <span class="item-title">Relatórios</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
             <a href="/admin/reports">
               <i class="ph-bold ph-warning-circle"></i>
               <span class="item-title">Reporte</span>
@@ -69,37 +63,37 @@
     <main>
 
       <section id="titleDashboard">
-        <h1> <i class="ph-fill ph-gauge"></i> Dashboard do Funcionário</h1>
+        <h1> <i class="ph-fill ph-gauge"></i> Painel de Status</h1>
         <p>Status do sistema: <strong>Sincronizado</strong> • Última atualização: 12:40</p>
       </section>
 
       <section id="sctStatus">
         <div class="cards">
-            <div class="card red">
-              <i class="ph-fill ph-drop-slash"></i>
-              <div class="card-content">
-                <h3>Sem Abastecimento:</h3>
-                <p id="statusFalta"></p>
-              </div>
+          <div class="card red">
+            <i class="ph-fill ph-drop-slash"></i>
+            <div class="card-content">
+              <h3>Sem Abastecimento:</h3>
+              <p id="statusFalta"></p>
             </div>
-
-            <div class="card orange">
-              <i class="ph-fill ph-drop-half-bottom"></i>
-              <div class="card-content">
-                <h3>Fornecimento Irregular:</h3>
-                <p id="statusIrregular"></p>
-              </div>
-            </div>
-
-            <div class="card green">
-              <i class="ph-fill ph-drop"></i>
-              <div class="card-content">
-                <h3>Normalidade:</h3>
-                <p id="statusNormal"></p>
-              </div>
-            </div>
-
           </div>
+
+          <div class="card orange">
+            <i class="ph-fill ph-drop-half-bottom"></i>
+            <div class="card-content">
+              <h3>Fornecimento Irregular:</h3>
+              <p id="statusIrregular"></p>
+            </div>
+          </div>
+
+          <div class="card green">
+            <i class="ph-fill ph-drop"></i>
+            <div class="card-content">
+              <h3>Normalidade:</h3>
+              <p id="statusNormal"></p>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section id="ReviewDashboard">
@@ -143,8 +137,8 @@
   </div>
 
   <script type="module" src="/js/admin/dashboard.js"></script>
-  <script src="../../js/logout.js"></script>
-  
+  <script type="module" src="/js/logout.js"></script>
+
 </body>
 
 </html>

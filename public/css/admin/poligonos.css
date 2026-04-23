@@ -25,12 +25,14 @@ main{
   padding: 24px;
   background: #f6f8fc;
   min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 20px;
 }
 
 main section{
   background: white;
   padding: 20px;
-  margin-bottom: 18px;
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
 }
@@ -113,41 +115,6 @@ main > section > h2 > i{
   border-radius: 12px;
   border: 2px solid royalblue;
   overflow: hidden;
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.badge-active  { background: #d1f5e0; color: #0a6e37; border: 1px solid #a3e8c0; }
-.badge-high    { background: #ffe0e0; color: #960000; border: 1px solid #f5b0b0; }
-.badge-med     { background: #fff0cc; color: #8a4f00; border: 1px solid #f5d98a; }
-.badge-review  { background: #e0e9ff; color: #1e3fa0; border: 1px solid #aabfff; }
-
-/* Ajuda Rapida */
-
-.ajuda{
-  margin-bottom: 0px;
-}
-
-.ajuda > ul{
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.ajuda > ul > li{
-  margin-left: 10px;
-  list-style: inside;
-  font-weight: lighter;
-  margin-bottom: 5px;
 }
 
 .mapboxgl-ctrl-group{

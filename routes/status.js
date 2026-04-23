@@ -23,7 +23,7 @@ router.get("/buscar/dados/:bairro", async (req, res) => {
     try {
         const { data, error } = await supabase
             .from("abastecimento")
-            .select("bairro, status, causa_interrupcao, inicio_interrupcao, previsao_retorno, area_afetada, pressao_rede, medida_solucao, descricao")
+            .select("bairro, status, causa_interrupcao, inicio_interrupcao, previsao_retorno, area_afetada, pressao_rede, medida_solucao, descricao, atualizado_em")
             .eq("bairro", req.params.bairro);
 
         if (error) throw error;

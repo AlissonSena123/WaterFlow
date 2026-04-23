@@ -22,11 +22,11 @@ header img{
 }
 
 main{
-    background: white url(../assets/Img/backgroundWeveEffect.svg) no-repeat center center;
+    background: white;
     background-size: cover;
-    padding: 24px;
+    padding: 10px;
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: 100vh;
     gap: 10px;
 }
 
@@ -48,16 +48,22 @@ main > section > h2 > i{
 }
 
 main > #section-map{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    row-gap: 10px;
+    display: block;
+    position: relative;
+    height: 100%;
+    padding: 0;
 }
 
-main > #section-map > .div-search{
-    display: flex;
-    width: 50%;
+main > #section-map > .div-search {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 700px;
     column-gap: 10px;
+    z-index: 1000;
+    display: flex;
 }
 
 .div-search > input{
@@ -65,12 +71,16 @@ main > #section-map > .div-search{
     background-color: #f0f4ff;
     border: 2px solid royalblue;
     border-radius: 9px;
-    width: 100%;
+    flex: 1;
 }
 
 .div-search > button{
     background-color: var(--color-bg-primary-blue);
     color: white;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 main > #section-map > #map{
@@ -78,33 +88,122 @@ main > #section-map > #map{
     border-radius: 9px;
     border: 2px solid royalblue;
     height: 100%;
+    width: 100%;
 }
 
-#infoStatus > h2{
-    margin-bottom: 5px;
+#cardStatus{
+    background: none;
+    padding: 0px;
+    border-radius: 10px;
+    display: none;
 }
 
-#infoStatus > p{
-    margin-bottom: 5px;
+#cardStatus > .cardHeader{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: max-content 1fr max-content;
+    align-items: center;
+    border-radius: 10px 10px 0px 0px;
 }
 
-#infoStatus > .infoItem{
-    margin-bottom: 5px;
+#cardStatus > .cardHeader > i{
+    font-size: 2rem;
+    color: white;
+    background-color: #aac1ff7d;
     padding: 10px;
+    border-radius: 50px;
 }
 
-#infoStatus > .infoItem > p{
-    margin-bottom: 5px;
+#cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
+    font-size: 1.5rem;
 }
 
-#infoStatus > details{
-    border: 2px solid var(--color-bg-primary-blue);
+#cardStatus > .cardHeader > .cardHeaderContant > p:last-child{
+    color: rgba(255, 255, 255, 0.61);
+    font-weight: lighter;
+    font-size: .9rem;
+}
+
+.dataInterrupcaoRetorno{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ecf0ff9c;
+    padding: 15px 20px;
+    gap: 10px;
+}
+
+.dataInterrupcaoRetorno > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    background-color: #d0dcff7d;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 50px;
 }
 
-#infoStatus > details{
-    margin-top: 10px;
+.dataInterrupcaoRetorno > div > p:first-child{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#cardStatus > .cardBody{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-template-areas: 
+    "titulo titulo titulo"
+    "causaInterrupcao causaInterrupcao causaInterrupcao"
+    "areaAfetada pressaoAgua medResolucao"
+    "descInfo descInfo descInfo";
+    padding: 20px;
+}
+
+.cardItem {
+    background: rgba(221, 238, 255, 0.6);
+    border-radius: 7px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardItem > p:first-child{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.status{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    justify-self: flex-end;
+}
+
+#cardStatus > .cardBody > h3{ grid-area: titulo;}
+
+.causaInterrupcao { grid-area: causaInterrupcao;}
+.areaAfetada{ grid-area: areaAfetada; }
+.pressaoAgua{ grid-area: pressaoAgua; }
+.medResolucao{ grid-area: medResolucao;}
+.descInfo{ grid-area: descInfo; }
+
+
+.badge {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 4px 12px;
+    text-transform: none;
 }
 
 /* HOVER */
@@ -118,9 +217,19 @@ main > #section-map > #map{
     background-color: white;
 }
 
-@media (max-width: 1164px){
-    main > #section-map > .div-search{
-        justify-self: center;
-        width: 100%;
+@media (max-width: 1164px) {
+    main > #section-map > .div-search {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20px;
+        width: calc(100% - 40px);
+        max-width: none;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .div-search > button {
+        width: 56px;
+        flex-shrink: 0;
     }
 }

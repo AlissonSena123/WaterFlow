@@ -36,12 +36,12 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 const statusPorBairro = {};
 
                 statusData.forEach(item => {
-                    statusPorBairro[normalizar(item.bairro)] = item.status;
+                    statusPorBairro[normalizarTexto(item.bairro)] = item.status;
                 });
 
                 geojson.features.forEach(features => {
                     const nomeBairro = features.properties.NM_BAIRRO?.trim().toUpperCase();
-                    features.properties.status = statusPorBairro[normalizar(nomeBairro)] ?? "SEM_STATUS"
+                    features.properties.status = statusPorBairro[normalizarTexto(nomeBairro)] ?? "SEM_STATUS"
                 });
 
                 map.addSource("municipios", {
@@ -51,40 +51,39 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 });
 
                 //layer do poligono
-                    map.addLayer({
-                        id: "municipios-fill",
-                        type: "fill",
-                        source: "municipios",
-                        paint: {
-                            "fill-color": [
-                                "match", ["get", "status"],
-                                "NORMAL", coresStatus.NORMAL.fill,
-                                "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.fill,
-                                "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.fill,
-                                coresStatus.SEM_STATUS.fill 
-                            ],
-                            "fill-opacity": 0.5
-                        },
-                    });
+                map.addLayer({
+                    id: "municipios-fill",
+                    type: "fill",
+                    source: "municipios",
+                    paint: {
+                        "fill-color": [
+                            "match", ["get", "status"],
+                            "NORMAL", coresStatus.NORMAL.fill,
+                            "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.fill,
+                            "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.fill,
+                            coresStatus.SEM_STATUS.fill 
+                        ],
+                        "fill-opacity": 0.5
+                    },
+                });
 
-                    // Layer da borda
-                    map.addLayer({
-                        id: "municipios-line",
-                        type: "line",
-                        source: "municipios",
-                        paint: {
-                            "line-color": [
-                                "match", ["get", "status"],
-                                "NORMAL", coresStatus.NORMAL.line,
-                                "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.line,
-                                "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.line,
-                                coresStatus.SEM_STATUS.line 
-                            ],
-                            "line-width": 2
-                        },
-                    });
-            });
-                
+                // Layer da borda
+                map.addLayer({
+                    id: "municipios-line",
+                    type: "line",
+                    source: "municipios",
+                    paint: {
+                        "line-color": [
+                            "match", ["get", "status"],
+                            "NORMAL", coresStatus.NORMAL.line,
+                            "FORNECIMENTO_IRREGULAR", coresStatus.FORNECIMENTO_IRREGULAR.line,
+                            "SEM_ABASTECIMENTO", coresStatus.SEM_ABASTECIMENTO.line,
+                            coresStatus.SEM_STATUS.line 
+                        ],
+                        "line-width": 2
+                    },
+                });
+            });     
         });
     });
 
@@ -92,6 +91,8 @@ async function contagemDeStatusIguais() {
     try {
         const res = await fetch("/status/contagem");
         const data = await res.json();
+
+        console.log(data);
 
         document.getElementById("statusFalta").innerHTML = data.SEM_ABASTECIMENTO || 0;
         document.getElementById("statusIrregular").innerHTML = data.FORNECIMENTO_IRREGULAR || 0;
@@ -106,8 +107,6 @@ async function buscarBairrosSemAbastecimento() {
     try {
         const res = await fetch("/status/buscar/bairros/sem-abastecimento");
         const bairros = await res.json();
-
-        console.log(bairros);
 
         const tbody = document.querySelector('#ReviewDashboard table tbody');
         tbody.innerHTML = '';
@@ -133,12 +132,15 @@ async function buscarBairrosSemAbastecimento() {
 
 buscarBairrosSemAbastecimento();
 
-function normalizar(str) {
-    return str
-        .trim()
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+/* ---- FUNÇÃO PARA FORMATAR O TEXTO ---- */
+function normalizarTexto(texto) { // Formatar o texto
+    return texto
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 supabase
@@ -151,7 +153,7 @@ supabase
 
             // Atualiza a feature no GeoJSON em memória
             municipiosData.features.forEach(feature => {
-                if (normalizar(feature.properties.NM_BAIRRO) === normalizar(bairro)) {
+                if (normalizarTexto(feature.properties.NM_BAIRRO) === normalizarTexto(bairro)) {
                     feature.properties.status = status;
                 }
             });
