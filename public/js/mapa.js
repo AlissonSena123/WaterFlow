@@ -71,6 +71,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
+                    
                 });
         });
 
@@ -299,17 +300,18 @@ function normalizarTexto(texto) {
 
 function formatarData(data, status) {
 
-    if (status === "NORMAL") {
-        return null;
-    } else {
-        const dataFormatada = new Date(data);
+    if (status === "NORMAL") return null;
 
-        return dataFormatada.toLocaleString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        });
-    }
+    const dataUTC = data.includes("Z") ? data : data.replace(" ", "T") + "Z";
+
+    const dataFormatada = new Date(dataUTC);
+
+    return dataFormatada.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 }

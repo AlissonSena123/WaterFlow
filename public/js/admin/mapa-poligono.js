@@ -173,6 +173,7 @@ async function modal(nomeExibicao, nome) {
             </div>
             <div class="painel-item-footer">
                 <button type="button" class="btn-update"
+                    data-bairro-exibicao="${nomeExibicao}"
                     data-bairro="${bairro.bairro}"
                     data-status="${bairro.status}"
                     data-causa="${bairro.causa_interrupcao || ""}"
@@ -190,11 +191,15 @@ async function modal(nomeExibicao, nome) {
 
     document.querySelectorAll(".btn-update").forEach(btn => {
         btn.addEventListener("click", () => {
-            const { bairro, status, causa, inicio, retorno, area, pressao, medida, descricao } = btn.dataset;
+            const { bairro, bairroExibicao, status, causa, inicio, retorno, area, pressao, medida, descricao } = btn.dataset;
 
             limparErros();
 
             const painelUpdate = document.getElementById("painelStatusUpdate");
+
+            painelUpdate.dataset.bairro = bairro; 
+            painelUpdate.dataset.bairroExibicao = bairroExibicao;
+
             const isNormal = status === "NORMAL";
 
             const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
@@ -206,7 +211,7 @@ async function modal(nomeExibicao, nome) {
             });
 
             document.getElementById("idBairro").value = bairro;
-            document.getElementById("idBairro").textContent = bairro;
+            document.getElementById("idBairro").textContent = bairroExibicao;
             document.getElementById("idStatus").value = status;
             
             if (!isNormal) { // Se o status for diferente de Normal preenche os campos com os dados passados no botão 
@@ -273,7 +278,11 @@ document.getElementById("btnCancelar").addEventListener("click", () => { // Esco
 /* ---- FUNÇÃO PARA ATUALIZAR O STATUS DO BAIRRO ---- */
 document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click", async () => {
     
-    const bairro = document.getElementById("idBairro").textContent;
+    const painelUpdate = document.getElementById("painelStatusUpdate");
+
+    const bairro = painelUpdate.dataset.bairro;
+    const bairroExibicao = painelUpdate.dataset.bairroExibicao;
+
     const status = document.getElementById("idStatus").value;
     const causa  = document.getElementById("idCausa").value;
     const inicio = document.getElementById("idInicio").value;
@@ -310,7 +319,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
         mostrarToast(result.message, "green");
         document.getElementById("painelStatusUpdate").style.display = "none";
         document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
-        modal(bairro.toLowerCase());
+        modal(bairroExibicao, bairro);
     } else {
         mostrarToast(result.erro, "red");
     }
