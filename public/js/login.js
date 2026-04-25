@@ -20,7 +20,7 @@ btnLogin.addEventListener("click", async (event) => {
         if (data.success) {
             window.location.href = data.redirect;
         } else {
-            mostrarToast(data.message);
+            mostrarToast(data.message, "red");
         }
 
     } catch (error) {

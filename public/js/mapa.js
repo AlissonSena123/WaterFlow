@@ -3,6 +3,7 @@ import { criarMapa } from "./utils/mapaConfig.js";
 
 let map;
 let municipiosData;
+let cliqueNoBairro = false;
 
 /* ==== FUNÇÃO DE CACHE DO FETCH ==== */
 
@@ -12,7 +13,7 @@ let cacheTimestamp = null; // guarda quando o fetch foi feito
 const CACHE_TTL = 60 * 1000; // define por quanto tempo o cache é válido
 
 
- 
+
 async function getStatusBairros() {
     const agora = Date.now();
     if (statusCache && cacheTimestamp && agora - cacheTimestamp < CACHE_TTL) { // verifica se já existe algum dado guardado e verifica se o cache tem menos de 1 minuto
@@ -94,8 +95,8 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
 
-                    getStatusBairros().catch(() => {});
-                    
+                    getStatusBairros().catch(() => { });
+
                 });
         });
 
@@ -103,6 +104,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
             const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
             const bairro = normalizarTexto(nomeMunicipio);
             document.getElementById("search").value = nomeMunicipio;
+            cliqueNoBairro = true;
 
             try {
 
@@ -122,7 +124,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 ]);
                 const detalhe = await detalheRes.json();
 
-                const bairroStatus = dados.find(bairro => 
+                const bairroStatus = dados.find(bairro =>
                     normalizarTexto(bairro.bairro) === normalizarTexto(feature.properties.NM_BAIRRO)
                 );
 
@@ -148,10 +150,12 @@ criarMapa("map", [-38.5167, -12.9704], 12)
 /** ==== EVENTOS DE BUSCA ==== */
 
 document.getElementById("btnSearch").addEventListener("click", () => {
+    cliqueNoBairro = true;
     buscarRegiao(document.getElementById("search").value);
 });
 
 document.getElementById("search").addEventListener("keydown", (input) => {
+    cliqueNoBairro = true;
     if (input.key === "Enter") {
         buscarRegiao(input.target.value);
     }
@@ -228,7 +232,9 @@ async function buscarRegiao(nome) {
             essential: true
         });
 
-        statusInfo(feature.properties.NM_BAIRRO, detalhe);
+        setTimeout(() => {
+            statusInfo(feature.properties.NM_BAIRRO, detalhe);
+        }, 800);
 
     } catch (error) {
         console.error(error);
@@ -240,12 +246,12 @@ async function buscarRegiao(nome) {
 /** ==== CARD DE STATUS ==== */
 function statusInfo(nomeExibicao, data) {
     const painelStatusInfo = document.getElementById("cardStatus");
- 
+
     if (!data || data.length === 0) {
         mostrarToast("Informações não encontradas", "red");
         return;
     }
- 
+
     painelStatusInfo.innerHTML = data.map(bairro => `
         <div class="cardHeader">
             <i class="ph-fill ph-map-pin"></i>
@@ -293,20 +299,47 @@ function statusInfo(nomeExibicao, data) {
             </div>
         </div>
     `).join("");
- 
+
     painelStatusInfo.style.display = "block";
-    painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center" });
+    painelStatusInfo.scrollTo({ top: 0, behavior: "smooth" });
+
+    requestAnimationFrame(() => {
+        painelStatusInfo.classList.add("visible");
+    });
+
 }
- 
+
+document.getElementById("cardStatus").addEventListener("click", (e) => {
+    e.stopPropagation();
+});
 
 /** ==== UTILITÁRIOS ==== */
+
+document.addEventListener("click", (e) => {
+
+    if (cliqueNoBairro) {
+        cliqueNoBairro = false; 
+        return;
+    }
+
+    const card = document.getElementById("cardStatus");
+    
+    if (!card.classList.contains("visible")) return; 
+    
+    if (!card.contains(e.target)) {
+        card.classList.remove("visible");
+        card.addEventListener("transitionend", () => {
+            card.style.display = "none";
+        }, { once: true });
+    }
+});
 
 const CORES_STATUS = {
     "NORMAL": "#22c55e",
     "SEM_ABASTECIMENTO": "#ef4444",
     "FORNECIMENTO_IRREGULAR": "#f97316"
 };
- 
+
 function resolverCor(status) {
     return CORES_STATUS[status] ?? "#3b3737";
 }
