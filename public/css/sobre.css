@@ -143,7 +143,7 @@ main{
     display: flex;
     flex-direction: column;
     row-gap: 50px;
-    background-color: royalblue;
+    background-color: var(--color-text-secondary-black);
 }
 
 #section-funcionalidades > .sctFuncionContent{
