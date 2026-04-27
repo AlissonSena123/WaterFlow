@@ -86,14 +86,14 @@ main > .titlePerfil > button:hover{
     background-color: rgb(93, 133, 255);
 }
 
-main > section:last-child{
+main > section#infoUser{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: max-content 1fr;
     gap: 20px;
     padding: 30px;
 }
-main > section:last-child > h3{
+main > section#infoUser > h3{
     grid-column: 1/-1;
     font-weight: lighter;
     font-size: 1rem;
@@ -124,7 +124,7 @@ main > section:last-child > h3{
     grid-column: 1/-1;
 }
 
-main > section:last-child > button#logout{
+main > section#infoUser > button#logout{
     align-self: center;
     justify-self: flex-end;
     padding: 13px;
@@ -143,4 +143,120 @@ main > section:last-child > button > i{
 main > section:last-child > button#logout:hover{
     background-color: rgb(167, 0, 0);
     transform: translateY(-4px);
+}
+
+.modal{
+    position: fixed;
+    inset: 0; /* substitui top, left, width, height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: background 0.1s ease, opacity 0.3s ease;
+    z-index: 999;
+}
+
+.modal.active {
+    background: rgba(0,0,0,0.5);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+aside{
+    box-shadow: var(--shadow-medium);
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    background-color: white;
+}
+
+aside > h2{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+aside > form{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px 10px;
+}
+
+.atualizarItem{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.atualizarItem > label{
+    color: var(--color-bg-secondary-blue);
+}
+
+.atualizarItem > input,
+.atualizarItem > div > input{
+    padding: 13px;
+    border-radius: 5px;
+    border: 2px solid var(--color-bg-blue-darker);
+}
+
+
+.atualizarItem > div{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.atualizarItem > div > input{
+    width: 100%;
+}
+
+aside > form > div#updateButton{
+    grid-column: 1/-1;
+    justify-self: flex-end;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+} 
+
+aside > form > div#updateButton > button{
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+aside > form > div#updateButton > button > i{
+    font-size: 1.5rem;
+}
+
+aside > form > div#updateButton > button:first-child{
+    background-color: red;
+    color: white;
+}
+
+aside > form > div#updateButton > button:last-child{
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+}
+
+/* HOVER */
+aside > form > div#updateButton > button:hover{
+    transform: translateY(-4px);
+}
+
+aside > form > div#updateButton > button:first-child:hover{
+    background-color: darkred;
+}
+
+aside > form > div#updateButton > button:last-child:hover{
+    background-color: var(--color-bg-blue-darker);
 }

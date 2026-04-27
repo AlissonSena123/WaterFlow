@@ -67,14 +67,16 @@ main > section{
 
 main > section > form{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: max-content;
     gap: 20px 10px;
     grid-template-areas: 
-    "item1 item2 item2"
-    "item3 item4 item5"
-    "item6 item6 item6"
-    "none none btn";
+    "item1 item1"
+    "item2 item3"
+    "item4 item4"
+    "item5 item6"
+    "item7 item7"
+    "none btn";
     color: var(--color-bg-primary-blue);
     min-height: 100%;
 }
@@ -88,8 +90,9 @@ main > section > form > div > label{
     margin-bottom: 5px;
 }
 
-main > section > form > div > input{
-    padding: 13px;
+main > section > form > div > input,
+main > section > form > div > select{
+    padding: 15px;
     border: 2px solid royalblue;
     border-radius: 5px;
     background: #f0f4ff;
@@ -111,7 +114,6 @@ main > section > form > #item4{
     grid-area: item4;
     align-self: flex-end;
 }
-
 main > section > form > #item5{
     grid-area: item5;
     align-self: flex-end;
@@ -119,9 +121,14 @@ main > section > form > #item5{
 
 main > section > form > #item6{
     grid-area: item6;
+    align-self: flex-end;
 }
 
-main > section > form > #item6 > textarea{
+main > section > form > #item7{
+    grid-area: item7;
+}
+
+main > section > form > #item7 > textarea{
     height: 340px;
     resize: none;
     padding: 13px;
@@ -157,7 +164,8 @@ main > section > form > button:hover{
 
 /* FOCUS */
 form > div > input:focus,
-form > #item6 > textarea:focus{
+form > #item6 > textarea:focus,
+main > section > form > div > select:focus{
     background-color: white;
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
 }
@@ -174,6 +182,7 @@ form > #item6 > textarea:focus{
         "item4"
         "item5"
         "item6"
+        "item7"
         "btn";
     }
     

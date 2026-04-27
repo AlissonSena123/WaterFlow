@@ -22,7 +22,7 @@
             <section class="section-login">
                 <div class="section-login-header">
                     <h1>ENTRAR</h1>
-                    <h3>Bem vindo de volta ao WaterFlow</h3>
+                    <h3>Bem vindo ao WaterFlow</h3>
                 </div>
                 <form autocomplete="off">
                     <div class="form-item-login">
@@ -30,7 +30,7 @@
                         <input type="email" name="email" id="idEmail" placeholder="Digite seu email" autocomplete="email">
                     </div>
                     <div class="form-item-login">
-                        <label for="idSenha" class="ph-fill ph-password"></label>
+                        <label for="idSenha" class="ph-fill ph-lock-key"></label>
                         <input type="password" name="senha" id="idSenha" placeholder="Digite sua senha" autocomplete="current-password" minlength="10" maxlength="15" autocomplete="off">
                         <span class="toggle-senha" id="toggleMostrarSenha">
                             <i class="ph-fill ph-eye" id="iconToggle"></i>
@@ -39,7 +39,10 @@
                     <a href="/redefinir">Esqueceu sua senha?</a>
                     <button type="submit" id="btnLogin"><span class="ph-fill ph-sign-in"></span>Entrar</button>
                 </form>
-                <p>Primeira vez aqui? <a href="/cadastro">Cadastra-se</a></p>
+                <div class="linkCadastro">
+                    <hr>
+                    <p>Primeira vez aqui? <a href="/cadastro">Cadastra-se</a></p>
+                    <hr>
             </section>
         </main>
     </div>

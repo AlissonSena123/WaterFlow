@@ -65,16 +65,26 @@
                         <input type="text" name="email" id="idEmail" required placeholder="Digite seu email">
                     </div>
                     <div id="item3">
+                        <label for="tipo_problema">Tipo do Problema:</label>
+                        <select name="tipo_problema" id="tipo_problema">
+                            <option value="" selected disabled>Selecione o Problema</option>
+                            <option value="SEM ÁGUA">Sem Água</option>
+                            <option value="PRESSÃO BAIXA">Pressão Baixa</option>
+                            <option value="VAZAMENTO">Vazamento</option>
+                            <option value="OUTRO">Outro</option>
+                        </select>
+                    </div>
+                    <div id="item4">
                         <label for="idCEP">CEP:</label>
                         <input type="text" name="cep" id="idCEP" required placeholder="Digite seu CEP">
                     </div>
-                    <div id="item4">
+                    <div id="item5">
                         <input type="text" name="rua" id="idRua" placeholder="Rua" readonly>
                     </div>
-                    <div id="item5">
+                    <div id="item6">
                         <input type="text" name="bairro" id="idBairro" placeholder="Bairro" readonly>
                     </div>
-                    <div id="item6">
+                    <div id="item7">
                         <label for="idDescricao">Descrição:</label>
                         <textarea name="descricao" id="idDescricao" placeholder="Descreva o seu problema nesse campo"></textarea>
                     </div>
@@ -84,5 +94,6 @@
         </main>
     </div>
     <script type="module" src="/js/logout.js"></script>
+    <script type="module" src="/js/reportar.js"></script>
 </body>
 </html>

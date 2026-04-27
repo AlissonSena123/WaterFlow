@@ -101,7 +101,7 @@ router.post("/login", async (req, res) => {
 
     let conta = usuario || funcionario;
 
-    if (!conta) return res.status(400).json({ success: false, message: "..." })
+    if (!conta) return res.status(400).json({ success: false, message: "Email ou senha inválidos." })
 
     const senhaCorreta = await bcrypt.compare(senha, conta.senha);
 
@@ -343,7 +343,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 });
 
 /*ATUALIZAR CAMPOS DE CADASTRO*/
-router.patch("/usuarios/atualizar-cadastro", async (req, res) => {
+router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   try {
     if (!req.session.user) {
       return res.status(401).json({ success: false, message: "Usuário não autorizado" })
@@ -544,9 +544,9 @@ router.post("/cadastrar/funcionarios", adminAuth, async (req, res) => {
 
 /* ROTA DE REPORTAR FALTA D'ÁGUA */
 router.post("/reporte/enviar", async (req, res) => {
-  const { nome, email, rua, bairro, descricao } = req.body
+  const { nome, email, tipo, rua, bairro, descricao } = req.body
 
-  if (!email || !nome || !rua || !bairro) {
+  if (!email || !nome || !rua || !bairro || !tipo) {
     return res.json({ success: false, message: "Preencha todos os campos" });
   }
 
@@ -557,6 +557,7 @@ router.post("/reporte/enviar", async (req, res) => {
         {
           nome: nome,
           email: email,
+          tipo_problema: tipo,
           rua: rua,
           bairro: bairro,
           descricao: descricao

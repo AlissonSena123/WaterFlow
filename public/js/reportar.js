@@ -11,6 +11,7 @@ btnEnviar.addEventListener("click", async (event) => {
     const report = {
         nome: document.getElementById("idNome").value,
         email: document.getElementById("idEmail").value,
+        tipo: document.getElementById("tipo_problema").value,
         rua: document.getElementById("idRua").value,
         bairro: document.getElementById("idBairro").value,
         descricao: document.getElementById("idDescricao").value
@@ -19,17 +20,17 @@ btnEnviar.addEventListener("click", async (event) => {
     try {
         const response = await fetch("/reporte/enviar", {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(report)
         });
 
         const data = await response.json();
 
-        if(data.success){
+        if (data.success) {
             mostrarToast(data.message, "green");
             form.reset();
-        }else{
-            mostrarToast(data.error, "red");
+        } else {
+            mostrarToast(data.message, "red");
         }
     } catch (error) {
         mostrarToast("Erro ao conectar com o servidor", "red");
@@ -42,14 +43,14 @@ const inputCEP = document.getElementById("idCEP");
 
 inputCEP.addEventListener("blur", async () => {
     const cep = inputCEP.value.trim();
-    
-        if (!cep) {
-            return mostrarToast("Digite o CEP", "red");
-        }
-    
-        const data = await buscarCEP(cep);
 
-    if(!data) {
+    if (!cep) {
+        return mostrarToast("Digite o CEP", "red");
+    }
+
+    const data = await buscarCEP(cep);
+
+    if (!data) {
         mostrarToast("CEP inválido", "red");
         return;
     }

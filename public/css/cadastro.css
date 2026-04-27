@@ -114,7 +114,7 @@ main{
     width: 100%;
     margin: 15px 0px 10px 0px;
     border-radius: 5px; 
-    background-color: royalblue;
+    background-color: var(--color-bg-secondary-blue);
     color: white;
     transition: .1s all ease-in-out;
     padding: 15px; 

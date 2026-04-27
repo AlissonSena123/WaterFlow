@@ -3,6 +3,29 @@ import { criarMapa } from "./utils/mapaConfig.js";
 
 let map;
 let municipiosData;
+let cliqueNoBairro = false;
+
+/* ==== FUNÇÃO DE CACHE DO FETCH ==== */
+
+// evita refazer o fetch a cada interação com o mapa
+let statusCache = null; // guarda o resultado do ultimo fetch
+let cacheTimestamp = null; // guarda quando o fetch foi feito
+const CACHE_TTL = 60 * 1000; // define por quanto tempo o cache é válido
+
+
+
+async function getStatusBairros() {
+    const agora = Date.now();
+    if (statusCache && cacheTimestamp && agora - cacheTimestamp < CACHE_TTL) { // verifica se já existe algum dado guardado e verifica se o cache tem menos de 1 minuto
+        return statusCache; // Se tudo for verdade, retorno o dado guardado
+    }
+
+    // Se a condição for falsa, realiza uma busca na API
+    const res = await fetch("/status/bairro");
+    statusCache = await res.json(); // Depois guarda o resultado na variavel
+    cacheTimestamp = Date.now();
+    return statusCache;
+}
 
 criarMapa("map", [-38.5167, -12.9704], 12)
     .then(m => {
@@ -71,6 +94,9 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                         },
                         filter: ["==", ["get", "NM_BAIRRO"], ""]
                     });
+
+                    getStatusBairros().catch(() => { });
+
                 });
         });
 
@@ -78,6 +104,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
             const nomeMunicipio = e.features[0].properties.NM_BAIRRO;
             const bairro = normalizarTexto(nomeMunicipio);
             document.getElementById("search").value = nomeMunicipio;
+            cliqueNoBairro = true;
 
             try {
 
@@ -91,18 +118,18 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     return;
                 }
 
-                const res = await fetch("/status/bairro");
-                const data = await res.json();
+                const [dados, detalheRes] = await Promise.all([
+                    getStatusBairros(),
+                    fetch(`/status/buscar/dados/${encodeURIComponent(bairro)}`)
+                ]);
+                const detalhe = await detalheRes.json();
 
-                const bairroStatus = data.find(bairro => normalizarTexto(bairro.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
+                const bairroStatus = dados.find(bairro =>
+                    normalizarTexto(bairro.bairro) === normalizarTexto(feature.properties.NM_BAIRRO)
+                );
 
-                const coresPorStatus = {
-                    "NORMAL": "#22c55e",
-                    "SEM_ABASTECIMENTO": "#ef4444",
-                    "FORNECIMENTO_IRREGULAR": "#f97316"
-                }
 
-                const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
+                const cor = resolverCor(bairroStatus?.status);
 
                 map.setPaintProperty("municipios-fill", "fill-color", cor);
                 map.setPaintProperty("municipios-line", "line-color", cor);
@@ -110,7 +137,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 map.setFilter("municipios-fill", ["==", ["get", "NM_BAIRRO"], feature.properties.NM_BAIRRO]);
                 map.setFilter("municipios-line", ["==", ["get", "NM_BAIRRO"], feature.properties.NM_BAIRRO]);
 
-                statusInfo(feature.properties.NM_BAIRRO, bairro);
+                statusInfo(nomeMunicipio, detalhe);
 
             } catch (error) {
                 console.log(error);
@@ -120,16 +147,21 @@ criarMapa("map", [-38.5167, -12.9704], 12)
     });
 
 
+/** ==== EVENTOS DE BUSCA ==== */
+
 document.getElementById("btnSearch").addEventListener("click", () => {
+    cliqueNoBairro = true;
     buscarRegiao(document.getElementById("search").value);
 });
 
 document.getElementById("search").addEventListener("keydown", (input) => {
+    cliqueNoBairro = true;
     if (input.key === "Enter") {
         buscarRegiao(input.target.value);
     }
-})
+});
 
+/* ==== FUNÇÃO PRINCIPAL DE BUSCA ==== */
 async function buscarRegiao(nome) {
 
     if (!nome) { // Se o input estiver vazio, a função de "mostrarToast" será chamada e irá ser retornada
@@ -155,18 +187,17 @@ async function buscarRegiao(nome) {
             return;
         }
 
-        const res = await fetch("/status/bairro"); // Chamando a api de status
-        const dados = await res.json();
+        // Chamando as duas requisições em paralelo
+        const [dados, detalheRes] = await Promise.all([
+            getStatusBairros(),
+            fetch(`/status/buscar/dados/${encodeURIComponent(nomeBusca)}`)
+        ]);
+
+        const detalhe = await detalheRes.json();
 
         const bairroStatus = dados.find(b => normalizarTexto(b.bairro) === normalizarTexto(feature.properties.NM_BAIRRO));
 
-        const coresPorStatus = {
-            "NORMAL": "#22c55e",
-            "SEM_ABASTECIMENTO": "#ef4444",
-            "FORNECIMENTO_IRREGULAR": "#f97316"
-        };
-
-        const cor = bairroStatus ? coresPorStatus[bairroStatus.status] : "#3b3737";
+        const cor = resolverCor(bairroStatus?.status);
 
         map.setPaintProperty("municipios-fill", "fill-color", cor);
         map.setPaintProperty("municipios-line", "line-color", cor);
@@ -201,7 +232,9 @@ async function buscarRegiao(nome) {
             essential: true
         });
 
-        statusInfo(feature.properties.NM_BAIRRO, nomeBusca);
+        setTimeout(() => {
+            statusInfo(feature.properties.NM_BAIRRO, detalhe);
+        }, 800);
 
     } catch (error) {
         console.error(error);
@@ -209,76 +242,107 @@ async function buscarRegiao(nome) {
     }
 }
 
-async function statusInfo(nomeExibicao, nome) {
+
+/** ==== CARD DE STATUS ==== */
+function statusInfo(nomeExibicao, data) {
     const painelStatusInfo = document.getElementById("cardStatus");
 
-    try {
-        const res = await fetch(`/status/buscar/dados/${encodeURIComponent(nome)}`);
-        const data = await res.json();
-
-        console.log(data);
-
-        painelStatusInfo.innerHTML = data.map(bairro => `
-            <div class="cardHeader">
-                <i class="ph-fill ph-map-pin"></i>
-                <div class="cardHeaderContant">
-                    <p>${nomeExibicao.toUpperCase()}</p>
-                    <p>Salvador - BA · <span> Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
-                </div>
-                <div class="status">
-                    <p class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}</p>
-                </div>
-            </div>
-            <div class="dataInterrupcaoRetorno">
-                <div class="inicioInterrupcao">
-                    <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
-                    <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || " "}</p>
-                </div>
-                <p>·</p>
-                <div class="prevRetorno">
-                    <p><i class="ph-fill ph-clock-clockwise"></i> Previsão de Retorno:</p>
-                    <p>${formatarData(bairro.previsao_retorno, bairro.status) || " "}</p>
-                </div>
-            </div>
-            <div class="cardBody">
-                <h3>Detalhes da Abastecimento:</h3>
-                <div class="cardItem causaInterrupcao">
-                    <p> <i class="ph-fill ph-warning-circle"></i> Causa da Interrupção:</p>
-                    <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
-                </div>
-                <div class="cardItem areaAfetada">
-                    <p> <i class="ph-fill ph-map-pin-area"></i> Área Afetada:</p>
-                    <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
-                </div>
-                <div class="cardItem pressaoAgua">
-                    <p> <i class="ph-fill ph-gauge"></i> Pressão da água:</p>
-                    <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
-                </div>
-                <div class="cardItem medResolucao">
-                    <p> <i class="ph-fill ph-check-circle"></i> Medida de Solução:</p>
-                    <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
-                </div>
-                <div class="cardItem descInfo">
-                    <p> <i class="ph-fill ph-sort-ascending"></i> Descrição:</p>  
-                    <p>${bairro.descricao || "Sem descrição"}</p>
-                </div>
-            </div>
-        `).join("");
-
-        painelStatusInfo.style.display = "block";
-        painelStatusInfo.scrollIntoView({ behavior: "smooth", block: "center" });
-
-        // document.getElementById("btnFecharPainel").addEventListener("click", () => {
-        //     document.getElementById("cardStatus").style.display = "none",
-        //     document.getElementById("section-map").scrollIntoView({ behavior: "smooth", block: "start"});
-        // });
-
-    } catch (error) {
-        console.log("Erro: ", error);
+    if (!data || data.length === 0) {
         mostrarToast("Informações não encontradas", "red");
+        return;
     }
+
+    painelStatusInfo.innerHTML = data.map(bairro => `
+        <div class="cardHeader">
+            <i class="ph-fill ph-map-pin"></i>
+            <div class="cardHeaderContant">
+                <p>${nomeExibicao.toUpperCase()}</p>
+                <p>Salvador - BA · <span>Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
+            </div>
+            <div class="status">
+                <p class="badge ${colorStatus(bairro.status)}">
+                    ${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}
+                </p>
+            </div>
+        </div>
+        <div class="dataInterrupcaoRetorno">
+            <div class="inicioInterrupcao">
+                <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
+                <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || " "}</p>
+            </div>
+            <p>·</p>
+            <div class="prevRetorno">
+                <p><i class="ph-fill ph-clock-clockwise"></i> Previsão de Retorno:</p>
+                <p>${formatarData(bairro.previsao_retorno, bairro.status) || " "}</p>
+            </div>
+        </div>
+        <div class="cardBody">
+            <div class="cardItem causaInterrupcao">
+                <p><i class="ph-fill ph-warning-circle"></i> Causa da Interrupção:</p>
+                <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+            </div>
+            <div class="cardItem areaAfetada">
+                <p><i class="ph-fill ph-map-pin-area"></i> Área Afetada:</p>
+                <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
+            </div>
+            <div class="cardItem pressaoAgua">
+                <p><i class="ph-fill ph-gauge"></i> Pressão da água:</p>
+                <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
+            </div>
+            <div class="cardItem medResolucao">
+                <p><i class="ph-fill ph-check-circle"></i> Medida de Solução:</p>
+                <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
+            </div>
+            <div class="cardItem descInfo">
+                <p><i class="ph-fill ph-sort-ascending"></i> Descrição:</p>
+                <p>${bairro.descricao || "Sem descrição"}</p>
+            </div>
+        </div>
+    `).join("");
+
+    painelStatusInfo.style.display = "block";
+    painelStatusInfo.scrollTo({ top: 0, behavior: "smooth" });
+
+    requestAnimationFrame(() => {
+        painelStatusInfo.classList.add("visible");
+    });
+
 }
 
+document.getElementById("cardStatus").addEventListener("click", (e) => {
+    e.stopPropagation();
+});
+
+/** ==== UTILITÁRIOS ==== */
+
+document.addEventListener("click", (e) => {
+
+    if (cliqueNoBairro) {
+        cliqueNoBairro = false; 
+        return;
+    }
+
+    const card = document.getElementById("cardStatus");
+    
+    if (!card.classList.contains("visible")) return; 
+    
+    if (!card.contains(e.target)) {
+        card.classList.remove("visible");
+        card.addEventListener("transitionend", () => {
+            card.style.display = "none";
+        }, { once: true });
+    }
+});
+
+const CORES_STATUS = {
+    "NORMAL": "#22c55e",
+    "SEM_ABASTECIMENTO": "#ef4444",
+    "FORNECIMENTO_IRREGULAR": "#f97316"
+};
+
+function resolverCor(status) {
+    return CORES_STATUS[status] ?? "#3b3737";
+}
 
 function colorStatus(status) {
     const s = status.toUpperCase();
@@ -299,17 +363,18 @@ function normalizarTexto(texto) {
 
 function formatarData(data, status) {
 
-    if (status === "NORMAL") {
-        return null;
-    } else {
-        const dataFormatada = new Date(data);
+    if (status === "NORMAL") return null;
 
-        return dataFormatada.toLocaleString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        });
-    }
+    const dataUTC = data.includes("Z") ? data : data.replace(" ", "T") + "Z";
+
+    const dataFormatada = new Date(dataUTC);
+
+    return dataFormatada.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 }

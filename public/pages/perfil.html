@@ -53,11 +53,11 @@
             <section class="titlePerfil">
                 <div class="User">
                     <i class="ph-fill ph-user-circle"></i>
-                    <h1>Perfil do Usuário <span id="titleNome">João Vitor</span></h1>
+                    <h1>Perfil do Usuário <span id="titleNome"></span></h1>
                 </div>
-                <button type="button"> <i class="ph-fill ph-pen"></i> Editar Perfil</button>
+                <button type="button" id="btnEditarPerfil"> <i class="ph-fill ph-pen"></i> Editar Perfil</button>
             </section>
-            <section>
+            <section id="infoUser">
                 <h3>Informações Pessoais:</h3>
                 <div class="infoContant">
                     <div class="infoCard">
@@ -83,10 +83,40 @@
                 </div>
                 <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair</button>
             </section>
+            <div class="modal" id="modalEdit">
+                <aside>
+                    <h2> <i class="ph-fill ph-pen"></i> Atualizar Perfil</h2>
+                    <form action="" id="form">
+                        <div class="atualizarItem">
+                            <label for="idNome">Nome:</label>
+                            <input type="text" id="idNome">
+                        </div>
+                        <div class="atualizarItem">
+                            <label for="idEmail">Email:</label>
+                            <input type="email" id="idEmail">
+                        </div>
+                        <div class="atualizarItem">
+                            <label for="idTel">Telefone:</label>
+                            <input type="text" id="idTel">
+                        </div>
+                        <div class="atualizarItem">
+                            <label for="idCEP">CEP:</label>
+                            <div>
+                                <input type="text" placeholder="Digite o novo CEP" id="idCEP">
+                                <input type="text" placeholder="Bairro" id="bairro" name="bairro" readonly>
+                            </div>
+                        </div>
+                        <div id="updateButton">
+                            <button type="button" id="btnCancelarEdit"> <i class="ph-fill ph-x-circle"></i> Cancelar</button>
+                            <button type="button"> <i class="ph-fill ph-check-circle"></i> Confirmar Atualização</button>
+                        </div>
+                    </form>
+                </aside>
+            </div>
         </main>
     </div>
     
     <script type="module" src="/js/logout.js"></script>
-    <script src="/js/perfil.js"></script>
+    <script type="module" src="/js/perfil.js"></script>
 </body>
 </html>
