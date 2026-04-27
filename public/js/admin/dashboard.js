@@ -92,8 +92,6 @@ async function contagemDeStatusIguais() {
         const res = await fetch("/status/contagem");
         const data = await res.json();
 
-        console.log(data);
-
         document.getElementById("statusFalta").innerHTML = data.SEM_ABASTECIMENTO || 0;
         document.getElementById("statusIrregular").innerHTML = data.FORNECIMENTO_IRREGULAR || 0;
         document.getElementById("statusNormal").innerHTML = data.NORMAL || 0;
@@ -167,3 +165,20 @@ supabase
 // Chamando a função de contagem
 contagemDeStatusIguais();
 setInterval(contagemDeStatusIguais, 5000) // Atualizar a cada 5 segundos
+
+async function adminLogado() {
+    try {
+        const res = await fetch("/me");
+        const data = await res.json();
+
+        const admin = data.user;
+
+        console.log(admin);
+
+        document.getElementById("adminLogged").innerHTML = admin.nome;
+    } catch (error) {
+        console.log("Error", error);
+    }
+}
+
+adminLogado();

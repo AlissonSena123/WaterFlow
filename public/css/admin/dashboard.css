@@ -32,7 +32,7 @@ main{
   "titleDash titleDash"
   "status status"
   "test map";
-  column-gap: 10px;
+  gap: 10px;
   grid-auto-rows: auto;
 }
 
@@ -40,7 +40,6 @@ main{
 main section{
   background: white;
   padding: 20px;
-  margin-bottom: 18px;
   border-radius: 12px;
   box-shadow: var(--shadow-soft);
 }
@@ -60,6 +59,9 @@ main > #titleDashboard{
   background-color: var(--color-bg-blue-darker);
   color: white;
   grid-area: titleDash;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main > #titleDashboard > h1{
@@ -70,6 +72,21 @@ main > #titleDashboard > h1{
 
 #titleDashboard > h1 > i{
   font-size: 3rem;
+}
+
+#titleDashboard > p{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1rem;
+  background-color: white;
+  color: var(--color-bg-blue-darker);
+  padding: 10px;
+  border-radius: 50px;
+}
+
+#titleDashboard > p > i{
+  font-size: 1.5rem;
 }
 
 /* SEÇÃO DE STATUS */
@@ -176,7 +193,6 @@ div#map{
 }
 
 
-
 #ReviewDashboard{
   grid-area: test;
 }
@@ -197,7 +213,8 @@ th, td{
 }
 
 thead{
-  background: #f0f4ff;
+  background: var(--color-bg-secondary-blue);
+  color: white;
 }
 
 tbody > tr > .itemTableAcoes{
