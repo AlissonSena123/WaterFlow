@@ -103,16 +103,12 @@ main > #section-map > #map{
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     max-height: 60vh;
-    overflow-y: auto;
-    scrollbar-width: none;
+    overflow-y: scroll;
+    scrollbar-color: var(--color-bg-secondary-blue) white;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }  
-
-#cardStatus::-webkit-scrollbar {
-    display: none;
-}
 
 #cardStatus.visible {
     opacity: 1;
@@ -292,6 +288,6 @@ main > #section-map > #map{
 
     .dataInterrupcaoRetorno {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 }

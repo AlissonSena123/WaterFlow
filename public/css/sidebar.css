@@ -98,3 +98,15 @@
 .active > a{
     color: var(--color-bg-blue-darker);
 }
+
+
+@media (max-width: 600px) {
+
+    nav#sidebar{
+        width: max-content;
+    }
+
+    nav#sidebar span{
+        display: none;
+    }
+}

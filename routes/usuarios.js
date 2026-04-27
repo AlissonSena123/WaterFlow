@@ -343,7 +343,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 });
 
 /*ATUALIZAR CAMPOS DE CADASTRO*/
-router.patch("/usuarios/atualizar-cadastro", async (req, res) => {
+router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   try {
     if (!req.session.user) {
       return res.status(401).json({ success: false, message: "Usuário não autorizado" })
