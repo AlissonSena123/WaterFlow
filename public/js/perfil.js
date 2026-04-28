@@ -22,7 +22,7 @@ async function carregarPerfil() {
         document.getElementById("userEmail").innerHTML = user.email;
         document.getElementById("userTel").innerHTML = user.telefone;
         document.getElementById("userData").innerHTML = formatarData(user.nascimento);
-        document.getElementById("userBairro").innerHTML = user.bairro;
+        document.getElementById("userBairro").innerHTML = (user.bairro).toUpperCase();
 
     } catch (error) {
         console.log("ERRO: ", error);
@@ -44,6 +44,7 @@ const itensForm = document.querySelectorAll("#form input")
 const modalEditarPerfil = document.getElementById("modalEdit");
 const btnCancelarEdit = document.getElementById("btnCancelarEdit");
 const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
+
 /* ==== ABRIR O MODAL ==== */
 btnEditarPerfil.addEventListener("click", async () => {
 
@@ -69,7 +70,7 @@ btnEditarPerfil.addEventListener("click", async () => {
 
     //A logica ehh simples, pegamos o valor de "name" do html (adicionei aos campos de nome email e telefone dps da uma olhada);
     const mapCampos = {
-        nome_completo: "nome_completo",
+        nome: "nome",
         email: "email",
         telefone: "telefone",
         bairro: "bairro"
@@ -105,6 +106,7 @@ document.getElementById("idCEP").addEventListener("blur", async () => {
     document.getElementById("bairro").value = data.bairro || "";
 });
 
+/* ==== FUNÇÃO PARA ATUALIZAR O PERFIL ==== */
 btnConfirmarAtualizacao.addEventListener("click", async () => {
 
     const dados = {};
@@ -130,7 +132,7 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
             return;
         }
 
-        console.log("Atualizado com sucesso!");
+        mostrarToast(data.message, "green");
         carregarPerfil();
 
         modalEditarPerfil.classList.remove("active");
