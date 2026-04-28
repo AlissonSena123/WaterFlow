@@ -22,7 +22,7 @@ async function carregarPerfil() {
         document.getElementById("userEmail").innerHTML = user.email;
         document.getElementById("userTel").innerHTML = user.telefone;
         document.getElementById("userData").innerHTML = formatarData(user.nascimento);
-        document.getElementById("userBairro").innerHTML = (user.bairro).toUpperCase();
+        document.getElementById("userBairro").innerHTML = user.bairro;
 
     } catch (error) {
         console.log("ERRO: ", error);
@@ -44,7 +44,6 @@ const itensForm = document.querySelectorAll("#form input")
 const modalEditarPerfil = document.getElementById("modalEdit");
 const btnCancelarEdit = document.getElementById("btnCancelarEdit");
 const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
-
 /* ==== ABRIR O MODAL ==== */
 btnEditarPerfil.addEventListener("click", async () => {
 
@@ -106,7 +105,6 @@ document.getElementById("idCEP").addEventListener("blur", async () => {
     document.getElementById("bairro").value = data.bairro || "";
 });
 
-/* ==== FUNÇÃO PARA ATUALIZAR O PERFIL ==== */
 btnConfirmarAtualizacao.addEventListener("click", async () => {
 
     const dados = {};
@@ -132,7 +130,7 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
             return;
         }
 
-        mostrarToast(data.message, "green");
+        console.log("Atualizado com sucesso!");
         carregarPerfil();
 
         modalEditarPerfil.classList.remove("active");

@@ -90,6 +90,12 @@ router.put("/update/dados/:bairro", async (req, res) => {
                     atualizado_em: new Date()
                 };
 
+                if (payload.status.medida_solucao === "MANUTENCAO") {
+                    console.log(payload);
+                }else {
+                    console.log(payload);
+                }
+
         const { data, error } = await supabase
             .from("abastecimento")
             .update(payload)
