@@ -1,6 +1,6 @@
-import { mostrarToast } from "./utils/toast.js";
+import { mostrarToast } from "../utils/toast.js";
 
-const btnLogout = document.getElementById("logout");
+const btnLogout = document.getElementById("btn-logout");
 
 btnLogout.addEventListener("click", async () => {
     try {

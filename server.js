@@ -166,5 +166,4 @@ server.get("/me", async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/login`);
-  console.log(`Servidor rodando em http://localhost:${PORT}/admin/dashboard`);
 });
