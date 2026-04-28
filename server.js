@@ -105,34 +105,57 @@ server.get("/api/mapKey", (req, res) => {
 //atualizando para pegar o resultado do banco e nao da session apenas
 server.get("/me", async (req, res) => {
 
-  if (!req.session.user) {
-    return res.json({ user: null });
-  }
+  if (req.session.admin) {
+    const id_admin = req.session.admin.id;
 
-  const id = req.session.user.id;
+    const { data: admin, error } = await supabase
+      .from("Funcionarios")
+      .select("*")
+      .eq("id", id_admin)
+      .single();
 
-  const { data: user, error } = await supabase
-    .from("Users")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !user) {
-    return res.json({ user: null });
-  }
-
-  return res.json({
-    tipo: "users",
-    user: {
-      id: user.id,
-      nome: user.nome_completo,
-      email: user.email,
-      telefone: user.telefone,
-      nascimento: user.data_nascimento,
-      bairro: user.bairro,
-      role: user.role
+    if (error || !admin) {
+      return res.json({ user: null })
     }
-  });
+
+    return res.json({
+      tipo: "funcionario",
+      user: {
+        id: admin.id,
+        nome: admin.nome,
+        email: admin.email,
+        role: admin.role
+      }
+    });
+  }
+
+  if (req.session.user) {
+    const id = req.session.user.id;
+
+    const { data: user, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !user) {
+      return res.json({ user: null });
+    }
+
+    return res.json({
+      tipo: "users",
+      user: {
+        id: user.id,
+        nome: user.nome_completo,
+        email: user.email,
+        telefone: user.telefone,
+        nascimento: user.data_nascimento,
+        bairro: user.bairro,
+        role: user.role
+      }
+    });
+  }
+  return res.json({ tipo: null, user: null });
 });
 
 server.listen(PORT, () => {

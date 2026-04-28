@@ -10,14 +10,16 @@ document.querySelectorAll("#btn-logout, #logout").forEach(btn => {
                     
             const data = await response.json();
 
-            if (!response.ok) {
-                return mostrarToast(data.error, "red");
+            console.log(data.message);
+
+            if (!data.success) {
+                return mostrarToast(data.message, "red");
             }
 
-            mostrarToast(data.message, "red");
-            setTimeout(() => {
-                window.location.href = data.redirect;
-            }, 2000);
+            // mostrarToast(data.message, "green");
+            // setTimeout(() => {
+            //     window.location.href = data.redirect;
+            // }, 2000);
             
 
         } catch (error) {
