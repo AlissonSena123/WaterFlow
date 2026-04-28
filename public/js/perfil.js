@@ -43,7 +43,7 @@ const btnEditarPerfil = document.getElementById("btnEditarPerfil");
 const itensForm = document.querySelectorAll("#form input")
 const modalEditarPerfil = document.getElementById("modalEdit");
 const btnCancelarEdit = document.getElementById("btnCancelarEdit");
-
+const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
 /* ==== ABRIR O MODAL ==== */
 btnEditarPerfil.addEventListener("click", async () => {
 
@@ -56,16 +56,28 @@ btnEditarPerfil.addEventListener("click", async () => {
 
     const user = data.user;
 
-    const infoUser = {
+    //Forma antiga de mandar os dados
+    /*const infoUser = {
         nome: user.nome,
         email: user.email,
         telefone: user.telefone
     }
 
-    const valores = Object.values(infoUser);
+    const valores = Object.values(infoUser);*/
 
-    itensForm.forEach((item, index) => {
-        item.value = valores[index] ?? "";
+    //Nova forma
+
+    //A logica ehh simples, pegamos o valor de "name" do html (adicionei aos campos de nome email e telefone dps da uma olhada);
+    const mapCampos = {
+        nome_completo: "nome_completo",
+        email: "email",
+        telefone: "telefone",
+        bairro: "bairro"
+    }
+
+    itensForm.forEach((item) => {
+        const campo = mapCampos[item.name];
+        item.value = user[campo] ?? "";
     });
 
     modalEditarPerfil.classList.add("active");
@@ -93,3 +105,37 @@ document.getElementById("idCEP").addEventListener("blur", async () => {
     document.getElementById("bairro").value = data.bairro || "";
 });
 
+btnConfirmarAtualizacao.addEventListener("click", async () => {
+
+    const dados = {};
+
+    itensForm.forEach((item) => {
+        if (item.value.trim() !== "") {
+            dados[item.name] = item.value.trim();
+        }
+    });
+
+    try {
+        const res = await fetch("/usuarios/atualizar/perfil", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(dados)
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            console.error(data.message);
+            return;
+        }
+
+        console.log("Atualizado com sucesso!");
+        carregarPerfil();
+
+        modalEditarPerfil.classList.remove("active");
+        
+    } catch (error) {
+        console.error("Erro ao atualizar:", error);
+    }
+});

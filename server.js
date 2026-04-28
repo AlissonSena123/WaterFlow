@@ -10,6 +10,7 @@ const { v4: uuidv4 } = require("uuid");
 const funcionarioRouter = require("./routes/admin.js");
 const statusMAP = require("./routes/status.js");
 const autorizarRole = require("./middleware/autorizarRoles.js");
+const { supabase } = require("./config/supabase.js");
 
 // Middlewares
 server.use(express.urlencoded({ extended: true }));
@@ -100,27 +101,38 @@ server.get("/api/mapKey", (req, res) => {
 });
 
 /** ---- Rota ME ---- */
-server.get("/me", (req, res) => {
 
-  if (req.session.admin) {
-    return res.json({
-      tipo: "funcionario",
-      user: req.session.admin
-    });
-  };
+//atualizando para pegar o resultado do banco e nao da session apenas
+server.get("/me", async (req, res) => {
 
-  if (req.session.user) {
-    return res.json({
-      tipo: "users",
-      user: req.session.user
-    });
-  };
+  if (!req.session.user) {
+    return res.json({ user: null });
+  }
+
+  const id = req.session.user.id;
+
+  const { data: user, error } = await supabase
+    .from("Users")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !user) {
+    return res.json({ user: null });
+  }
 
   return res.json({
-    tipo: null,
-    user: null
+    tipo: "users",
+    user: {
+      id: user.id,
+      nome: user.nome_completo,
+      email: user.email,
+      telefone: user.telefone,
+      nascimento: user.data_nascimento,
+      bairro: user.bairro,
+      role: user.role
+    }
   });
-  
 });
 
 server.listen(PORT, () => {

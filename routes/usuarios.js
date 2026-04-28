@@ -412,11 +412,24 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
       req.session.user.nome = dadosAtualizados.nome_completo;
     }
 
-    const { error: updateError } = await supabase
+    console.log("DADOS RECEBIDOS:", req.body);
+    console.log("DADOS ATUALIZADOS:", dadosAtualizados);
+
+    const { data, error } = await supabase
       .from("Users")
       .update(dadosAtualizados)
-      .eq("id", id);
-    if (updateError) return res.status(400).json({ success: false, message: "Erro ao atualizar informações" });
+      .eq("id", id)
+      .select();
+
+    console.log("UPDATE DATA:", data);
+    console.log("UPDATE ERROR:", error);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Erro ao atualizar informações"
+      });
+    };
 
     return res.status(200).json({ success: true, message: "Campos atualizados com sucesso.", dados: dadosAtualizados });
   } catch (error) {
