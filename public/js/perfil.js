@@ -70,7 +70,7 @@ btnEditarPerfil.addEventListener("click", async () => {
 
     //A logica ehh simples, pegamos o valor de "name" do html (adicionei aos campos de nome email e telefone dps da uma olhada);
     const mapCampos = {
-        nome: "nome",
+        nome_completo: "nome",
         email: "email",
         telefone: "telefone",
         bairro: "bairro"
