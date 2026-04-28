@@ -171,9 +171,9 @@ async function adminLogado() {
         const res = await fetch("/me");
         const data = await res.json();
 
-        const admin = data.user;
+        const admin = data.admin;
 
-        console.log(admin);
+        console.log(admin.nome);
 
         document.getElementById("adminLogged").innerHTML = admin.nome;
     } catch (error) {

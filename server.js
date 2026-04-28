@@ -105,33 +105,62 @@ server.get("/api/mapKey", (req, res) => {
 //atualizando para pegar o resultado do banco e nao da session apenas
 server.get("/me", async (req, res) => {
 
-  if (!req.session.user) {
-    return res.json({ user: null });
+  if (req.session.admin) {
+
+    const id_admin = req.session.admin.id;
+
+    const { data: admin, error } = await supabase
+      .from("Funcionarios")
+      .select("*")
+      .eq("id", id_admin)
+      .single();
+
+    if (error || !admin) {
+      return res.json({ user: null });
+    }
+
+    return res.json({
+      tipo: "funcionario",
+      user: {
+        id: admin.id,
+        nome: admin.nome,
+        email: admin.email,
+        role: admin.role
+      }
+    });
   }
 
-  const id = req.session.user.id;
+  if (req.session.user) {
 
-  const { data: user, error } = await supabase
-    .from("Users")
-    .select("*")
-    .eq("id", id)
-    .single();
+    const id = req.session.user.id;
 
-  if (error || !user) {
-    return res.json({ user: null });
+    const { data: user, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !user) {
+      return res.json({ user: null });
+    }
+
+    return res.json({
+      tipo: "users",
+      user: {
+        id: user.id,
+        nome: user.nome_completo,
+        email: user.email,
+        telefone: user.telefone,
+        nascimento: user.data_nascimento,
+        bairro: user.bairro,
+        role: user.role
+      }
+    });
   }
 
   return res.json({
-    tipo: "users",
-    user: {
-      id: user.id,
-      nome: user.nome_completo,
-      email: user.email,
-      telefone: user.telefone,
-      nascimento: user.data_nascimento,
-      bairro: user.bairro,
-      role: user.role
-    }
+    tipo: null,
+    user: null
   });
 });
 

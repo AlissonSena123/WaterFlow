@@ -1,6 +1,12 @@
 import { mostrarToast } from "./utils/toast.js";
 
-document.querySelectorAll("#btn-logout, #logout").forEach(btn => {
+const botoes = [
+  document.getElementById("btn-logout"),
+  document.getElementById("logout")
+].filter(Boolean);
+
+
+botoes.forEach(btn => {
     btn.addEventListener("click", async () => {
         try {
             const response = await fetch("/logout", {
@@ -11,10 +17,11 @@ document.querySelectorAll("#btn-logout, #logout").forEach(btn => {
             const data = await response.json();
 
             if (!response.ok) {
-                return mostrarToast(data.error, "red");
+                return mostrarToast(data.message || "Erro ao fazer logout");
             }
 
-            mostrarToast(data.message, "red");
+            alert(data.message);
+            // mostrarToast(data.message, "red")
             setTimeout(() => {
                 window.location.href = data.redirect;
             }, 2000);

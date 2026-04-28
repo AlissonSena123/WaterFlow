@@ -431,7 +431,7 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
       });
     };
 
-    return res.status(200).json({ success: true, message: "Perfil atualizado com sucesso", dados: dadosAtualizados });
+    return res.status(200).json({ success: true, message: "Campos atualizados com sucesso.", dados: dadosAtualizados });
   } catch (error) {
     return res.status(500).json({ error: "Erro interno no servidor." });
   }
