@@ -108,16 +108,23 @@ main > section#infoUser > h3{
 
 .infoContant > .infoCard{
     background-color: rgba(140, 176, 255, 0.215);
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 }
 
 .infoContant > .infoCard > p:first-child{
+    display: flex;
+    align-items: center;
+    gap: 2px;
     color: rgba(19, 16, 84, 0.403);
-    font-size: .9rem;
+    font-size: 1rem;
+}
+
+.infoContant > .infoCard > p:last-child{
+    font-size: 1.1rem;
 }
 
 .infoContant > .infoCard:last-child{
@@ -246,6 +253,10 @@ aside > form > div#updateButton > button:first-child{
 aside > form > div#updateButton > button:last-child{
     background-color: var(--color-bg-secondary-blue);
     color: white;
+}
+
+#infoUser #logout{
+    justify-self: flex-end;
 }
 
 /* HOVER */

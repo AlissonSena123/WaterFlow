@@ -87,11 +87,11 @@
     display: none;
 }
 
-#logout{
+#sidebar > #logout{
     width: 100%;
 }
 
-#logout > #btn-logout{
+#sidebar > #logout > #btn-logout{
     width: 100%;
     border-radius: 0;
     background-color: red;
@@ -104,11 +104,11 @@
 
 }
 
-#logout > #btn-logout > i{
+#sidebar > #logout > #btn-logout > i{
     font-size: 1.5rem;
 }
 
-#logout > #btn-logout:hover{
+#sidebar > #logout > #btn-logout:hover{
     background-color: rgb(191, 16, 16);
 }
 

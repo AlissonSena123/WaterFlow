@@ -22,7 +22,7 @@ async function carregarPerfil() {
         document.getElementById("userEmail").innerHTML = user.email;
         document.getElementById("userTel").innerHTML = user.telefone;
         document.getElementById("userData").innerHTML = formatarData(user.nascimento);
-        document.getElementById("userBairro").innerHTML = user.bairro;
+        document.getElementById("userBairro").innerHTML = (user.bairro).toUpperCase();
 
     } catch (error) {
         console.log("ERRO: ", error);
