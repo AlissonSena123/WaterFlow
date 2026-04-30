@@ -16,7 +16,6 @@ function closeSidebar() {
 }
 
 iconHamburguer.addEventListener('click', () => {
-    console.log("Clicou");
     sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
 });
 

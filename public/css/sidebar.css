@@ -41,11 +41,7 @@
 }
 
 .sidebar-item:hover {
-    background-color: rgb(215, 215, 255);
-}
-
-.sidebar-item:hover>a {
-    color: var(--color-bg-primary-blue);
+    background-color: var(--color-bg-secondary-blue);
 }
 
 .sidebar-item a {
@@ -69,11 +65,7 @@
 }
 
 .active {
-    background-color: rgb(215, 215, 255);
-}
-
-.active>a {
-    color: var(--color-bg-blue-darker);
+    background-color: var(--color-bg-secondary-blue);
 }
 
 #sidebar-overlay {
@@ -95,7 +87,50 @@
     display: none;
 }
 
+#logout{
+    width: 100%;
+}
+
+#logout > #btn-logout{
+    width: 100%;
+    border-radius: 0;
+    background-color: red;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 20px;
+
+}
+
+#logout > #btn-logout > i{
+    font-size: 1.5rem;
+}
+
+#logout > #btn-logout:hover{
+    background-color: rgb(191, 16, 16);
+}
+
+@media (max-width: 1164px){
+
+    nav{
+        max-width: max-content;
+    }
+
+    .sidebar-item span,
+    #btn-logout span{
+        display: none;
+    }
+    
+}
+
 @media (max-width: 600px) {
+
+    .sidebar-item span,
+    #btn-logout span{
+        display: block;
+    }
 
     #sidebar-overlay {
         z-index: 9998 !important;
