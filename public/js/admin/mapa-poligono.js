@@ -202,7 +202,7 @@ async function modal(nomeExibicao, nome) {
 
             const isNormal = status === "NORMAL";
 
-            const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
+            const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida"];
 
             camposExtras.forEach(id => {
                 const el = document.getElementById(id);
