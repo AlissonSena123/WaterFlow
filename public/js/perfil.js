@@ -155,7 +155,7 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
             return;
         }
 
-        console.log("Atualizado com sucesso!");
+        mostrarToast("Perfil atualizado com sucesso", "green");
         carregarPerfil();
 
         modalEditarPerfil.classList.remove("active");

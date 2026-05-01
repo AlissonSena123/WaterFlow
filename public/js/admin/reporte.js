@@ -39,11 +39,23 @@ async function carregarReports() {
       return;
     }
 
+    
+
+    
+    
+
     dados.data.forEach(report => {
       const tr = document.createElement("tr");
 
+      const iniciais = report.nome
+            .split(" ")
+            .map(n => n[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+
       tr.innerHTML = `
-        <td>${report.nome}</td>
+        <td> <div id="reportAvatar">${iniciais}</div> ${report.nome}</td>
         <td>${new Date(report.created_at).toLocaleDateString()}</td>
         <td>${report.bairro}</td>
         <td class="itemTableAcoes">

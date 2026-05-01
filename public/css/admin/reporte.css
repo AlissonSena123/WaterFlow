@@ -29,7 +29,7 @@ main section{
   background: white;
   padding: 20px;
   margin-bottom: 18px;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: var(--shadow-soft);
 }
 
@@ -44,29 +44,37 @@ main > section > h2 > i{
 }
 
 .status{
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
   flex-wrap: wrap;
-  background-color: var(--color-bg-blue-darker);
+  background-color: var(--color-bg-primary-blue);
   color: white;
+  
 }
 
-.status > div > h1{
+.status > h1{
   display: flex;
   align-items: center;
   column-gap: 5px;
+  font-weight: 600;
 }
 
-.status > div > h1 > i{
+.status > h1 > i{
   font-size: 3rem;
+}
+
+.status > p{
+  font-size: .98rem;
+  color: var(--color-bg-tertiary-blue);
 }
 
 .filtro{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 10px 16px;
 }
 
 .filtro > .field{ display: flex; flex-direction: column; gap: 6px; }
@@ -135,6 +143,12 @@ tbody > tr:nth-child(odd){
   background-color: var(--color-bg-white-opacity);
 }
 
+tbody > tr > td:first-child{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
 tbody > tr > .itemTableAcoes{
   display: flex;
   flex-direction: row;
@@ -152,6 +166,20 @@ tbody > tr > .itemTableAcoes > button{
 
 tr > .itemTableAcoes > button > i{
   font-size: 1.5rem;
+}
+
+
+#reportAvatar{
+  font-size: 1rem;
+  background-color: var(--color-bg-secondary-blue);
+  padding: 20px;
+  border-radius: 50%;
+  width: 30px; 
+  height: 30px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  color: white;
 }
 
 /* HOVER */
