@@ -33,10 +33,11 @@ main{
 
 main > div.title-report{
     width: 100%;
-    padding: 20px;
+    padding: 30px;
+    background-color: var(--color-bg-primary-blue);
     color: white;
-    background-color: var(--color-bg-blue-darker);
-    border-radius: 12px;
+    font-weight: lighter;
+    border-radius: 7px;
     margin-bottom: 20px;
 }
 

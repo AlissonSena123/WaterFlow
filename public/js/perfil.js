@@ -23,6 +23,16 @@ async function carregarPerfil() {
         document.getElementById("userTel").innerHTML = user.telefone;
         document.getElementById("userData").innerHTML = formatarData(user.nascimento);
         document.getElementById("userBairro").innerHTML = (user.bairro).toUpperCase();
+        document.getElementById("titleLocalidade").innerHTML = (user.bairro).toUpperCase();
+
+        const iniciais = user.nome
+            .split(" ")
+            .map(n => n[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+
+        document.getElementById("avatar").innerHTML = iniciais;
 
     } catch (error) {
         console.log("ERRO: ", error);
@@ -44,6 +54,7 @@ const itensForm = document.querySelectorAll("#form input")
 const modalEditarPerfil = document.getElementById("modalEdit");
 const btnCancelarEdit = document.getElementById("btnCancelarEdit");
 const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
+
 /* ==== ABRIR O MODAL ==== */
 btnEditarPerfil.addEventListener("click", async () => {
 
@@ -134,7 +145,7 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
         carregarPerfil();
 
         modalEditarPerfil.classList.remove("active");
-        
+
     } catch (error) {
         console.error("Erro ao atualizar:", error);
     }

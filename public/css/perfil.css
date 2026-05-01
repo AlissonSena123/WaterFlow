@@ -27,48 +27,64 @@ main{
     padding: 24px;
     display: grid;
     grid-template-rows: max-content 1fr;
-    gap: 10px;
+    gap: 20px;
 }
 
 main > section{
-    padding: 20px;
     box-shadow: var(--shadow-medium);
     border-radius: 12px;
     background-color: white;
 }
 
+/* ==== SEÇÃO DO CABEÇALHO DO PERFIL ==== */
 main > .titlePerfil{
-    background-color: var(--color-bg-blue-darker);
+    background-color: var(--color-bg-primary-blue);
     color: white;
     font-weight: lighter;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 30px;
+    border-radius: 7px;
 }
 
 main > .titlePerfil > .User{
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-main > .titlePerfil > .User > h1{
-  display: flex;
-  flex-direction: column;
+#avatar{
+  font-size: 2rem;
+  background-color: var(--color-bg-secondary-blue);
+  padding: 20px;
+  border-radius: 50%;
+  width: 70px; 
+  height: 70px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
-main > .titlePerfil > .User > h1 > span{
-    font-size: 1rem;
+.userTitle{
+    display: flex;
+    flex-direction: column;
+}
+
+.userTitle > h1{
     font-weight: lighter;
-    color: var(--color-bg-tertiary-blue);
 }
 
-main > .titlePerfil > .User > i{
-  font-size: 3rem;
+.userTitle > p{
+    font-size: .8rem;
+    color: rgba(220, 229, 255, 0.632);
 }
 
 main > .titlePerfil > button{
-    background-color: royalblue;
+    background: none;
+    outline: 3px solid var(--color-bg-tertiary-blue);
     color: white;
     display: flex;
     align-items: center;
@@ -83,20 +99,26 @@ main > .titlePerfil > button > i{
 }
 
 main > .titlePerfil > button:hover{
-    background-color: rgb(93, 133, 255);
+    background-color: var(--color-bg-tertiary-blue);
+    color: var(--color-bg-blue-darker);
 }
 
+
+/* ==== SEÇÃO COM AS INFORMAÇÕES DO USUÁRIO ==== */
 main > section#infoUser{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: max-content 1fr;
     gap: 20px;
-    padding: 30px;
+    box-shadow: none;
+    border-radius: none;
 }
+
 main > section#infoUser > h3{
     grid-column: 1/-1;
     font-weight: lighter;
-    font-size: 1rem;
+    font-size: 1.4rem;
+    color: var(--color-bg-blue-darker);
 }
 
 .infoContant{
@@ -141,17 +163,19 @@ main > section#infoUser > button#logout{
     align-items: center;
     justify-content: center;
     gap: 5px;
+    width: max-content;
 }
 
-main > section:last-child > button > i{
-    font-size: 1.2rem;
+main > section#infoUser > button#logout > i{
+    font-size: 1.4rem;
 }
 
-main > section:last-child > button#logout:hover{
+main > section#infoUser > button#logout:hover{
     background-color: rgb(167, 0, 0);
-    transform: translateY(-4px);
 }
 
+
+/* ==== MODAL DE EDITAR O PERFIL ==== */
 .modal{
     position: fixed;
     inset: 0; /* substitui top, left, width, height */
@@ -270,4 +294,18 @@ aside > form > div#updateButton > button:first-child:hover{
 
 aside > form > div#updateButton > button:last-child:hover{
     background-color: var(--color-bg-blue-darker);
+}
+
+@media (max-width: 850px){
+    .infoContant{
+        grid-template-columns: 1fr;
+    }
+
+    main > .titlePerfil > button{
+        width: max-content;
+    }
+
+    main > .titlePerfil > button > p{
+        display: none;
+    }
 }
