@@ -1,5 +1,5 @@
 const supabaseClient = supabase.createClient(
-  "https://vpdaqjfglnctqsbjmnzj.supabase.co", 
+  "https://vpdaqjfglnctqsbjmnzj.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwZGFxamZnbG5jdHFzYmptbnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MzY4MDAsImV4cCI6MjA4OTUxMjgwMH0.gYToKUR_f3-rCiyX2T0UvCU64A3htRAYTgpr6vLr864"
 );
 
@@ -54,7 +54,7 @@ async function carregarReports() {
       `;
 
       //Ele seleciona qualquer tag "tr" que tenha a classe "btn-detalhes", caso clique no botão, a função é chamada
-      tr.querySelector(".btn-detalhes").addEventListener("click", () => { 
+      tr.querySelector(".btn-detalhes").addEventListener("click", () => {
         verDetalhes(report);
       });
 
@@ -113,6 +113,7 @@ function verDetalhes(report) {
   document.getElementById("mEmail").textContent = report.email;
   document.getElementById("mRua").textContent = report.rua;
   document.getElementById("mBairro").textContent = report.bairro;
+  document.getElementById("mProblema").textContent = report.tipo_problema
   document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
 
   modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparecer o modal

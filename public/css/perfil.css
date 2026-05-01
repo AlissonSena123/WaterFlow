@@ -185,7 +185,7 @@ main > section#infoUser > button#logout:hover{
     background: rgba(0,0,0,0);
     opacity: 0;
     pointer-events: none;
-    transition: background 0.1s ease, opacity 0.3s ease;
+    transition: background 0.1s ease, opacity 0.2s ease;
     z-index: 999;
 }
 
@@ -195,12 +195,41 @@ main > section#infoUser > button#logout:hover{
     pointer-events: auto;
 }
 
+.modalHeader{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modalHeader > #modalAvatar{
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    padding: 20px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalHeaderContent > h2{
+    color: var(--color-bg-primary-blue);
+    font-size: 1.5rem;
+}
+
+.modalHeaderContent > p{
+    font-size: .9rem;
+    color: rgba(0, 0, 0, 0.699);
+}
+
 aside{
     box-shadow: var(--shadow-medium);
-    padding: 30px;
+    padding: 40px;
     border-radius: 10px;
     width: 100%;
-    max-width: 600px;
+    max-width: 550px;
     position: relative;
     background-color: white;
 }
@@ -221,16 +250,16 @@ aside > form{
 .atualizarItem{
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
 }
 
 .atualizarItem > label{
-    color: var(--color-bg-secondary-blue);
+    color: var(--color-bg-primary-blue);
 }
 
 .atualizarItem > input,
 .atualizarItem > div > input{
-    padding: 13px;
+    padding: 15px;
     border-radius: 5px;
     border: 2px solid var(--color-bg-blue-darker);
 }
@@ -238,19 +267,25 @@ aside > form{
 
 .atualizarItem > div{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr 2fr;
+    gap: 5px 10px;
 }
 
 .atualizarItem > div > input{
     width: 100%;
 }
 
+.atualizarItem > div > p{
+    grid-column: 1/-1;
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 0.534);
+}
+
 aside > form > div#updateButton{
     grid-column: 1/-1;
     justify-self: flex-end;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 2fr;
     width: 100%;
     gap: 10px;
     margin-top: 20px;
@@ -258,7 +293,7 @@ aside > form > div#updateButton{
 
 aside > form > div#updateButton > button{
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,8 +305,9 @@ aside > form > div#updateButton > button > i{
 }
 
 aside > form > div#updateButton > button:first-child{
-    background-color: red;
-    color: white;
+    background: none;
+    outline: 2px solid red;
+    color: red;
 }
 
 aside > form > div#updateButton > button:last-child{
@@ -289,7 +325,8 @@ aside > form > div#updateButton > button:hover{
 }
 
 aside > form > div#updateButton > button:first-child:hover{
-    background-color: darkred;
+    background-color: red;
+    color: white;
 }
 
 aside > form > div#updateButton > button:last-child:hover{
@@ -297,6 +334,21 @@ aside > form > div#updateButton > button:last-child:hover{
 }
 
 @media (max-width: 850px){
+
+    main > .titlePerfil{
+        padding: 20px;
+    }
+
+    .userTitle > h1{
+        font-size: 1.5rem;
+    }
+
+    #avatar{
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
     .infoContant{
         grid-template-columns: 1fr;
     }

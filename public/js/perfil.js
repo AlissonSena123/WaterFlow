@@ -1,6 +1,12 @@
 import { buscarCEP } from "../services/viaCEP.js";
 import { mostrarToast } from "./utils/toast.js";
 
+const btnEditarPerfil = document.getElementById("btnEditarPerfil");
+const itensForm = document.querySelectorAll("#form input")
+const modalEditarPerfil = document.getElementById("modalEdit");
+const btnCancelarEdit = document.getElementById("btnCancelarEdit");
+const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
+
 async function carregarPerfil() {
     try {
         const res = await fetch("/me", {
@@ -48,13 +54,6 @@ function formatarData(data) {
 
 carregarPerfil();
 
-
-const btnEditarPerfil = document.getElementById("btnEditarPerfil");
-const itensForm = document.querySelectorAll("#form input")
-const modalEditarPerfil = document.getElementById("modalEdit");
-const btnCancelarEdit = document.getElementById("btnCancelarEdit");
-const btnConfirmarAtualizacao = document.getElementById("btnConfirmarAtualizacao");
-
 /* ==== ABRIR O MODAL ==== */
 btnEditarPerfil.addEventListener("click", async () => {
 
@@ -79,6 +78,17 @@ btnEditarPerfil.addEventListener("click", async () => {
     //Nova forma
 
     //A logica ehh simples, pegamos o valor de "name" do html (adicionei aos campos de nome email e telefone dps da uma olhada);
+    const modalAvatar = document.getElementById("modalAvatar");
+
+    const iniciais = user.nome
+            .split(" ")
+            .map(n => n[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+
+    modalAvatar.innerHTML = iniciais;
+
     const mapCampos = {
         nome_completo: "nome",
         email: "email",
@@ -94,6 +104,7 @@ btnEditarPerfil.addEventListener("click", async () => {
     modalEditarPerfil.classList.add("active");
 });
 
+
 /* ==== FECHAR O MODAL ==== */
 modalEditarPerfil.addEventListener('click', (e) => {
     if (e.target === modalEditarPerfil) modalEditarPerfil.classList.remove('active');
@@ -102,6 +113,7 @@ modalEditarPerfil.addEventListener('click', (e) => {
 btnCancelarEdit.addEventListener("click", () => {
     modalEditarPerfil.classList.remove("active");
 });
+
 
 /* ==== FUNÇÃO DO CEP ==== */
 document.getElementById("idCEP").addEventListener("blur", async () => {
@@ -116,6 +128,8 @@ document.getElementById("idCEP").addEventListener("blur", async () => {
     document.getElementById("bairro").value = data.bairro || "";
 });
 
+
+/* ==== FUNÇÃO PARA ATUALIZAR O PERFIL ==== */
 btnConfirmarAtualizacao.addEventListener("click", async () => {
 
     const dados = {};

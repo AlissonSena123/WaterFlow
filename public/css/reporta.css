@@ -42,6 +42,7 @@ main > div.title-report{
 }
 
 main > .title-report > h1{
+    font-weight: lighter;
     display: flex;
     align-items: center;
     column-gap: 5px;
@@ -174,6 +175,23 @@ main > section > form > div > select:focus{
 
 /* MEDIA QUERYS */
 @media (max-width: 850px){
+
+    main > div.title-report{
+        padding: 20px;
+    }
+
+    .title-report > h1 > i{
+        font-size: 2rem;
+    }
+
+    main > .title-report > h1{
+        justify-content: center;
+    }
+
+    main > div.title-report{
+        text-align: center;
+    }
+
     main > section > form{
         grid-template-columns: 1fr;
         grid-template-areas: 
@@ -195,4 +213,9 @@ main > section > form > div > select:focus{
     }
 }
 
+@media (max-width: 600px){
+    .title-report > h1 > i{
+        display: none;
+    }
+}
 

@@ -109,21 +109,35 @@
     </main>
 
     <div id="modal" class="modal">
+
       <div class="modal-content">
+
         <div class="modal-header">
-          <h2><i class="ph-fill ph-list-magnifying-glass"></i> Detalhes do Reporte</h2>
+          <div class="modal-header-title">
+            <h2 id="mNome"></h2>
+            <p id="mEmail"></p>
+          </div>
           <button onclick="fecharModal()" class="ph-fill ph-x-circle"></button>
         </div>
 
         <div class="modal-body">
-          <p><strong>Nome:</strong> <span id="mNome"></span></p>
-          <p><strong>Email:</strong> <span id="mEmail"></span></p>
-          <p><strong>Rua:</strong> <span id="mRua"></span></p>
-          <p><strong>Bairro:</strong> <span id="mBairro"></span></p>
-          <p><strong>Descrição:</strong> <span id="mDescricao"></span></p>
+          <div class="modal-body-localidade">
+            <p><strong> <i class="ph-fill ph-house-line"></i> RUA</strong> <span id="mRua"></span></p>
+            <p><strong> <i class="ph-fill ph-map-pin"></i> BAIRRO</strong> <span id="mBairro"></span></p>
+          </div>
+          <p><strong> <i class="ph-fill ph-warning-circle"></i> TIPO DO PROBLEMA</strong> <span id="mProblema"></span></p>
+          <p><strong> <i class="ph-fill ph-sort-ascending"></i> DESCRIÇÃO</strong> <span id="mDescricao"></span></p>
+        </div>
+
+        <hr>
+
+        <div class="btnFecharDetalhes">
+          <button type="button" id="btnfecharModal" onclick="fecharModal()">Fechar</button>
         </div>
       </div>
+
     </div>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

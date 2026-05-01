@@ -466,7 +466,7 @@ router.post("/reporte/enviar", async (req, res) => {
       });
     }
 
-    return res.json({ success: true, message: "Dados enviados com sucesso!" });
+    return res.json({ success: true, message: "Report enviado com sucesso!" });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -487,14 +487,14 @@ router.post("/logout", (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({ error: "Erro ao fazer logout!" });
+        return res.status(500).json({ error: "Erro ao sair da conta" });
       }
 
       res.clearCookie("connect.sid");
 
       return res.status(200).json({
         success: true,
-        message: "Logout realizado com sucesso!",
+        message: "Saindo da conta",
         redirect: "/login"
       });
     });

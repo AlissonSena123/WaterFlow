@@ -176,7 +176,7 @@ tbody > tr > td > button:hover{
 /* MODAL */
 .modal {
   position: fixed;
-  inset: 0; /* substitui top, left, width, height */
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,13 +196,13 @@ tbody > tr > td > button:hover{
 .modal-content {
   background: #fff;
   border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px;
+  padding: 0px;
+  width: 100%;
+  max-width: 700px;
   max-height: 90vh;
   overflow-y: auto;
   display: grid;
-  row-gap: 20px;
+  row-gap: 10px;
 
   transform: scale(0.8);
   opacity: 0;
@@ -219,63 +219,96 @@ tbody > tr > td > button:hover{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--color-bg-blue-darker);
+  padding: 25px;
+  background-color: var(--color-bg-primary-blue);
+  color: white;
 }
 
 .modal-header h2 {
   display: flex;
   align-items: center;
   column-gap: 10px;
-  font-weight: 400; /* mais leve que normal */
-  font-size: 1.25rem;
+  font-weight: 400;
+  font-size: 1.50rem;
 }
 
-.modal-header h2 i {
-  font-size: 1.8rem;
+.modal-header p{
+  font-size: .9rem;
+  font-weight: 100;
 }
 
-.modal-header button {
-  background: royalblue;
+div.modal-header > button {
+  background: none;
   border: none;
-  font-size: 1.8rem;
-  color: var(--color-bg-blue-darker);
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  font-size: 2rem;
+  color: white;
   cursor: pointer;
   transition: color 0.2s ease;
-  width: 50px;
+  width: max-content;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   transition: .1s all ease-in-out;
-}
-
-.modal-header button:hover {
-  background-color: var(--color-bg-blue-darker);
 }
 
 /* Corpo do modal */
 .modal-body {
   display: grid;
   row-gap: 16px;
+  padding: 30px;
 }
 
 .modal-body p {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 6px;
-  color: var(--color-bg-blue-darker);
-  font-weight: 300;
   margin: 0;
+  padding: 13px;
+  background-color: rgba(236, 244, 255, 0.382);
+  border-radius: 10px;
 }
 
-.modal-body span {
-  background: #f0f4ff;
-  border-radius: 8px;
-  padding: 10px;
-  color: #333;
+.modal-body p strong{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: .85rem;
+  color: rgb(0, 0, 0);
+  font-weight: 300;
+}
+
+.modal-body p span {
   font-weight: 400;
+  color: var(--color-bg-primary-blue);
+  font-size: 1rem;
 }
 
+.modal-content > div.btnFecharDetalhes{
+  padding: 10px 30px 20px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content > div.btnFecharDetalhes > button{
+  background-color: var(--color-bg-primary-blue);
+  width: 100%;
+  color: white;
+}
+
+.modal-content > div.btnFecharDetalhes > button:hover{
+  background-color: var(--color-bg-blue-darker);
+}
+
+.modal-body-localidade{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
 
 /* ---- MEDIA ---- */
 
