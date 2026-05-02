@@ -167,9 +167,10 @@ async function modal(nomeExibicao, nome) {
         <div class="painel-item">
             <div class="painel-item-header">
                 <span class="painel-nome">${(nomeExibicao).toUpperCase()}</span>
+                <span class="painel-atualizacao">Atualizado em: ${formatarData(bairro.atualizado_em)}</span>
             </div>
             <div class="painel-info">
-                <div><b><i class="ph-fill ph-chart-bar"></i> Status:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</span></div>
+                <div><b> Status Atual:</b> <span class="badge ${colorStatus(bairro.status)}">${bairro.status.replace(/_/g, ' ')}</span></div>
             </div>
             <div class="painel-item-footer">
                 <button type="button" class="btn-update"
@@ -295,7 +296,7 @@ document.querySelector("#painelStatusUpdate #btnUpdate").addEventListener("click
     limparErros();
 
     if (status !== "NORMAL") { // Só valida os campos obrigatórios se o status não for NORMAL
-        const obrigatorios = ["idCausa", "idInicio", "idRetorno", "idArea", "idMedida", "idDesc", "idPressao"];
+        const obrigatorios = ["idCausa", "idInicio", "idRetorno", "idArea", "idMedida", "idPressao"];
 
         //O .filter() retorna apenas os que estão vazios. Se houver algum inválido, destaca todos de uma vez
         const invalidos = obrigatorios.filter(id => !document.getElementById(id).value);
@@ -364,4 +365,20 @@ function normalizarTexto(texto) { // Formatar o texto
         .replace(/[^\w\s-]/g, "")
         .replace(/\s+/g, " ")
         .trim();
+}
+
+function formatarData(data) {
+
+    const dataUTC = data.includes("Z") ? data : data.replace(" ", "T") + "Z";
+
+    const dataFormatada = new Date(dataUTC);
+
+    return dataFormatada.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 }

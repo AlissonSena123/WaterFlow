@@ -33,7 +33,7 @@ main{
 main section{
   background: white;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: var(--shadow-soft);
 }
 
@@ -54,8 +54,9 @@ main > section > h2 > i{
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  background-color: var(--color-bg-blue-darker);
+  background-color: var(--color-bg-primary-blue);
   color: white;
+  padding: 20px;
 }
 
 .status > div > h1{
@@ -213,7 +214,7 @@ main > section > h2 > i{
 
 .painel-header h2 {
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: lighter;
   color: #1a1a1a;
   display: flex;
   align-items: center;
@@ -255,10 +256,16 @@ main > section > h2 > i{
 }
 
 .painel-item .badge {
-  align-self: flex-start;
+  align-self: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   font-size: 0.75rem;
+  font-weight: lighter;
   padding: 4px 12px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .painel-info {
@@ -275,34 +282,36 @@ main > section > h2 > i{
   color: #000000;
 }
 
-.painel-info > span,
 .painel-info > div {
   background-color: rgba(216, 226, 255, 0.407);
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 5px
-}
-
-.painel-info > div > b{
-  display: flex;
-  align-items: center;
-  column-gap: 5px;
+  border-radius: 5px;
 }
 
 .painel-item-header{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
+}
+
+.painel-item-header > span:last-child{
+  font-size: .85rem;
+  color: rgba(30, 30, 30, 0.541);
 }
 
 .painel-item-footer > button{
   width: 100%;
   padding: 10px;
+  border-radius: 5px;
   color: white;
-  background-color: royalblue;
+  background-color: var(--color-bg-secondary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* UPDATE */
