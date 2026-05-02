@@ -39,20 +39,15 @@ async function carregarReports() {
       return;
     }
 
-    
-
-    
-    
-
     dados.data.forEach(report => {
       const tr = document.createElement("tr");
 
       const iniciais = report.nome
-            .split(" ")
-            .map(n => n[0])
-            .join("")
-            .slice(0, 2)
-            .toUpperCase();
+        .split(" ")
+        .map(n => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
 
       tr.innerHTML = `
         <td> <div id="reportAvatar">${iniciais}</div> ${report.nome}</td>
@@ -64,6 +59,11 @@ async function carregarReports() {
           </button>
         </td>
       `;
+
+      const labels = ["Nome:", "Data:", "Região:", "Ação:"];
+      tr.querySelectorAll("td").forEach((td, i) => {
+        td.setAttribute("data-label", labels[i]);
+      });
 
       //Ele seleciona qualquer tag "tr" que tenha a classe "btn-detalhes", caso clique no botão, a função é chamada
       tr.querySelector(".btn-detalhes").addEventListener("click", () => {
