@@ -316,19 +316,45 @@ main > section > h2 > i{
 
 /* UPDATE */
 #painelStatusUpdate {
+  padding: 0px;
   display: none;
 }
 
-#painelStatusUpdate > h2 {
-  margin-bottom: 20px;
+/* ===== BAIRRO ===== */
+.painelStatusItemBairro{
+  background-color: var(--color-bg-secondary-blue);
+  padding: 20px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.painelStatusItemBairro > h2{
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: whitesmoke;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+#idBairro {
+  font-size: 2rem;
+  color: white;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.painelStatusItemBairro > p{
+  font-size: .9rem;
+  color: var(--color-bg-tertiary-blue);
 }
 
 /* container principal */
 #painelStatusUpdate > .painelStatusContent {
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
   row-gap: 30px;
+  padding: 30px;
 }
 
 #painelStatusUpdate fieldset {
@@ -357,12 +383,19 @@ main > section > h2 > i{
   row-gap: 5px;
 }
 
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > p{
+  font-size: .85rem;
+  color: rgba(56, 56, 56, 0.642);
+  grid-column: 1/-1;
+}
+
 /* ===== DETALHES ===== */
 #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
+
 
 /* legend ocupa tudo */
 #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > legend {
@@ -391,24 +424,31 @@ main > section > h2 > i{
 #painelStatusUpdate select,
 #painelStatusUpdate textarea {
   background: #f0f4ff;
-  padding: 12px;
-  border-radius: 7px;
+  padding: 15px;
+  border-radius: 5px;
   border: 2px solid royalblue;
 }
 
 /* ===== BOTÃO ===== */
 
+#painelStatusUpdate > .painelStatusContent > .btnGroup{
+  display: grid;
+  grid-template-columns: 200px 300px;
+  gap: 7px;
+  align-self: flex-end;
+}
+
 #painelStatusUpdate > .painelStatusContent > .btnGroup > button {
-  background-color: royalblue;
+  background-color: var(--color-bg-secondary-blue);
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
-  padding: 20px;
+  column-gap: 5px;
+  padding: 18px;
   width: 100%;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -429,16 +469,6 @@ main > section > h2 > i{
   color: #aaa;
   cursor: not-allowed;
   opacity: 0.6;
-}
-
-/* ===== BAIRRO ===== */
-#idBairro {
-  background: #e8e8e8;
-  color: #555;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 20px;
-  border-radius: 10px;
 }
 
 .campo-invalido {
@@ -475,8 +505,12 @@ label.label-invalido {
   background-color: var(--color-bg-blue-darker);
 }
 
-#painelStatusUpdate > .painelStatusContent > .btnGroup > button:hover {
-    background-color: #091d53;
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button:last-child:hover {
+    background-color: var(--color-bg-blue-darker);
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button#btnCancelar:hover{
+  background-color: darkred;
 }
 
 #painelStatusUpdate > .painelStatusContent > .btnGroup > button:active {
@@ -494,6 +528,11 @@ label.label-invalido {
   #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  #painelStatusUpdate > .painelStatusContent > .btnGroup{
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
 }
 
 /* celulares */
@@ -501,10 +540,11 @@ label.label-invalido {
 
   #painelStatusUpdate > .painelStatusContent {
     row-gap: 20px;
+    padding: 20px;
   }
 
   #painelStatusUpdate fieldset {
-    padding: 15px;
+    padding: 20px;
   }
 
   #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento,
@@ -516,13 +556,13 @@ label.label-invalido {
   #painelStatusUpdate input,
   #painelStatusUpdate select,
   #painelStatusUpdate textarea {
-    padding: 10px;
+    padding: 12px;
     font-size: 0.9rem;
   }
 
-  
   #painelStatusUpdate > .painelStatusContent > .btnGroup {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   #painelStatusUpdate > .painelStatusContent > .btnGroup > button {
@@ -534,7 +574,6 @@ label.label-invalido {
   }
 
   #idBairro {
-    padding: 15px;
-    font-size: 0.9rem;
+    font-size: 1.4rem;
   }
 }

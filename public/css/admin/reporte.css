@@ -109,7 +109,7 @@ table > thead > tr{
 tbody{
   height: 473px;
   display: block;
-  overflow: scroll;
+  overflow-y: scroll;
   width: 100%;
   
 }
@@ -144,8 +144,9 @@ tbody > tr > .itemTableAcoes > button{
   align-items: center;
   justify-content: center;
   column-gap: 5px;
-  padding: 15px;
+  padding: 10px;
   width: max-content;
+  width: 100%;
 }
 
 tr > .itemTableAcoes > button > i{
@@ -353,15 +354,6 @@ div.modal-header > button {
     display: none;
   }
 
-  tbody{
-    overflow: scroll;
-    scrollbar-width: none;
-  }
-
-  tbody::-webkit-scrollbar {
-    display: none;
-  }
-
   .status > h1{
     font-size: 2rem;
   }
@@ -443,6 +435,7 @@ div.modal-header > button {
 
   tbody > tr > td.itemTableAcoes > button{
     width: 100%;
+    padding: 15px;
   }
 
   tbody > tr > td.itemTableAcoes > button > p{

@@ -183,7 +183,8 @@ async function modal(nomeExibicao, nome) {
                     data-area="${bairro.area_afetada || ""}"
                     data-pressao="${bairro.pressao_rede || ""}"
                     data-medida="${bairro.medida_solucao || ""}"
-                    data-descricao="${bairro.descricao || ""}">
+                    data-descricao="${bairro.descricao || ""}"
+                    data-atualizado="${formatarData(bairro.atualizado_em)}">
                     Atualizar Status
                 </button>
             </div>
@@ -192,7 +193,7 @@ async function modal(nomeExibicao, nome) {
 
     document.querySelectorAll(".btn-update").forEach(btn => {
         btn.addEventListener("click", () => {
-            const { bairro, bairroExibicao, status, causa, inicio, retorno, area, pressao, medida, descricao } = btn.dataset;
+            const { bairro, bairroExibicao, status, causa, inicio, retorno, area, pressao, medida, descricao, atualizado } = btn.dataset;
 
             limparErros();
 
@@ -214,6 +215,7 @@ async function modal(nomeExibicao, nome) {
             document.getElementById("idBairro").value = bairro;
             document.getElementById("idBairro").textContent = bairroExibicao;
             document.getElementById("idStatus").value = status;
+            document.getElementById("idAtualizado").innerHTML = atualizado;
             
             if (!isNormal) { // Se o status for diferente de Normal preenche os campos com os dados passados no botão 
                 document.getElementById("idCausa").value   = causa;

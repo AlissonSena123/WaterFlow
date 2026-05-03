@@ -152,7 +152,7 @@
 
     header {
         display: grid;
-        grid-template-columns: max-content 1fr;
+        grid-template-columns: max-content 1fr 48px;
         position: relative;
         z-index: 100 !important;
     }
