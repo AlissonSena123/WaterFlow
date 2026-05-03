@@ -1,3 +1,5 @@
+import { mostrarToast } from "../utils/toast.js";
+
 const supabaseClient = supabase.createClient(
   "https://vpdaqjfglnctqsbjmnzj.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwZGFxamZnbG5jdHFzYmptbnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MzY4MDAsImV4cCI6MjA4OTUxMjgwMH0.gYToKUR_f3-rCiyX2T0UvCU64A3htRAYTgpr6vLr864"
@@ -109,6 +111,7 @@ supabaseClient
 
       // Atualiza automaticamente
       carregarReports();
+      mostrarToast("Novo report recebido", "green");
     }
   )
   .subscribe();
@@ -130,6 +133,12 @@ function verDetalhes(report) {
 
   modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparecer o modal
 }
+
+const btnFecharModal = document.getElementById("btnFecharModal");
+const iconFecharModal = document.getElementById("iconFecharModal");
+
+iconFecharModal.addEventListener("click", fecharModal);
+btnFecharModal.addEventListener("click", fecharModal);
 
 function fecharModal() {
   modal.classList.remove("show"); // Fechar apertando no botão

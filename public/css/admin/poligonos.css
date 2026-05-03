@@ -83,21 +83,16 @@ main > section > h2 > i{
   gap: 6px;
 }
 
-.field > input,
-.field > select,
 .field > .divSearch > input{
   background: #f0f4ff;
-  padding: 12px;
+  padding: 15px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .field > .divSearch{
   display: flex;
   column-gap: 10px;
-}
-
-.field > .divSearch > input{
-  width: 100%;
-  max-width: 500px;
 }
 
 .field > .divSearch > button{
@@ -322,7 +317,7 @@ main > section > h2 > i{
 
 /* ===== BAIRRO ===== */
 .painelStatusItemBairro{
-  background-color: var(--color-bg-secondary-blue);
+  background-color: var(--color-bg-primary-blue);
   padding: 20px;
   border-radius: 10px 10px 0px 0px;
 }
@@ -515,6 +510,15 @@ label.label-invalido {
 
 #painelStatusUpdate > .painelStatusContent > .btnGroup > button:active {
     transform: scale(0.98);
+}
+
+/* FOCUS */
+
+#painelStatusUpdate input:focus,
+#painelStatusUpdate select:focus,
+#painelStatusUpdate textarea:focus{
+  background-color: white;
+  box-shadow: 0px 0px 5px var(--color-bg-secondary-blue);
 }
 
 /* ===== RESPONSIVIDADE ===== */

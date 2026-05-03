@@ -258,13 +258,23 @@ async function buscarDadosBairro(nome) {
 
 /* ---- ATIVAR OU DESATIVAR OS OUTROS CAMPOS DO PAINEL DE ATUALIZAÇÃO ---- */
 document.getElementById("idStatus").addEventListener("change", () => {
+
     const isNormal = document.getElementById("idStatus").value === "NORMAL"; 
     const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
+    
     camposExtras.forEach(id => {
         const el = document.getElementById(id);
         el.disabled = isNormal;
         if (isNormal) el.value = "";
     });
+
+    if (!isNormal) {
+        const agora = new Date();
+        const pad = n => String(n).padStart(2, "0");
+        const formatado = `${agora.getFullYear()}-${pad(agora.getMonth() + 1)}-${pad(agora.getDate())}T${pad(agora.getHours())}:${pad(agora.getMinutes())}`;
+        document.getElementById("idInicio").value = formatado;
+    }
+    
     if (isNormal) limparErros(); // Se for Normal, tira a destaque
 });
 
