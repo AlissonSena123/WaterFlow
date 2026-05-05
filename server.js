@@ -100,10 +100,59 @@ server.get("/api/mapKey", (req, res) => {
   res.json({ key: process.env.MAP_KEY });
 });
 
+/* ---- Rota de Logout ---- */
+server.post("/logout", (req, res) => {
+  const isAdmin = !!req.session.admin;
+  const isUser = !!req.session.user;
+
+  console.log("SESSION:", req.session);
+  console.log("ADMIN:", req.session.admin);
+  console.log("USER:", req.session.user);
+
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        error: "Erro ao deslogar"
+      });
+    }
+
+    res.clearCookie("connect.sid");
+
+    if (isAdmin) {
+      return res.json({
+        success: true,
+        message: "Funcionário deslogado com sucesso",
+        redirect: "/login"
+      });
+    }
+
+    if (isUser) {
+      return res.json({
+        success: true,
+        message: "Usuário deslogado com sucesso",
+        redirect: "/login"
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "Sessão encerrada",
+      redirect: "/login"
+    });
+  });
+});
 /** ---- Rota ME ---- */
 
 //atualizando para pegar o resultado do banco e nao da session apenas
 server.get("/me", async (req, res) => {
+
+   if (!req.session.user && !req.session.admin) {
+    return res.json({
+      tipo: null,
+      user: null
+    });
+  }
 
   if (req.session.admin) {
     const id_admin = req.session.admin.id;
