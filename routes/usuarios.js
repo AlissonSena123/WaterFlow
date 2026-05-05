@@ -90,98 +90,78 @@ router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || !senha) {
-    return res.status(400).json({ success: false, message: "Preencha todos os campos" });
+    return res.status(400).json({
+      success: false,
+      message: "Preencha todos os campos"
+    });
   }
 
   try {
     const usuario = await buscarUsuarioPorEmail(email);
     const funcionario = await buscarFuncionarioPorEmail(email);
 
-    console.log("Admin: ", funcionario);
+    //evita conflito entre tabelas
+    if (usuario && funcionario) {
+      return res.status(400).json({
+        success: false,
+        message: "Conta duplicada. Contate o suporte."
+      });
+    }
 
-    let conta = usuario || funcionario;
+    const conta = usuario || funcionario;
 
-    if (!conta) return res.status(400).json({ success: false, message: "Email ou senha inválidos." })
+    if (!conta) {
+      return res.status(400).json({
+        success: false,
+        message: "Email ou senha inválidos."
+      });
+    }
 
     const senhaCorreta = await bcrypt.compare(senha, conta.senha);
 
     if (!senhaCorreta) {
-      return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
-    };
-
-    if (usuario) {
-      req.session.user = {
-        id: usuario.id,
-        nome: usuario.nome_completo,
-        email: usuario.email,
-        telefone: usuario.telefone,
-        nascimento: usuario.data_nascimento,
-        bairro: usuario.bairro,
-        role: usuario.role
-      };
-
-      return res.status(200).json({ success: true, redirect: "/inicio" });
+      return res.status(400).json({
+        success: false,
+        message: "Email ou senha inválidos."
+      });
     }
+
+    //limpa qualquer sessão anterior
+    delete req.session.user;
+    delete req.session.admin;
 
     if (funcionario) {
       req.session.admin = {
-        id: funcionario.id,
-        nome: funcionario.nome,
-        role: funcionario.role
+        id: conta.id,
+        nome: conta.nome,
+        role: conta.role
       };
 
-      return res.status(200).json({ success: true, redirect: "/admin/dashboard" });
+      return res.json({
+        success: true,
+        redirect: "/admin/dashboard"
+      });
     }
 
-    //   req.session.user = {
-    //     id: conta.id,
-    //     nome: conta.nome_completo,
-    //     role: conta.role
-    //   };
+    if (usuario) {
+      req.session.user = {
+        id: conta.id,
+        nome: conta.nome_completo,
+        role: conta.role
+      };
 
-    // if (conta.role === "users") return res.status(200).json({ success: true, redirect: "/inicio"});
-
-    // if (conta.role === "funcionario") return res.status(200).json({ success: true, redirect: "/admin/dashboard"});
-
-    // // Compara a senha digitada com o hash armazenado
-    // const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-
-    // if (!senhaCorreta) {
-    //   return res.json({ success: false, message: "Email ou senha inválidos" });
-    // }
-    // //*---Forma de salvar sessao antiga---*
-    // //salvar sessao do usuario;
-    // //req.session.userId = users.id;
-    // //req.session.username = users.nome_completo;
-
-    // //*---Forma atualizada---*
-    // req.session.user = {
-    //   id: usuario.id,
-    //   nome: usuario.nome_completo,
-    //   role: usuario.role
-    // };
-
-    // //*--Redirecionar por role--*
-    // if (usuario.role === "users") {
-    //   return res.json({
-    //     success: true,
-    //     redirect: "/inicio"
-    //   });
-    // }
-
-    // if (usuario.role === "funcionario" || usuario.role === "admin") {
-    //   return res.json({
-    //     success: true,
-    //     redirect: "/admin/dashboard"
-    //   });
-    // }
-    // // Login bem-sucedido
-
-    // res.json({ success: true });
+      return res.json({
+        success: true,
+        redirect: "/inicio"
+      });
+    }
 
   } catch (err) {
-    console.error("Erro no login:", err);
-    res.status(500).json({ success: false, message: "Erro interno no servidor" });
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      message: "Erro interno"
+    });
   }
 });
 
@@ -477,43 +457,5 @@ router.post("/reporte/enviar", async (req, res) => {
   }
 
 });
-
-//rota de logout
-router.post("/logout", (req, res) => {
-  if (req.session.user || req.session.admin) {
-
-    console.log("Logout de:", req.session.user ? "user" : "admin");
-
-    req.session.destroy((err) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: "Erro ao fazer logout!" });
-      }
-
-      res.clearCookie("connect.sid");
-
-      return res.status(200).json({
-        success: true,
-        message: "Logout realizado com sucesso!",
-        redirect: "/login"
-      });
-    });
-
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: "Nenhum usuário logado."
-    });
-  }
-});
-
-// function normalizarBairro(bairro) {
-//   return bairro
-//     .toLowerCase()
-//     .normalize("NFD")
-//     .replace(/[\u0300-\u036f]/g, "")
-//     .replace(/\s+/g, " ")
-//     .trim();
-// }
 
 module.exports = router;
