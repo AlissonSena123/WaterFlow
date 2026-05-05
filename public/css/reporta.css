@@ -74,8 +74,8 @@ main > section > form{
     gap: 20px 10px;
     grid-template-areas: 
     "item1 item1"
-    "item2 item3"
-    "item4 item4"
+    "item2 item2"
+    "item3 item4"
     "item5 item6"
     "item7 item7"
     "none btn";
@@ -111,11 +111,21 @@ main > section > form > #item2{
 main > section > form > #item3{
     grid-area: item3;
 }
+#item3 select{
+    padding: 14px;
+}
 
 main > section > form > #item4{
     grid-area: item4;
     align-self: flex-end;
 }
+
+main > section > form > #item4 p{
+    font-size: .8rem;
+    color: #1b1b1b9a;
+    margin-top: 5px;
+}
+
 main > section > form > #item5{
     grid-area: item5;
     align-self: flex-end;

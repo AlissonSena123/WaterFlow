@@ -133,52 +133,6 @@ router.post("/login", async (req, res) => {
       return res.status(200).json({ success: true, redirect: "/admin/dashboard" });
     }
 
-    //   req.session.user = {
-    //     id: conta.id,
-    //     nome: conta.nome_completo,
-    //     role: conta.role
-    //   };
-
-    // if (conta.role === "users") return res.status(200).json({ success: true, redirect: "/inicio"});
-
-    // if (conta.role === "funcionario") return res.status(200).json({ success: true, redirect: "/admin/dashboard"});
-
-    // // Compara a senha digitada com o hash armazenado
-    // const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-
-    // if (!senhaCorreta) {
-    //   return res.json({ success: false, message: "Email ou senha inválidos" });
-    // }
-    // //*---Forma de salvar sessao antiga---*
-    // //salvar sessao do usuario;
-    // //req.session.userId = users.id;
-    // //req.session.username = users.nome_completo;
-
-    // //*---Forma atualizada---*
-    // req.session.user = {
-    //   id: usuario.id,
-    //   nome: usuario.nome_completo,
-    //   role: usuario.role
-    // };
-
-    // //*--Redirecionar por role--*
-    // if (usuario.role === "users") {
-    //   return res.json({
-    //     success: true,
-    //     redirect: "/inicio"
-    //   });
-    // }
-
-    // if (usuario.role === "funcionario" || usuario.role === "admin") {
-    //   return res.json({
-    //     success: true,
-    //     redirect: "/admin/dashboard"
-    //   });
-    // }
-    // // Login bem-sucedido
-
-    // res.json({ success: true });
-
   } catch (err) {
     console.error("Erro no login:", err);
     res.status(500).json({ success: false, message: "Erro interno no servidor" });

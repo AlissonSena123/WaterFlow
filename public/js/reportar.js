@@ -63,6 +63,8 @@ inputCEP.addEventListener("blur", async () => {
     const cep = inputCEP.value.trim();
 
     if (!cep) {
+        document.getElementById("idBairro").value = null;
+        document.getElementById("idRua").value = null;
         return mostrarToast("Digite o CEP", "red");
     }
 

@@ -64,7 +64,7 @@
                     </div>
                     <div id="item2">
                         <label for="idEmail">Email:</label>
-                        <input type="text" name="email" id="idEmail" required placeholder="Digite seu email">
+                        <input type="email" name="email" id="idEmail" required placeholder="Digite seu email" autocomplete="off">
                     </div>
                     <div id="item3">
                         <label for="tipo_problema">Tipo do Problema:</label>
@@ -79,6 +79,7 @@
                     <div id="item4">
                         <label for="idCEP">CEP:</label>
                         <input type="text" name="cep" id="idCEP" required placeholder="Digite seu CEP">
+                        <p>Digite o CEP para preencher os dados de localização automaticamente</p>
                     </div>
                     <div id="item5">
                         <input type="text" name="rua" id="idRua" placeholder="Rua" readonly>
@@ -95,7 +96,6 @@
             </section>
         </main>
     </div>
-    <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/reportar.js"></script>
     <script type="module" src="/js/utils/sidebar.js"></script>
 </body>

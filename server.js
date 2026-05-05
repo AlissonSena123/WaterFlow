@@ -122,7 +122,7 @@ server.get("/me", async (req, res) => {
       tipo: "funcionario",
       user: {
         id: admin.id,
-        nome: admin.nome,
+        nome_completo: admin.nome,
         email: admin.email,
         role: admin.role
       }
