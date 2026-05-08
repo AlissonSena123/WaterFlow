@@ -71,7 +71,7 @@ main>#section-map>.div-search {
     padding: 16px;
     background-color: #f0f4ff;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.221);
-    border: none;
+    border: 2px solid var(--color-bg-primary-blue);
     border-radius: 50px 0px 0px 50px;
     flex: 1;
 }
@@ -186,6 +186,10 @@ main>#section-map>#map {
     font-size: .95rem;
 }
 
+.cardItem>p:last-child{
+    text-align: end;
+}
+
 .status {
     display: flex;
     flex-direction: column;
@@ -253,6 +257,7 @@ main>#section-map>#map {
     background-color: white;
 }
 
+
 @media (max-width: 1164px) {
     main>#section-map>.div-search {
         left: 50%;
@@ -275,35 +280,49 @@ main>#section-map>#map {
         right: 20px;
         bottom: 10px;
     }
+
+    #cardStatus>.cardBody {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "titulo"
+            "inicioInterrupcao"
+            "prevRetorno"
+            "causaInterrupcao"
+            "pressaoAgua"
+            "areaAfetada"
+            "medResolucao"
+            "descInfo";
+        padding: 16px;
+        gap: 8px;
+    }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 
-    main>#section-map>.div-search{
-        z-index: 3;
+    #cardStatus>.cardHeader{
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: max-content;
+        gap: 20px 10px;
     }
 
-    #cardStatus {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-
+    .status{
+        grid-row: 2/3;
+        grid-column: 1/-1;
         width: 100%;
-        max-height: 70vh;
-
-        border-radius: 16px 16px 0 0;
-
-        transform: translateY(100%);
-        opacity: 0;
-
-        z-index: 2000;
-
-        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    #cardStatus.visible {
-        transform: translateY(0);
-        opacity: 1;
+    .status > p{
+        width: 100%;
+        text-align: center;
+    }
+
+    .cardItem>p {
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-left: 0;
     }
 }
