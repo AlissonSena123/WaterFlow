@@ -63,26 +63,34 @@ main>#section-map>.div-search {
     transform: translateX(-50%);
     width: 70%;
     max-width: 700px;
-    column-gap: 10px;
     z-index: 1000;
     display: flex;
 }
 
 .div-search>input {
-    padding: 13px;
+    padding: 16px;
     background-color: #f0f4ff;
-    border: 2px solid royalblue;
-    border-radius: 9px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.221);
+    border: none;
+    border-radius: 50px 0px 0px 50px;
     flex: 1;
 }
 
 .div-search>button {
     background-color: var(--color-bg-primary-blue);
     color: white;
-    width: 80px;
+    width: 90px;
     justify-content: center;
     align-items: center;
     display: flex;
+    border-radius: 0px 50px 50px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-search>button>span{
+    font-size: 1.1rem;
 }
 
 main>#section-map>#map {
@@ -142,63 +150,41 @@ main>#section-map>#map {
 #cardStatus>.cardHeader>.cardHeaderContant>p:last-child {
     color: rgba(255, 255, 255, 0.61);
     font-weight: lighter;
-    font-size: .9rem;
-}
-
-.dataInterrupcaoRetorno {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #ecf0ff9c;
-    padding: 15px 20px;
-    gap: 10px;
-}
-
-.dataInterrupcaoRetorno>div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    font-size: 1rem;
-    background-color: #d0dcff7d;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.dataInterrupcaoRetorno>div>p:first-child {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-size: .85rem;
 }
 
 #cardStatus>.cardBody {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 10px;
     grid-template-areas:
-        "titulo titulo titulo"
-        "causaInterrupcao causaInterrupcao causaInterrupcao"
-        "areaAfetada pressaoAgua medResolucao"
-        "descInfo descInfo descInfo";
+        "titulo"
+        "inicioInterrupcao"
+        "prevRetorno"
+        "causaInterrupcao"
+        "pressaoAgua"
+        "areaAfetada"
+        "medResolucao"
+        "descInfo";
     padding: 20px;
 }
 
 .cardItem {
-    background: rgba(221, 238, 255, 0.6);
+    background: rgba(221, 238, 255, 0.326);
     border-radius: 7px;
-    padding: 15px;
+    padding: 12px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
 }
 
-.cardItem>p:first-child {
+.cardItem>p {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 3px;
+    font-size: .95rem;
 }
-
 
 .status {
     display: flex;
@@ -211,6 +197,14 @@ main>#section-map>#map {
 
 #cardStatus>.cardBody>h3 {
     grid-area: titulo;
+}
+
+.inicioInterrupcao{
+    grid-area: inicioInterrupcao;
+}
+
+.prevRetorno{
+    grid-area: prevRetorno;
 }
 
 .causaInterrupcao {
@@ -230,15 +224,22 @@ main>#section-map>#map {
 }
 
 .descInfo {
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
     grid-area: descInfo;
 }
 
 
 .badge {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 4px 12px;
-    text-transform: none;
+    padding: 12px 15px;
+    border-radius: 50px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: 30px;
 }
 
 /* HOVER */
@@ -304,22 +305,5 @@ main>#section-map>#map {
     #cardStatus.visible {
         transform: translateY(0);
         opacity: 1;
-    }
-
-    #cardStatus>.cardBody {
-        grid-template-columns: 1fr;
-        /* empilha tudo em coluna única */
-        grid-template-areas:
-            "titulo"
-            "causaInterrupcao"
-            "areaAfetada"
-            "pressaoAgua"
-            "medResolucao"
-            "descInfo";
-    }
-
-    .dataInterrupcaoRetorno {
-        flex-direction: column;
-        align-items: center;
     }
 }

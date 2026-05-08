@@ -58,16 +58,25 @@
 
             <section>
                 <form autocomplete="off">
+                    <div class="titleItemDadosPessoais title">
+                        <p>Dados Pessoais</p>
+                        <hr>
+                    </div>
                     <div id="item1">
-                        <label for="idNome">Nome:</label>
+                        <label for="idNome">Nome</label>
                         <input type="text" name="nome" id="idNome" required placeholder="Digite seu nome">
+                        <p><i class="ph-fill ph-info"></i> Os dados do usuário são preenchidos automaticamente</p>
                     </div>
                     <div id="item2">
-                        <label for="idEmail">Email:</label>
+                        <label for="idEmail">Email</label>
                         <input type="email" name="email" id="idEmail" required placeholder="Digite seu email" autocomplete="off">
                     </div>
+                    <div class="titleItemDadosProblema title">
+                        <p>Dados do Problema</p>
+                        <hr>
+                    </div>
                     <div id="item3">
-                        <label for="tipo_problema">Tipo do Problema:</label>
+                        <label for="tipo_problema">Tipo do Problema</label>
                         <select name="tipo_problema" id="tipo_problema">
                             <option value="" selected disabled>Selecione o Problema</option>
                             <option value="SEM ÁGUA">Sem Água</option>
@@ -77,9 +86,9 @@
                         </select>
                     </div>
                     <div id="item4">
-                        <label for="idCEP">CEP:</label>
-                        <input type="text" name="cep" id="idCEP" required placeholder="Digite seu CEP">
-                        <p>Digite o CEP para preencher os dados de localização automaticamente</p>
+                        <label for="idCEP">CEP</label>
+                        <input type="text" name="cep" id="idCEP" required placeholder="00000-000">
+                        <p><i class="ph-fill ph-info"></i> Digite o CEP para preencher os dados de localização automaticamente</p>
                     </div>
                     <div id="item5">
                         <input type="text" name="rua" id="idRua" placeholder="Rua" readonly>
@@ -88,8 +97,8 @@
                         <input type="text" name="bairro" id="idBairro" placeholder="Bairro" readonly>
                     </div>
                     <div id="item7">
-                        <label for="idDescricao">Descrição:</label>
-                        <textarea name="descricao" id="idDescricao" placeholder="Descreva o seu problema nesse campo"></textarea>
+                        <label for="idDescricao">Descrição</label>
+                        <textarea name="descricao" id="idDescricao" placeholder="Descreva seu problema com detalhes..."></textarea>
                     </div>
                     <button type="submit" id="btnEnviarReport"> <i class="ph-fill ph-paper-plane-tilt"></i> Enviar</button>
                 </form>

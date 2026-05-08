@@ -37,8 +37,7 @@ main > div.title-report{
     background-color: var(--color-bg-primary-blue);
     color: white;
     font-weight: lighter;
-    border-radius: 7px;
-    margin-bottom: 20px;
+    border-radius: 12px 12px 0px 0px;
 }
 
 main > .title-report > h1{
@@ -60,11 +59,13 @@ main > .title-report > p{
 }
 
 main > section{
-    border-radius: 12px;
+    border-radius: 0px 0px 12px 12px;
     box-shadow: var(--shadow-soft);
-    background: white;
-    padding: 20px;
+    background: none;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
     min-height: 100%;
+    border: 1px solid rgba(54, 54, 54, 0.293);
+    padding: 30px;
 }
 
 main > section > form{
@@ -72,9 +73,10 @@ main > section > form{
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: max-content;
     gap: 20px 10px;
-    grid-template-areas: 
-    "item1 item1"
-    "item2 item2"
+    grid-template-areas:
+    "titlePessoa titlePessoa" 
+    "item1 item2"
+    "titleProblema titleProblema"
     "item3 item4"
     "item5 item6"
     "item7 item7"
@@ -90,14 +92,35 @@ main > section > form > div{
 
 main > section > form > div > label{
     margin-bottom: 5px;
+    font-size: .9rem;
 }
 
 main > section > form > div > input,
 main > section > form > div > select{
     padding: 15px;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
     background: #f0f4ff;
+}
+
+main > section > form > .title{
+    margin: 20px 0px 0px 0px;
+}
+
+main > section > form > .title > p{
+    margin-bottom: 10px;
+}
+
+main > section > form > .title > hr{
+    border: 1.5px solid rgba(0, 8, 91, 0.301);
+}
+
+main > section > form > .titleItemDadosPessoais{
+    grid-area: titlePessoa;
+}
+
+main > section > form > .titleItemDadosProblema{
+    grid-area: titleProblema;
 }
 
 main > section > form > #item1{
@@ -120,9 +143,12 @@ main > section > form > #item4{
     align-self: flex-end;
 }
 
-main > section > form > #item4 p{
-    font-size: .8rem;
+#item4 p, #item1 p{
+    font-size: .82rem;
     color: #1b1b1b9a;
+    display: flex;
+    align-items: center;
+    gap: 2px;
     margin-top: 5px;
 }
 
@@ -144,7 +170,7 @@ main > section > form > #item7 > textarea{
     height: 340px;
     resize: none;
     padding: 13px;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
     background: #f0f4ff;
 }
@@ -177,7 +203,8 @@ main > section > form > button:hover{
 /* FOCUS */
 form > div > input:focus,
 form > #item6 > textarea:focus,
-main > section > form > div > select:focus{
+main > section > form > div > select:focus,
+main > section > form > #item7 > textarea:focus{
     background-color: white;
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
 }
@@ -204,9 +231,11 @@ main > section > form > div > select:focus{
 
     main > section > form{
         grid-template-columns: 1fr;
-        grid-template-areas: 
+        grid-template-areas:
+        "titlePessoa" 
         "item1"
         "item2"
+        "titleProblema"
         "item3"
         "item4"
         "item5"
