@@ -69,6 +69,11 @@ main > #titleDashboard > h1{
   column-gap: 5px;
 }
 
+main > #titleDashboard > hr{
+  border: 1px solid rgba(217, 227, 255, 0.381);
+  margin: 10px 0px;
+}
+
 #titleDashboard > h1 > i{
   font-size: 3rem;
 }
