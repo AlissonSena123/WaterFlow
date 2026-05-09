@@ -53,6 +53,16 @@
         <header>
             <i class="ph-bold ph-list" id="iconHamburguer"></i>
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+            <div id="notifWrapper">
+                <button id="notifBtn" aria-label="Notificações">
+                    <i class="ph-bold ph-bell"></i>
+                    <span id="notifBadge"></span>
+                </button>
+                <div id="notifDropdown">
+                    <p id="notifTitulo">Notificações</p>
+                    <ul id="notifLista"></ul>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -136,6 +146,7 @@
         </main>
     </div>
 
+    <script src="/js/notificacoes.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/perfil.js"></script>
     <script type="module" src="/js/utils/sidebar.js"></script>

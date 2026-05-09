@@ -1,4 +1,5 @@
 const { supabase } = require("../config/supabase");
+const { enviarRespostaReport } = require("../public/services/emailServices.js");
 const express = require("express");
 const router = express.Router();
 
@@ -49,4 +50,69 @@ router.get("/api/reports", async (req, res) => {
     }
 });
 
+/* ---- ROTA PARA RESPONDER REPORTE DO USUÁRIO ---- */
+router.post("/api/reports/:id/responder", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status, resposta } = req.body;
+
+        const statusValidos = ["recebido", "em_analise", "resolvido"];
+        if (!statusValidos.includes(status)) {
+            return res.status(400).json({ success: false, erro: "Status inválido." });
+        }
+        if (!resposta || resposta.trim() === "") {
+            return res.status(400).json({ success: false, erro: "Resposta não pode ser vazia." });
+        }
+
+        const { data: reporte, error: erroReporte } = await supabase
+            .from("reportUsers")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+        if (erroReporte || !reporte) {
+            return res.status(404).json({ success: false, erro: "Reporte não encontrado." });
+        }
+
+        const { error: erroUpdate } = await supabase
+            .from("reportUsers")
+            .update({
+                status,
+                resposta_admin: resposta.trim(),
+                respondido_em:  new Date().toISOString(),
+            })
+            .eq("id", id);
+
+        if (erroUpdate) {
+            return res.status(500).json({ success: false, erro: erroUpdate.message });
+        }
+
+        const labelStatus = {
+            recebido:   "Recebido",
+            em_analise: "Em análise",
+            resolvido:  "Resolvido",
+        };
+
+        await supabase
+            .from("notificacoes")
+            .insert({
+                usuario_email: reporte.email,
+                reporte_id: Number(id),
+                mensagem: `Seu reporte foi respondido, verifique seu email!`,
+            });
+
+        await enviarRespostaReport({
+            para:     reporte.email,
+            nome:     reporte.nome,
+            bairro:   reporte.bairro,
+            status:   labelStatus[status],
+            resposta: resposta.trim(),
+        });
+
+        res.json({ success: true, mensagem: "Resposta enviada com sucesso." });
+
+    } catch (error) {
+        res.status(500).json({ success: false, erro: error.message });
+    }
+});
 module.exports = router;

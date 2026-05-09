@@ -147,6 +147,7 @@ router.post("/login", async (req, res) => {
       req.session.user = {
         id: conta.id,
         nome: conta.nome_completo,
+        email: conta.email,
         role: conta.role
       };
 
@@ -456,6 +457,38 @@ router.post("/reporte/enviar", async (req, res) => {
     });
   }
 
+});
+
+router.get("/api/notificacoes", async (req, res) => {
+    const email = req.session.user?.email;
+
+    if (!email) return res.json({ success: false, error: "Não autenticado." });
+
+    const { data, error } = await supabase
+        .from("notificacoes")
+        .select("*")
+        .eq("usuario_email", email)
+        .gt("expira_em", new Date().toISOString())
+        .order("criado_em", { ascending: false })
+        .limit(20);
+
+    if (error) return res.json({ success: false, error });
+    res.json({ success: true, data });
+});
+
+router.patch("/api/notificacoes/:id/lida", async (req, res) => {
+    const email = req.session.user?.email;
+
+    if (!email) return res.json({ success: false, error: "Não autenticado." });
+
+    const { error } = await supabase
+        .from("notificacoes")
+        .update({ lida: true })
+        .eq("id", req.params.id)
+        .eq("usuario_email", email);
+
+    if (error) return res.json({ success: false, error });
+    res.json({ success: true });
 });
 
 module.exports = router;

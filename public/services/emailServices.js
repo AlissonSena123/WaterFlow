@@ -84,4 +84,33 @@ async function enviarAlertaEmail(destinatario, bairro, status) {
     });
 }
 
-module.exports = { enviarAlertaEmail };
+async function enviarRespostaReport({ para, nome, bairro, status, resposta }) {
+    await transporte.sendMail({
+        from: `"WaterFlow" <${process.env.MAIL_USER}>`,
+        to: para,
+        subject: `Atualização do seu reporte - ${status}`,
+        html: `
+            <div style="font-family:sans-serif;max-width:520px;margin:0 auto">
+                <h2 style="color:#1a3a6e">Olá, ${nome}!</h2>
+                <p>Seu reporte do bairro <strong>${bairro}</strong> foi atualizado.</p>
+                <div style="background:#f6f8fc;border-left:4px solid #1a3a6e;
+                            padding:14px 18px;border-radius:0 8px 8px 0;margin:20px 0">
+                    <p style="margin:0 0 6px;font-size:13px;color:#718096">Status atual</p>
+                    <strong style="color:#1a3a6e;font-size:16px">${status}</strong>
+                </div>
+                <div style="background:#fff;border:1px solid #e2e8f0;
+                            padding:14px 18px;border-radius:8px">
+                    <p style="margin:0 0 6px;font-size:13px;color:#718096">
+                        Mensagem da equipe WaterFlow
+                    </p>
+                    <p style="margin:0;color:#2d3748">${resposta}</p>
+                </div>
+                <p style="margin-top:24px;font-size:13px;color:#a0aec0">
+                    Acesse o site para acompanhar todos os seus reportes.
+                </p>
+            </div>
+            `,
+    });
+}
+
+module.exports = { enviarAlertaEmail, enviarRespostaReport};

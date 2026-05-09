@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/css/admin/reporte.css">
   <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="../../css/toast.css">
-  
+
 
 </head>
 
@@ -81,7 +81,7 @@
           <label for="regionReport">Região:</label>
           <input type="tel" name="regionReport" id="regionReport" placeholder="Ex: Centro">
         </div>
-        
+
 
       </section>
 
@@ -106,7 +106,6 @@
     </main>
 
     <div id="modal" class="modal">
-
       <div class="modal-content">
 
         <div class="modal-header">
@@ -119,27 +118,49 @@
 
         <div class="modal-body">
           <div class="modal-body-localidade">
-            <p><strong> <i class="ph-fill ph-house-line"></i> RUA</strong> <span id="mRua"></span></p>
-            <p><strong> <i class="ph-fill ph-map-pin"></i> BAIRRO</strong> <span id="mBairro"></span></p>
+            <p><strong><i class="ph-fill ph-house-line"></i> RUA</strong> <span id="mRua"></span></p>
+            <p><strong><i class="ph-fill ph-map-pin"></i> BAIRRO</strong> <span id="mBairro"></span></p>
           </div>
-          <p><strong> <i class="ph-fill ph-warning-circle"></i> TIPO DO PROBLEMA</strong> <span id="mProblema"></span></p>
-          <p><strong> <i class="ph-fill ph-sort-ascending"></i> DESCRIÇÃO</strong> <span id="mDescricao"></span></p>
+          <p><strong><i class="ph-fill ph-warning-circle"></i> TIPO DO PROBLEMA</strong> <span id="mProblema"></span>
+          </p>
+          <p><strong><i class="ph-fill ph-sort-ascending"></i> DESCRIÇÃO</strong> <span id="mDescricao"></span></p>
+        </div>
+
+        <hr>
+
+        <div id="secaoResposta">
+          <p><i class="ph-fill ph-chat-text"></i> Responder usuário</p>
+
+          <select id="selectStatus">
+            <option value="recebido">Recebido</option>
+            <option value="em_analise">Em análise</option>
+            <option value="resolvido">Resolvido</option>
+          </select>
+
+          <textarea id="textareaResposta" placeholder="Escreva uma mensagem para o usuário..." rows="3"></textarea>
+
+          <button type="button" id="btnEnviarResposta">
+            <i class="ph-fill ph-paper-plane-tilt"></i> Enviar resposta
+          </button>
         </div>
 
         <hr>
 
         <div class="btnFecharDetalhes">
+          <button type="button" id="btnResponder">
+            <i class="ph-fill ph-chat-text"></i> Responder
+          </button>
           <button type="button" id="btnFecharModal">Fechar</button>
         </div>
-      </div>
 
+      </div>
     </div>
 
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="/js/logout.js"></script>
-  <script src="/js/admin/reporte.js"></script>
+  <script type="module" src="/js/admin/reporte.js"></script>
   <script type="module" src="/js/utils/sidebar.js"></script>
 </body>
 

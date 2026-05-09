@@ -1,3 +1,5 @@
+import { mostrarToast } from "../utils/toast.js";
+
 const supabaseClient = supabase.createClient(
   "https://vpdaqjfglnctqsbjmnzj.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwZGFxamZnbG5jdHFzYmptbnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MzY4MDAsImV4cCI6MjA4OTUxMjgwMH0.gYToKUR_f3-rCiyX2T0UvCU64A3htRAYTgpr6vLr864"
@@ -128,6 +130,8 @@ function verDetalhes(report) {
   document.getElementById("mProblema").textContent = report.tipo_problema
   document.getElementById("mDescricao").textContent = report.descricao || "Sem descrição";
 
+  document.getElementById("modal").dataset.reporteId = report.id;
+
   modal.classList.add("show"); // Aqui ele vai mudar para a class "show", para aparecer o modal
 }
 
@@ -144,4 +148,56 @@ function fecharModal() {
 // Fechar clicando fora do conteúdo
 modal.addEventListener("click", (e) => {
   if (e.target === modal) fecharModal();
+});
+
+/** Evento do botão de resposta */
+document.getElementById("btnResponder").addEventListener("click", () => {
+  const secao = document.getElementById("secaoResposta");
+  const btn = document.getElementById("btnResponder");
+  const aberto = secao.style.display === "block";
+
+  secao.style.display = aberto ? "none" : "block"; // operador ternario para mudar o icone e o significado do botão
+  btn.innerHTML = aberto
+    ? '<i class="ph-fill ph-chat-text"></i> Responder'
+    : '<i class="ph-fill ph-caret-up"></i> Ocultar';
+});
+
+/** Evento que envia a resposta  */
+document.getElementById("btnEnviarResposta").addEventListener("click", async () => {
+  const id = document.getElementById("modal").dataset.reporteId; // Pega essa dataset da função de ver detalhes
+  const status = document.getElementById("selectStatus").value;
+  const resposta = document.getElementById("textareaResposta").value;
+
+  if (!resposta.trim()) {
+    mostrarToast("Escreva uma mensagem antes de enviar.", "red");
+    return;
+  }
+
+  const btn = document.getElementById("btnEnviarResposta");
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+
+  try {
+    const res = await fetch(`/admin/api/reports/${id}/responder`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status, resposta }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      mostrarToast("Resposta enviada! Usuário foi notificado por e-mail.", "green");
+      document.getElementById("secaoResposta").style.display = "none";
+      document.getElementById("textareaResposta").value = "";
+      document.getElementById("btnResponder").innerHTML =
+        '<i class="ph-fill ph-chat-text"></i> Responder';
+    } else {
+      mostrarToast(data.erro, "red");
+    }
+  } catch (e) {
+    mostrarToast("Erro ao enviar. Tente novamente.", "red");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ph-fill ph-paper-plane-tilt"></i> Enviar resposta';
+  }
 });
