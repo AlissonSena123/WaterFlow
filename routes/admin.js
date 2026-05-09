@@ -3,7 +3,7 @@ const { enviarRespostaReport } = require("../public/services/emailServices.js");
 const express = require("express");
 const router = express.Router();
 
-/**  ---- ROTA de Verificar Reports ( GET /api/reports ) ---- */
+/**  ---- ROTA PARA BUSCAR REPORTES DOS USUÁRIOS ( GET /api/reports ) ---- */
 router.get("/api/reports", async (req, res) => {
     try {
         let { nome, bairro, data } = req.query;
@@ -50,33 +50,35 @@ router.get("/api/reports", async (req, res) => {
     }
 });
 
-/* ---- ROTA PARA RESPONDER REPORTE DO USUÁRIO ---- */
+/* ---- ROTA PARA RESPONDER REPORTE DO USUÁRIO ( POST /api/reports/:id/responder ) ---- */
 router.post("/api/reports/:id/responder", async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params; // Esse id em da URL
         const { status, resposta } = req.body;
 
-        const statusValidos = ["recebido", "em_analise", "resolvido"];
-        if (!statusValidos.includes(status)) {
+        const statusValidos = ["recebido", "em_analise", "resolvido"]; // Lista com os status permitidos
+
+        if (!statusValidos.includes(status)) { // Verifica se o status enviado existe no array
             return res.status(400).json({ success: false, erro: "Status inválido." });
         }
-        if (!resposta || resposta.trim() === "") {
+
+        if (!resposta || resposta.trim() === "") { // Verifica se a resposta existe
             return res.status(400).json({ success: false, erro: "Resposta não pode ser vazia." });
         }
 
-        const { data: reporte, error: erroReporte } = await supabase
-            .from("reportUsers")
-            .select("*")
-            .eq("id", id)
-            .single();
+        const { data: reporte, error: erroReporte } = await supabase // Consulta o supabase
+            .from("reportUsers") // <= Nome da tabela
+            .select("*") // <= Seleciona todas as colunas
+            .eq("id", id) // <= Busca o reporte com o ID recebido
+            .single(); // <= Espera apenas um objeto
 
-        if (erroReporte || !reporte) {
+        if (erroReporte || !reporte) { // Caso aconteça algum erro
             return res.status(404).json({ success: false, erro: "Reporte não encontrado." });
         }
 
-        const { error: erroUpdate } = await supabase
+        const { error: erroUpdate } = await supabase // Consulta o supabase de novo
             .from("reportUsers")
-            .update({
+            .update({ // Faz a atualização no banco
                 status,
                 resposta_admin: resposta.trim(),
                 respondido_em:  new Date().toISOString(),
@@ -87,26 +89,18 @@ router.post("/api/reports/:id/responder", async (req, res) => {
             return res.status(500).json({ success: false, erro: erroUpdate.message });
         }
 
-        const labelStatus = {
+        const labelStatus = { // Objeto para converter
             recebido:   "Recebido",
             em_analise: "Em análise",
             resolvido:  "Resolvido",
         };
 
-        await supabase
-            .from("notificacoes")
-            .insert({
-                usuario_email: reporte.email,
-                reporte_id: Number(id),
-                mensagem: `Seu reporte foi respondido, verifique seu email!`,
-            });
-
-        await enviarRespostaReport({
-            para:     reporte.email,
-            nome:     reporte.nome,
-            bairro:   reporte.bairro,
-            status:   labelStatus[status],
-            resposta: resposta.trim(),
+        await enviarRespostaReport({ // Chama função importada responsável por enviar email
+            para:     reporte.email, // Destinatario
+            nome:     reporte.nome, // Nome do usuário
+            bairro:   reporte.bairro, // Bairro do usuário
+            status:   labelStatus[status], // Converte o status técnico em texto
+            resposta: resposta.trim(), // Envia a resposta sem espaços extras
         });
 
         res.json({ success: true, mensagem: "Resposta enviada com sucesso." });
@@ -115,4 +109,5 @@ router.post("/api/reports/:id/responder", async (req, res) => {
         res.status(500).json({ success: false, erro: error.message });
     }
 });
+
 module.exports = router;

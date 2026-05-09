@@ -139,7 +139,7 @@
     top: calc(100% + 8px);
     width: 300px;
     background: white;
-    border-radius: 10px;
+    border-radius: 10px 0px 10px 10px;
     box-shadow: var(--shadow-medium);
     z-index: 200;
     overflow: hidden;
@@ -153,7 +153,7 @@
 #notifTitulo {
     padding: 14px 16px;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: lighter;
     color: var(--color-bg-primary-blue);
     margin: 0;
     border-bottom: 1px solid #e2e8f0;
@@ -260,7 +260,7 @@
 
     header {
         display: grid;
-        grid-template-columns: max-content 1fr 48px;
+        grid-template-columns: max-content 1fr max-content;
         position: relative;
         z-index: 1001 !important;
     }

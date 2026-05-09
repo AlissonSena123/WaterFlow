@@ -9,7 +9,7 @@ const adminAuth = require("../middleware/adminAuth");
 const { buscarUsuarioPorEmail } = require("../public/services/userService.js");
 const { buscarFuncionarioPorEmail } = require("../public/services/funcionarioService.js");
 
-// --- ROTAS DE CADASTRO (POST /cadastrar) ---
+// --- ROTAS DE CADASTRO ( POST /cadastrar ) ---
 router.post("/cadastrar", async (req, res) => {
   const {
     nome_completo,
@@ -85,7 +85,7 @@ router.post("/cadastrar", async (req, res) => {
   }
 });
 
-// ---- ROTA DE LOGIN (POST /login) ---- 
+// ---- ROTA DE LOGIN ( POST /login ) ---- 
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
@@ -148,6 +148,7 @@ router.post("/login", async (req, res) => {
         id: conta.id,
         nome: conta.nome_completo,
         email: conta.email,
+        bairro: conta.bairro,
         role: conta.role
       };
 
@@ -167,7 +168,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO (POST /redefinirSenha) ---
+// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO ( POST /redefinirSenha ) ---
 router.post("/redefinirSenha", async (req, res) => {
   const { email } = req.body;
 
@@ -240,12 +241,12 @@ router.post("/redefinirSenha", async (req, res) => {
   }
 });
 
-// --- ROTA DE FEEDBACK DE ENVIO (GET /instrucoes_enviadas) ---
+// --- ROTA DE FEEDBACK DE ENVIO ( GET /instrucoes_enviadas ) ---
 router.get("/instrucoes_enviadas", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"))
 });
 
-// --- ROTA DE VALIDAÇÃO DE TOKEN (GET /novaSenha/:token) ---
+// --- ROTA DE VALIDAÇÃO DE TOKEN ( GET /novaSenha/:token ) ---
 // Formato de rota tradicional para maior compatibilidade
 router.get("/redefinir-senha/:token", async (req, res) => {
   const { token } = req.params;
@@ -271,7 +272,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
   }
 });
 
-// ---- ROTA DE ATUALIZAR SENHA (PUT /usuarios/atualizar-senha/:token) ---- 
+// ---- ROTA DE ATUALIZAR SENHA ( PUT /usuarios/atualizar-senha/:token ) ---- 
 router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   const { senha } = req.body; // AGORA bate com o frontend
   const { token } = req.params;
@@ -323,7 +324,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
-/*ATUALIZAR CAMPOS DE CADASTRO*/
+// ---- ROTA PARA ATUALIZAR PERFIL ( PATCH /usuarios/atualizar/perfil ) ---- 
 router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   try {
     if (!req.session.user) {
@@ -418,7 +419,7 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   }
 });
 
-/* ROTA DE REPORTAR FALTA D'ÁGUA */
+// ---- ROTA DE REPORTAR FALTA D'ÁGUA ( POST /reporte/enviar/ )  ----
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, tipo, rua, bairro, descricao } = req.body
 
@@ -459,36 +460,46 @@ router.post("/reporte/enviar", async (req, res) => {
 
 });
 
-router.get("/api/notificacoes", async (req, res) => {
+// ---- ROTA PARA BUSCAR OS REPORTES (GET /api/meus-reportes ) ---- 
+router.get("/api/meus-reportes", async (req, res) => {
     const email = req.session.user?.email;
 
     if (!email) return res.json({ success: false, error: "Não autenticado." });
 
+    const expiracao = new Date();
+    expiracao.setMinutes(expiracao.getMinutes() - 3);
+
     const { data, error } = await supabase
-        .from("notificacoes")
-        .select("*")
-        .eq("usuario_email", email)
-        .gt("expira_em", new Date().toISOString())
-        .order("criado_em", { ascending: false })
-        .limit(20);
+        .from("reportUsers")
+        .select("id, bairro, status, resposta_admin, respondido_em")
+        .eq("email", email)
+        .not("resposta_admin", "is", null)
+        .gte("respondido_em", expiracao.toISOString())
+        .order("respondido_em", { ascending: false });
 
     if (error) return res.json({ success: false, error });
     res.json({ success: true, data });
 });
 
-router.patch("/api/notificacoes/:id/lida", async (req, res) => {
-    const email = req.session.user?.email;
+// ---- ROTA PARA BUSCAR BAIRRO DO USUÁRIO (GET /api/alertas-bairro ) ---- 
+router.get("/api/alertas-bairro", async (req, res) => {
+    const bairro = req.session.user?.bairro;
 
-    if (!email) return res.json({ success: false, error: "Não autenticado." });
+    if (!bairro) return res.json({ success: false, error: "Não autenticado." });
 
-    const { error } = await supabase
-        .from("notificacoes")
-        .update({ lida: true })
-        .eq("id", req.params.id)
-        .eq("usuario_email", email);
+    const expiracao = new Date();
+    expiracao.setDate(expiracao.getDate() - 7);
+
+    const { data, error } = await supabase
+        .from("abastecimento")
+        .select("id, bairro, status, atualizado_em")  
+        .ilike("bairro", `%${bairro}%`)               
+        .neq("status", "NORMAL")                       
+        .gte("atualizado_em", expiracao.toISOString())
+        .order("atualizado_em", { ascending: false });
 
     if (error) return res.json({ success: false, error });
-    res.json({ success: true });
+    res.json({ success: true, data });
 });
 
 module.exports = router;
