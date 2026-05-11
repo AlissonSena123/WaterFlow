@@ -267,8 +267,8 @@ main>#section-map>#map {
         top: 20px;
         width: calc(100% - 40px);
         max-width: none;
-        box-sizing: border-box;
         overflow: hidden;
+        box-shadow: none;
     }
 
     .div-search>button {

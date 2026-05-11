@@ -24,12 +24,18 @@ router.post("/cadastrar", async (req, res) => {
   } = req.body;
 
 
-  if (!nome_completo || !email || !senha || !bairro) {
-    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
+  if (!nome_completo || !email || !senha || !bairro || !data_nascimento || !telefone) {
+    return res.status(400).json({ success: false, message: "Preencha todos os campos", });
   }
 
   if (senha.length < 10 || senha.length > 15) {
-    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
+    return res.status(400).json({ success: false, message: "A senha deve teve possuir 10 a 15 caracteres " });
+  }
+
+  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+
+  if (!telefoneRegex.test(telefone)) {
+    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
   }
 
   try {
@@ -462,44 +468,124 @@ router.post("/reporte/enviar", async (req, res) => {
 
 // ---- ROTA PARA BUSCAR OS REPORTES (GET /api/meus-reportes ) ---- 
 router.get("/api/meus-reportes", async (req, res) => {
-    const email = req.session.user?.email;
+  const email = req.session.user?.email;
 
-    if (!email) return res.json({ success: false, error: "Não autenticado." });
+  if (!email) return res.json({ success: false, error: "Não autenticado." });
 
-    const expiracao = new Date();
-    expiracao.setMinutes(expiracao.getMinutes() - 3);
+  const expiracao = new Date();
+  expiracao.setMinutes(expiracao.getMinutes() - 3);
 
-    const { data, error } = await supabase
-        .from("reportUsers")
-        .select("id, bairro, status, resposta_admin, respondido_em")
-        .eq("email", email)
-        .not("resposta_admin", "is", null)
-        .gte("respondido_em", expiracao.toISOString())
-        .order("respondido_em", { ascending: false });
+  const { data, error } = await supabase
+    .from("reportUsers")
+    .select("id, bairro, status, resposta_admin, respondido_em")
+    .eq("email", email)
+    .not("resposta_admin", "is", null)
+    .gte("respondido_em", expiracao.toISOString())
+    .order("respondido_em", { ascending: false });
 
-    if (error) return res.json({ success: false, error });
-    res.json({ success: true, data });
+  if (error) return res.json({ success: false, error });
+  res.json({ success: true, data });
 });
 
 // ---- ROTA PARA BUSCAR BAIRRO DO USUÁRIO (GET /api/alertas-bairro ) ---- 
 router.get("/api/alertas-bairro", async (req, res) => {
-    const bairro = req.session.user?.bairro;
+  const bairro = req.session.user?.bairro;
 
-    if (!bairro) return res.json({ success: false, error: "Não autenticado." });
+  if (!bairro) return res.json({ success: false, error: "Não autenticado." });
 
-    const expiracao = new Date();
-    expiracao.setDate(expiracao.getDate() - 7);
+  const expiracao = new Date();
+  expiracao.setDate(expiracao.getDate() - 7);
+
+  const { data, error } = await supabase
+    .from("abastecimento")
+    .select("id, bairro, status, atualizado_em")
+    .ilike("bairro", `%${bairro}%`)
+    .neq("status", "NORMAL")
+    .gte("atualizado_em", expiracao.toISOString())
+    .order("atualizado_em", { ascending: false });
+
+  if (error) return res.json({ success: false, error });
+  res.json({ success: true, data });
+});
+
+// ---- ROTA PARA CONTAGEM DE REPORTES DO USUÁRIO (GET, /reportes/contagem/:email ) ----
+router.get("/reportes/contagem/:email", async (req, res) => {
+    const { email } = req.params;
+
+    const { count, error } = await supabase
+        .from("reportUsers")
+        .select("*", { count: "exact", head: true })
+        .eq("email", email);
+
+    if (error) return res.status(500).json({ success: false });
+
+    return res.status(200).json({ success: true, total: count });
+});
+
+// ---- ROTA PARA BUSCAR OS REPORTES DO USUÁRIO (GET, /meus-reportes/:email) ----
+router.get("/meus-reportes/:email", async (req, res) => {
+    const { email } = req.params;
 
     const { data, error } = await supabase
-        .from("abastecimento")
-        .select("id, bairro, status, atualizado_em")  
-        .ilike("bairro", `%${bairro}%`)               
-        .neq("status", "NORMAL")                       
-        .gte("atualizado_em", expiracao.toISOString())
-        .order("atualizado_em", { ascending: false });
+        .from("reportUsers")
+        .select("*")
+        .eq("email", email)
+        .order("created_at", { ascending: false })
 
-    if (error) return res.json({ success: false, error });
-    res.json({ success: true, data });
+    if (error) return res.status(500).json({ success: false });
+
+    return res.status(200).json({ success: true, reportes: data });
+});
+
+/* ---- ROTA PARA O USUÁRIO DELETAR A CONTA (DELETE, /usuarios/deletar) ---- */
+router.delete("/usuarios/deletar", async (req, res) => {
+    try {
+
+        if (!req.session.user) {
+            return res.status(401).json({
+                success: false,
+                message: "Usuário não autenticado"
+            });
+        }
+
+        const id = req.session.user.id;
+
+        const { error } = await supabase
+            .from("Users")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao deletar conta"
+            });
+        }
+        
+        req.session.destroy((err) => {
+
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Erro ao encerrar sessão"
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Conta deletada com sucesso"
+            });
+
+        });
+
+    } catch (err) {
+        console.error(err);
+
+        return res.status(500).json({
+            success: false,
+            message: "Erro interno do servidor"
+        });
+    }
 });
 
 module.exports = router;

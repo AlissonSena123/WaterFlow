@@ -23,13 +23,17 @@ async function carregarPerfil() {
 
         const user = data.user;
 
+        await meusReportes(user.email);
+
+        const idade = calcularIdade(user.nascimento);
+
         document.getElementById("titleNome").innerHTML = user.nome;
         document.getElementById("userNome").innerHTML = user.nome;
         document.getElementById("userEmail").innerHTML = user.email;
-        document.getElementById("userTel").innerHTML = user.telefone;
-        document.getElementById("userData").innerHTML = formatarData(user.nascimento);
+        document.getElementById("userTel").innerHTML = formatarTelefone(user.telefone);
+        document.getElementById("userData").innerHTML = `${formatarData(user.nascimento)} - ${idade} anos`;
         document.getElementById("userBairro").innerHTML = (user.bairro).toUpperCase();
-        document.getElementById("titleLocalidade").innerHTML = (user.bairro).toUpperCase();
+        document.getElementById("titleLocalidade").innerHTML = `${(user.bairro).toUpperCase()}, BA — Brasil`;
 
         const iniciais = user.nome
             .split(" ")
@@ -66,26 +70,14 @@ btnEditarPerfil.addEventListener("click", async () => {
 
     const user = data.user;
 
-    //Forma antiga de mandar os dados
-    /*const infoUser = {
-        nome: user.nome,
-        email: user.email,
-        telefone: user.telefone
-    }
-
-    const valores = Object.values(infoUser);*/
-
-    //Nova forma
-
-    //A logica ehh simples, pegamos o valor de "name" do html (adicionei aos campos de nome email e telefone dps da uma olhada);
     const modalAvatar = document.getElementById("modalAvatar");
 
     const iniciais = user.nome
-            .split(" ")
-            .map(n => n[0])
-            .join("")
-            .slice(0, 2)
-            .toUpperCase();
+        .split(" ")
+        .map(n => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
 
     modalAvatar.innerHTML = iniciais;
 
@@ -164,3 +156,114 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
         console.error("Erro ao atualizar:", error);
     }
 });
+
+/* Função para calcular a idade do usuário */
+function calcularIdade(dataNascimento) {
+    const [dia, mes, ano] = dataNascimento.split("/");
+    const nascimento = new Date(`${ano}-${mes}-${dia}`);
+    const hoje = new Date();
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mesPassou = hoje.getMonth() > nascimento.getMonth();
+    const diaPassou = hoje.getMonth() === nascimento.getMonth() && hoje.getDate() >= nascimento.getDate();
+
+    if (!mesPassou && !diaPassou) idade--;
+
+    return idade;
+}
+
+/* ==== FUNÇÃO PARA BUSCAR OS REPORTES DO USUÁRIO ==== */
+async function meusReportes(userEmail) {
+    try {
+        const [totalReportes, meusReportes] = await Promise.all([
+            fetch(`/reportes/contagem/${userEmail}`),
+            fetch(`/meus-reportes/${userEmail}`)
+        ]);
+
+        const dataTotal = await totalReportes.json();
+        const dataReportes = await meusReportes.json();
+
+        console.log(dataReportes);
+
+        if (!dataTotal || !dataReportes) return;
+
+        document.getElementById("totalReportes").innerHTML = dataTotal.total;
+
+        const lista = document.getElementById("listaReportes");
+
+        if (dataTotal.total === 0) {
+            lista.innerHTML = `<p>Sem reportes registrado</p>`
+            return;
+        }
+
+        lista.innerHTML = dataReportes.reportes.map(r => `
+            <div class="reporte-card">
+                <span class="reporte-tipo">${r.tipo_problema || "Sem titulo"} <span class="reporte-data">${new Date(r.created_at).toLocaleDateString("pt-BR")}</span></span>
+                <span class="reporte-status">${r.status}</span>
+                <p class="reporte-descricao">${r.descricao || "Sem descrição"}</p>
+            </div>
+        `).join("");
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/* EVENTO PARA DELETAR A CONTA */
+const modalDeletar = document.getElementById("modalDeletar");
+
+document.getElementById("deletarConta").addEventListener("click", () => {
+    modalDeletar.classList.add("active");
+});
+
+document.getElementById("btnCancelarDeletar").addEventListener("click", () => {
+    modalDeletar.classList.remove("active");
+});
+
+modalDeletar.addEventListener("click", (e) => {
+    if (e.target === modalDeletar) modalDeletar.classList.remove("active");
+});
+
+document.getElementById("btnConfirmarDeletar").addEventListener("click", async () => {
+    try {
+        const res = await fetch("/usuarios/deletar", {
+            method: "DELETE",
+            credentials: "include"
+        });
+
+        const text = await res.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.error("Resposta não é JSON:", text);
+            mostrarToast("Erro no servidor", "red");
+            return;
+        }
+
+        if (data.success) {
+            mostrarToast(data.message, "green");
+
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1200)
+
+        } else {
+            mostrarToast(data.message || "Erro ao deletar conta", "red");
+        }
+
+    } catch (err) {
+        console.error(err);
+        mostrarToast("Erro de conexão", "red");
+    }
+});
+
+
+function formatarTelefone(tel) {
+    const n = tel.replace(/\D/g, '');
+    return n.length <= 10
+        ? n.replace(/^(\d{2})(\d{4})(\d{4})/, '($1) $2-$3')
+        : n.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+}

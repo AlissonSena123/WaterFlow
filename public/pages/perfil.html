@@ -73,14 +73,16 @@
                     <input type="file" id="avatar-input" accept="image/*" style="display: none;">
                     <div class="userTitle">
                         <h1 id="titleNome"></h1>
-                        <p><span id="titleLocalidade"></span>, BA</p>
+                        <p><span id="titleLocalidade"></span></p>
                     </div>
                 </div>
-                <button type="button" id="btnEditarPerfil"> <i class="ph-fill ph-pen"></i> <p>Editar Perfil</p></button>
+                <button type="button" id="btnEditarPerfil"> <i class="ph-fill ph-pen"></i>
+                    <p>Editar Perfil</p>
+                </button>
             </section>
 
             <section id="infoUser">
-                <h3>Informações Pessoais:</h3>
+                <h3> <i class="ph-fill ph-identification-card"></i> Informações pessoais</h3>
                 <div class="infoContant">
                     <div class="infoCard">
                         <p> <i class="ph-fill ph-user"></i> Nome:</p>
@@ -103,6 +105,20 @@
                         <p id="userBairro"></p>
                     </div>
                 </div>
+                <h3> <i class="ph-fill ph-warning-circle"></i> Meus reportes</h3>
+                <div class="infoContantReport">
+                    <span>Reportes feitos: <strong id="totalReportes">0</strong></span>
+                    <div id="listaReportes"></div>
+                </div>
+                <hr>
+                <div class="sctDeletarConta">
+                    <h3>Deletar sua conta</h3>
+                    <p>Clique no botão abaixo caso queira deletar sua conta no WaterFlow</p>
+                    <button type="button" id="deletarConta">
+                        <i class="ph-fill ph-trash"></i> Deletar conta
+                    </button>
+                </div>
+                <hr>
                 <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair da conta</button>
             </section>
 
@@ -141,6 +157,17 @@
                             <button type="button" id="btnConfirmarAtualizacao">Confirmar Atualização</button>
                         </div>
                     </form>
+                </aside>
+            </div>
+            <div class="modal" id="modalDeletar">
+                <aside id="modalDeletarContent">
+                    <i class="ph-fill ph-warning" id="iconAvisoDelete"></i>
+                    <h2>Deletar conta</h2>
+                    <p>Tem certeza que deseja deletar sua conta? Essa ação <strong>não pode ser desfeita.</strong></p>
+                    <div id="deletarButtons">
+                        <button type="button" id="btnCancelarDeletar">Cancelar</button>
+                        <button type="button" id="btnConfirmarDeletar">Sim, deletar</button>
+                    </div>
                 </aside>
             </div>
         </main>

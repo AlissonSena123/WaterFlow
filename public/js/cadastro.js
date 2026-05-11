@@ -21,13 +21,13 @@ btnCadastrar.addEventListener("click", async (event) => {
     try {
         const response = await fetch("/cadastrar", {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userCadastro)
         });
 
         const data = await response.json();
 
-        if(data.success){
+        if (data.success) {
             mostrarToast(data.message, "green");
             window.location.href = "/login";
         } else {
@@ -70,6 +70,20 @@ inputCEP.addEventListener("blur", async () => {
 
     document.getElementById("cidade").value = data.localidade || "";
     document.getElementById("bairro").value = data.bairro || "";
-    document.getElementById("pais").value = "Brasil"; 
+    document.getElementById("pais").value = "Brasil";
     document.getElementById("estado").value = data.uf || "";
+});
+
+/* Evento para formatar o campo de telefone */
+document.getElementById("idTelefone").addEventListener("input", (evento) => {
+    let telefone = evento.target.value.replace(/\D/g, '') // remove qualquer valor que não seja número
+
+    if (telefone.length < 10) {
+        telefone = telefone.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+        telefone = telefone.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+
+    evento.target.value = telefone;
+
 });

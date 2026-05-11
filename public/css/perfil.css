@@ -28,12 +28,10 @@ main{
     padding: 24px;
     display: grid;
     grid-template-rows: max-content 1fr;
-    gap: 20px;
 }
 
 main > section{
     box-shadow: var(--shadow-medium);
-    border-radius: 12px;
     background-color: white;
 }
 
@@ -46,7 +44,7 @@ main > .titlePerfil{
     justify-content: space-between;
     align-items: center;
     padding: 30px;
-    border-radius: 7px;
+    border-radius: 7px 7px 0px 0px;
 }
 
 main > .titlePerfil > .User{
@@ -58,9 +56,9 @@ main > .titlePerfil > .User{
 }
 
 #avatar{
-  font-size: 2rem;
+  font-size: 1.4rem;
   background-color: var(--color-bg-secondary-blue);
-  padding: 20px;
+  padding: 10px;
   border-radius: 50%;
   width: 70px; 
   height: 70px; 
@@ -112,14 +110,23 @@ main > section#infoUser{
     grid-template-rows: max-content 1fr;
     gap: 20px;
     box-shadow: none;
-    border-radius: none;
+    border-radius: 0px 0px 7px 7px;
+    border: 1px solid rgba(54, 54, 54, 0.293);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
+    padding: 30px;
 }
 
 main > section#infoUser > h3{
     grid-column: 1/-1;
     font-weight: lighter;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: var(--color-bg-blue-darker);
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 2px;
+    align-items: center;
 }
 
 .infoContant{
@@ -130,24 +137,26 @@ main > section#infoUser > h3{
 }
 
 .infoContant > .infoCard{
-    background-color: rgba(140, 176, 255, 0.215);
-    padding: 20px;
-    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    gap: 5px;
 }
 
 .infoContant > .infoCard > p:first-child{
     display: flex;
     align-items: center;
     gap: 2px;
-    color: rgba(19, 16, 84, 0.403);
-    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.768);
+    font-size: .9rem;
 }
 
 .infoContant > .infoCard > p:last-child{
-    font-size: 1.1rem;
+    font-size: .9rem;
+    border: 1px solid rgba(182, 182, 182, 0.249);
+    padding: 15px;
+    border-radius: 3px;
+    background-color: rgba(207, 207, 207, 0.226);
 }
 
 .infoContant > .infoCard:last-child{
@@ -157,7 +166,7 @@ main > section#infoUser > h3{
 main > section#infoUser > button#logout{
     align-self: center;
     justify-self: flex-end;
-    padding: 13px;
+    padding: 16px;
     background-color: red;
     color: white;
     display: flex;
@@ -167,12 +176,118 @@ main > section#infoUser > button#logout{
     width: max-content;
 }
 
+hr{
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 main > section#infoUser > button#logout > i{
     font-size: 1.4rem;
 }
 
 main > section#infoUser > button#logout:hover{
     background-color: rgb(167, 0, 0);
+}
+
+.infoContantReport {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.infoContantReport > span {
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+}
+
+#listaReportes{
+    display: grid;
+    gap: 5px;
+    overflow-y: scroll;
+    height: 350px;
+    border: 1px solid rgba(0, 0, 0, 0.223);
+    padding: 20px;
+    border-radius: 7px;
+}
+
+#listaReportes p{
+    font-size: .9rem;
+    color: rgba(3, 3, 3, 0.608);
+}
+
+.reporte-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: rgba(218, 218, 218, 0.2);
+    border-left: 5px solid var(--color-bg-primary-blue); 
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-right: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background-color: white;
+}
+
+.reporte-tipo {
+    grid-column: 1/-2;
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--color-bg-primary-blue);
+    display: flex;
+    flex-direction: column;
+}
+
+.reporte-data {
+    font-size: .8rem;
+    color: rgba(0,0,0,0.5);
+}
+
+.reporte-descricao {
+    grid-column: 1/-1;
+    font-size: .85rem;
+    color: rgba(0,0,0,0.7);
+}
+
+.reporte-status {
+    grid-column: 2/-1;
+    font-size: .75rem;
+    padding: 3px 8px;
+    border-radius: 7px;
+    width: max-content;
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+}
+
+/* SEÇÃO PARA DELETAR CONTA */
+.sctDeletarConta{
+    background-color: var(--color-bg-blue-darker);
+    border-radius: 7px;
+    color: white;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.sctDeletarConta h3{
+    font-weight: lighter;
+}
+
+.sctDeletarConta p{
+    font-size: .85rem;
+}
+
+.sctDeletarConta button{
+    background-color: red;
+    width: max-content;
+    color: white;
 }
 
 
@@ -187,7 +302,7 @@ main > section#infoUser > button#logout:hover{
     opacity: 0;
     pointer-events: none;
     transition: background 0.1s ease, opacity 0.2s ease;
-    z-index: 999;
+    z-index: 9999;
 }
 
 .modal.active {
@@ -320,6 +435,59 @@ aside > form > div#updateButton > button:last-child{
     justify-self: flex-end;
 }
 
+/* MODAL PARA DELETAR A CONTA */
+
+#modalDeletarContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 40px;
+    max-width: 400px;
+}
+
+#iconAvisoDelete {
+    font-size: 4rem;
+    color: red;
+}
+
+#modalDeletarContent > h2 {
+    color: var(--color-bg-primary-blue);
+}
+
+#modalDeletarContent > p {
+    font-size: .9rem;
+    color: rgba(0,0,0,0.6);
+}
+
+#deletarButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#deletarButtons > button {
+    padding: 12px;
+}
+
+#deletarButtons > button:first-child {
+    background: none;
+    outline: 2px solid rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.6);
+}
+
+#deletarButtons > button:last-child {
+    background-color: red;
+    color: white;
+}
+
+#deletarButtons > button:hover {
+    transform: translateY(-3px);
+}
+
 /* HOVER */
 aside > form > div#updateButton > button:hover{
     transform: translateY(-4px);
@@ -332,6 +500,10 @@ aside > form > div#updateButton > button:first-child:hover{
 
 aside > form > div#updateButton > button:last-child:hover{
     background-color: var(--color-bg-blue-darker);
+}
+
+.sctDeletarConta button:hover{
+    background-color: darkred;
 }
 
 @media (max-width: 850px){

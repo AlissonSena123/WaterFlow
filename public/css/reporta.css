@@ -105,7 +105,9 @@ main>section>form>div>select {
 }
 
 main>section>form>.title {
-    margin: 15px 0px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 
 }
 
@@ -114,10 +116,6 @@ main>section>form>.title>p {
     display: flex;
     align-items: center;
     gap: 2px;
-}
-
-main>section>form>.title>hr {
-    border: 1.5px solid rgba(146, 146, 146, 0.282);
 }
 
 main>section>form>.titleItemDadosPessoais {
