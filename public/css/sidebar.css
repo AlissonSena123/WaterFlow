@@ -220,6 +220,44 @@
     padding: 0 3px;
 }
 
+.notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.notif-conteudo {
+    flex: 1; /* Empurra o X para a direita */
+}
+
+.notif-fechar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #999;
+    padding: 0 4px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.2s;
+    width: max-content;
+    box-shadow: none;
+}
+
+.notif-fechar:hover {
+    color: #333;
+}
+
+/* Animação de saída ao fechar */
+@keyframes notifSaindo {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(20px); }
+}
+
+.notif-item.saindo {
+    animation: notifSaindo 0.25s ease forwards;
+}
+
 @media (max-width: 1164px){
 
     nav{

@@ -1,6 +1,9 @@
-// Chaves usadas no localStorage para separar os dois tipos de notificação
 const CHAVE_REPORTES = "notif_reportes";
 const CHAVE_ALERTAS = "notif_alertas";
+
+// Cache em memória para evitar refazer fetch ao fechar notificações
+let cacheReportes = [];
+let cacheAlertas = [];
 
 // Busca no localStorage a lista de ids já lidos para uma chave específica
 function getLidas(key) {
@@ -16,6 +19,27 @@ function marcarLida(key, id) {
     }
 }
 
+// Atualiza apenas o badge do sino sem refazer requisições ao servidor
+function atualizarBadge() {
+    const lidasReportes = getLidas(CHAVE_REPORTES);
+    const lidasAlertas = getLidas(CHAVE_ALERTAS);
+
+    // Conta quantas notificações ainda não foram lidas, somando as duas requisições, reporte e alerta
+    const totalNaoLidas =
+        cacheReportes.filter(n => !lidasReportes.includes(String(n.id))).length +
+        cacheAlertas.filter(n => !lidasAlertas.includes(`${n.id}_${n.atualizado_em}`)).length;
+
+    // Atualiza o badge no sino, mostra o número de notificações não lidas ou esconde se não tiver nenhuma
+    const badge = document.getElementById("notifBadge");
+    const icone = document.querySelector("#notifBtn i");
+
+    badge.textContent = totalNaoLidas;
+    badge.style.display = totalNaoLidas > 0 ? "flex" : "none";
+
+    icone.classList.toggle("ph-bell-ringing", totalNaoLidas > 0);
+    icone.classList.toggle("ph-bell", totalNaoLidas === 0);
+}
+
 /* ---- FUNÇÃO ASSÍNCRONA QUE BUSCA E EXIBI AS NOTIFICAÇÃO NA TELA ---- */
 async function carregarNotificacoes() {
     try {
@@ -28,49 +52,48 @@ async function carregarNotificacoes() {
         const dadosReportes = await resReportes.json();
         const dadosAlertas = await resAlertas.json();
 
+        console.log("alertas:", dadosAlertas);
+
         // Busca no localStorage quais notificações o usuário já clicou/leu
         const lidasReportes = getLidas(CHAVE_REPORTES);
         const lidasAlertas = getLidas(CHAVE_ALERTAS);
 
         // Operação ternario que verifica se a requisição foi bem-sucedida
-        const reportes = dadosReportes.success ? dadosReportes.data : [];
-        const alertas = dadosAlertas.success ? dadosAlertas.data : [];
+        // Salva no cache em memória para uso posterior sem novas requisições
+        if (dadosReportes.success) cacheReportes = dadosReportes.data;
+        if (dadosAlertas.success) cacheAlertas = dadosAlertas.data;
 
+        // Filtra fora as notificações já lidas antes de montar os templates
+        const reportesVisiveis = cacheReportes.filter(n => !lidasReportes.includes(String(n.id)));
+        const alertasVisiveis = cacheAlertas.filter(n => !lidasAlertas.includes(`${n.id}_${n.atualizado_em}`));
 
-        // Conta quantas notificações ainda não foram lidas, somando as duas requisições, reporte e alerta
-        const totalNaoLidas =
-            reportes.filter(n => !lidasReportes.includes(String(n.id))).length +
-            alertas.filter(n => !lidasAlertas.includes(String(n.id))).length;
+        // Atualiza o badge do sino com base no cache atual
+        atualizarBadge();
 
-        // Atualiza o badge no sino, mostra o número de notificações não lidas ou esconde se não tiver nenhuma
-        const badge = document.getElementById("notifBadge");
-        const icone = document.querySelector("#notifBtn i");
-
-        badge.textContent = totalNaoLidas;
-        badge.style.display = totalNaoLidas > 0 ? "flex" : "none";
-
-        if (totalNaoLidas > 0) {
-            icone.classList.replace("ph-bell", "ph-bell-ringing");
-        } else {
-            icone.classList.replace("ph-bell-ringing", "ph-bell");
-        }
+        console.log("alertas visíveis:", alertasVisiveis);
+        console.log("lidas no localStorage:", getLidas(CHAVE_ALERTAS));
 
         const lista = document.getElementById("notifLista");
 
         // Se o id estiver no localStorage, adiciona a classe "nao-lida" ou não
-        const itensReportes = reportes.map(n => `
-            <li class="notif-item ${lidasReportes.includes(String(n.id)) ? "" : "nao-lida"}"
-                data-id="${n.id}" data-tipo="reporte">
-                <p>Seu reporte do bairro <strong>${n.bairro}</strong> foi respondido! Verifique seu email.</p>
-                <span>${new Date(n.respondido_em).toLocaleDateString("pt-BR")}</span>
+        // Botão X adicionado dentro de cada item para fechar a notificação
+        const itensReportes = reportesVisiveis.map(n => `
+            <li class="notif-item nao-lida" data-id="${n.id}" data-tipo="reporte">
+                <div class="notif-conteudo">
+                    <p>Seu reporte do bairro <strong>${n.bairro}</strong> foi respondido! Verifique seu email.</p>
+                    <span>${new Date(n.respondido_em).toLocaleDateString("pt-BR")}</span>
+                </div>
+                <button class="notif-fechar" aria-label="Fechar notificação">×</button>
             </li>
         `);
 
-        const itensAlertas = alertas.map(n => `
-            <li class="notif-item ${lidasAlertas.includes(String(n.id)) ? "" : "nao-lida"}"
-                data-id="${n.id}" data-tipo="alerta">
-                <p>Status do abastecimento em <strong>${n.bairro.toUpperCase()}</strong> foi atualizado para <strong>${n.status.replace(/_/g, ' ')}</strong>.</p>
-                <span>${new Date(n.atualizado_em).toLocaleDateString("pt-BR")}</span>
+        const itensAlertas = alertasVisiveis.map(n => `
+            <li class="notif-item nao-lida" data-id="${n.id}_${n.atualizado_em}" data-tipo="alerta">
+                <div class="notif-conteudo">
+                    <p>Status do abastecimento em <strong>${n.bairro.toUpperCase()}</strong> foi atualizado para <strong>${n.status.replace(/_/g, ' ')}</strong>.</p>
+                    <span>${new Date(n.atualizado_em).toLocaleDateString("pt-BR")}</span>
+                </div>
+                <button class="notif-fechar" aria-label="Fechar notificação">×</button>
             </li>
         `);
 
@@ -83,19 +106,32 @@ async function carregarNotificacoes() {
             ? `<li class="notif-vazia">Nenhuma notificação.</li>`
             : todos.join("");
 
-        // Adiciona um evento de clique em cada item da lista
-        lista.querySelectorAll(".notif-item").forEach(el => {
-            el.addEventListener("click", () => {
+        // Adiciona um evento de clique no botão X de cada item da lista
+        lista.querySelectorAll(".notif-fechar").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evita propagar o clique para o <li>
+
+                const el = btn.closest(".notif-item");
 
                 // Identifica se é reporte ou alerta para usar a chave certa no localStorage
                 const tipo = el.dataset.tipo;
                 const key = tipo === "reporte" ? CHAVE_REPORTES : CHAVE_ALERTAS;
 
-                // Salva o id no localStorage para marcar como lida e remove a classe "nao_lida"
+                // Salva o id no localStorage para marcar como lida
                 marcarLida(key, String(el.dataset.id));
-                el.classList.remove("nao-lida");
 
-                carregarNotificacoes();
+                // Animação de saída antes de remover o item do DOM
+                el.classList.add("saindo");
+                el.addEventListener("animationend", () => {
+                    el.remove();
+
+                    // Se a lista ficou vazia após remover, exibe o estado vazio
+                    if (lista.querySelectorAll(".notif-item").length === 0) {
+                        lista.innerHTML = `<li class="notif-vazia">Nenhuma notificação.</li>`;
+                    }
+
+                    atualizarBadge(); // Atualiza o badge do sino sem refazer fetch
+                }, { once: true });
             });
         });
 
@@ -124,4 +160,4 @@ document.addEventListener("click", (e) => {
 });
 
 carregarNotificacoes(); // Carrega as notificações ao abrir a página
-setInterval(carregarNotificacoes, 30000); // Atualiza automaticamente a cada 30 segundos
+setInterval(carregarNotificacoes, 5_000); // Verifica novas notificações a cada 5s
