@@ -228,8 +228,16 @@ main>section>form>#item7>textarea:focus {
 /* MEDIA QUERYS */
 @media (max-width: 850px) {
 
-    main>div.title-report {
+    main{
+        padding: 10px;
+    }
+
+    main section{
         padding: 20px;
+    }
+
+    main>div.title-report {
+        padding: 40px;
     }
 
     .title-report>h1>i {

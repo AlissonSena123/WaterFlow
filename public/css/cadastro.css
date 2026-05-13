@@ -78,11 +78,13 @@ main{
     margin-bottom: 10px;
     text-align: center;
     color: var(--color-bg-primary-blue);
+    font-size: clamp(20px, 5vw, 30px);
 }
 
 .register-right > .content > p{
     text-align: center;
     color: var(--color-bg-primary-blue);
+    font-size: clamp(14px, 2vw, 16px);
 }
 
 .register-right > form{
@@ -119,6 +121,11 @@ main{
     transition: .1s all ease-in-out;
     padding: 15px; 
 }
+
+.register-right > form > .form-item-register > label{
+    font-size: clamp(14px, 2vw, 16px);
+}
+
 
 .register-right > form > .form-item-register > input{
     padding: 15px;
@@ -166,6 +173,9 @@ main{
 }
 
 @media (max-width: 1271.4px){
+    .register-right{
+        row-gap: 30px;
+    }
 
     .register-left > .content{
         text-align: center;
