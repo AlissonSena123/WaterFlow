@@ -190,7 +190,7 @@ router.post("/redefinirSenha", async (req, res) => {
 
     const users = data;
 
-    const token = crypto.randomBytes(32).toString('hex')
+    const token = crypto.randomBytes(32).toString('hex');
 
     const expirar = new Date();
     expirar.setHours(expirar.getHours() + 1);
