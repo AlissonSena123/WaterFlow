@@ -224,9 +224,9 @@ router.post("/redefinirSenha", async (req, res) => {
     });
 
 
-    const resetURL = `http://localhost:8080/redefinir-senha/${token}`;
+    const resetURL = `${process.env.BASE_ULR}/redefinir-senha/${token}`;
 
-    await transporte.sendMail({
+    await transporte.sendMail({ 
       from: process.env.MAIL_USER,
       to: emailLimpo,
       subject: "Redefinir senha WaterFlow",
