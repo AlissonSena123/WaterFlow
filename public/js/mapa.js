@@ -265,32 +265,29 @@ function statusInfo(nomeExibicao, data) {
                 </p>
             </div>
         </div>
-        <div class="dataInterrupcaoRetorno">
-            <div class="inicioInterrupcao">
-                <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
-                <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || " "}</p>
-            </div>
-            <p>·</p>
-            <div class="prevRetorno">
-                <p><i class="ph-fill ph-clock-clockwise"></i> Previsão de Retorno:</p>
-                <p>${formatarData(bairro.previsao_retorno, bairro.status) || " "}</p>
-            </div>
-        </div>
         <div class="cardBody">
+            <div class="cardItem inicioInterrupcao">
+                <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
+                <p>${formatarData(bairro.inicio_interrupcao, bairro.status) || "-"}</p>
+            </div>
+            <div class="cardItem prevRetorno">
+                <p><i class="ph-fill ph-clock-counter-clockwise"></i> Previsão de Retorno:</p>
+                <p>${formatarData(bairro.previsao_retorno, bairro.status) || "-"}</p>
+            </div>
             <div class="cardItem causaInterrupcao">
                 <p><i class="ph-fill ph-warning-circle"></i> Causa da Interrupção:</p>
-                <p>${bairro.causa_interrupcao || "Sem Interrupção"}</p>
+                <p>${(bairro.causa_interrupcao || "Sem interrupção").replace(/_/g, ' ')}</p>
             </div>
             <div class="cardItem areaAfetada">
                 <p><i class="ph-fill ph-map-pin-area"></i> Área Afetada:</p>
-                <p>${(bairro.area_afetada || "-").replace(/_/g, ' ')}</p>
+                <p>${(bairro.area_afetada || "Sem área afetada").replace(/_/g, ' ')}</p>
             </div>
             <div class="cardItem pressaoAgua">
                 <p><i class="ph-fill ph-gauge"></i> Pressão da água:</p>
                 <p>${(bairro.pressao_rede || "-").replace(/_/g, ' ')}</p>
             </div>
             <div class="cardItem medResolucao">
-                <p><i class="ph-fill ph-check-circle"></i> Medida de Solução:</p>
+                <p><i class="ph-fill ph-wrench"></i> Medida de Solução:</p>
                 <p>${(bairro.medida_solucao || "-").replace(/_/g, ' ')}</p>
             </div>
             <div class="cardItem descInfo">
@@ -318,14 +315,14 @@ document.getElementById("cardStatus").addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
 
     if (cliqueNoBairro) {
-        cliqueNoBairro = false; 
+        cliqueNoBairro = false;
         return;
     }
 
     const card = document.getElementById("cardStatus");
-    
-    if (!card.classList.contains("visible")) return; 
-    
+
+    if (!card.classList.contains("visible")) return;
+
     if (!card.contains(e.target)) {
         card.classList.remove("visible");
         card.addEventListener("transitionend", () => {

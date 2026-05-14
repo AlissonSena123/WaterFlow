@@ -78,11 +78,13 @@ main{
     margin-bottom: 10px;
     text-align: center;
     color: var(--color-bg-primary-blue);
+    font-size: clamp(20px, 5vw, 30px);
 }
 
 .register-right > .content > p{
     text-align: center;
     color: var(--color-bg-primary-blue);
+    font-size: clamp(14px, 2vw, 16px);
 }
 
 .register-right > form{
@@ -120,18 +122,26 @@ main{
     padding: 15px; 
 }
 
+.register-right > form > .form-item-register > label{
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+
 .register-right > form > .form-item-register > input{
-    padding: 14px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 4px;
     border: 2px solid var(--color-bg-blue-darker);
-    background-color: var(--color-bg-white-opacity);
+    background-color: rgba(234, 239, 255, 0.575);
     width: 100%;
 }
 
 .register-right > form > .item3 > p{ 
-    color: red; 
-    font-size: .9rem; 
-    text-align: end;
+    color: rgb(110, 110, 110); 
+    font-size: .8rem; 
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .register-right > form > .form-item-register{
@@ -163,6 +173,9 @@ main{
 }
 
 @media (max-width: 1271.4px){
+    .register-right{
+        row-gap: 30px;
+    }
 
     .register-left > .content{
         text-align: center;

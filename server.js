@@ -155,7 +155,6 @@ server.get("/me", async (req, res) => {
   }
 
   if (req.session.admin) {
-
     const id_admin = req.session.admin.id;
 
     const { data: admin, error } = await supabase
@@ -165,14 +164,14 @@ server.get("/me", async (req, res) => {
       .single();
 
     if (error || !admin) {
-      return res.json({ user: null });
+      return res.json({ user: null })
     }
 
     return res.json({
       tipo: "funcionario",
       user: {
         id: admin.id,
-        nome: admin.nome,
+        nome_completo: admin.nome,
         email: admin.email,
         role: admin.role
       }
@@ -180,7 +179,6 @@ server.get("/me", async (req, res) => {
   }
 
   if (req.session.user) {
-
     const id = req.session.user.id;
 
     const { data: user, error } = await supabase
@@ -206,11 +204,7 @@ server.get("/me", async (req, res) => {
       }
     });
   }
-
-  return res.json({
-    tipo: null,
-    user: null
-  });
+  return res.json({ tipo: null, user: null });
 });
 
 server.listen(PORT, () => {

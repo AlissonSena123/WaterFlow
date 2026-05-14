@@ -1,143 +1,186 @@
-.container{
+.container {
     grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "nav header"
-    "nav main"
+    grid-template-areas:
+        "nav header"
+        "nav main"
 }
 
-header{
-    display: flex;
-    justify-content: center;
+header {
+    display: grid;
+    grid-template-columns: 1fr max-content;
     align-items: center;
     padding: 22px;
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
     position: relative;
-    z-index: 1;
+    z-index: 1001;
     background: white;
 }
 
-header img{
+header img {
     width: 100px;
+    justify-self: center;
 }
 
-main{
+main {
     display: grid;
     grid-template-rows: max-content auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
     color: black;
     padding: 24px;
-    background: #f6f8fc;
     position: relative;
     z-index: 0;
 }
 
-main > div.title-report{
+main>div.title-report {
     width: 100%;
-    padding: 20px;
+    padding: 30px;
+    background-color: var(--color-bg-primary-blue);
     color: white;
-    background-color: var(--color-bg-blue-darker);
-    border-radius: 12px;
-    margin-bottom: 20px;
+    font-weight: lighter;
+    border-radius: 7px 7px 0px 0px;
 }
 
-main > .title-report > h1{
+main>.title-report>h1 {
+    font-weight: lighter;
     display: flex;
     align-items: center;
     column-gap: 5px;
     font-size: 2rem;
     margin-bottom: 5px;
-    
+
 }
-.title-report > h1 > i{
+
+.title-report>h1>i {
     font-size: 3rem;
 }
 
-main > .title-report > p{
+main>.title-report>p {
     font-size: 1rem;
     color: white;
 }
 
-main > section{
-    border-radius: 12px;
+main>section {
+    border-radius: 0px 0px 7px 7px;
     box-shadow: var(--shadow-soft);
     background: white;
-    padding: 20px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
     min-height: 100%;
+    border: 1px solid rgba(54, 54, 54, 0.293);
+    padding: 30px;
 }
 
-main > section > form{
+main>section>form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: max-content;
     gap: 20px 10px;
-    grid-template-areas: 
-    "item1 item1"
-    "item2 item3"
-    "item4 item4"
-    "item5 item6"
-    "item7 item7"
-    "none btn";
+    grid-template-areas:
+        "titlePessoa titlePessoa"
+        "item1 item2"
+        "titleProblema titleProblema"
+        "item3 item4"
+        "item5 item6"
+        "item7 item7"
+        "none btn";
     color: var(--color-bg-primary-blue);
     min-height: 100%;
 }
 
-main > section > form > div{
+main>section>form>div {
     display: flex;
     flex-direction: column;
 }
 
-main > section > form > div > label{
+main>section>form>div>label {
     margin-bottom: 5px;
+    font-size: .9rem;
 }
 
-main > section > form > div > input,
-main > section > form > div > select{
+main>section>form>div>input,
+main>section>form>div>select {
     padding: 15px;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
     background: #f0f4ff;
 }
 
-main > section > form > #item1{
+main>section>form>.title {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+main>section>form>.title>p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+main>section>form>.titleItemDadosPessoais {
+    grid-area: titlePessoa;
+}
+
+main>section>form>.titleItemDadosProblema {
+    grid-area: titleProblema;
+}
+
+main>section>form>#item1 {
     grid-area: item1;
 }
 
-main > section > form > #item2{
+main>section>form>#item2 {
     grid-area: item2;
 }
 
-main > section > form > #item3{
+main>section>form>#item3 {
     grid-area: item3;
 }
 
-main > section > form > #item4{
+#item3 select {
+    padding: 14px;
+}
+
+main>section>form>#item4 {
     grid-area: item4;
     align-self: flex-end;
 }
-main > section > form > #item5{
+
+#item4 p,
+#item1 p {
+    font-size: .82rem;
+    color: #1b1b1b9a;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-top: 5px;
+}
+
+main>section>form>#item5 {
     grid-area: item5;
     align-self: flex-end;
 }
 
-main > section > form > #item6{
+main>section>form>#item6 {
     grid-area: item6;
     align-self: flex-end;
 }
 
-main > section > form > #item7{
+main>section>form>#item7 {
     grid-area: item7;
 }
 
-main > section > form > #item7 > textarea{
+main>section>form>#item7>textarea {
     height: 340px;
     resize: none;
     padding: 13px;
-    border: 2px solid royalblue;
+    border: 2px solid var(--color-bg-blue-darker);
     border-radius: 5px;
     background: #f0f4ff;
 }
 
-main > section > form > button{
+main>section>form>button {
     margin-top: 20px;
     border-radius: 8px;
     grid-area: btn;
@@ -153,40 +196,78 @@ main > section > form > button{
     background-color: royalblue;
 }
 
-section > form > button > i{
+section>form>button>i {
     font-size: 1.2rem;
 }
 
-main > section > form > button:hover{
+main>section>form>button:hover {
     background-color: var(--color-bg-blue-darker);
 }
 
 
 /* FOCUS */
-form > div > input:focus,
-form > #item6 > textarea:focus,
-main > section > form > div > select:focus{
+form>div>input:focus,
+form>#item6>textarea:focus,
+main>section>form>div>select:focus,
+main>section>form>#item7>textarea:focus {
     background-color: white;
     box-shadow: 0 0 5px var(--color-bg-secondary-blue);
 }
 
+/* HOVER */
+#item3>select:hover {
+    cursor: pointer;
+}
+
+#item5>input:hover,
+#item6>input:hover {
+    cursor: no-drop;
+}
+
 
 /* MEDIA QUERYS */
-@media (max-width: 850px){
-    main > section > form{
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-        "item1"
-        "item2"
-        "item3"
-        "item4"
-        "item5"
-        "item6"
-        "item7"
-        "btn";
+@media (max-width: 850px) {
+
+    main{
+        padding: 10px;
     }
-    
-    main > section > form > button{
+
+    main section{
+        padding: 20px;
+    }
+
+    main>div.title-report {
+        padding: 40px;
+    }
+
+    .title-report>h1>i {
+        font-size: 2rem;
+    }
+
+    main>.title-report>h1 {
+        justify-content: center;
+    }
+
+    main>div.title-report {
+        text-align: center;
+    }
+
+    main>section>form {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "titlePessoa"
+            "item1"
+            "item2"
+            "titleProblema"
+            "item3"
+            "item4"
+            "item5"
+            "item6"
+            "item7"
+            "btn";
+    }
+
+    main>section>form>button {
         justify-self: center;
         margin-top: 10px;
         padding: 20px;
@@ -194,4 +275,8 @@ main > section > form > div > select:focus{
     }
 }
 
-
+@media (max-width: 600px) {
+    .title-report>h1>i {
+        display: none;
+    }
+}

@@ -1,27 +1,28 @@
-.container{
+.container {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "nav header"
-    "nav main";
+    grid-template-areas:
+        "nav header"
+        "nav main";
 }
 
-header{
-    display: flex;
-    justify-content: center;
+header {
+    display: grid;
+    grid-template-columns: 1fr max-content;
     align-items: center;
     padding: 22px;
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
     position: relative;
-    z-index: 1;
+    z-index: 1001;
     background: white;
 }
 
-header img{
+header img {
     width: 100px;
+    justify-self: center;
 }
 
-main{
+main {
     background: white;
     background-size: cover;
     padding: 10px;
@@ -30,24 +31,24 @@ main{
     gap: 10px;
 }
 
-main > section{
+main>section {
     padding: 20px;
     box-shadow: var(--shadow-medium);
-    border-radius: 12px;
+    border-radius: 7px;
     background-color: white;
 }
 
-main > section > h2{
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
+main>section>h2 {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
 }
 
-main > section > h2 > i{
-  font-size: 1.8rem;
+main>section>h2>i {
+    font-size: 1.8rem;
 }
 
-main > #section-map{
+main>#section-map {
     display: block;
     position: relative;
     height: 100vh;
@@ -56,38 +57,46 @@ main > #section-map{
     border: 2px solid royalblue;
 }
 
-main > #section-map > .div-search {
+main>#section-map>.div-search {
     position: absolute;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
     max-width: 700px;
-    column-gap: 10px;
     z-index: 1000;
     display: flex;
 }
 
-.div-search > input{
-    padding: 13px;
+.div-search>input {
+    padding: 16px;
     background-color: #f0f4ff;
-    border: 2px solid royalblue;
-    border-radius: 9px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.221);
+    border: 2px solid var(--color-bg-primary-blue);
+    border-radius: 50px 0px 0px 50px;
     flex: 1;
 }
 
-.div-search > button{
+.div-search>button {
     background-color: var(--color-bg-primary-blue);
     color: white;
-    width: 80px;
+    width: 90px;
     justify-content: center;
     align-items: center;
     display: flex;
+    border-radius: 0px 50px 50px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-main > #section-map > #map{
+.div-search>button>span{
+    font-size: 1.1rem;
+}
+
+main>#section-map>#map {
     box-shadow: var(--shadow-soft);
-    border-radius: 9px;
+    border-radius: 7px;
     height: 100%;
     width: 100%;
 }
@@ -95,8 +104,8 @@ main > #section-map > #map{
 #cardStatus {
     position: absolute;
     bottom: 20px;
-    left: 20px; 
-    transform: translateY(20px); 
+    left: 20px;
+    transform: translateY(20px);
     width: max-content;
     z-index: 1000;
     background: white;
@@ -108,7 +117,7 @@ main > #section-map > #map{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
-}  
+}
 
 #cardStatus.visible {
     opacity: 1;
@@ -116,7 +125,7 @@ main > #section-map > #map{
     transform: translateY(0);
 }
 
-#cardStatus > .cardHeader{
+#cardStatus>.cardHeader {
     background-color: var(--color-bg-primary-blue);
     color: white;
     padding: 20px;
@@ -127,7 +136,7 @@ main > #section-map > #map{
     border-radius: 10px 10px 0px 0px;
 }
 
-#cardStatus > .cardHeader > i{
+#cardStatus>.cardHeader>i {
     font-size: 2rem;
     color: white;
     background-color: #aac1ff7d;
@@ -135,72 +144,54 @@ main > #section-map > #map{
     border-radius: 50px;
 }
 
-#cardStatus > .cardHeader > .cardHeaderContant > p:first-child{
+#cardStatus>.cardHeader>.cardHeaderContant>p:first-child {
     font-size: 1.5rem;
 }
 
-#cardStatus > .cardHeader > .cardHeaderContant > p:last-child{
+#cardStatus>.cardHeader>.cardHeaderContant>p:last-child {
     color: rgba(255, 255, 255, 0.61);
     font-weight: lighter;
-    font-size: .9rem;
+    font-size: .85rem;
 }
 
-.dataInterrupcaoRetorno{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #ecf0ff9c;
-    padding: 15px 20px;
-    gap: 10px;
-}
-
-.dataInterrupcaoRetorno > div{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    font-size: 1rem;
-    background-color: #d0dcff7d;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.dataInterrupcaoRetorno > div > p:first-child{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-#cardStatus > .cardBody{
+#cardStatus>.cardBody {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 10px;
-    grid-template-areas: 
-    "titulo titulo titulo"
-    "causaInterrupcao causaInterrupcao causaInterrupcao"
-    "areaAfetada pressaoAgua medResolucao"
-    "descInfo descInfo descInfo";
+    grid-template-areas:
+        "titulo"
+        "inicioInterrupcao"
+        "prevRetorno"
+        "causaInterrupcao"
+        "pressaoAgua"
+        "areaAfetada"
+        "medResolucao"
+        "descInfo";
     padding: 20px;
 }
 
 .cardItem {
-    background: rgba(221, 238, 255, 0.6);
+    background: rgba(221, 238, 255, 0.326);
     border-radius: 7px;
-    padding: 15px;
+    padding: 12px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
 }
 
-.cardItem > p:first-child{
+.cardItem>p {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 3px;
+    font-size: .95rem;
 }
 
+.cardItem>p:last-child{
+    text-align: end;
+}
 
-.status{
+.status {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -209,45 +200,82 @@ main > #section-map > #map{
     justify-self: flex-end;
 }
 
-#cardStatus > .cardBody > h3{ grid-area: titulo;}
+#cardStatus>.cardBody>h3 {
+    grid-area: titulo;
+}
 
-.causaInterrupcao { grid-area: causaInterrupcao;}
-.areaAfetada{ grid-area: areaAfetada; }
-.pressaoAgua{ grid-area: pressaoAgua; }
-.medResolucao{ grid-area: medResolucao;}
-.descInfo{ grid-area: descInfo; }
+.inicioInterrupcao{
+    grid-area: inicioInterrupcao;
+}
+
+.prevRetorno{
+    grid-area: prevRetorno;
+}
+
+.causaInterrupcao {
+    grid-area: causaInterrupcao;
+}
+
+.areaAfetada {
+    grid-area: areaAfetada;
+}
+
+.pressaoAgua {
+    grid-area: pressaoAgua;
+}
+
+.medResolucao {
+    grid-area: medResolucao;
+}
+
+.descInfo {
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    grid-area: descInfo;
+}
 
 
 .badge {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 4px 12px;
-    text-transform: none;
+    padding: 12px 15px;
+    border-radius: 50px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: 30px;
 }
 
+
 /* HOVER */
-.div-search > button:hover{
+.div-search>button:hover {
     background-color: var(--color-bg-secondary-blue);
 }
 
 /* FOCUS */
 
-.div-search > input:focus{
+.div-search>input:focus {
     background-color: white;
 }
 
+
 @media (max-width: 1164px) {
-    main > #section-map > .div-search {
+    main>#section-map>.div-search {
         left: 50%;
         transform: translateX(-50%);
         top: 20px;
         width: calc(100% - 40px);
         max-width: none;
-        box-sizing: border-box;
         overflow: hidden;
+        
+    }
+    
+    .div-search > input{
+        box-shadow: none;
     }
 
-    .div-search > button {
+    .div-search>button {
         width: 56px;
         flex-shrink: 0;
     }
@@ -258,36 +286,49 @@ main > #section-map > #map{
         right: 20px;
         bottom: 10px;
     }
-}
 
-@media (max-width: 600px) {
-
-    #cardStatus {
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        transform: translateY(20px); 
-        border-radius: 12px 12px 0 0; 
-        max-height: 70vh;
-    }
-
-    #cardStatus.visible {
-        transform: translateY(0);
-    }
-
-    #cardStatus > .cardBody {
-        grid-template-columns: 1fr; /* empilha tudo em coluna única */
+    #cardStatus>.cardBody {
+        grid-template-columns: 1fr;
         grid-template-areas:
             "titulo"
+            "inicioInterrupcao"
+            "prevRetorno"
             "causaInterrupcao"
-            "areaAfetada"
             "pressaoAgua"
+            "areaAfetada"
             "medResolucao"
             "descInfo";
+        padding: 16px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    #cardStatus>.cardHeader{
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: max-content;
+        gap: 20px 10px;
     }
 
-    .dataInterrupcaoRetorno {
-        flex-direction: column;
-        align-items: center;
+    .status{
+        grid-row: 2/3;
+        grid-column: 1/-1;
+        width: 100%;
+    }
+
+    .status > p{
+        width: 100%;
+        text-align: center;
+    }
+
+    .cardItem>p {
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-left: 0;
     }
 }

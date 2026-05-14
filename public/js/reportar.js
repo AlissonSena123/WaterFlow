@@ -3,6 +3,24 @@ import { mostrarToast } from "./utils/toast.js";
 
 const btnEnviar = document.getElementById("btnEnviarReport");
 
+/* ==== FUNÇÃO PARA PREENCHER AUTOMATICAMENTE OS CAMPO NOME E EMAIL DO USUÁRIO LOGADO ==== */
+async function preencherNomeEmail() {
+    const res = await fetch("/me", {
+        method: "GET",
+        credentials: "include"
+    });
+
+    const data = await res.json();
+
+    const user = data.user;
+
+    document.getElementById("idNome").value = user.nome;
+    document.getElementById("idEmail").value = user.email;
+}
+
+preencherNomeEmail();
+
+/* ==== FUNÇÃO PARA ENVIAR REPORT ==== */
 btnEnviar.addEventListener("click", async (event) => {
     event.preventDefault();
 
@@ -45,6 +63,8 @@ inputCEP.addEventListener("blur", async () => {
     const cep = inputCEP.value.trim();
 
     if (!cep) {
+        document.getElementById("idBairro").value = null;
+        document.getElementById("idRua").value = null;
         return mostrarToast("Digite o CEP", "red");
     }
 

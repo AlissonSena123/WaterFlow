@@ -14,9 +14,10 @@
     href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
   <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="/css/admin/reporte.css">
   <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="../../css/toast.css">
-  <link rel="stylesheet" href="/css/admin/reporte.css">
+
 
 </head>
 
@@ -57,18 +58,15 @@
     <span id="toast" class="toast"></span>
 
     <header>
+      <i class="ph-bold ph-list" id="iconHamburguer"></i>
       <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
     </header>
 
     <main>
       <section class="status">
-        <div>
-          <h1> <i class="ph-fill ph-warning-circle"></i> Reporte dos Usuários</h1>
-          <p>Status: <strong>Pronto para gerar</strong> � Última atualizacao: 12:40</p>
-        </div>
+        <h1> <i class="ph-fill ph-warning-circle"></i> Reporte dos Usuários</h1>
       </section>
       <section class="filtro">
-
         <div class="field">
           <label for="userReport">Nome:</label>
           <input type="tel" name="userReport" id="userReport" placeholder="Nome do Usuário">
@@ -84,6 +82,7 @@
           <input type="tel" name="regionReport" id="regionReport" placeholder="Ex: Centro">
         </div>
 
+
       </section>
 
       <section class="reportUserList">
@@ -94,7 +93,7 @@
               <th>Nome:</th>
               <th>Data:</th>
               <th>Região:</th>
-              <th>Ações:</th>
+              <th>Ação:</th>
             </tr>
           </thead>
           <tbody id="tabelaReports">
@@ -108,25 +107,61 @@
 
     <div id="modal" class="modal">
       <div class="modal-content">
+
         <div class="modal-header">
-          <h2><i class="ph-fill ph-list-magnifying-glass"></i> Detalhes do Reporte</h2>
-          <button onclick="fecharModal()" class="ph-fill ph-x-circle"></button>
+          <div class="modal-header-title">
+            <h2 id="mNome"></h2>
+            <p id="mEmail"></p>
+          </div>
+          <button class="ph-fill ph-x-circle" id="iconFecharModal"></button>
         </div>
 
         <div class="modal-body">
-          <p><strong>Nome:</strong> <span id="mNome"></span></p>
-          <p><strong>Email:</strong> <span id="mEmail"></span></p>
-          <p><strong>Rua:</strong> <span id="mRua"></span></p>
-          <p><strong>Bairro:</strong> <span id="mBairro"></span></p>
-          <p><strong>Descrição:</strong> <span id="mDescricao"></span></p>
+          <div class="modal-body-localidade">
+            <p><strong><i class="ph-fill ph-house-line"></i> RUA</strong> <span id="mRua"></span></p>
+            <p><strong><i class="ph-fill ph-map-pin"></i> BAIRRO</strong> <span id="mBairro"></span></p>
+          </div>
+          <p><strong><i class="ph-fill ph-warning-circle"></i> TIPO DO PROBLEMA</strong> <span id="mProblema"></span>
+          </p>
+          <p><strong><i class="ph-fill ph-sort-ascending"></i> DESCRIÇÃO</strong> <span id="mDescricao"></span></p>
         </div>
+
+        <hr>
+
+        <div id="secaoResposta">
+          <p><i class="ph-fill ph-chat-text"></i> Responder usuário</p>
+
+          <select id="selectStatus">
+            <option value="recebido">Recebido</option>
+            <option value="em_analise">Em análise</option>
+            <option value="resolvido">Resolvido</option>
+          </select>
+
+          <textarea id="textareaResposta" placeholder="Escreva uma mensagem para o usuário..." rows="3"></textarea>
+
+          <button type="button" id="btnEnviarResposta">
+            <i class="ph-fill ph-paper-plane-tilt"></i> Enviar resposta
+          </button>
+        </div>
+
+        <hr>
+
+        <div class="btnFecharDetalhes">
+          <button type="button" id="btnResponder">
+            <i class="ph-fill ph-chat-text"></i> Responder
+          </button>
+          <button type="button" id="btnFecharModal">Fechar</button>
+        </div>
+
       </div>
     </div>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module" src="/js/logout.js"></script>
-  <script src="/js/admin/reporte.js"></script>
+  <script type="module" src="/js/admin/reporte.js"></script>
+  <script type="module" src="/js/utils/sidebar.js"></script>
 </body>
 
 </html>

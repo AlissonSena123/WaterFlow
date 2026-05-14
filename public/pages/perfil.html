@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/perfil.css">
@@ -16,7 +19,9 @@
     <title>Perfil</title>
 
 </head>
+
 <body>
+
     <div class="container">
         <span id="toast" class="toast"></span>
         <nav id="sidebar">
@@ -46,77 +51,132 @@
         </nav>
 
         <header>
+            <i class="ph-bold ph-list" id="iconHamburguer"></i>
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+            <div id="notifWrapper">
+                <button id="notifBtn" aria-label="Notificações">
+                    <i class="ph-bold ph-bell"></i>
+                    <span id="notifBadge"></span>
+                </button>
+                <div id="notifDropdown">
+                    <p id="notifTitulo">Notificações</p>
+                    <ul id="notifLista"></ul>
+                </div>
+            </div>
         </header>
 
         <main>
+
             <section class="titlePerfil">
                 <div class="User">
-                    <i class="ph-fill ph-user-circle"></i>
-                    <h1>Perfil do Usuário <span id="titleNome"></span></h1>
+                    <div id="avatar"></div>
+                    <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+                    <div class="userTitle">
+                        <h1 id="titleNome"></h1>
+                        <p><span id="titleLocalidade"></span></p>
+                    </div>
                 </div>
-                <button type="button" id="btnEditarPerfil"> <i class="ph-fill ph-pen"></i> Editar Perfil</button>
+                <button type="button" id="btnEditarPerfil"> <i class="ph-fill ph-pen"></i>
+                    <p>Editar Perfil</p>
+                </button>
             </section>
+
             <section id="infoUser">
-                <h3>Informações Pessoais:</h3>
+                <h3> <i class="ph-fill ph-identification-card"></i> Informações pessoais</h3>
                 <div class="infoContant">
                     <div class="infoCard">
-                        <p>Nome:</p>
+                        <p> <i class="ph-fill ph-user"></i> Nome:</p>
                         <p id="userNome"></p>
                     </div>
                     <div class="infoCard">
-                        <p>Email:</p>
+                        <p> <i class="ph-fill ph-at"></i> Email:</p>
                         <p id="userEmail"></p>
                     </div>
                     <div class="infoCard">
-                        <p>Telefone:</p>
+                        <p><i class="ph-fill ph-phone"></i> Telefone:</p>
                         <p id="userTel"></p>
                     </div>
                     <div class="infoCard">
-                        <p>Data de Nascimento:</p>
+                        <p> <i class="ph-fill ph-calendar"></i> Data de Nascimento:</p>
                         <p id="userData"></p>
                     </div>
                     <div class="infoCard">
-                        <p>Localidade:</p>
+                        <p> <i class="ph-fill ph-map-pin"></i> Localidade:</p>
                         <p id="userBairro"></p>
                     </div>
                 </div>
-                <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair</button>
+                <h3> <i class="ph-fill ph-warning-circle"></i> Meus reportes</h3>
+                <div class="infoContantReport">
+                    <span>Reportes feitos: <strong id="totalReportes">0</strong></span>
+                    <div id="listaReportes"></div>
+                </div>
+                <hr>
+                <div class="sctDeletarConta">
+                    <h3>Deletar sua conta</h3>
+                    <p>Clique no botão abaixo caso queira deletar sua conta no WaterFlow</p>
+                    <button type="button" id="deletarConta">
+                        <i class="ph-fill ph-trash"></i> Deletar conta
+                    </button>
+                </div>
+                <hr>
+                <button type="button" id="logout"> <i class="ph-fill ph-sign-out"></i> Sair da conta</button>
             </section>
+
             <div class="modal" id="modalEdit">
                 <aside>
-                    <h2> <i class="ph-fill ph-pen"></i> Atualizar Perfil</h2>
+                    <div class="modalHeader">
+                        <div id="modalAvatar"></div>
+                        <div class="modalHeaderContent">
+                            <h2>Atualizar Perfil</h2>
+                            <p>Edite suas informações pessoais</p>
+                        </div>
+                    </div>
                     <form action="" id="form">
                         <div class="atualizarItem">
-                            <label for="idNome">Nome:</label>
-                            <input type="text" id="idNome" name="nome_completo">
+                            <label for="idNome">Nome completo:</label>
+                            <input type="text" id="idNome" name="nome_completo" placeholder="Digite seu nome">
                         </div>
                         <div class="atualizarItem">
                             <label for="idEmail">Email:</label>
-                            <input type="email" id="idEmail" name="email">
+                            <input type="email" id="idEmail" name="email" placeholder="Digite seu email">
                         </div>
                         <div class="atualizarItem">
                             <label for="idTel">Telefone:</label>
-                            <input type="text" id="idTel" name="telefone">
+                            <input type="text" id="idTel" name="telefone" placeholder="Digite seu telefone">
                         </div>
                         <div class="atualizarItem">
                             <label for="idCEP">CEP:</label>
                             <div>
                                 <input type="text" placeholder="Digite o novo CEP" id="idCEP">
                                 <input type="text" placeholder="Bairro" id="bairro" name="bairro" readonly>
+                                <p>Digite o CEP para preencher o bairro automaticamente</p>
                             </div>
                         </div>
                         <div id="updateButton">
-                            <button type="button" id="btnCancelarEdit"> <i class="ph-fill ph-x-circle"></i> Cancelar</button>
-                            <button type="button" id="btnConfirmarAtualizacao"> <i class="ph-fill ph-check-circle"></i> Confirmar Atualização</button>
+                            <button type="button" id="btnCancelarEdit">Cancelar</button>
+                            <button type="button" id="btnConfirmarAtualizacao">Confirmar Atualização</button>
                         </div>
                     </form>
                 </aside>
             </div>
+            <div class="modal" id="modalDeletar">
+                <aside id="modalDeletarContent">
+                    <i class="ph-fill ph-warning" id="iconAvisoDelete"></i>
+                    <h2>Deletar conta</h2>
+                    <p>Tem certeza que deseja deletar sua conta? Essa ação <strong>não pode ser desfeita.</strong></p>
+                    <div id="deletarButtons">
+                        <button type="button" id="btnCancelarDeletar">Cancelar</button>
+                        <button type="button" id="btnConfirmarDeletar">Sim, deletar</button>
+                    </div>
+                </aside>
+            </div>
         </main>
     </div>
-    
+
+    <script src="/js/notificacoes.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script type="module" src="/js/perfil.js"></script>
+    <script type="module" src="/js/utils/sidebar.js"></script>
 </body>
+
 </html>

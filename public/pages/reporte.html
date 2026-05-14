@@ -14,7 +14,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
     <title>Reportar</title>
 </head>
-<body class="bg-primary-img">
+<body>
+    
     <div class="container">
         <nav id="sidebar">
             <div id="sidebar-content">
@@ -44,28 +45,46 @@
 
         <span id="toast" class="toast"></span>
         <header>
+            <i class="ph-bold ph-list" id="iconHamburguer"></i>
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+            <div id="notifWrapper">
+                <button id="notifBtn" aria-label="Notificações">
+                    <i class="ph-bold ph-bell"></i>
+                    <span id="notifBadge"></span>
+                </button>
+                <div id="notifDropdown">
+                    <p id="notifTitulo">Notificações</p>
+                    <ul id="notifLista"></ul>
+                </div>
+            </div>
         </header>
 
         <main>
 
             <div class="title-report">
                 <h1> <i class="ph-fill ph-warning-circle"></i> Reportar falta d'água</h1>
-                <p>Preencha os campos com os dados correspondentes:</p>
+                <p>Preencha os campos abaixo:</p>
             </div>
 
             <section>
                 <form autocomplete="off">
+                    <div class="titleItemDadosPessoais title">
+                        <p><i class="ph-fill ph-user"></i> Dados Pessoais</p>
+                    </div>
                     <div id="item1">
-                        <label for="idNome">Nome:</label>
+                        <label for="idNome">Nome</label>
                         <input type="text" name="nome" id="idNome" required placeholder="Digite seu nome">
+                        <p><i class="ph-fill ph-info"></i> Os dados do usuário são preenchidos automaticamente</p>
                     </div>
                     <div id="item2">
-                        <label for="idEmail">Email:</label>
-                        <input type="text" name="email" id="idEmail" required placeholder="Digite seu email">
+                        <label for="idEmail">Email</label>
+                        <input type="email" name="email" id="idEmail" required placeholder="Digite seu email" autocomplete="off">
+                    </div>
+                    <div class="titleItemDadosProblema title">
+                        <p><i class="ph-fill ph-warning-circle"></i> Dados do Problema</p>
                     </div>
                     <div id="item3">
-                        <label for="tipo_problema">Tipo do Problema:</label>
+                        <label for="tipo_problema">Tipo do Problema</label>
                         <select name="tipo_problema" id="tipo_problema">
                             <option value="" selected disabled>Selecione o Problema</option>
                             <option value="SEM ÁGUA">Sem Água</option>
@@ -75,8 +94,9 @@
                         </select>
                     </div>
                     <div id="item4">
-                        <label for="idCEP">CEP:</label>
-                        <input type="text" name="cep" id="idCEP" required placeholder="Digite seu CEP">
+                        <label for="idCEP">CEP</label>
+                        <input type="text" name="cep" id="idCEP" required placeholder="00000-000">
+                        <p><i class="ph-fill ph-info"></i> Digite o CEP para preencher os dados de localização automaticamente</p>
                     </div>
                     <div id="item5">
                         <input type="text" name="rua" id="idRua" placeholder="Rua" readonly>
@@ -85,15 +105,17 @@
                         <input type="text" name="bairro" id="idBairro" placeholder="Bairro" readonly>
                     </div>
                     <div id="item7">
-                        <label for="idDescricao">Descrição:</label>
-                        <textarea name="descricao" id="idDescricao" placeholder="Descreva o seu problema nesse campo"></textarea>
+                        <label for="idDescricao">Descrição</label>
+                        <textarea name="descricao" id="idDescricao" placeholder="Descreva seu problema com detalhes..."></textarea>
                     </div>
                     <button type="submit" id="btnEnviarReport"> <i class="ph-fill ph-paper-plane-tilt"></i> Enviar</button>
                 </form>
             </section>
         </main>
     </div>
-    <script type="module" src="/js/logout.js"></script>
+
+    <script src="/js/notificacoes.js"></script>
     <script type="module" src="/js/reportar.js"></script>
+    <script type="module" src="/js/utils/sidebar.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ const adminAuth = require("../middleware/adminAuth");
 const { buscarUsuarioPorEmail } = require("../public/services/userService.js");
 const { buscarFuncionarioPorEmail } = require("../public/services/funcionarioService.js");
 
-// --- ROTAS DE CADASTRO (POST /cadastrar) ---
+// --- ROTAS DE CADASTRO ( POST /cadastrar ) ---
 router.post("/cadastrar", async (req, res) => {
   const {
     nome_completo,
@@ -24,12 +24,18 @@ router.post("/cadastrar", async (req, res) => {
   } = req.body;
 
 
-  if (!nome_completo || !email || !senha || !bairro) {
-    return res.status(400).json({ success: false, message: "Preencha os campos obrigatórios", });
+  if (!nome_completo || !email || !senha || !bairro || !data_nascimento || !telefone) {
+    return res.status(400).json({ success: false, message: "Preencha todos os campos", });
   }
 
   if (senha.length < 10 || senha.length > 15) {
-    return res.status(400).json({ sucess: false, message: "A senha deve ter no minimo 10 a 15 caracteres " });
+    return res.status(400).json({ success: false, message: "A senha deve teve possuir 10 a 15 caracteres " });
+  }
+
+  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+
+  if (!telefoneRegex.test(telefone)) {
+    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
   }
 
   try {
@@ -85,7 +91,7 @@ router.post("/cadastrar", async (req, res) => {
   }
 });
 
-// ---- ROTA DE LOGIN (POST /login) ---- 
+// ---- ROTA DE LOGIN ( POST /login ) ---- 
 router.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
@@ -147,6 +153,8 @@ router.post("/login", async (req, res) => {
       req.session.user = {
         id: conta.id,
         nome: conta.nome_completo,
+        email: conta.email,
+        bairro: conta.bairro,
         role: conta.role
       };
 
@@ -166,7 +174,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO (POST /redefinirSenha) ---
+// --- ROTA DE SOLICITAÇÃO DE REDEFINIÇÃO ( POST /redefinirSenha ) ---
 router.post("/redefinirSenha", async (req, res) => {
   const { email } = req.body;
 
@@ -239,12 +247,12 @@ router.post("/redefinirSenha", async (req, res) => {
   }
 });
 
-// --- ROTA DE FEEDBACK DE ENVIO (GET /instrucoes_enviadas) ---
+// --- ROTA DE FEEDBACK DE ENVIO ( GET /instrucoes_enviadas ) ---
 router.get("/instrucoes_enviadas", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"))
 });
 
-// --- ROTA DE VALIDAÇÃO DE TOKEN (GET /novaSenha/:token) ---
+// --- ROTA DE VALIDAÇÃO DE TOKEN ( GET /novaSenha/:token ) ---
 // Formato de rota tradicional para maior compatibilidade
 router.get("/redefinir-senha/:token", async (req, res) => {
   const { token } = req.params;
@@ -270,7 +278,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
   }
 });
 
-// ---- ROTA DE ATUALIZAR SENHA (PUT /usuarios/atualizar-senha/:token) ---- 
+// ---- ROTA DE ATUALIZAR SENHA ( PUT /usuarios/atualizar-senha/:token ) ---- 
 router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   const { senha } = req.body; // AGORA bate com o frontend
   const { token } = req.params;
@@ -322,7 +330,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
   }
 });
 
-/*ATUALIZAR CAMPOS DE CADASTRO*/
+// ---- ROTA PARA ATUALIZAR PERFIL ( PATCH /usuarios/atualizar/perfil ) ---- 
 router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   try {
     if (!req.session.user) {
@@ -417,7 +425,7 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   }
 });
 
-/* ROTA DE REPORTAR FALTA D'ÁGUA */
+// ---- ROTA DE REPORTAR FALTA D'ÁGUA ( POST /reporte/enviar/ )  ----
 router.post("/reporte/enviar", async (req, res) => {
   const { nome, email, tipo, rua, bairro, descricao } = req.body
 
@@ -446,7 +454,7 @@ router.post("/reporte/enviar", async (req, res) => {
       });
     }
 
-    return res.json({ success: true, message: "Dados enviados com sucesso!" });
+    return res.json({ success: true, message: "Report enviado com sucesso!" });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -456,6 +464,128 @@ router.post("/reporte/enviar", async (req, res) => {
     });
   }
 
+});
+
+// ---- ROTA PARA BUSCAR OS REPORTES (GET /api/meus-reportes ) ---- 
+router.get("/api/meus-reportes", async (req, res) => {
+  const email = req.session.user?.email;
+
+  if (!email) return res.json({ success: false, error: "Não autenticado." });
+
+  const expiracao = new Date();
+  expiracao.setMinutes(expiracao.getMinutes() - 3);
+
+  const { data, error } = await supabase
+    .from("reportUsers")
+    .select("id, bairro, status, resposta_admin, respondido_em")
+    .eq("email", email)
+    .not("resposta_admin", "is", null)
+    .gte("respondido_em", expiracao.toISOString())
+    .order("respondido_em", { ascending: false });
+
+  if (error) return res.json({ success: false, error });
+  res.json({ success: true, data });
+});
+
+// ---- ROTA PARA BUSCAR BAIRRO DO USUÁRIO (GET /api/alertas-bairro ) ---- 
+router.get("/api/alertas-bairro", async (req, res) => {
+  const bairro = req.session.user?.bairro;
+
+  if (!bairro) return res.json({ success: false, error: "Não autenticado." });
+
+  const expiracao = new Date();
+  expiracao.setDate(expiracao.getDate() - 7);
+
+  const { data, error } = await supabase
+    .from("abastecimento")
+    .select("id, bairro, status, atualizado_em")
+    .ilike("bairro", `%${bairro}%`)
+    .neq("status", "NORMAL")
+    .gte("atualizado_em", expiracao.toISOString())
+    .order("atualizado_em", { ascending: false });
+
+  if (error) return res.json({ success: false, error });
+  res.json({ success: true, data });
+});
+
+// ---- ROTA PARA CONTAGEM DE REPORTES DO USUÁRIO (GET, /reportes/contagem/:email ) ----
+router.get("/reportes/contagem/:email", async (req, res) => {
+    const { email } = req.params;
+
+    const { count, error } = await supabase
+        .from("reportUsers")
+        .select("*", { count: "exact", head: true })
+        .eq("email", email);
+
+    if (error) return res.status(500).json({ success: false });
+
+    return res.status(200).json({ success: true, total: count });
+});
+
+// ---- ROTA PARA BUSCAR OS REPORTES DO USUÁRIO (GET, /meus-reportes/:email) ----
+router.get("/meus-reportes/:email", async (req, res) => {
+    const { email } = req.params;
+
+    const { data, error } = await supabase
+        .from("reportUsers")
+        .select("*")
+        .eq("email", email)
+        .order("created_at", { ascending: false })
+
+    if (error) return res.status(500).json({ success: false });
+
+    return res.status(200).json({ success: true, reportes: data });
+});
+
+/* ---- ROTA PARA O USUÁRIO DELETAR A CONTA (DELETE, /usuarios/deletar) ---- */
+router.delete("/usuarios/deletar", async (req, res) => {
+    try {
+
+        if (!req.session.user) {
+            return res.status(401).json({
+                success: false,
+                message: "Usuário não autenticado"
+            });
+        }
+
+        const id = req.session.user.id;
+
+        const { error } = await supabase
+            .from("Users")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao deletar conta"
+            });
+        }
+        
+        req.session.destroy((err) => {
+
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Erro ao encerrar sessão"
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Conta deletada com sucesso"
+            });
+
+        });
+
+    } catch (err) {
+        console.error(err);
+
+        return res.status(500).json({
+            success: false,
+            message: "Erro interno do servidor"
+        });
+    }
 });
 
 module.exports = router;

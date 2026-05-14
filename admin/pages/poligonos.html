@@ -15,8 +15,8 @@
 
     <!-- CSS DO PROJETO -->
     <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="/css/admin/poligonos.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
     <link rel="stylesheet" href="../../css/toast.css">
 
     <!-- MAPLIBRE -->
@@ -72,6 +72,7 @@
         <span id="toast" class="toast"></span>
 
         <header>
+            <i class="ph-bold ph-list" id="iconHamburguer"></i>
             <img src="../../assets/Img/LogoV1.png">
         </header>
 
@@ -85,10 +86,6 @@
                         <i class="ph-fill ph-map-trifold"></i>
                         Status dos Bairros
                     </h1>
-
-                    <p>
-                        Status: <strong>Pronto para edição</strong> • Última atualização: 12:40
-                    </p>
                 </div>
 
             </section>
@@ -112,7 +109,7 @@
 
                     <aside id="statusBairro" class="painel-status oculto">
                         <div class="painel-header">
-                            <h2><i class="ph-fill ph-chart-bar"></i> Status do Bairro</h2>
+                            <h2><i class="ph-fill ph-broadcast"></i> Status do Bairro</h2>
                             <button id="fecharPainel" class="ph-bold ph-x"></button>
                         </div>
                         <div class="painel-body"></div>
@@ -125,10 +122,10 @@
             <!-- ATUALIZAR DADOS DO BAIRRO -->
 
             <section id="painelStatusUpdate">
-                <h2><i class="ph-fill ph-gear-six"></i> Atualizar Status:</h2>
- 
                 <div class="painelStatusItemBairro">
-                    <p id="idBairro"></p>
+                    <h2><i class="ph-fill ph-gear-six"></i> Atualizar Status</h2>
+                    <p id="idBairro">Bairro</p>
+                    <p>Atualizado em: <span id="idAtualizado"></span></p>
                 </div>
  
                 <div  class="painelStatusContent">
@@ -165,6 +162,7 @@
                             <label for="idRetorno">Previsão de retorno:</label>
                             <input type="datetime-local" id="idRetorno" disabled>
                         </div>
+                        <p>Selecione outra opção para habilitar os campos de formulário</p>
                     </fieldset>
 
                     <fieldset class="statusDetalhes">
@@ -218,6 +216,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script type="module" src="/js/admin/mapa-poligono.js"></script>
+    <script type="module" src="/js/utils/sidebar.js"></script>
     <script type="module" src="/js/logout.js"></script>
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 </body>

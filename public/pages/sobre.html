@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WaterFlow</title>
     <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
 
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/sobre.css">
 
 </head>
+
 <body>
     <div class="container">
 
         <header>
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
-            <div class="btn-links">
+            <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" id="menuToggle">
+                <i class="ph-bold ph-list"></i>
+            </button>
+            <div class="btn-links" id="navLinks">
                 <a href="#section-sobre" id="sobre">Sobre nós</a>
                 <a href="#section-projeto" id="projeto">Projeto</a>
                 <a href="#section-developers" id="desenvolvedores">Desenvolvedores</a>
-                <button class="btn-primary" onclick="window.location.href = '/login'"> <i class="ph-fill ph-sign-in"></i> Entrar</button>
-                <!-- <button class="btn-outline" onclick="window.location.href = '/cadastrar'">Cadastrar</button> -->
+                <button onclick="window.location.href = '/login'">
+                    <i class="ph-fill ph-sign-in"></i> Entrar</button>
             </div>
         </header>
 
@@ -33,7 +39,9 @@
                 <article class="section-sobre-contant" data-aos="fade-right">
                     <h1>Bem Vindo ao WaterFlow</h1>
                     <p>Receba informações sobre a situação da água em seu bairro!</p>
-                    <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador.</p>
+                    <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse
+                        site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água
+                        de Salvador.</p>
                 </article>
             </section>
 
@@ -41,8 +49,11 @@
                 <article class="section-projeto-contant" data-aos="fade-up">
                     <div>
                         <h1>Sobre o projeto</h1>
-                        <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador de forma simples e rápida. Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
-                        <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao abastecimento de água nos bairros de Salvador.</p>
+                        <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador
+                            de forma simples e rápida. Nosso objetivo é trazer mais transparência e manter a população
+                            sempre bem informada.</p>
+                        <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao
+                            abastecimento de água nos bairros de Salvador.</p>
                     </div>
                     <img src="/assets/Img/LogoV2.png" alt="LogoTipo">
                 </article>
@@ -53,13 +64,17 @@
                     <img src="/assets/Img/illustrationVectorMAP.svg" alt="">
                     <div>
                         <h1>MAPA INTERATIVO</h1>
-                        <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do abastecimento de água em seu bairro. Podemos trazer informações atuais, quanto problemas futuros. Assim podemos trazer mais informação para a população.</p>
+                        <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do
+                            abastecimento de água em seu bairro. Podemos trazer informações atuais, quanto problemas
+                            futuros. Assim podemos trazer mais informação para a população.</p>
                     </div>
                 </div>
                 <div class="sctFuncionContent">
                     <div>
                         <h1>REPORTAR FALTA D'ÁGUA</h1>
-                        <p>Os usuários poderão reportar problemas relacionados ao abastecimento de água em seu bairro. Esses reportes serão enviados ao administrador, assim podendo resolver o problema da melhor forma possível.</p>
+                        <p>Os usuários poderão reportar problemas relacionados ao abastecimento de água em seu bairro.
+                            Esses reportes serão enviados ao administrador, assim podendo resolver o problema da melhor
+                            forma possível.</p>
                     </div>
                     <img src="/assets/Img/illustrationVectorREPORT.svg" alt="">
                 </div>
@@ -102,17 +117,41 @@
                 </article>
 
             </section>
-            
+
         </main>
 
         <footer>
-            <p>WaterFlow - Projeto de TCC Senai Cimatec</p>
+            <img src="/assets/Img/LogoWhiteV1.png" alt="LogoTipo">
+            <div id="contact">
+                <p>Contato:</p>
+                <p>waterflow855@gmail.com</p>
+            </div>
         </footer>
-        
+
     </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('navLinks');
+
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen);
+            toggle.querySelector('i').className = isOpen
+                ? 'ph-fill ph-x'
+                : 'ph-bold ph-list';
+        });
+
+        // Fecha o menu ao clicar num link
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+                toggle.setAttribute('aria-expanded', false);
+                toggle.querySelector('i').className = 'ph-bold ph-list';
+            });
+        });
     </script>
 </body>
+
 </html>

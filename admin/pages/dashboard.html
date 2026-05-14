@@ -16,9 +16,10 @@
   <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
 
   <link rel="stylesheet" href="../../css/global.css">
-  <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="/css/admin/dashboard.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
   <link rel="stylesheet" href="../../css/toast.css">
+  
 
 </head>
 
@@ -58,8 +59,8 @@
     </nav>
 
     <span id="toast" class="toast"></span>
-
     <header>
+      <i class="ph-bold ph-list" id="iconHamburguer"></i>
       <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
     </header>
 
@@ -67,6 +68,7 @@
 
       <section id="titleDashboard">
         <h1> <i class="ph-fill ph-gauge"></i> Painel de Status</h1>
+        <hr>
         <p><i class="ph-fill ph-user-circle-gear"></i> Funcionario: <span id="adminLogged"></span></p>
       </section>
 
@@ -140,6 +142,7 @@
   </div>
 
   <script type="module" src="/js/admin/dashboard.js"></script>
+  <script type="module" src="/js/utils/sidebar.js"></script>
   <script type="module" src="/js/logout.js"></script>
 
 </body>
