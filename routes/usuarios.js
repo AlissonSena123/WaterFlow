@@ -231,11 +231,39 @@ router.post("/redefinirSenha", async (req, res) => {
       to: emailLimpo,
       subject: "Redefinir senha WaterFlow",
       html: `
-      <h2>Redefinir Senha</h2>
-      <p>Voce pediu para redefinir sua senha.</p>
-      <p>Clique no link abaixo para continuar:</p>
-      <a href="${resetURL}">${resetURL}</a>
-      <p>O link expira em 1 hora.</p>`
+      <!DOCTYPE html>
+        <html lang="pt-BR">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+
+        <body style=" font-family:sans-serif; max-width:520px; margin:0 auto; padding: 0px;">
+          <div style="background: linear-gradient(135deg, #0ea5e9, #0369a1); padding: 32px; text-align: center;">
+            <h1 style="margin: 0; color: #ffffff; font-size: 28px; letter-spacing: 1px;">
+              <img src="cid:LogoWaterFlow" style="width: 125px;"/>
+            </h1>
+          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0; padding:0px; border-radius:0px 0px 8px 8px;">
+            <h2 style="text-align:center; color: white; font-size: 28px; text-transform: uppercase; background-color: #1e3a5f"; margin: 0px; padding: 20px;>Redefinir Senha</h2>
+            <p>Voce pediu para redefinir sua senha.</p>
+            <p>Clique no link abaixo para continuar:</p>
+            <a href="${resetURL}">${resetURL}</a>
+            <p>O link expira em 1 hora.</p>
+          </div>
+        <body>
+        
+        </html>
+        `,
+        attachments: [
+            {
+                filename: "LogoWhiteV1.png",
+                path: "./public/assets/Img/LogoWhiteV1.png",
+                cid: "LogoWaterFlow"
+            }
+        ]
+        
     });
 
     return res.redirect("/instrucoes_enviadas");
