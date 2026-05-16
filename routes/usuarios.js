@@ -245,12 +245,12 @@ router.post("/redefinirSenha", async (req, res) => {
               <img src="cid:LogoWaterFlow" style="width: 125px;"/>
             </h1>
           </div>
-          <div style="background:#fff;border:1px solid #e2e8f0; padding:0px; border-radius:0px 0px 8px 8px;">
-            <h2 style="text-align:center; color: white; font-size: 28px; text-transform: uppercase; background-color: #1e3a5f"; margin: 0px; padding: 20px;>Redefinir Senha</h2>
-            <p>Voce pediu para redefinir sua senha.</p>
-            <p>Clique no link abaixo para continuar:</p>
-            <a href="${resetURL}">${resetURL}</a>
-            <p>O link expira em 1 hora.</p>
+          <div style="background:#fff;border:1px solid #e2e8f0; padding:10px; border-radius:0px 0px 8px 8px;">
+            <h2 style="text-align:center; color: #1e3a5f; font-size: 28px; text-transform: uppercase; margin: 0px;" >Redefinir Senha</h2>
+            <p style="text-align:center;">Voce pediu para redefinir sua senha.</p>
+            <p style="text-align:center;">Clique no link abaixo para continuar:</p>
+            <a style="text-align:center;" href="${resetURL}">${resetURL}</a>
+            <p style="text-align:center;">O link expira em 1 hora.</p>
           </div>
         <body>
         
