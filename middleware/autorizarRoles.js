@@ -1,22 +1,33 @@
-//Nova rota que unifica os dois middlewares de acesso (usuario, funcionario e admin);
+const jwt = require("jsonwebtoken");
 
 function autorizarRoles(...rolesPermitidas) {
-    return (req, res, next) => {
+  return (req, res, next) => {
+    const token = req.cookies?.token;
 
-        const session = req.session.user || req.session.admin;
+    if (!token) {
+      // Se for uma requisição de página HTML, redireciona; senão, retorna JSON
+      const aceitaHTML = req.headers.accept?.includes("text/html");
+      if (aceitaHTML) return res.redirect("/login");
+      return res.status(401).json({ success: false, message: "Usuário não autenticado" });
+    }
 
-        if (!session) {
-            return res.status(401).json({success: false, message: "Usuário não autenticado"});
-        };
+    let payload;
+    try {
+      payload = jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+      const aceitaHTML = req.headers.accept?.includes("text/html");
+      if (aceitaHTML) return res.redirect("/login");
+      return res.status(401).json({ success: false, message: "Token inválido ou expirado" });
+    }
 
-        const role = session.role;
+    if (!rolesPermitidas.includes(payload.role)) {
+      return res.status(403).json({ success: false, message: "Acesso negado" });
+    }
 
-        if(!rolesPermitidas.includes(role)) {
-            return res.status(403).json({success: false, message: "Acesso negado"});
-        };
-
-        next();
-    };
-};
+    // Disponibiliza os dados do usuário para as rotas seguintes
+    req.user = payload;
+    next();
+  };
+}
 
 module.exports = autorizarRoles;
