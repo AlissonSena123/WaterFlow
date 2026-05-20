@@ -20,7 +20,7 @@ function autorizarRoles(...rolesPermitidas) {
       return res.status(401).json({ success: false, message: "Token inválido ou expirado" });
     }
 
-    if (!rolesPermitidas.includes(payload.role)) {
+    if (!rolesPermitidas.includes(payload.tipo)) {
       return res.status(403).json({ success: false, message: "Acesso negado" });
     }
 

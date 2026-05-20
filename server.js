@@ -165,8 +165,4 @@ server.get("/me", async (req, res) => {
   return res.json({ tipo: null, user: null });
 });
 
-if (process.env.NODE_ENV !== "production") {
-  server.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}/login`);
-  });
-}
+module.exports = server;
