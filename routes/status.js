@@ -1,4 +1,4 @@
-import { supabase } from "../config/supabase";
+import { supabase } from "../config/supabase.js";
 import { Router } from "express";
 const router = Router();
 import { enviarAlertaEmail } from "../public/services/emailServices.js";

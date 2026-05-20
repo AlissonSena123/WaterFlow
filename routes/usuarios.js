@@ -1,4 +1,4 @@
-import { supabase } from "../config/supabase";
+import { supabase } from "../config/supabase.js";
 import { Router } from "express";
 import { hash as _hash, compare } from "bcrypt";
 const router = Router();
