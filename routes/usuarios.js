@@ -209,8 +209,7 @@ router.post("/redefinirSenha", async (req, res) => {
       }]
     });
 
-    res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
-    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
+    return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
 
   } catch (error) {
     console.error("Erro ao buscar usuário para redefinir senha: ", error);
@@ -240,7 +239,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
       return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
     }
 
-    return res.sendFile(join(__dirname, "../public/pages/redefinirsenha.html"));
+    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
