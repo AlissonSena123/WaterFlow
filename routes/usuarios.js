@@ -1,13 +1,17 @@
 import { supabase } from "../config/supabase.js";
-import { Router } from "express";
-import { hash as _hash, compare } from "bcrypt";
-const router = Router();
-import { randomBytes } from "crypto";
-import { createTransport } from "nodemailer";
-import { join } from "path";
-import { sign, verify } from "jsonwebtoken";
+import express from "express";
+import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
+import jwt from "jsonwebtoken";
 import { buscarUsuarioPorEmail } from "../public/services/userService.js";
 import { buscarFuncionarioPorEmail } from "../public/services/funcionarioService.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const router = express.Router();
 
 // Helper: gera e seta o cookie JWT
 function setAuthCookie(res, payload) {
@@ -60,7 +64,8 @@ router.post("/cadastrar", async (req, res) => {
       return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
     }
 
-    const senhaHash = await _hash(senha, 10);
+    const senhaHash = await bcrypt.hash(senha, 10);
+    const hash = await bcrypt.hash(senha, 10);
 
     const { error: insertError } = await supabase
       .from("Users")
@@ -98,7 +103,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
     }
 
-    const senhaCorreta = await compare(senha, conta.senha);
+    const senhaCorreta = await bcrypt.compare(senha, conta.senha);
 
     if (!senhaCorreta) {
       return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
