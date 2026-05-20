@@ -1,17 +1,17 @@
-const { supabase } = require("../config/supabase");
-const express = require("express");
-const bcrypt = require("bcrypt");
-const router = express.Router();
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
-const path = require("path");
-const jwt = require("jsonwebtoken");
-const { buscarUsuarioPorEmail } = require("../public/services/userService.js");
-const { buscarFuncionarioPorEmail } = require("../public/services/funcionarioService.js");
+import { supabase } from "../config/supabase";
+import { Router } from "express";
+import { hash as _hash, compare } from "bcrypt";
+const router = Router();
+import { randomBytes } from "crypto";
+import { createTransport } from "nodemailer";
+import { join } from "path";
+import { sign, verify } from "jsonwebtoken";
+import { buscarUsuarioPorEmail } from "../public/services/userService.js";
+import { buscarFuncionarioPorEmail } from "../public/services/funcionarioService.js";
 
 // Helper: gera e seta o cookie JWT
 function setAuthCookie(res, payload) {
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
@@ -25,7 +25,7 @@ function getAuthUser(req) {
   const token = req.cookies?.token;
   if (!token) return null;
   try {
-    return jwt.verify(token, process.env.JWT_SECRET);
+    return verify(token, process.env.JWT_SECRET);
   } catch {
     return null;
   }
@@ -60,7 +60,7 @@ router.post("/cadastrar", async (req, res) => {
       return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const senhaHash = await _hash(senha, 10);
 
     const { error: insertError } = await supabase
       .from("Users")
@@ -98,7 +98,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
     }
 
-    const senhaCorreta = await bcrypt.compare(senha, conta.senha);
+    const senhaCorreta = await compare(senha, conta.senha);
 
     if (!senhaCorreta) {
       return res.status(400).json({ success: false, message: "Email ou senha inválidos." });
@@ -153,7 +153,7 @@ router.post("/redefinirSenha", async (req, res) => {
       return res.redirect("/instrucoes_enviadas");
     }
 
-    const token = crypto.randomBytes(32).toString("hex");
+    const token = randomBytes(32).toString("hex");
     const expirar = new Date();
     expirar.setHours(expirar.getHours() + 1);
 
@@ -164,7 +164,7 @@ router.post("/redefinirSenha", async (req, res) => {
 
     if (updateError) throw updateError;
 
-    const transporte = nodemailer.createTransport({
+    const transporte = createTransport({
       host: "smtp.gmail.com",
       port: 587,
       secure: false,
@@ -215,7 +215,7 @@ router.post("/redefinirSenha", async (req, res) => {
 
 // --- FEEDBACK DE ENVIO ---
 router.get("/instrucoes_enviadas", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+  res.sendFile(join(__dirname, "../public/pages/instrucoesEmail.html"));
 });
 
 // --- VALIDAÇÃO DE TOKEN ---
@@ -235,7 +235,7 @@ router.get("/redefinir-senha/:token", async (req, res) => {
       return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
     }
 
-    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
+    return res.sendFile(join(__dirname, "../public/pages/redefinirsenha.html"));
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
@@ -265,7 +265,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
       return res.status(400).json({ sucesso: false, error: "Link inválido ou expirado." });
     }
 
-    const hash = await bcrypt.hash(senha, 10);
+    const hash = await _hash(senha, 10);
 
     const { error: updateError } = await supabase
       .from("Users")
@@ -492,4 +492,4 @@ router.delete("/usuarios/deletar", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

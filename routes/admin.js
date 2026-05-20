@@ -1,7 +1,7 @@
-const { supabase } = require("../config/supabase");
-const { enviarRespostaReport } = require("../public/services/emailServices.js");
-const express = require("express");
-const router = express.Router();
+import { supabase } from "../config/supabase";
+import { enviarRespostaReport } from "../public/services/emailServices.js";
+import { Router } from "express";
+const router = Router();
 
 /**  ---- ROTA PARA BUSCAR REPORTES DOS USUÁRIOS ( GET /api/reports ) ---- */
 router.get("/api/reports", async (req, res) => {
@@ -110,4 +110,4 @@ router.post("/api/reports/:id/responder", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

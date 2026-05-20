@@ -1,7 +1,7 @@
-const { supabase } = require("../config/supabase");
-const express = require("express");
-const router = express.Router();
-const { enviarAlertaEmail } = require("../public/services/emailServices.js");
+import { supabase } from "../config/supabase";
+import { Router } from "express";
+const router = Router();
+import { enviarAlertaEmail } from "../public/services/emailServices.js";
 
 router.get("/bairro", async (req, res) => {
     try {
@@ -174,4 +174,4 @@ router.get("/buscar/bairros/sem-abastecimento", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
