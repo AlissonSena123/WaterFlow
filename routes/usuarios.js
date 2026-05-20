@@ -15,7 +15,7 @@ const router = express.Router();
 
 // Helper: gera e seta o cookie JWT
 function setAuthCookie(res, payload) {
-  const token = sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
@@ -29,7 +29,7 @@ function getAuthUser(req) {
   const token = req.cookies?.token;
   if (!token) return null;
   try {
-    return verify(token, process.env.JWT_SECRET);
+    return jwt.verify(token, process.env.JWT_SECRET);
   } catch {
     return null;
   }
@@ -65,7 +65,6 @@ router.post("/cadastrar", async (req, res) => {
     }
 
     const senhaHash = await bcrypt.hash(senha, 10);
-    const hash = await bcrypt.hash(senha, 10);
 
     const { error: insertError } = await supabase
       .from("Users")
@@ -158,7 +157,7 @@ router.post("/redefinirSenha", async (req, res) => {
       return res.redirect("/instrucoes_enviadas");
     }
 
-    const token = randomBytes(32).toString("hex");
+    const token = crypto.randomBytes(32).toString("hex");
     const expirar = new Date();
     expirar.setHours(expirar.getHours() + 1);
 
@@ -169,7 +168,7 @@ router.post("/redefinirSenha", async (req, res) => {
 
     if (updateError) throw updateError;
 
-    const transporte = createTransport({
+    const transporte = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
       secure: false,
@@ -210,7 +209,8 @@ router.post("/redefinirSenha", async (req, res) => {
       }]
     });
 
-    return res.redirect("/instrucoes_enviadas");
+    res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
 
   } catch (error) {
     console.error("Erro ao buscar usuário para redefinir senha: ", error);
@@ -270,8 +270,8 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
       return res.status(400).json({ sucesso: false, error: "Link inválido ou expirado." });
     }
 
-    const hash = await _hash(senha, 10);
-
+    const hash = await bcrypt.hash(senha, 10);
+    
     const { error: updateError } = await supabase
       .from("Users")
       .update({ senha: hash, resetToken: null, tokenExpiration: null })
