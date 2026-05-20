@@ -68,3 +68,16 @@ main{
 .sctForgottenPassword > form > button:hover{
     background-color: var(--color-bg-secondary-blue);
 }
+
+@media (max-width: 400px){
+    .sctForgottenPassword > h1{
+        text-align: center;
+        justify-self: center;
+        font-size: 1.4rem;
+    }
+
+    .sctForgottenPassword > p{
+        text-align: center;
+        margin-bottom: 15px;
+    }
+}

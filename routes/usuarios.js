@@ -220,7 +220,7 @@ router.post("/redefinirSenha", async (req, res) => {
 
 // --- FEEDBACK DE ENVIO ---
 router.get("/instrucoes_enviadas", (req, res) => {
-  res.sendFile(join(__dirname, "../public/pages/instrucoesEmail.html"));
+  res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
 });
 
 // --- VALIDAÇÃO DE TOKEN ---

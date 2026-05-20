@@ -23,7 +23,7 @@ main{
 }
 
 main > section{
-    width: 50%;
+    width: 100%;
     max-width: 700px;
     background-color: white;
     color: var(--color-bg-primary-blue);
@@ -79,4 +79,15 @@ main > section > a:hover{
     color: var(--color-bg-primary-blue);
     text-decoration: underline;
     transform: translateY(-2px);
+}
+
+@media (max-width: 400px){
+    main > section > div > i{
+        font-size: 1.5rem;
+    }
+
+    main > section > div > h1{
+        text-align: center;
+        font-size: 1.5rem;
+    }
 }

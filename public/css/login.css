@@ -27,10 +27,8 @@ header > nav > button{
 
 
 main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0px;
+    align-content: center;
+    justify-items: center;
 }
 
 main > .section-login{
@@ -119,6 +117,7 @@ main > .section-login > form > button > span{
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-align: center;
 }
 
 main > .section-login > .linkCadastro > p{
@@ -169,4 +168,23 @@ a{
 /* FOCUS */
 .section-login > form > .form-item-login > input:focus{
     background-color: white;
+}
+
+@media (max-width: 400px) {
+    main{
+        margin: 10px;
+    }
+
+    main > .section-login{
+        width: 100%;
+        padding: 30px;
+    }
+
+    main > .section-login .section-login-header h1{
+        font-size: 1.5rem;
+    }
+
+    main > .section-login .section-login-header h3{
+        font-size: 1rem;
+    }
 }
