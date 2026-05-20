@@ -1,4 +1,5 @@
-const { supabase } = require("../../config/supabase.js");
+import { supabase } from "../../config/supabase.js";
+
 //aqui temos o service com a mesma logica do usuario.
 async function buscarFuncionarioPorEmail(email) {
     const { data: user, error} = await supabase
@@ -12,4 +13,4 @@ async function buscarFuncionarioPorEmail(email) {
     return user;
 };
 
-module.exports = { buscarFuncionarioPorEmail };
+export { buscarFuncionarioPorEmail };

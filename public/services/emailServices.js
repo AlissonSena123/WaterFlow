@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 const transporte = nodemailer.createTransport({
     service: "gmail",
@@ -113,4 +113,4 @@ async function enviarRespostaReport({ para, nome, bairro, status, resposta }) {
     });
 }
 
-module.exports = { enviarAlertaEmail, enviarRespostaReport};
+export { enviarAlertaEmail, enviarRespostaReport };

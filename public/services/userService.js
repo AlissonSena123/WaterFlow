@@ -1,7 +1,7 @@
 //Service para busca de usuario no banco de dados para unificar a rota de login no router de usuarios.js
 
 //importamos o supabase;
-const { supabase } = require("../../config/supabase.js");
+import { supabase } from "../../config/supabase.js";
 
 //funçao assincrona para buscar o usuario por email (a senha nao entra aqui, porque caso ele n encontre usuario padrao, vai para outra funçao de buscar funcionario);
 
@@ -20,4 +20,4 @@ async function buscarUsuarioPorEmail(email) {
     return user;
 };
 
-module.exports = { buscarUsuarioPorEmail };
+export { buscarUsuarioPorEmail };

@@ -13,4 +13,4 @@ function funcionarioAuth(req, res, next){
     next();
 }
 
-module.exports = funcionarioAuth;
+export default funcionarioAuth;
