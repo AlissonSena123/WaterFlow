@@ -170,7 +170,7 @@ a{
     background-color: white;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
     main{
         margin: 10px;
     }

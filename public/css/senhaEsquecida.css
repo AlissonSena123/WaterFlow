@@ -69,7 +69,7 @@ main{
     background-color: var(--color-bg-secondary-blue);
 }
 
-@media (max-width: 400px){
+@media (max-width: 600px){
     .sctForgottenPassword > h1{
         text-align: center;
         justify-self: center;
