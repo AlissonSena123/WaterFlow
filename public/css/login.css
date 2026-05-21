@@ -1,9 +1,7 @@
 .container{
-    display: grid;
     grid-template-areas: 
     "header"
     "main";
-    grid-template-rows: auto 1fr;
 }
 
 body{
@@ -176,21 +174,21 @@ a{
     background-color: white;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 400px) {
     main{
-        display: flex;
-        flex-direction: column;
         margin: 10px;
     }
 
     main > .section-login{
         width: 100%;
-        flex: 1;
-        align-content: center;
         padding: 30px;
     }
 
-    .container {
-        min-height: 100vh;
+    main > .section-login .section-login-header h1{
+        font-size: 1.5rem;
+    }
+
+    main > .section-login .section-login-header h3{
+        font-size: 1rem;
     }
 }
