@@ -581,4 +581,8 @@ label.label-invalido {
   #idBairro {
     font-size: 1.4rem;
   }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > p{
+    display: none;
+  }
 }
