@@ -324,3 +324,9 @@
         transform: translateX(0);
     }
 }
+
+@media (max-width: 500px){
+    #iconHamburguer{
+        font-size: 2rem;
+    }
+}

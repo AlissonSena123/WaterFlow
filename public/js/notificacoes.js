@@ -52,8 +52,6 @@ async function carregarNotificacoes() {
         const dadosReportes = await resReportes.json();
         const dadosAlertas = await resAlertas.json();
 
-        console.log("alertas:", dadosAlertas);
-
         // Busca no localStorage quais notificações o usuário já clicou/leu
         const lidasReportes = getLidas(CHAVE_REPORTES);
         const lidasAlertas = getLidas(CHAVE_ALERTAS);
@@ -69,9 +67,6 @@ async function carregarNotificacoes() {
 
         // Atualiza o badge do sino com base no cache atual
         atualizarBadge();
-
-        console.log("alertas visíveis:", alertasVisiveis);
-        console.log("lidas no localStorage:", getLidas(CHAVE_ALERTAS));
 
         const lista = document.getElementById("notifLista");
 

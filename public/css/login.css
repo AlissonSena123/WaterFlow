@@ -50,6 +50,10 @@ main > .section-login > .section-login-header{
     text-align: center;
 }
 
+main > .section-login .section-login-header h3{
+    font-weight: lighter;
+}
+
 main > .section-login > form{
     display: grid;
     grid-template-rows: auto;
@@ -170,7 +174,7 @@ a{
     background-color: white;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     main{
         margin: 10px;
     }

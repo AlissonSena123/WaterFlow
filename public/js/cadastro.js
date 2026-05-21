@@ -29,7 +29,9 @@ btnCadastrar.addEventListener("click", async (event) => {
 
         if (data.success) {
             mostrarToast(data.message, "green");
-            window.location.href = "/login";
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 3000);
         } else {
             mostrarToast(data.message, "red");
         }

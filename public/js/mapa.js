@@ -112,7 +112,6 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     normalizarTexto(f.properties.NM_BAIRRO) === bairro
                 );
 
-
                 if (!feature) {
                     mostrarToast("Bairro não encontrado", "red");
                     return;
@@ -122,6 +121,7 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                     getStatusBairros(),
                     fetch(`/status/buscar/dados/${encodeURIComponent(bairro)}`)
                 ]);
+
                 const detalhe = await detalheRes.json();
 
                 const bairroStatus = dados.find(bairro =>
@@ -264,6 +264,7 @@ function statusInfo(nomeExibicao, data) {
                     ${bairro.status.replace(/_/g, ' ').charAt(0).toUpperCase() + bairro.status.replace(/_/g, ' ').slice(1).toLowerCase()}
                 </p>
             </div>
+            <button type="button" class="ph-fill ph-x-circle" id="fecharStatus"></button>
         </div>
         <div class="cardBody">
             <div class="cardItem inicioInterrupcao">
@@ -304,6 +305,12 @@ function statusInfo(nomeExibicao, data) {
         painelStatusInfo.classList.add("visible");
     });
 
+    document.getElementById("fecharStatus").addEventListener("click", () => {
+        painelStatusInfo.classList.remove("visible");
+        painelStatusInfo.addEventListener("transitionend", () => {
+            painelStatusInfo.style.display = "none";
+        }, { once: true });
+    });
 }
 
 document.getElementById("cardStatus").addEventListener("click", (e) => {

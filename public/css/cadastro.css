@@ -151,14 +151,14 @@ main{
 }
 
 .register-right > hr{
-    border: 1px solid var(--color-bg-blue-darker);
-    margin-bottom: 10px;
+    border: 1px solid rgba(185, 185, 185, 0.536);
 }
 
 
 .register-right > .link-login{
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    color: var(--color-bg-primary-blue);
 }
 
 /* HOVER */
@@ -222,12 +222,9 @@ main{
     }
 
     .register-right{
-        padding: 40px;
+        padding: 20px 40px;
+        row-gap: 20px;
     }
-
-    
-    
-    
 }
 
 
