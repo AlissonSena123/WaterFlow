@@ -366,15 +366,12 @@ function normalizarTexto(texto) {
 }
 
 function formatarData(data, status) {
-
     if (status === "NORMAL") return null;
 
-    const dataUTC = data.includes("Z") ? data : data.replace(" ", "T") + "Z";
-
-    const dataFormatada = new Date(dataUTC);
+    const dataLocal = data.replace("Z", "").replace(" ", "T");
+    const dataFormatada = new Date(dataLocal);
 
     return dataFormatada.toLocaleString("pt-BR", {
-        timeZone: "America/Sao_Paulo",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
