@@ -298,8 +298,6 @@ function statusInfo(nomeExibicao, data) {
         </div>
     `).join("");
 
-    console.log(bairro.atualizado_em);
-
     painelStatusInfo.style.display = "block";
     painelStatusInfo.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -368,6 +366,9 @@ function normalizarTexto(texto) {
 }
 
 function formatarData(data, status) {
+
+    console.log(data);
+    
     if (status === "NORMAL") return null;
     if (!data) return null;
 
