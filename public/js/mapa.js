@@ -298,6 +298,8 @@ function statusInfo(nomeExibicao, data) {
         </div>
     `).join("");
 
+    console.log(bairro.atualizado_em);
+
     painelStatusInfo.style.display = "block";
     painelStatusInfo.scrollTo({ top: 0, behavior: "smooth" });
 
