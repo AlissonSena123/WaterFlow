@@ -72,8 +72,13 @@
         <main>
             <section id="section-map">
                 <div class="div-search">
-                    <input type="search" name="" id="search" placeholder="Pesquise um bairro" autocomplete="off">
-                    <button type="button" id="btnSearch"><span class="ph-bold ph-magnifying-glass"></span></button>
+                    <input type="search" id="search" placeholder="Pesquise um bairro" autocomplete="off">
+
+                    <button type="button" id="btnSearch">
+                        <span class="ph-bold ph-magnifying-glass"></span>
+                    </button>
+
+                    <div id="suggestions"></div>
                 </div>
                 <div id="map"></div>
                 <section id="cardStatus"></section>
