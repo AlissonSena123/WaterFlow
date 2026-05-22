@@ -204,6 +204,8 @@ main > section#infoUser > button#logout:hover{
 
 #listaReportes{
     display: grid;
+    grid-template-rows: max-content;
+    grid-auto-rows: max-content;
     gap: 5px;
     overflow-y: scroll;
     height: 350px;
