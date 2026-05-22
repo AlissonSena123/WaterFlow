@@ -270,6 +270,35 @@ main>#section-map>#map {
     background-color: white;
 }
 
+/*Div da sugestao*/
+.div-search{
+    position: relative;
+}
+
+#suggestions{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 999;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item{
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.suggestion-item:hover{
+    background: #f3f4f6;
+}
 
 @media (max-width: 1164px) {
     main>#section-map>.div-search {

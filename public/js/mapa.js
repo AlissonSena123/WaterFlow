@@ -4,6 +4,9 @@ import { criarMapa } from "./utils/mapaConfig.js";
 let map;
 let municipiosData;
 let cliqueNoBairro = false;
+let listaBairros = [];
+const inputSearch = document.getElementById("search");
+const suggestions = document.getElementById("suggestions");
 
 /* ==== FUNÇÃO DE CACHE DO FETCH ==== */
 
@@ -46,6 +49,10 @@ criarMapa("map", [-38.5167, -12.9704], 12)
                 .then(res => res.json())
                 .then(data => {
                     municipiosData = data;
+
+                    listaBairros = [...new Set(
+                        data.features.map(f => f.properties.NM_BAIRRO)
+                    )]
 
                     map.addSource("municipios", {
                         type: "geojson",
@@ -380,3 +387,63 @@ function formatarData(data, status) {
         minute: "2-digit"
     });
 }
+
+
+inputSearch.addEventListener("input", () => {
+
+    const valor = normalizarTexto(inputSearch.value);
+
+    suggestions.innerHTML = "";
+
+    if (!valor || !listaBairros.length) {
+        suggestions.style.display = "none";
+        return;
+    }
+
+    const comecaCom = listaBairros.filter(nome =>
+        normalizarTexto(nome).startsWith(valor)
+    );
+
+    // bairros que apenas contém o texto
+    const contemTexto = listaBairros.filter(nome =>
+        normalizarTexto(nome).includes(valor) &&
+        !normalizarTexto(nome).startsWith(valor)
+    );
+
+    // junta os dois
+    const filtrados = [...comecaCom, ...contemTexto];
+
+    filtrados
+        .slice(0, 8)
+        .forEach(nome => {
+
+            const item = document.createElement("div");
+
+            item.classList.add("suggestion-item");
+
+            item.textContent = nome;
+
+            item.addEventListener("click", () => {
+
+                inputSearch.value = nome;
+
+                suggestions.style.display = "none";
+
+                buscarRegiao(nome);
+            });
+
+            suggestions.appendChild(item);
+        });
+
+    suggestions.style.display =
+        filtrados.length > 0 ? "block" : "none";
+});
+
+document.addEventListener("click", (e) => {
+
+    if (!suggestions.contains(e.target) &&
+        e.target !== inputSearch) {
+
+        suggestions.style.display = "none";
+    }
+});
