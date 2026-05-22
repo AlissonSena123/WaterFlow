@@ -48,13 +48,6 @@ router.put("/update/dados/:bairro", async (req, res) => {
             .eq("bairro", bairro)
             .single();
 
-        function toUTC(dataString) {
-            if (!dataString) return null;
-
-            const data = new Date(dataString + "-03:00");
-            return data.toISOString();
-        }
-
         const statusAtual = statusAtualData?.status;
 
         const statusMudou = statusAtual !== status;
@@ -75,8 +68,8 @@ router.put("/update/dados/:bairro", async (req, res) => {
                 : {
                     status,
                     causa_interrupcao: causa_interrupcao,
-                    inicio_interrupcao: toUTC(inicio_interrupcao),
-                    previsao_retorno: toUTC(previsao_retorno),
+                    inicio_interrupcao: inicio_interrupcao || null,
+                    previsao_retorno: previsao_retorno,
                     area_afetada: area_afetada,
                     pressao_rede: pressao_rede || "NORMAL",
                     medida_solucao: medida_solucao || null,
@@ -84,11 +77,11 @@ router.put("/update/dados/:bairro", async (req, res) => {
                     atualizado_em: new Date()
                 };
 
-        if (payload.status.medida_solucao === "MANUTENCAO") {
-            console.log(payload);
-        } else {
-            console.log(payload);
-        }
+                if (payload.status.medida_solucao === "MANUTENCAO") {
+                    console.log(payload);
+                }else {
+                    console.log(payload);
+                }
 
         const { data, error } = await supabase
             .from("abastecimento")
@@ -133,7 +126,7 @@ router.put("/update/dados/:bairro", async (req, res) => {
 /** ---- API DE CONTAGEM DE BAIRROS COM STATUS IGUAIS (GET /contagem ) ---- */
 router.get("/contagem", async (req, res) => {
     try {
-        const { data, error } = await supabase
+        const {data, error} = await supabase
             .from("abastecimento")
             .select("status")
 
@@ -154,13 +147,13 @@ router.get("/contagem", async (req, res) => {
 /** ---- API BUSCAR OS BAIRROS SEM ABASTECIMENTO (GET /buscar/bairros/sem-abastecimento ) ---- */
 router.get("/buscar/bairros/sem-abastecimento", async (req, res) => {
     try {
-        const { data, error } = await supabase
-            .from("abastecimento")
-            .select("bairro, causa_interrupcao, medida_solucao")
-            .eq("status", "SEM_ABASTECIMENTO")
-            .order("atualizado_em", { ascending: true })
+        const {data, error} = await supabase
+        .from("abastecimento")
+        .select("bairro, causa_interrupcao, medida_solucao")
+        .eq("status", "SEM_ABASTECIMENTO")
+        .order("atualizado_em", {ascending: true})
 
-        if (error) return res.status(500).json({ error: error.message });
+        if(error) return res.status(500).json({ error: error.message });
         res.json(data)
 
     } catch (error) {
