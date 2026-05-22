@@ -257,7 +257,7 @@ function statusInfo(nomeExibicao, data) {
             <i class="ph-fill ph-map-pin"></i>
             <div class="cardHeaderContant">
                 <p>${nomeExibicao.toUpperCase()}</p>
-                <p>Salvador - BA · <span>Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
+                <p>Salvador - BA · <span>Atualizado em: ${formatarData(bairro.atualizado_em, null, true) || "Sem Atualização"}</span></p>
             </div>
             <div class="status">
                 <p class="badge ${colorStatus(bairro.status)}">
@@ -365,20 +365,12 @@ function normalizarTexto(texto) {
         .trim();
 }
 
-function formatarData(data, status) {
-
-    console.log(data);
-    
+function formatarData(data, status, isUTC = false) {
     if (status === "NORMAL") return null;
     if (!data) return null;
 
-    let dataFormatada;
-
-    if (data.includes("Z") || data.includes("+")) {
-        dataFormatada = new Date(data);
-    } else {
-        dataFormatada = new Date(data.replace(" ", "T"));
-    }
+    const dataStr = isUTC ? data + "Z" : data.replace(" ", "T");
+    const dataFormatada = new Date(dataStr);
 
     return dataFormatada.toLocaleString("pt-BR", {
         timeZone: "America/Sao_Paulo",
