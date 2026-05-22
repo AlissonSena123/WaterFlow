@@ -372,7 +372,7 @@ function formatarData(data, status) {
     const dataFormatada = new Date(dataUTC);
 
     return dataFormatada.toLocaleString("pt-BR", {
-        timeZone: "America/Bahia",
+        timeZone: "America/Sao_Paulo",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
