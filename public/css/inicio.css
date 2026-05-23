@@ -279,7 +279,7 @@ main>#section-map>#map {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: 87%;
     background: white;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
@@ -294,6 +294,7 @@ main>#section-map>#map {
     padding: 12px;
     cursor: pointer;
     transition: background 0.2s;
+    font-size: .9rem;
 }
 
 .suggestion-item:hover{

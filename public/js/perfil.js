@@ -199,7 +199,7 @@ async function meusReportes(userEmail) {
         lista.innerHTML = dataReportes.reportes.map(r => `
             <div class="reporte-card">
                 <span class="reporte-tipo">${r.tipo_problema || "Sem titulo"} <span class="reporte-data">${new Date(r.created_at).toLocaleDateString("pt-BR")}</span></span>
-                <span class="reporte-status">${r.status}</span>
+                <span class="reporte-status">${r.status.replace(/_/g, " ")}</span>
                 <p class="reporte-descricao">${r.descricao || "Sem descrição"}</p>
             </div>
         `).join("");
