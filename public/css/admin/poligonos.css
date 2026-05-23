@@ -423,6 +423,7 @@ main > section > h2 > i{
   padding: 15px;
   border-radius: 5px;
   border: 2px solid royalblue;
+  width: 100%;
 }
 
 /* ===== BOTÃO ===== */
