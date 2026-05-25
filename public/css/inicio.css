@@ -64,7 +64,7 @@ main>#section-map>.div-search {
     transform: translateX(-50%);
     width: 70%;
     max-width: 700px;
-    z-index: 10000;
+    z-index: 1000;
     display: flex;
 }
 
