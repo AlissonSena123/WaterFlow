@@ -272,23 +272,35 @@ main>#section-map>#map {
 
 /*Div da sugestao*/
 .div-search {
-    position: relative;
-    z-index: 99999;
+    position: absolute;
+    z-index: 999999;
 }
 
 #suggestions {
     position: absolute;
-    top: 100%;
+
+    top: calc(100% + 6px);
+
     left: 0;
-    width: 87%;
+
+    width: calc(100% - 56px);
+
     background: white;
-    border-radius: 0 0 12px 12px;
+
+    border-radius: 12px;
+
     overflow: hidden;
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    z-index: 99999;
+
+    z-index: 999999;
+
     max-height: 250px;
+
     overflow-y: auto;
+
     display: none;
+
     pointer-events: auto;
 }
 
@@ -310,8 +322,7 @@ main>#section-map>#map {
         top: 20px;
         width: calc(100% - 40px);
         max-width: none;
-        overflow: hidden;
-
+        overflow: visible;
     }
 
     .div-search>input {
