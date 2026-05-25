@@ -64,7 +64,7 @@ main>#section-map>.div-search {
     transform: translateX(-50%);
     width: 70%;
     max-width: 700px;
-    z-index: 1000;
+    z-index: 999999;
     display: flex;
 }
 
@@ -271,36 +271,19 @@ main>#section-map>#map {
 }
 
 /*Div da sugestao*/
-.div-search {
-    position: absolute;
-    z-index: 999999;
-}
-
 #suggestions {
     position: absolute;
-
-    top: calc(100% + 6px);
-
+    top: calc(100% + 4px);
     left: 0;
-
     width: calc(100% - 56px);
-
     background: white;
-
     border-radius: 12px;
-
     overflow: hidden;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-
     z-index: 999999;
-
     max-height: 250px;
-
     overflow-y: auto;
-
     display: none;
-
     pointer-events: auto;
 }
 
