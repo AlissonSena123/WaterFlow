@@ -424,7 +424,7 @@ inputSearch.addEventListener("input", () => {
 
             item.textContent = nome;
 
-            item.addEventListener("click", () => {
+            item.addEventListener("mousedown", () => {
 
                 inputSearch.value = nome;
 
@@ -432,6 +432,15 @@ inputSearch.addEventListener("input", () => {
 
                 buscarRegiao(nome);
             });
+
+            item.addEventListener("touchstart", () => {
+
+                inputSearch.value = nome;
+
+                suggestions.style.display = "none";
+
+                buscarRegiao(nome);
+            })
 
             suggestions.appendChild(item);
         });

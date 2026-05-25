@@ -273,6 +273,7 @@ main>#section-map>#map {
 /*Div da sugestao*/
 .div-search {
     position: relative;
+    z-index: 99999;
 }
 
 #suggestions {
@@ -284,10 +285,11 @@ main>#section-map>#map {
     border-radius: 0 0 12px 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    z-index: 999;
+    z-index: 99999;
     max-height: 250px;
     overflow-y: auto;
     display: none;
+    pointer-events: auto;
 }
 
 .suggestion-item {
