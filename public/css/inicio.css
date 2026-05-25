@@ -336,6 +336,10 @@ main>#section-map>#map {
 
 @media (max-width: 800px) {
 
+    #cardStatus>.cardHeader>.cardHeaderContant>p:first-child{
+        font-size: 1.2rem;
+    }
+
     #cardStatus>.cardHeader{
         grid-template-columns: max-content 1fr max-content;
         grid-template-rows: max-content;
