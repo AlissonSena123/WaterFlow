@@ -279,6 +279,10 @@ main>#section-map>#map {
 #suggestions {
     position: absolute;
 
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+    
     top: calc(100% + 6px);
 
     left: 0;

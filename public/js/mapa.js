@@ -424,23 +424,16 @@ inputSearch.addEventListener("input", () => {
 
             item.textContent = nome;
 
-            item.addEventListener("mousedown", () => {
+            item.addEventListener("click", () => {
 
                 inputSearch.value = nome;
 
                 suggestions.style.display = "none";
+
+                inputSearch.blur(); 
 
                 buscarRegiao(nome);
             });
-
-            item.addEventListener("touchstart", () => {
-
-                inputSearch.value = nome;
-
-                suggestions.style.display = "none";
-
-                buscarRegiao(nome);
-            })
 
             suggestions.appendChild(item);
         });
@@ -451,9 +444,14 @@ inputSearch.addEventListener("input", () => {
 
 document.addEventListener("click", (e) => {
 
-    if (!suggestions.contains(e.target) &&
-        e.target !== inputSearch) {
-
+    if (
+        !suggestions.contains(e.target) &&
+        e.target !== inputSearch
+    ) {
         suggestions.style.display = "none";
     }
+});
+
+suggestions.addEventListener("click", (e) => {
+    e.stopPropagation();
 });
