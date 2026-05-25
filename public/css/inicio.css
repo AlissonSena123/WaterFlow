@@ -273,7 +273,7 @@ main>#section-map>#map {
 /*Div da sugestao*/
 #suggestions {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 1px);
     left: 0;
     width: calc(100% - 56px);
     background: white;
