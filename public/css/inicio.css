@@ -372,34 +372,4 @@ main>#section-map>#map {
         padding: 6px 10px;
         margin-left: 0;
     }
-
-    .div-search {
-        position: relative;
-    }
-
-    #suggestions {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 87%;
-        background: white;
-        border-radius: 0 0 12px 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        z-index: 999;
-        max-height: 250px;
-        overflow-y: auto;
-        display: none;
-    }
-
-    .suggestion-item {
-        padding: 12px;
-        cursor: pointer;
-        transition: background 0.2s;
-        font-size: .9rem;
-    }
-
-    .suggestion-item:hover {
-        background: #f3f4f6;
-    }
 }
