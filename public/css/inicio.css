@@ -281,7 +281,7 @@ main>#section-map>#map {
     left: 0;
     width: calc(100% - 56px);
     background: white;
-    border-radius: 0 0 12px 12px;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     z-index: 999999;
