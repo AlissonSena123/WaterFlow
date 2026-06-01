@@ -154,7 +154,7 @@ router.post("/redefinirSenha", async (req, res) => {
       .single();
 
     if (!data || error) {
-      return res.redirect("/instrucoes_enviadas");
+      return res.status(404).json({ success: false, message: "Email não encontrado" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
@@ -209,17 +209,13 @@ router.post("/redefinirSenha", async (req, res) => {
       }]
     });
 
-    return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+    // return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+    return res.status(200).json({ success: true, redirect: "/instrucoes_enviadas" })
 
   } catch (error) {
     console.error("Erro ao buscar usuário para redefinir senha: ", error);
     res.status(500).send("Erro interno no servidor.");
   }
-});
-
-// --- FEEDBACK DE ENVIO ---
-router.get("/instrucoes_enviadas", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
 });
 
 // --- VALIDAÇÃO DE TOKEN ---
@@ -270,7 +266,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
     }
 
     const hash = await bcrypt.hash(senha, 10);
-    
+
     const { error: updateError } = await supabase
       .from("Users")
       .update({ senha: hash, resetToken: null, tokenExpiration: null })
@@ -288,14 +284,22 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 
 // --- ATUALIZAR PERFIL ---
 router.patch("/usuarios/atualizar/perfil", async (req, res) => {
+
+  const authUser = getAuthUser(req);
+  const id = authUser.id;
+  const { nome_completo, email, telefone, bairro } = req.body;
+
+  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+  if (!telefoneRegex.test(telefone)) {
+    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
+  }
+
+  if (!nome_completo || !email || !telefone || !bairro) return res.status(404).json({ success: false, message: "Preencha todos os campos corretamente" });
+
   try {
-    const authUser = getAuthUser(req);
     if (!authUser) {
       return res.status(401).json({ success: false, message: "Usuário não autorizado" });
     }
-
-    const id = authUser.id;
-    const { nome_completo, email, telefone, bairro } = req.body;
 
     const { data: user, error: erroBusca } = await supabase
       .from("Users")

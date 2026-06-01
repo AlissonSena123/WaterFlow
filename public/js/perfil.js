@@ -140,10 +140,10 @@ btnConfirmarAtualizacao.addEventListener("click", async () => {
             body: JSON.stringify(dados)
         });
 
-        const data = await res.json();
+        const {message, success} = await res.json();
 
-        if (!data.success) {
-            console.error(data.message);
+        if (!success) {
+            mostrarToast(message, "red");
             return;
         }
 
