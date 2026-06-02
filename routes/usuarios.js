@@ -47,6 +47,11 @@ router.post("/cadastrar", async (req, res) => {
     return res.status(400).json({ success: false, message: "A senha deve ter de 10 a 15 caracteres" });
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)) {
+    return res.status(400).json({ success: false, message: "Email inválido"});
+  }
+
   const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
   if (!telefoneRegex.test(telefone)) {
     return res.status(400).json({ success: false, message: "Número de telefone inválido" });
