@@ -48,13 +48,11 @@ router.post("/cadastrar", async (req, res) => {
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    return res.status(400).json({ success: false, message: "Email inválido"});
-  }
-
+  const nomeRegex = /^[A-Za-zÀ-ÿ'-]+( [A-Za-zÀ-ÿ'-]+)+$/;
   const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-  if (!telefoneRegex.test(telefone)) {
-    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
+
+  if (!emailRegex.test(email) || !nomeRegex.test(nome_completo) || !telefoneRegex.test(telefone)) {
+    return res.status(400).json({ success: false, message: "Informações inválidas" });
   }
 
   try {
@@ -294,12 +292,14 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   const id = authUser.id;
   const { nome_completo, email, telefone, bairro } = req.body;
 
-  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-  if (!telefoneRegex.test(telefone)) {
-    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
-  }
-
   if (!nome_completo || !email || !telefone || !bairro) return res.status(404).json({ success: false, message: "Preencha todos os campos corretamente" });
+
+  const nomeRegex = /^[A-Za-zÀ-ÿ'-]+( [A-Za-zÀ-ÿ'-]+)+$/;
+  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+
+  if (!telefoneRegex.test(telefone) || !nomeRegex.test(nome_completo)) {
+    return res.status(400).json({ success: false, message: "Informações inválidas para atualização" });
+  }
 
   try {
     if (!authUser) {
