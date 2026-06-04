@@ -2,24 +2,8 @@
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-areas:
-        "nav header"
-        "nav main"
-}
-
-header {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    align-items: center;
-    padding: 22px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: relative;
-    z-index: 1001;
-    background: white;
-}
-
-header img {
-    width: 100px;
-    justify-self: center;
+        "header header"
+        "main main"
 }
 
 main {

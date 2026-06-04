@@ -17,8 +17,8 @@
         href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
     <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/inicio.css">
-    <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/toast.css">
 
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
@@ -28,43 +28,46 @@
 <body>
     <div class="container">
         <span id="toast" class="toast"></span>
-        <nav id="sidebar">
-            <div id="sidebar-content">
-                <i class="ph-bold ph-list"></i>
-                <ul id="sidebar-items">
-                    <li class="sidebar-item active">
-                        <a href="/inicio">
-                            <i class="ph-bold ph-map-trifold"></i>
-                            <span class="item-title">Mapa</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/reporte">
-                            <i class="ph-bold ph-warning-circle"></i>
-                            <span class="item-title">Reporte</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="/perfil">
-                            <i class="ph-bold ph-user-circle"></i>
-                            <span class="item-title">Perfil</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
         <header>
-            <i class="ph-bold ph-list" id="iconHamburguer"></i>
-            <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
-            <div id="notifWrapper">
-                <button id="notifBtn" aria-label="Notificações">
-                    <i class="ph-bold ph-bell"></i>
-                    <span id="notifBadge"></span>
-                </button>
-                <div id="notifDropdown">
-                    <p id="notifTitulo">Notificações</p>
-                    <ul id="notifLista"></ul>
+            <!-- <i class="ph-bold ph-list" id="iconHamburguer"></i> -->
+            <img src="/assets/Img/LogoV3.png" alt="LogoTipo">
+            <div class="navbar">
+                <div class="navbar-item active">
+                    <a href="/inicio">
+                        <i class="ph-bold ph-map-trifold"></i>
+                        <span class="item-title">Mapa</span>
+                    </a>
+                </div>
+                <div class="navbar-item">
+                    <a href="/reporte">
+                        <i class="ph-fill ph-megaphone"></i>
+                        <span class="item-title">Reportar falta d'água</span>
+                    </a>
+                </div>
+                <div class="divisor"></div>
+                <div id="notifWrapper">
+                    <button id="notifBtn" aria-label="Notificações">
+                        <i class="ph-bold ph-bell"></i>
+                        <span id="notifBadge"></span>
+                    </button>
+                    <div id="notifDropdown">
+                        <p id="notifTitulo">Notificações</p>
+                        <ul id="notifLista"></ul>
+                    </div>
+                </div>
+                <div class="perfil" id="perfilWrapper">
+                    <i class="ph-bold ph-user-circle iconPerfil"></i>
+                    <i class="ph-fill ph-caret-down"></i>
+                </div>
+                <div id="perfilDropdown">
+                    <ul>
+                        <li>
+                            <a href="/perfil">Ver Perfil</a>
+                        </li>
+                        <li>
+                            <a href="/logout" class="perfil-sair" id="perfil-sair"><i class="ph-fill ph-sign-out"></i> Sair da conta</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </header>
@@ -89,7 +92,8 @@
 
     <script src="/js/notificacoes.js"></script>
     <script type="module" src="/js/mapa.js"></script>
-    <script type="module" src="/js/utils/sidebar.js"></script>
+    <script type="module" src="/js/logout.js"></script>
+    <script src="/js/header.js"></script>
 </body>
 
 </html>

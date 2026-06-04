@@ -2,24 +2,8 @@
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-areas:
-        "nav header"
-        "nav main";
-}
-
-header {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    align-items: center;
-    padding: 22px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: relative;
-    z-index: 1001;
-    background: white;
-}
-
-header img {
-    width: 100px;
-    justify-self: center;
+        "header header"
+        "main main";
 }
 
 main {
@@ -90,7 +74,7 @@ main>#section-map>.div-search {
     align-items: center;
 }
 
-.div-search>button>span{
+.div-search>button>span {
     font-size: 1.1rem;
 }
 
@@ -154,8 +138,8 @@ main>#section-map>#map {
     font-size: .85rem;
 }
 
-#cardStatus>.cardHeader button{
-    background:none;
+#cardStatus>.cardHeader button {
+    background: none;
     color: white;
     width: max-content;
     border-radius: 50px;
@@ -198,7 +182,7 @@ main>#section-map>#map {
     font-size: .95rem;
 }
 
-.cardItem>p:last-child{
+.cardItem>p:last-child {
     text-align: end;
 }
 
@@ -215,11 +199,11 @@ main>#section-map>#map {
     grid-area: titulo;
 }
 
-.inicioInterrupcao{
+.inicioInterrupcao {
     grid-area: inicioInterrupcao;
 }
 
-.prevRetorno{
+.prevRetorno {
     grid-area: prevRetorno;
 }
 
@@ -271,11 +255,11 @@ main>#section-map>#map {
 }
 
 /*Div da sugestao*/
-.div-search{
+.div-search {
     position: relative;
 }
 
-#suggestions{
+#suggestions {
     position: absolute;
     top: 100%;
     left: 0;
@@ -283,7 +267,7 @@ main>#section-map>#map {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     z-index: 999999;
     max-height: 250px;
     overflow-y: auto;
@@ -291,14 +275,14 @@ main>#section-map>#map {
     pointer-events: auto;
 }
 
-.suggestion-item{
+.suggestion-item {
     padding: 12px;
     cursor: pointer;
     transition: background 0.2s;
     font-size: .9rem;
 }
 
-.suggestion-item:hover{
+.suggestion-item:hover {
     background: #f3f4f6;
 }
 
@@ -311,8 +295,8 @@ main>#section-map>#map {
         max-width: none;
         overflow: visible;
     }
-    
-    .div-search > input{
+
+    .div-search>input {
         box-shadow: none;
     }
 
@@ -336,27 +320,27 @@ main>#section-map>#map {
 
 @media (max-width: 800px) {
 
-    #cardStatus>.cardHeader>.cardHeaderContant>p:first-child{
+    #cardStatus>.cardHeader>.cardHeaderContant>p:first-child {
         font-size: 1.2rem;
     }
 
-    #cardStatus>.cardHeader{
+    #cardStatus>.cardHeader {
         grid-template-columns: max-content 1fr max-content;
         grid-template-rows: max-content;
         gap: 20px 10px;
     }
 
-    #cardStatus>.cardHeader button{
+    #cardStatus>.cardHeader button {
         display: block;
     }
 
-    .status{
+    .status {
         grid-row: 2/3;
         grid-column: 1/-1;
         width: 100%;
     }
 
-    .status > p{
+    .status>p {
         width: 100%;
         text-align: center;
     }

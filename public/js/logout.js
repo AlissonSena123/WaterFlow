@@ -6,7 +6,8 @@ function setupLogout(selector) {
     const btn = document.querySelector(selector);
     if (!btn) return;
 
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", async (event) => {
+        event.preventDefault();
         if (isLoggingOut) return;
 
         isLoggingOut = true;
@@ -40,4 +41,4 @@ function setupLogout(selector) {
 setupLogout("#btn-logout", "funcionario");
 
 //Logout de Usuario
-setupLogout("#logout", "usuario");
+setupLogout("#perfil-sair", "usuario");
