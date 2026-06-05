@@ -215,7 +215,7 @@ main>section>form>#item7>textarea:focus {
     }
 
     main section{
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
     }
 
     main>div.title-report {
@@ -223,11 +223,12 @@ main>section>form>#item7>textarea:focus {
     }
 
     .title-report>h1>i {
-        font-size: 2rem;
+        display: none;
     }
 
     main>.title-report>h1 {
         justify-content: center;
+        font-size: 1.5rem;
     }
 
     main>div.title-report {
@@ -254,11 +255,5 @@ main>section>form>#item7>textarea:focus {
         margin-top: 10px;
         padding: 20px;
         width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    .title-report>h1>i {
-        display: none;
     }
 }
