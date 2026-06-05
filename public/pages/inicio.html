@@ -29,7 +29,6 @@
     <div class="container">
         <span id="toast" class="toast"></span>
         <header>
-            <!-- <i class="ph-bold ph-list" id="iconHamburguer"></i> -->
             <img src="/assets/Img/LogoV3.png" alt="LogoTipo">
             <div class="navbar">
                 <div class="navbar-item active">
@@ -58,19 +57,43 @@
                 <div class="perfil" id="perfilWrapper">
                     <i class="ph-bold ph-user-circle iconPerfil"></i>
                     <i class="ph-fill ph-caret-down"></i>
+                    <div id="perfilDropdown">
+                        <ul>
+                            <li>
+                                <a href="/perfil">Ver Perfil</a>
+                            </li>
+                            <li>
+                                <a href="/logout" class="perfil-sair" id="perfil-sair"><i
+                                        class="ph-fill ph-sign-out"></i>
+                                    Sair da conta</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div id="perfilDropdown">
-                    <ul>
-                        <li>
-                            <a href="/perfil">Ver Perfil</a>
-                        </li>
-                        <li>
-                            <a href="/logout" class="perfil-sair" id="perfil-sair"><i class="ph-fill ph-sign-out"></i> Sair da conta</a>
-                        </li>
-                    </ul>
-                </div>
+                <button id="iconHamburguer" aria-label="Menu" aria-expanded="false">
+                    <i class="ph-bold ph-list"></i>
+                </button>
             </div>
         </header>
+        <nav id="mobileMenu" aria-hidden="true">
+            <div>
+                <a href="/inicio" class="mobile-item active">
+                    <i class="ph-bold ph-map-trifold"></i> 
+                    Mapa
+                </a>
+                <a href="/reporte" class="mobile-item">
+                    <i class="ph-fill ph-megaphone"></i> 
+                    Reportar falta d'água
+                </a>
+                <a href="/perfil" class="mobile-item">
+                    <i class="ph-fill ph-user"></i>
+                    Ver Perfil
+                </a>
+                <hr>
+                <a href="/logout" class="perfil-sair mobile-item" id="perfilMenu-sair"><i class="ph-fill ph-sign-out"></i>
+                    Sair da conta</a>
+            </div>
+        </nav>
 
         <main>
             <section id="section-map">
@@ -93,7 +116,7 @@
     <script src="/js/notificacoes.js"></script>
     <script type="module" src="/js/mapa.js"></script>
     <script type="module" src="/js/logout.js"></script>
-    <script src="/js/header.js"></script>
+    <script type="module" src="/js/header.js"></script>
 </body>
 
 </html>

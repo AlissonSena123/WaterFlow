@@ -42,3 +42,4 @@ setupLogout("#btn-logout", "funcionario");
 
 //Logout de Usuario
 setupLogout("#perfil-sair", "usuario");
+setupLogout("#perfilMenu-sair", "usuario");
