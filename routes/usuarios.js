@@ -48,39 +48,40 @@ router.post("/cadastrar", async (req, res) => {
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const nomeRegex = /^[A-Za-zÀ-ÿ'-]+( [A-Za-zÀ-ÿ'-]+)+$/;
+  const nomeNormalizado = nome_completo.trim().replace(/\s+/g, ' ');
+  const nomeRegex = /^[A-Za-zÀ-ÿ' -]{5,100}$/;
   const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 
-  if (!emailRegex.test(email) || !nomeRegex.test(nome_completo) || !telefoneRegex.test(telefone)) {
-    return res.status(400).json({ success: false, message: "Informações inválidas" });
+if (!emailRegex.test(email) || !nomeRegex.test(nomeNormalizado) || !telefoneRegex.test(telefone)) {
+  return res.status(400).json({ success: false, message: "Informações inválidas" });
+}
+
+try {
+  const { data: userExistente, error: selectError } = await supabase
+    .from("Users")
+    .select("id")
+    .eq("email", email);
+
+  if (selectError) throw selectError;
+
+  if (userExistente.length > 0) {
+    return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
   }
 
-  try {
-    const { data: userExistente, error: selectError } = await supabase
-      .from("Users")
-      .select("id")
-      .eq("email", email);
+  const senhaHash = await bcrypt.hash(senha, 10);
 
-    if (selectError) throw selectError;
+  const { error: insertError } = await supabase
+    .from("Users")
+    .insert([{ nome_completo, data_nascimento, email, senha: senhaHash, telefone, cidade, estado, pais, bairro }]);
 
-    if (userExistente.length > 0) {
-      return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
-    }
+  if (insertError) throw insertError;
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+  return res.status(200).json({ success: true, message: `Usuário ${nome_completo} cadastrado com sucesso!` });
 
-    const { error: insertError } = await supabase
-      .from("Users")
-      .insert([{ nome_completo, data_nascimento, email, senha: senhaHash, telefone, cidade, estado, pais, bairro }]);
-
-    if (insertError) throw insertError;
-
-    return res.status(200).json({ success: true, message: `Usuário ${nome_completo} cadastrado com sucesso!` });
-
-  } catch (err) {
-    console.error("Erro ao cadastrar:", err);
-    return res.status(500).json({ success: false, message: "Erro ao cadastrar usuário!" });
-  }
+} catch (err) {
+  console.error("Erro ao cadastrar:", err);
+  return res.status(500).json({ success: false, message: "Erro ao cadastrar usuário!" });
+}
 });
 
 // --- ROTA DE LOGIN ---
