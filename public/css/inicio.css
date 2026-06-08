@@ -1,34 +1,16 @@
 .container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-        "nav header"
-        "nav main";
-}
-
-header {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    align-items: center;
-    padding: 22px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: relative;
-    z-index: 1001;
-    background: white;
-}
-
-header img {
-    width: 100px;
-    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 main {
     background: white;
-    background-size: cover;
+    flex: 1;
+    min-height: 0;
     padding: 10px;
-    display: grid;
-    grid-template-rows: 100vh;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 main>section {
@@ -49,9 +31,9 @@ main>section>h2>i {
 }
 
 main>#section-map {
-    display: block;
+    flex: 1;
+    min-height: 0;
     position: relative;
-    height: 100vh;
     padding: 0;
     overflow: hidden;
     border: 2px solid royalblue;
@@ -99,6 +81,7 @@ main>#section-map>#map {
     border-radius: 7px;
     height: 100%;
     width: 100%;
+    flex: 1;
 }
 
 #cardStatus {
@@ -271,6 +254,10 @@ main>#section-map>#map {
 }
 
 /*Div da sugestao*/
+.div-search {
+    position: relative;
+}
+
 #suggestions {
     position: absolute;
     top: 100%;

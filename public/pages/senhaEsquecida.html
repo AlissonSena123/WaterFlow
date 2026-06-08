@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="/assets/Img/LogoIcon.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/toast.css">
     <link rel="stylesheet" href="/css/senhaEsquecida.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
@@ -14,6 +15,7 @@
 </head>
 <body>
     <div class="container">
+        <span id="toast" class="toast"></span>
         <header>
             <a href="/login">Voltar para a tela de Login</a>
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
@@ -22,12 +24,13 @@
             <section class="sctForgottenPassword">
                 <h1>Esqueceu a senha?</h1>
                 <p>Informe o e-mail cadastrado no WaterFlow para realizar a redefinição de sua senha.</p>
-                <form action="/redefinirSenha" method="post">
-                    <input type="email" name="email" placeholder="Digite seu Email" required>
-                    <button type="submit">Enviar</button>
+                <form>
+                    <input type="email" name="email" placeholder="Digite seu Email" id="email" required>
+                    <button type="button" id="btnEnviar">Enviar</button>
                 </form>
             </section>
         </main>
     </div>
+    <script type="module" src="/js/redefinirSenha.js"></script>
 </body>
 </html>
