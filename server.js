@@ -88,6 +88,7 @@ server.get("/admin/usuarios", autorizarRole("funcionario"), (req, res) => {
 });
 
 /** ---- API DO MAPA ---- */
+
 server.get("/api/mapKey", (req, res) => {
   res.json({ key: process.env.MAP_KEY });
 });
