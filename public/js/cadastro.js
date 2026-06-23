@@ -3,14 +3,31 @@ import { mostrarToast } from "./utils/toast.js";
 
 const btnCadastrar = document.getElementById("btnCadastrar");
 
+const inputData = document.getElementById("idData");
+const hoje = new Date();
+
+const max = hoje.toISOString().split('T')[0];
+
+const min = new Date(hoje.getFullYear() - 120, hoje.getMonth(), hoje.getDate())
+    .toISOString().split('T')[0];
+
+inputData.max = max;
+inputData.min = min;
+
 btnCadastrar.addEventListener("click", async (event) => {
     event.preventDefault();
+
+    const dataNascimento = document.getElementById("idData").value;
+    if (!dataNascimento || dataNascimento > max || dataNascimento < min) {
+        mostrarToast("Data de nascimento inválida", "red");
+        return;
+    }
 
     const userCadastro = {
         nome_completo: document.getElementById("idNome").value,
         email: document.getElementById("idEmail").value,
         senha: document.getElementById("idSenha").value,
-        data_nascimento: document.getElementById("idData").value,
+        data_nascimento: dataNascimento,
         telefone: document.getElementById("idTelefone").value,
         cidade: document.getElementById("cidade").value,
         estado: document.getElementById("estado").value,

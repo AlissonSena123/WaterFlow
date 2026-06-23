@@ -204,7 +204,7 @@ async function modal(nomeExibicao, nome) {
 
             const isNormal = status === "NORMAL";
 
-            const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida"];
+            const camposExtras = ["idCausa", "idInicio", "idRetorno", "idArea", "idPressao", "idMedida", "idDesc"];
 
             camposExtras.forEach(id => {
                 const el = document.getElementById(id);
@@ -275,7 +275,7 @@ document.getElementById("idStatus").addEventListener("change", () => {
         document.getElementById("idInicio").value = formatado;
     }
     
-    if (isNormal) limparErros(); // Se for Normal, tira a destaque
+    if (isNormal) limparErros(); // Se for Normal, tira o destaque
 });
 
 

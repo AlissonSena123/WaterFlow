@@ -7,6 +7,7 @@
 body{
     background: url(../assets/Img/backgroundBlueWaves.svg) no-repeat top center;
     background-size: cover;
+    min-height: 100dvh;
 }
 
 header{
@@ -20,15 +21,10 @@ header > img{
     width: clamp(100px, 15vw, 150px);
 }
 
-header > nav > button{
-    padding: 12px;
-    width: 150px;
-}
-
-
 main{
     align-content: center;
     justify-items: center;
+    padding: 16px 0 32px;
 }
 
 main > .section-login{
@@ -39,7 +35,7 @@ main > .section-login{
     max-width: 500px;
     background: rgba(255, 255, 255, 0.941);
     box-shadow: var(--shadow-medium);
-    padding: 50px;
+    padding: clamp(24px, 6vw, 50px);
     border-radius: 10px;
     color: var(--color-bg-primary-blue);
 }
@@ -176,12 +172,11 @@ a{
 
 @media screen and (max-width: 400px) {
     main{
-        margin: 10px;
+        padding: 12px 0 24px;
     }
 
     main > .section-login{
-        width: 100%;
-        padding: 30px;
+        width: 95%;
     }
 
     main > .section-login .section-login-header h1{

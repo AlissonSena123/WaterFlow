@@ -7,8 +7,10 @@
     <title>WaterFlow</title>
     <link rel="icon" href="/assets/Img/LogoIcon.svg" type="image/svg+xml">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
 
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/sobre.css">
@@ -18,14 +20,14 @@
 <body>
     <div class="container">
 
-        <header>
+        <header id="header">
             <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
             <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" id="menuToggle">
                 <i class="ph-bold ph-list"></i>
             </button>
             <div class="btn-links" id="navLinks">
                 <a href="#section-sobre" id="sobre">Sobre nós</a>
-                <a href="#section-projeto" id="projeto">Projeto</a>
+                <a href="#section-projeto" id="projeto">Sobre o Projeto</a>
                 <a href="#section-developers" id="desenvolvedores">Desenvolvedores</a>
                 <button onclick="window.location.href = '/login'">
                     <i class="ph-fill ph-sign-in"></i> Entrar</button>
@@ -61,7 +63,7 @@
 
             <section id="section-funcionalidades">
                 <div class="sctFuncionContent">
-                    <img src="/assets/Img/illustrationVectorMAP.svg" alt="">
+                    <img src="/assets/Img/illustrationVectorMAP.svg" alt="" data-aos="fade-up">
                     <div>
                         <h1>MAPA INTERATIVO</h1>
                         <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do
@@ -76,7 +78,7 @@
                             Esses reportes serão enviados ao administrador, assim podendo resolver o problema da melhor
                             forma possível.</p>
                     </div>
-                    <img src="/assets/Img/illustrationVectorREPORT.svg" alt="">
+                    <img src="/assets/Img/illustrationVectorREPORT.svg" alt="" data-aos="fade-up">
                 </div>
             </section>
 
@@ -90,41 +92,60 @@
             <section id="section-developers">
                 <h1>Desenvolvedores</h1>
 
-                <article>
+                <article data-aos="fade-up">
                     <div class="article-developers">
-                        <h2>João Gabriel Matos</h2>
+                        <img src="../assets/Img/perfilMatos.jpeg" alt="João Gabriel Matos">
+                        <div class="article-developer-info">
+                            <h2>João Gabriel Matos</h2>
+                            <p>Gestor do Projeto</p>
+                        </div>
                     </div>
                 </article>
-                <article>
+                <article data-aos="fade-up">
                     <div class="article-developers">
-                        <h2>Matheus Leite Gubert</h2>
+                        <img src="../assets/Img/perfilMatheus.jpeg" alt="Matheus Leite Gubert">
+                        <div class="article-developer-info">
+                            <h2>Matheus Leite Gubert</h2>
+                            <p>Desenvolvedor Back-end</p>
+                        </div>
                     </div>
                 </article>
-                <article>
+                <article data-aos="fade-up">
                     <div class="article-developers">
-                        <h2>Alisson Oliveira Sena</h2>
+                        <img src="../assets/Img/perfilAlisson.jpg" alt="Alisson Oliveira Sena">
+                        <div class="article-developer-info">
+                            <h2>Alisson Oliveira Sena</h2>
+                            <p>Desenvolvedor Front-end</p>
+                        </div>
                     </div>
                 </article>
-                <article>
+                <article class="allan" data-aos="fade-up">
                     <div class="article-developers">
-                        <h2>Allan Bacelar</h2>
+                        <div class="article-developer-info">
+                            <h2>Allan Bacelar</h2>
+                            <p>Desenvolvedor Front-end</p>
+                        </div>
                     </div>
                 </article>
-                <article>
+                <article data-aos="fade-up">
                     <div class="article-developers">
-                        <h2>Guilherme Simões</h2>
+                        <img src="../assets/Img/perfilViana.jpeg" alt="Guilherme Simões">
+                        <div class="article-developer-info">
+                            <h2>Guilherme Simões</h2>
+                            <p>Desenvolvedor Back-end</p>
+                        </div>
                     </div>
                 </article>
-
             </section>
 
         </main>
 
         <footer>
-            <img src="/assets/Img/LogoWhiteV1.png" alt="LogoTipo">
+            <img src="/assets/Img/LogoV3.png" alt="LogoTipo">
+            <p>Projeto de TCC - SENAI Cimatec</p>
             <div id="contact">
                 <p>Contato:</p>
-                <p>waterflow855@gmail.com</p>
+                <p><i class="ph-fill ph-envelope"></i>waterflow855@gmail.com</p>
             </div>
         </footer>
 
@@ -150,6 +171,16 @@
                 toggle.setAttribute('aria-expanded', false);
                 toggle.querySelector('i').className = 'ph-bold ph-list';
             });
+        });
+
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                header.classList.add('sombra');
+            } else {
+                header.classList.remove('sombra');
+            }
         });
     </script>
 </body>

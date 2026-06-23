@@ -1,33 +1,15 @@
-.container{
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "nav header"
-    "nav main";
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    align-items: center;
-    padding: 22px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: relative;
-    z-index: 1001;
-    background: white;
-}
-
-header img {
-    width: 100px;
-    justify-self: center;
-}
-
-main{
-    background: white;
-    background-size: cover;
-    padding: 24px;
-    display: grid;
-    grid-template-rows: max-content 1fr;
+main {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    color: black;
+    padding: 10px;
 }
 
 main > section{
@@ -163,29 +145,8 @@ main > section#infoUser > h3{
     grid-column: 1/-1;
 }
 
-main > section#infoUser > button#logout{
-    align-self: center;
-    justify-self: flex-end;
-    padding: 16px;
-    background-color: red;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    width: max-content;
-}
-
 hr{
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-main > section#infoUser > button#logout > i{
-    font-size: 1.4rem;
-}
-
-main > section#infoUser > button#logout:hover{
-    background-color: rgb(167, 0, 0);
 }
 
 .infoContantReport {
@@ -433,9 +394,6 @@ aside > form > div#updateButton > button:last-child{
     color: white;
 }
 
-#infoUser #logout{
-    justify-self: flex-end;
-}
 
 /* MODAL PARA DELETAR A CONTA */
 
@@ -512,6 +470,7 @@ aside > form > div#updateButton > button:last-child:hover{
 
     main > .titlePerfil{
         padding: 20px;
+        gap: 10px;
     }
 
     .userTitle > h1{
@@ -534,5 +493,13 @@ aside > form > div#updateButton > button:last-child:hover{
 
     main > .titlePerfil > button > p{
         display: none;
+    }
+
+    main > section#infoUser{
+        padding: 20px;
+    }
+
+    #btnEditarPerfil{
+        padding: 10px;
     }
 }

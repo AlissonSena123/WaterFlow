@@ -264,7 +264,7 @@ function statusInfo(nomeExibicao, data) {
             <i class="ph-fill ph-map-pin"></i>
             <div class="cardHeaderContant">
                 <p>${nomeExibicao.toUpperCase()}</p>
-                <p>Salvador - BA · <span>Atualizado em: ${formatarData(bairro.atualizado_em) || "Sem Atualização"}</span></p>
+                <p>Salvador - BA · <span>Atualizado em: ${formatarData(bairro.atualizado_em, null, true) || "Sem Atualização"}</span></p>
             </div>
             <div class="status">
                 <p class="badge ${colorStatus(bairro.status)}">
@@ -372,11 +372,12 @@ function normalizarTexto(texto) {
         .trim();
 }
 
-function formatarData(data, status) {
+function formatarData(data, status, isUTC = false) {
     if (status === "NORMAL") return null;
+    if (!data) return null;
 
-    const dataUTC = data.includes("Z") ? data : data.replace(" ", "T") + "Z";
-    const dataFormatada = new Date(dataUTC);
+    const dataStr = isUTC ? data + "Z" : data.replace(" ", "T");
+    const dataFormatada = new Date(dataStr);
 
     return dataFormatada.toLocaleString("pt-BR", {
         timeZone: "America/Sao_Paulo",
@@ -429,6 +430,8 @@ inputSearch.addEventListener("input", () => {
 
                 suggestions.style.display = "none";
 
+                inputSearch.blur(); 
+
                 buscarRegiao(nome);
             });
 
@@ -441,9 +444,14 @@ inputSearch.addEventListener("input", () => {
 
 document.addEventListener("click", (e) => {
 
-    if (!suggestions.contains(e.target) &&
-        e.target !== inputSearch) {
-
+    if (
+        !suggestions.contains(e.target) &&
+        e.target !== inputSearch
+    ) {
         suggestions.style.display = "none";
     }
+});
+
+suggestions.addEventListener("click", (e) => {
+    e.stopPropagation();
 });

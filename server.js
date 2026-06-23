@@ -62,6 +62,10 @@ server.get("/redefinir/confirmar", (req, res) => {
   res.sendFile(join(__dirname, "public/pages/redefinirsenha.html"));
 });
 
+server.get("/instrucoes_enviadas", (req, res) => {
+  res.sendFile(join(__dirname, "public/pages/instrucoesEmail.html"));
+});
+
 /* ---- ROTAS DE ADMIN ---- */
 server.get("/admin/dashboard", autorizarRole("funcionario"), (req, res) => {
   res.sendFile(join(__dirname, "admin/pages/dashboard.html"));
@@ -84,6 +88,7 @@ server.get("/admin/usuarios", autorizarRole("funcionario"), (req, res) => {
 });
 
 /** ---- API DO MAPA ---- */
+
 server.get("/api/mapKey", (req, res) => {
   res.json({ key: process.env.MAP_KEY });
 });

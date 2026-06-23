@@ -1,35 +1,16 @@
 .container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-        "nav header"
-        "nav main"
-}
-
-header {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    align-items: center;
-    padding: 22px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: relative;
-    z-index: 1001;
-    background: white;
-}
-
-header img {
-    width: 100px;
-    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
-    display: grid;
-    grid-template-rows: max-content auto;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    background: white;
     color: black;
-    padding: 24px;
-    position: relative;
-    z-index: 0;
+    padding: 10px;
 }
 
 main>div.title-report {
@@ -61,11 +42,11 @@ main>.title-report>p {
 }
 
 main>section {
+    min-height: 100%;
     border-radius: 0px 0px 7px 7px;
     box-shadow: var(--shadow-soft);
     background: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
-    min-height: 100%;
     border: 1px solid rgba(54, 54, 54, 0.293);
     padding: 30px;
 }
@@ -234,7 +215,7 @@ main>section>form>#item7>textarea:focus {
     }
 
     main section{
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
     }
 
     main>div.title-report {
@@ -242,11 +223,12 @@ main>section>form>#item7>textarea:focus {
     }
 
     .title-report>h1>i {
-        font-size: 2rem;
+        display: none;
     }
 
     main>.title-report>h1 {
         justify-content: center;
+        font-size: 1.5rem;
     }
 
     main>div.title-report {
@@ -273,11 +255,5 @@ main>section>form>#item7>textarea:focus {
         margin-top: 10px;
         padding: 20px;
         width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    .title-report>h1>i {
-        display: none;
     }
 }

@@ -25,7 +25,7 @@
   <div class="container">
     <nav id="sidebar">
       <div id="sidebar-content">
-        <i class="ph-bold ph-list"></i>
+        <button class="ph-bold ph-list" id="iconHamburguer"></button>
         <ul id="sidebar-items">
           <li class="sidebar-item">
             <a href="/admin/dashboard">
@@ -55,10 +55,11 @@
       </div>
     </nav>
 
+    <div id="sidebar-overlay"></div>
     <span id="toast" class="toast"></span>
 
     <header>
-      <i class="ph-bold ph-list" id="iconHamburguer"></i>
+      <i class="ph-bold ph-list" id="iconHamburguerMobile"></i>
       <img src="../../assets/Img/LogoV1.png" alt="Logo WaterFlow">
     </header>
 
@@ -132,7 +133,7 @@
           <p><i class="ph-fill ph-chat-text"></i> Responder usuário</p>
 
           <select id="selectStatus">
-            <option value="recebido">Recebido</option>
+            <option value="recebido" disabled selected>Recebido</option>
             <option value="em_analise">Em análise</option>
             <option value="resolvido">Resolvido</option>
           </select>

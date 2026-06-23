@@ -47,37 +47,41 @@ router.post("/cadastrar", async (req, res) => {
     return res.status(400).json({ success: false, message: "A senha deve ter de 10 a 15 caracteres" });
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const nomeNormalizado = nome_completo.trim().replace(/\s+/g, ' ');
+  const nomeRegex = /^[A-Za-zÀ-ÿ' -]{5,100}$/;
   const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-  if (!telefoneRegex.test(telefone)) {
-    return res.status(400).json({ success: false, message: "Número de telefone inválido" });
+
+if (!emailRegex.test(email) || !nomeRegex.test(nomeNormalizado) || !telefoneRegex.test(telefone)) {
+  return res.status(400).json({ success: false, message: "Informações inválidas" });
+}
+
+try {
+  const { data: userExistente, error: selectError } = await supabase
+    .from("Users")
+    .select("id")
+    .eq("email", email);
+
+  if (selectError) throw selectError;
+
+  if (userExistente.length > 0) {
+    return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
   }
 
-  try {
-    const { data: userExistente, error: selectError } = await supabase
-      .from("Users")
-      .select("id")
-      .eq("email", email);
+  const senhaHash = await bcrypt.hash(senha, 10);
 
-    if (selectError) throw selectError;
+  const { error: insertError } = await supabase
+    .from("Users")
+    .insert([{ nome_completo, data_nascimento, email, senha: senhaHash, telefone, cidade, estado, pais, bairro }]);
 
-    if (userExistente.length > 0) {
-      return res.status(400).json({ success: false, message: "Usuário já cadastrado" });
-    }
+  if (insertError) throw insertError;
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+  return res.status(200).json({ success: true, message: `Usuário ${nome_completo} cadastrado com sucesso!` });
 
-    const { error: insertError } = await supabase
-      .from("Users")
-      .insert([{ nome_completo, data_nascimento, email, senha: senhaHash, telefone, cidade, estado, pais, bairro }]);
-
-    if (insertError) throw insertError;
-
-    return res.status(200).json({ success: true, message: `Usuário ${nome_completo} cadastrado com sucesso!` });
-
-  } catch (err) {
-    console.error("Erro ao cadastrar:", err);
-    return res.status(500).json({ success: false, message: "Erro ao cadastrar usuário!" });
-  }
+} catch (err) {
+  console.error("Erro ao cadastrar:", err);
+  return res.status(500).json({ success: false, message: "Erro ao cadastrar usuário!" });
+}
 });
 
 // --- ROTA DE LOGIN ---
@@ -154,7 +158,7 @@ router.post("/redefinirSenha", async (req, res) => {
       .single();
 
     if (!data || error) {
-      return res.redirect("/instrucoes_enviadas");
+      return res.status(404).json({ success: false, message: "Email não encontrado" });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
@@ -209,17 +213,13 @@ router.post("/redefinirSenha", async (req, res) => {
       }]
     });
 
-    return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+    // return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
+    return res.status(200).json({ success: true, redirect: "/instrucoes_enviadas" })
 
   } catch (error) {
     console.error("Erro ao buscar usuário para redefinir senha: ", error);
     res.status(500).send("Erro interno no servidor.");
   }
-});
-
-// --- FEEDBACK DE ENVIO ---
-router.get("/instrucoes_enviadas", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
 });
 
 // --- VALIDAÇÃO DE TOKEN ---
@@ -270,7 +270,7 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
     }
 
     const hash = await bcrypt.hash(senha, 10);
-    
+
     const { error: updateError } = await supabase
       .from("Users")
       .update({ senha: hash, resetToken: null, tokenExpiration: null })
@@ -288,14 +288,24 @@ router.put("/usuarios/atualizar-senha/:token", async (req, res) => {
 
 // --- ATUALIZAR PERFIL ---
 router.patch("/usuarios/atualizar/perfil", async (req, res) => {
+
+  const authUser = getAuthUser(req);
+  const id = authUser.id;
+  const { nome_completo, email, telefone, bairro } = req.body;
+
+  if (!nome_completo || !email || !telefone || !bairro) return res.status(404).json({ success: false, message: "Preencha todos os campos corretamente" });
+
+  const nomeRegex = /^[A-Za-zÀ-ÿ'-]+( [A-Za-zÀ-ÿ'-]+)+$/;
+  const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+
+  if (!telefoneRegex.test(telefone) || !nomeRegex.test(nome_completo)) {
+    return res.status(400).json({ success: false, message: "Informações inválidas para atualização" });
+  }
+
   try {
-    const authUser = getAuthUser(req);
     if (!authUser) {
       return res.status(401).json({ success: false, message: "Usuário não autorizado" });
     }
-
-    const id = authUser.id;
-    const { nome_completo, email, telefone, bairro } = req.body;
 
     const { data: user, error: erroBusca } = await supabase
       .from("Users")
