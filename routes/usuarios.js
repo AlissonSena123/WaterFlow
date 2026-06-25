@@ -383,29 +383,29 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
 });
 
 // --- REPORTAR FALTA D'ÁGUA ---
-router.post("/reporte/enviar", async (req, res) => {
-  const { nome, email, tipo, rua, bairro, descricao } = req.body;
+  router.post("/reporte/enviar", async (req, res) => {
+    const { nome, email, tipo, rua, bairro, descricao } = req.body;
 
-  if (!email || !nome || !rua || !bairro || !tipo) {
-    return res.json({ success: false, message: "Preencha todos os campos" });
-  }
-
-  try {
-    const { error } = await supabase
-      .from("reportUsers")
-      .insert([{ nome, email, tipo_problema: tipo, rua, bairro, descricao }]);
-
-    if (error) {
-      return res.status(400).json({ sucesso: false, error: "Erro ao enviar reporte" });
+    if (!email || !nome || !rua || !bairro || !tipo) {
+      return res.json({ success: false, message: "Preencha todos os campos" });
     }
 
-    return res.json({ success: true, message: "Report enviado com sucesso!" });
+    try {
+      const { error } = await supabase
+        .from("reportUsers")
+        .insert([{ nome, email, tipo_problema: tipo, rua, bairro, descricao }]);
 
-  } catch (error) {
-    console.error("Erro ao enviar reporte:", error);
-    res.status(500).json({ success: false, message: "Erro interno do servidor" });
-  }
-});
+      if (error) {
+        return res.status(400).json({ sucesso: false, erro: error});
+      }
+
+      return res.json({ success: true, message: "Report enviado com sucesso!" });
+
+    } catch (error) {
+      console.error("Erro ao enviar reporte:", error);
+      res.status(500).json({ success: false, message: "Erro interno do servidor" });
+    }
+  });
 
 // --- MEUS REPORTES ---
 router.get("/api/meus-reportes", async (req, res) => {
@@ -434,7 +434,7 @@ router.get("/api/alertas-bairro", async (req, res) => {
   const authUser = getAuthUser(req);
   const bairro = authUser?.bairro;
 
-  if (!bairro) return res.json({ success: false, error: "Não autenticado." });
+  if (!bairro) return res.status(401).json({ success: false, error: "Não autenticado." });
 
   const expiracao = new Date();
   expiracao.setDate(expiracao.getDate() - 7);
