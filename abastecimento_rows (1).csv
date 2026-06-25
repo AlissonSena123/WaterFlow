@@ -1,4 +1,4 @@
-id,bairro,status,causa_interrupcao,inicio_interrupcao,previsao_retorno,area_afetada,pressao_rede,medida_solucao,descricao,atualizado_em
+id,bairro_salvador,status,causa_interrupcao,inicio_interrupcao,previsao_retorno,area_afetada,pressao_rede,medida_solucao,descricao,atualizado_em
 025e1581-23cc-467f-87ad-1f459861a492,novo marotinho,NORMAL,,,,,NORMAL,,,2026-04-08 22:47:35.712964
 032d581c-fd8a-485e-8fc3-436cd6865c9d,aeroporto,NORMAL,,,,,NORMAL,,,2026-04-14 17:32:36.936
 036fc87b-45e1-4149-858a-c6b465127758,piata,NORMAL,,,,,NORMAL,,,2026-04-14 16:20:28.457

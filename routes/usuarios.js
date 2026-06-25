@@ -386,8 +386,8 @@ router.patch("/usuarios/atualizar/perfil", async (req, res) => {
   router.post("/reporte/enviar", async (req, res) => {
     const { nome, email, tipo, rua, bairro, descricao } = req.body;
 
-    if (!email || !nome || !rua || !bairro || !tipo) {
-      return res.json({ success: false, message: "Preencha todos os campos" });
+    if (!email || !nome || !rua || !bairro || !tipo || !descricao) {
+      return res.status(404).json({ success: false, message: "Preencha todos os campos" });
     }
 
     try {
