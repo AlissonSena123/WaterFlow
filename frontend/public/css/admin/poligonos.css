@@ -1,0 +1,589 @@
+.container{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "nav header"
+    "nav main";
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+
+header img{
+  width: 100px;
+}
+
+main{
+  padding: 24px;
+  background: #f6f8fc;
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 20px;
+}
+
+main section{
+  background: white;
+  padding: 20px;
+  border-radius: 7px;
+  box-shadow: var(--shadow-soft);
+}
+
+main > section > h2{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+main > section > h2 > i{
+  font-size: 1.8rem;
+}
+
+/* Seção de STATUS */
+.status{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background-color: var(--color-bg-primary-blue);
+  color: white;
+  padding: 20px;
+}
+
+.status > div > h1{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.status > div > h1 > i{
+  font-size: 3rem;
+}
+
+/* Seção de Filtro */
+.filtros{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto;
+  gap: 16px;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field > .divSearch > input{
+  background: #f0f4ff;
+  padding: 15px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 6px;
+}
+
+.field > .divSearch{
+  display: flex;
+  column-gap: 10px;
+}
+
+.field > .divSearch > button{
+  background-color: var(--color-bg-primary-blue);
+  color: white;
+}
+
+.mapa-wrapper {
+  grid-column: 1/-1;
+  position: relative;
+}
+
+#map {
+  height: 750px;
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid royalblue;
+  overflow: hidden;
+}
+
+.mapboxgl-ctrl-group{
+  z-index: 5;
+}
+
+.mapboxgl-ctrl{
+  pointer-events: auto;
+}
+
+/* Container do popup */
+.maplibregl-popup-content {
+  position: relative;
+  padding: 0 !important; /* remove o padding padrão do MapLibre */
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+}
+
+/* Botão × */
+.maplibregl-popup-close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #999;
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: max-content;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10;
+}
+
+.maplibregl-popup-close-button:hover {
+  color: #111;
+}
+
+/* Seu conteúdo */
+.popup-bairro {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  width: 220px;
+  padding: 12px 14px;
+  color: #1a1a1a;
+}
+
+.popup-bairro strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 6px;
+  padding-right: 20px; /* evita sobrepor o × */
+}
+
+.popup-bairro div {
+  font-size: 0.8125rem;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.painel-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: min(420px, calc(100% - 24px)); 
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 10;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.painel-status.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+}
+
+.painel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.painel-header h2 {
+  font-size: 0.95rem;
+  font-weight: lighter;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.painel-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-bg-blue-darker);
+  width: max-content;
+  padding: 0;
+  box-shadow: none;
+}
+
+.painel-header button:hover {
+  color: #333;
+}
+
+.painel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.painel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+}
+
+.painel-nome {
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: #000000;
+}
+
+.painel-item .badge {
+  align-self: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  font-weight: lighter;
+  padding: 4px 12px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.painel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 10px 0px;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: lighter;
+}
+
+.painel-info span b {
+  color: #000000;
+}
+
+.painel-info > div {
+  background-color: rgba(216, 226, 255, 0.407);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.painel-item-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.painel-item-header > span:last-child{
+  font-size: .85rem;
+  color: rgba(30, 30, 30, 0.541);
+}
+
+.painel-item-footer > button{
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--color-bg-secondary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* UPDATE */
+#painelStatusUpdate {
+  padding: 0px;
+  display: none;
+}
+
+/* ===== BAIRRO ===== */
+.painelStatusItemBairro{
+  background-color: var(--color-bg-primary-blue);
+  padding: 20px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.painelStatusItemBairro > h2{
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: whitesmoke;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+#idBairro {
+  font-size: 2rem;
+  color: white;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.painelStatusItemBairro > p{
+  font-size: .9rem;
+  color: var(--color-bg-tertiary-blue);
+}
+
+/* container principal */
+#painelStatusUpdate > .painelStatusContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  padding: 30px;
+}
+
+#painelStatusUpdate fieldset {
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e0e6ff;
+  background: #f9fbff;
+}
+
+/* ===== STATUS FORNECIMENTO ===== */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* legend ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > legend {
+  grid-column: 1 / -1;
+}
+
+/* itens */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+#painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > p{
+  font-size: .85rem;
+  color: rgba(56, 56, 56, 0.642);
+  grid-column: 1/-1;
+}
+
+/* ===== DETALHES ===== */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+
+/* legend ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > legend {
+  grid-column: 1 / -1;
+}
+
+/* itens */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+/* textarea ocupa tudo */
+#painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes > .painelStatusItemDesc {
+  grid-column: 1 / -1;
+}
+
+#painelStatusUpdate textarea {
+  resize: none;
+  height: 200px;
+}
+
+/* ===== INPUTS ===== */
+#painelStatusUpdate input,
+#painelStatusUpdate select,
+#painelStatusUpdate textarea {
+  background: #f0f4ff;
+  padding: 15px;
+  border-radius: 5px;
+  border: 2px solid royalblue;
+  width: 100%;
+}
+
+/* ===== BOTÃO ===== */
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup{
+  display: grid;
+  grid-template-columns: 200px 300px;
+  gap: 7px;
+  align-self: flex-end;
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button {
+  background-color: var(--color-bg-secondary-blue);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button#btnCancelar{
+  background-color: red;
+}
+
+#painelStatusUpdate > .painelStatusContent > button > i {
+  font-size: 1.5rem;
+}
+
+/* ===== DISABLED ===== */
+#painelStatusUpdate fieldset input:disabled,
+#painelStatusUpdate fieldset select:disabled,
+#painelStatusUpdate fieldset textarea:disabled {
+  background: #e8e8e8;
+  border-color: #ccc;
+  color: #aaa;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.campo-invalido {
+    border: 2px solid #e53e3e !important;
+    border-radius: 6px;
+    animation: shake 0.3s ease;
+}
+
+.campo-invalido + label,
+label.label-invalido {
+    color: #e53e3e;
+}
+
+.erro-msg {
+    font-size: 0.75rem;
+    color: #e53e3e;
+    margin-top: 4px;
+    display: block;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-6px); }
+    75%       { transform: translateX(6px); }
+}
+
+/* HOVER */
+
+.field > .divSearch > button:hover{
+  background-color: royalblue;
+}
+
+.painel-item-footer > button:hover{
+  background-color: var(--color-bg-blue-darker);
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button:last-child:hover {
+    background-color: var(--color-bg-blue-darker);
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button#btnCancelar:hover{
+  background-color: darkred;
+}
+
+#painelStatusUpdate > .painelStatusContent > .btnGroup > button:active {
+    transform: scale(0.98);
+}
+
+/* FOCUS */
+
+#painelStatusUpdate input:focus,
+#painelStatusUpdate select:focus,
+#painelStatusUpdate textarea:focus{
+  background-color: white;
+  box-shadow: 0px 0px 5px var(--color-bg-secondary-blue);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* tablets */
+@media (max-width: 1100px) {
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #painelStatusUpdate > .painelStatusContent > .btnGroup{
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
+
+/* celulares */
+@media (max-width: 800px) {
+
+  #painelStatusUpdate > .painelStatusContent {
+    row-gap: 20px;
+    padding: 20px;
+  }
+
+  #painelStatusUpdate fieldset {
+    padding: 20px;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento,
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusDetalhes {
+    grid-template-columns: 1fr;
+  }
+
+ 
+  #painelStatusUpdate input,
+  #painelStatusUpdate select,
+  #painelStatusUpdate textarea {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > .btnGroup {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > .btnGroup > button {
+    width: 100%;
+  }
+
+  #painelStatusUpdate textarea {
+    height: 150px;
+  }
+
+  #idBairro {
+    font-size: 1.4rem;
+  }
+
+  #painelStatusUpdate > .painelStatusContent > fieldset.statusFornecimento > p{
+    display: none;
+  }
+}

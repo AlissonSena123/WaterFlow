@@ -1,0 +1,81 @@
+<header (click)="fecharDropdowns()">
+  <img src="/assets/Img/LogoV3.png" alt="LogoTipo">
+  <div class="navbar">
+    <div class="navbar-item" [class.active]="activePage === 'mapa'">
+      <a routerLink="/inicio">
+        <i class="ph-bold ph-map-trifold"></i>
+        <span class="item-title">Mapa</span>
+      </a>
+    </div>
+    <div class="navbar-item" [class.active]="activePage === 'reporte'">
+      <a routerLink="/reporte">
+        <i class="ph-fill ph-megaphone"></i>
+        <span class="item-title">Reportar falta d'água</span>
+      </a>
+    </div>
+    <div class="divisor"></div>
+
+    <!-- Notificações -->
+    <div id="notifWrapper">
+      <button id="notifBtn" aria-label="Notificações" (click)="toggleNotif($event)" [style.position]="'relative'">
+        <i class="ph-bold" [class.ph-bell-ringing]="totalNaoLidas > 0" [class.ph-bell]="totalNaoLidas === 0"></i>
+        <span id="notifBadge" *ngIf="totalNaoLidas > 0">{{ totalNaoLidas }}</span>
+      </button>
+      <div id="notifDropdown" [class.open]="notifOpen" (click)="$event.stopPropagation()">
+        <p id="notifTitulo">Notificações</p>
+        <ul id="notifLista">
+          <li *ngIf="notifVisiveis.length === 0" class="notif-vazia">Nenhuma notificação.</li>
+          <li *ngFor="let notif of notifVisiveis" class="notif-item nao-lida">
+            <div class="notif-conteudo">
+              <p *ngIf="notif.tipo === 'reporte'">
+                Seu reporte do bairro <strong>{{ notif.bairro }}</strong> foi respondido! Verifique seu email.
+              </p>
+              <p *ngIf="notif.tipo === 'alerta'">
+                Status do abastecimento em <strong>{{ notif.bairro?.toUpperCase() }}</strong> foi atualizado para
+                <strong>{{ notif.status?.replace('_', ' ') }}</strong>.
+              </p>
+              <span>{{ formatarData(notif.respondido_em || notif.atualizado_em) }}</span>
+            </div>
+            <button class="notif-fechar" aria-label="Fechar notificação" (click)="dispensarNotif(notif, $event)">×</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Perfil dropdown -->
+    <div class="perfil" id="perfilWrapper" (click)="togglePerfil($event)">
+      <i class="ph-bold ph-user-circle iconPerfil"></i>
+      <i class="ph-fill ph-caret-down"></i>
+      <div id="perfilDropdown" [class.open]="perfilOpen" (click)="$event.stopPropagation()">
+        <ul>
+          <li><a routerLink="/perfil">Ver Perfil</a></li>
+          <li><a class="perfil-sair" (click)="logout()"><i class="ph-fill ph-sign-out"></i> Sair da conta</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Hambúrguer mobile -->
+    <button id="iconHamburguer" aria-label="Menu" (click)="toggleMobile()">
+      <i class="ph-bold ph-list"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<nav id="mobileMenu" [class.open]="mobileOpen" (click)="$event.stopPropagation()">
+  <div>
+    <a routerLink="/inicio" class="mobile-item" [class.active]="activePage === 'mapa'">
+      <i class="ph-bold ph-map-trifold"></i> Mapa
+    </a>
+    <a routerLink="/reporte" class="mobile-item" [class.active]="activePage === 'reporte'">
+      <i class="ph-fill ph-megaphone"></i> Reportar falta d'água
+    </a>
+    <a routerLink="/perfil" class="mobile-item" [class.active]="activePage === 'perfil'">
+      <i class="ph-fill ph-user"></i> Ver Perfil
+    </a>
+    <hr>
+    <a class="perfil-sair mobile-item" (click)="logout()">
+      <i class="ph-fill ph-sign-out"></i> Sair da conta
+    </a>
+  </div>
+</nav>

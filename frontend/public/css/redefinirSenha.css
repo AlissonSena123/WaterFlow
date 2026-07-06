@@ -1,0 +1,124 @@
+#toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    transform: translatey(20px);
+    background: var(--color-bg-primary-blue);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity .4s ease, transform .4s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    pointer-events: none;
+    z-index: 9999; 
+}
+
+#show {
+    display: block;     
+    min-width: 180px;   
+    text-align: center; 
+}
+
+.container{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+    background: var(--color-bg-primary-blue) url(../assets/Img/backgroundWeveEffect.svg) no-repeat top center;
+}
+
+header{
+    padding: 20px;
+    position: relative;
+}
+
+header img{
+    width: 100px;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    padding: 20px;
+}
+
+
+.sctForgottenPassword{
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0px 0px 5px black;
+    display: grid;
+    grid-template-rows: auto;
+    max-width: 600px;
+    gap: 20px;
+}
+
+.sctForgottenPassword > form{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    width: 100%;
+}
+
+.sctForgottenPassword > .itemFogottenPasswordTitle{
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+    border-radius: 7px 7px 0px 0px;
+    color: white;
+}
+
+.sctForgottenPassword > .itemFogottenPasswordTitle h1{
+    margin-bottom: 5px;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.sctForgottenPassword > .itemFogottenPasswordTitle h1 i{
+    font-size: 1.5rem;
+}
+
+.sctForgottenPassword > form{
+    padding: 0px 20px 20px 20px;
+}
+
+.sctForgottenPassword > form > input{
+    padding: 20px;
+    border: 2px solid var(--color-bg-primary-blue);
+    border-radius: 6px;
+    background-color: var(--color-bg-white-opacity);
+}
+
+.sctForgottenPassword > form > button{
+    width: 100%;
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+}
+
+.sctForgottenPassword > form > button:hover{
+    background-color: var(--color-bg-secondary-blue);
+}
+
+footer{
+    padding: 20px;
+}
+
+footer p{
+    text-align: center;
+    font-size: .9rem;
+    color: rgba(0, 0, 71, 0.184);
+}
+
+
+.sctForgottenPassword > form > input:focus{
+    background-color: white;
+}

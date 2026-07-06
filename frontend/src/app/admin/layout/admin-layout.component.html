@@ -1,0 +1,14 @@
+<div class="container admin-container">
+  <app-admin-sidebar></app-admin-sidebar>
+  
+  <div class="admin-content">
+    <header>
+      <i class="ph-bold ph-list" id="iconHamburguerMobile" (click)="openMobileMenu()"></i>
+      <img src="/assets/Img/LogoV1.png" alt="Logo WaterFlow">
+    </header>
+    
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<section class="status">
+  <h1> <i class="ph-fill ph-users"></i> Usuários Cadastrados</h1>
+</section>
+
+<section class="filtro">
+  <div class="field">
+    <label for="userSearch">Pesquisar:</label>
+    <input type="text" id="userSearch" placeholder="Nome ou Email do Usuário" [(ngModel)]="nomeFilter" (ngModelChange)="onFilterChange()">
+  </div>
+  <div class="field">
+    <label for="roleFilter">Tipo de Usuário:</label>
+    <select id="roleFilter" [(ngModel)]="roleFilter" (ngModelChange)="onFilterChange()">
+      <option value="">Todos</option>
+      <option value="user">Cidadão</option>
+      <option value="admin">Administrador</option>
+    </select>
+  </div>
+</section>
+
+<section class="reportUserList">
+  <h2> <i class="ph-bold ph-list-bullets"></i> Lista de Usuários</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome:</th>
+        <th>Email:</th>
+        <th>Telefone:</th>
+        <th>Bairro:</th>
+        <th>Cargo:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuarios">
+        <td data-label="Nome:">
+          <div id="reportAvatar">{{ getIniciais(user.nome_completo) }}</div> 
+          {{ user.nome_completo }}
+        </td>
+        <td data-label="Email:">{{ user.email }}</td>
+        <td data-label="Telefone:">{{ user.telefone || '-' }}</td>
+        <td data-label="Bairro:">{{ user.bairro || '-' }}</td>
+        <td data-label="Cargo:">{{ user.role === 'admin' ? 'Administrador' : 'Cidadão' }}</td>
+      </tr>
+      <tr *ngIf="usuarios.length === 0">
+        <td colspan="5" style="text-align: center;">Nenhum usuário encontrado</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

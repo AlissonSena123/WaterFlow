@@ -1,0 +1,134 @@
+<section class="status">
+  <div>
+    <h1><i class="ph-fill ph-map-trifold"></i> Status dos Bairros</h1>
+  </div>
+</section>
+
+<section class="filtros">
+  <div class="field">
+    <label for="buscarArea">Buscar por área:</label>
+    <div class="divSearch">
+      <input class="input-form" id="buscarArea" type="text" placeholder="Ex: Zona Norte" [(ngModel)]="searchTerm" (keydown)="onSearchKeydown($event)">
+      <button class="ph-bold ph-magnifying-glass" id="btnSeach" (click)="doSearch()"></button>
+    </div>
+  </div>
+
+  <div class="mapa-wrapper">
+    <div id="map" #mapContainer></div>
+
+    <aside id="statusBairro" class="painel-status" [ngClass]="{'oculto': !painelStatusVisible}">
+      <div class="painel-header">
+        <h2><i class="ph-fill ph-broadcast"></i> Status do Bairro</h2>
+        <button id="fecharPainel" class="ph-bold ph-x" (click)="fecharPainelStatus()"></button>
+      </div>
+      <div class="painel-body">
+        <p style='color:#aaa;font-size:0.8rem' *ngIf="!bairroSelecionado">Carregando...</p>
+        
+        <div class="painel-item" *ngIf="bairroSelecionado">
+          <div class="painel-item-header">
+            <span class="painel-nome">{{ (bairroSelecionado.bairro).toUpperCase() }}</span>
+            <span class="painel-atualizacao">Atualizado em: {{ formatDateStr(bairroSelecionado.atualizado_em) }}</span>
+          </div>
+          <div class="painel-info">
+            <div>
+              <b> Status Atual:</b> 
+              <span class="badge" [ngClass]="colorStatus(bairroSelecionado.status)">
+                {{ formatStatusStr(bairroSelecionado.status) | titlecase }}
+              </span>
+            </div>
+          </div>
+          <div class="painel-item-footer">
+            <button type="button" class="btn-update" (click)="abrirPainelAtualizar()">
+              Atualizar Status
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="painelStatusUpdate" [style.display]="painelUpdateVisible ? 'block' : 'none'">
+  <div class="painelStatusItemBairro">
+    <h2><i class="ph-fill ph-gear-six"></i> Atualizar Status</h2>
+    <p id="idBairro">{{ formData.bairroExibicao | uppercase }}</p>
+    <p>Atualizado em: <span id="idAtualizado">{{ formatDateStr(bairroSelecionado?.atualizado_em) }}</span></p>
+  </div>
+
+  <div class="painelStatusContent">
+    <fieldset class="statusFornecimento">
+      <legend>Status do Fornecimento:</legend>
+      <div class="painelStatusItemStatus">
+        <label for="idStatus">Situação atual:</label>
+        <select id="idStatus" [(ngModel)]="formData.status" (change)="onStatusChange()">
+          <option value="" disabled>Selecionar...</option>
+          <option value="NORMAL">Normal</option>
+          <option value="FORNECIMENTO_IRREGULAR">Fornecimento Irregular</option>
+          <option value="SEM_ABASTECIMENTO">Sem Abastecimento</option>
+        </select>
+      </div>
+
+      <div class="painelStatusItemCausa">
+        <label for="idCausa">Causa da interrupção:</label>
+        <select id="idCausa" [(ngModel)]="formData.causa" [disabled]="isNormal()">
+          <option value="" disabled>Selecionar...</option>
+          <option value="ROMPIMENTO">Rompimento</option>
+          <option value="MANUTENÇÃO">Manutenção</option>
+          <option value="OBRA_NA_REGIÃO">Obra na Região</option>
+          <option value="DESCONHECIDA">Desconhecida</option>
+        </select>
+      </div>
+      <div class="painelStatusItemInicio">
+        <label for="idInicio">Início da interrupção:</label>
+        <input type="datetime-local" id="idInicio" [(ngModel)]="formData.inicio" [disabled]="isNormal()">
+      </div>
+      <div class="painelStatusItemRetorno">
+        <label for="idRetorno">Previsão de retorno:</label>
+        <input type="datetime-local" id="idRetorno" [(ngModel)]="formData.retorno" [disabled]="isNormal()">
+      </div>
+      <p>Selecione outra opção para habilitar os campos de formulário</p>
+    </fieldset>
+
+    <fieldset class="statusDetalhes">
+      <legend>Detalhes:</legend> 
+      <div class="painelStatusItemArea">
+        <label for="idArea">Área afetada:</label>
+        <select id="idArea" [(ngModel)]="formData.area" [disabled]="isNormal()">
+          <option value="" disabled>Selecionar...</option>
+          <option value="BAIRRO_INTEIRO">Bairro inteiro</option>
+          <option value="PARTE_DO_BAIRRO">Parte do bairro</option>
+        </select>
+      </div>
+      <div class="painelStatusItemPressao">
+        <label for="idPressao">Pressão da rede:</label>
+        <select id="idPressao" [(ngModel)]="formData.pressao" [disabled]="isNormal()">
+          <option value="" disabled>Selecionar...</option>
+          <option value="SEM_PRESSÃO">Sem pressão</option>
+          <option value="BAIXA">Baixa</option>
+          <option value="MEDIA">Média</option>
+          <option value="ALTA">Alta</option>
+          <option value="NORMAL">Normal</option>
+        </select>
+      </div>
+      <div class="painelStatusItemMedida">
+        <label for="idMedida">Medida para solucionar:</label>
+        <select id="idMedida" [(ngModel)]="formData.medida" [disabled]="isNormal()">
+          <option value="" disabled>Selecionar...</option>
+          <option value="EQUIPE_REPARO_NO_LOCAL">Equipe de reparo no local</option>
+          <option value="AGUARDANDO_DISTRIBUIDORA">Aguardando Distribuidora</option>
+          <option value="MANUTENÇÃO_EM_ANDAMENTO">Manutenção em andamento</option>
+          <option value="SEM_MEDIDAS_ATIVAS">Sem medidas ativas</option>
+        </select>
+      </div>
+      <div class="painelStatusItemDesc">
+        <label for="idDesc">Descrição:</label>
+        <textarea id="idDesc" placeholder="Descrição do problema" [(ngModel)]="formData.descricao" [disabled]="isNormal()"></textarea>
+      </div>
+    </fieldset>
+    
+    <div class="btnGroup">
+      <button type="button" id="btnCancelar" (click)="cancelarUpdate()">Cancelar</button>
+      <button type="button" id="btnUpdate" (click)="atualizarStatus()"><i class="ph-fill ph-check-fat"></i> Confirmar Atualização</button>
+    </div>
+  </div>
+</section>

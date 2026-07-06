@@ -1,0 +1,55 @@
+<div class="container-reporte">
+  <app-header [activePage]="'reporte'"></app-header>
+  <main>
+    <div class="title-report">
+      <h1> <i class="ph-fill ph-warning-circle"></i> Reportar falta d'água</h1>
+      <p>Preencha os campos abaixo:</p>
+    </div>
+
+    <section>
+      <form autocomplete="off" (ngSubmit)="enviarReporte()">
+        <div class="titleItemDadosPessoais title">
+          <p><i class="ph-fill ph-user"></i> Dados Pessoais</p>
+        </div>
+        <div id="item1">
+          <label>Nome</label>
+          <input type="text" name="nome" required placeholder="Digite seu nome" [(ngModel)]="form.nome" readonly>
+          <p><i class="ph-fill ph-info"></i> Os dados do usuário são preenchidos automaticamente</p>
+        </div>
+        <div id="item2">
+          <label>Email</label>
+          <input type="email" name="email" required placeholder="Digite seu email" [(ngModel)]="form.email" readonly>
+        </div>
+        <div class="titleItemDadosProblema title">
+          <p><i class="ph-fill ph-warning-circle"></i> Dados do Problema</p>
+        </div>
+        <div id="item3">
+          <label>Tipo do Problema</label>
+          <select name="tipo_problema" [(ngModel)]="form.tipo_problema" required>
+            <option value="" disabled>Selecione o Problema</option>
+            <option *ngFor="let t of tiposProblema" [value]="t.value">{{ t.label }}</option>
+          </select>
+        </div>
+        <div id="item4">
+          <label>CEP</label>
+          <input type="text" name="cep" required placeholder="00000-000" [(ngModel)]="form.cep" (blur)="buscarCEP()">
+          <p><i class="ph-fill ph-info"></i> Digite o CEP para preencher os dados de localização automaticamente</p>
+        </div>
+        <div id="item5">
+          <input type="text" name="rua" placeholder="Rua" readonly [(ngModel)]="form.rua">
+        </div>
+        <div id="item6">
+          <input type="text" name="bairro" placeholder="Bairro" readonly [(ngModel)]="form.bairro">
+        </div>
+        <div id="item7">
+          <label>Descrição</label>
+          <textarea name="descricao" placeholder="Descreva seu problema com detalhes..." [(ngModel)]="form.descricao" required></textarea>
+        </div>
+        <button type="submit" id="btnEnviarReport" [disabled]="isLoading"> 
+          <i class="ph-fill ph-paper-plane-tilt"></i>
+          {{ isLoading ? 'Enviando...' : 'Enviar' }}
+        </button>
+      </form>
+    </section>
+  </main>
+</div>

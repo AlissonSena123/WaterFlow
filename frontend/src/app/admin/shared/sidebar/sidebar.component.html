@@ -1,0 +1,39 @@
+<nav id="sidebar" [ngClass]="{'expand': expand, 'open': openMobile}">
+  <div id="sidebar-content">
+    <button class="ph-bold ph-list" id="iconHamburguer" (click)="toggleExpand()"></button>
+    <ul id="sidebar-items">
+      <li class="sidebar-item" routerLinkActive="active">
+        <a routerLink="/admin/dashboard" (click)="closeMobile()">
+          <i class="ph-bold ph-gauge"></i>
+          <span class="item-title">Painel</span>
+        </a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active">
+        <a routerLink="/admin/poligonos" (click)="closeMobile()">
+          <i class="ph-bold ph-map-trifold"></i>
+          <span class="item-title">Status</span>
+        </a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active">
+        <a routerLink="/admin/reports" (click)="closeMobile()">
+          <i class="ph-bold ph-warning-circle"></i>
+          <span class="item-title">Reporte</span>
+        </a>
+      </li>
+      <li class="sidebar-item" routerLinkActive="active">
+        <a routerLink="/admin/usuarios" (click)="closeMobile()">
+          <i class="ph-bold ph-users"></i>
+          <span class="item-title">Usuários</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div id="logout">
+    <button id="btn-logout" (click)="logout()">
+      <i class="ph-fill ph-sign-out"></i>
+      <span>Sair</span>
+    </button>
+  </div>
+</nav>
+
+<div id="sidebar-overlay" [ngClass]="{'visible': openMobile}" (click)="closeMobile()"></div>

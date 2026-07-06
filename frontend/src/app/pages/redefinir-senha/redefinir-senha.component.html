@@ -1,0 +1,43 @@
+<div class="container-redefinir">
+  <header> 
+    <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+  </header>
+  <main>
+    <section class="sctForgottenPassword">
+
+      <!-- Estado: Validando token -->
+      <div class="itemFogottenPasswordTitle" *ngIf="isValidating">
+        <h1><i class="ph-fill ph-spinner-gap"></i> Verificando link...</h1>
+        <p>Aguarde enquanto validamos seu link de redefinição.</p>
+      </div>
+
+      <!-- Estado: Token inválido ou expirado -->
+      <div class="itemFogottenPasswordTitle" *ngIf="!isValidating && !tokenValido">
+        <h1><i class="ph-fill ph-x-circle"></i> Link inválido</h1>
+        <p>{{ tokenErro }}</p>
+        <a href="/senha-esquecida">
+          <button type="button">Solicitar novo link</button>
+        </a>
+      </div>
+
+      <!-- Estado: Token válido — exibe formulário -->
+      <div *ngIf="!isValidating && tokenValido">
+        <div class="itemFogottenPasswordTitle">
+          <h1><i class="ph-fill ph-pen"></i> Informe a nova senha</h1>
+          <p>Sua identidade foi verificada. Digite e confirme sua nova senha:</p>
+        </div>
+        <form (ngSubmit)="atualizarSenha()">
+          <input type="password" name="novaSenha" placeholder="Nova senha" [(ngModel)]="novaSenha" required>
+          <input type="password" name="confirmarSenha" placeholder="Confirmar nova senha" [(ngModel)]="confirmarSenha" required>
+          <button type="submit" [disabled]="isLoading">
+            {{ isLoading ? 'Atualizando...' : 'Atualizar senha' }}
+          </button>
+        </form>
+      </div>
+
+    </section>
+  </main>
+  <footer>
+    <p>WaterFlow - Projeto de TCC Senai Cimatec</p>
+  </footer>
+</div>

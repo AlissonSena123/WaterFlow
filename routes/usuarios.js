@@ -6,8 +6,8 @@ import nodemailer from "nodemailer";
 import path from "path";
 import { fileURLToPath } from "url";
 import jwt from "jsonwebtoken";
-import { buscarUsuarioPorEmail } from "../public/services/userService.js";
-import { buscarFuncionarioPorEmail } from "../public/services/funcionarioService.js";
+import { buscarUsuarioPorEmail } from "../services/userService.js";
+import { buscarFuncionarioPorEmail } from "../services/funcionarioService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -208,7 +208,7 @@ router.post("/redefinirSenha", async (req, res) => {
         </html>`,
       attachments: [{
         filename: "LogoWhiteV1.png",
-        path: "./public/assets/Img/LogoWhiteV1.png",
+        path: "./frontend/public/assets/Img/LogoWhiteV1.png",
         cid: "LogoWaterFlow"
       }]
     });
@@ -222,28 +222,28 @@ router.post("/redefinirSenha", async (req, res) => {
   }
 });
 
-// --- VALIDAÇÃO DE TOKEN ---
-router.get("/redefinir-senha/:token", async (req, res) => {
+// --- VALIDAÇÃO DE TOKEN (API para Angular) ---
+router.get("/api/validar-token-senha/:token", async (req, res) => {
   const { token } = req.params;
   const now = new Date();
 
   try {
     const { data, error } = await supabase
       .from("Users")
-      .select("*")
+      .select("id, email")
       .eq("resetToken", token)
       .gt("tokenExpiration", now.toISOString())
       .single();
 
     if (!data || error) {
-      return res.send("<script>alert('Link de redefinição inválido ou expirado.'); window.location.href= '/login';</script>");
+      return res.status(400).json({ success: false, message: "Link de redefinição inválido ou expirado." });
     }
 
-    return res.sendFile(path.join(__dirname, "../public/pages/redefinirsenha.html"));
+    return res.json({ success: true, email: data.email });
 
   } catch (error) {
     console.error("Erro na validação do token:", error);
-    res.status(500).send("Erro interno.");
+    res.status(500).json({ success: false, message: "Erro interno." });
   }
 });
 

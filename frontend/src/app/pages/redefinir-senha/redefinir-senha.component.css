@@ -1,0 +1,100 @@
+/* Porta exata do public/css/redefinirSenha.css */
+
+:host {
+    display: block;
+    height: 100vh;
+}
+
+.container-redefinir {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+    background: var(--color-bg-primary-blue) url(/assets/Img/backgroundWeveEffect.svg) no-repeat top center;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+header {
+    padding: 20px;
+    position: relative;
+    grid-area: header;
+}
+
+header img { width: 100px; }
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    padding: 20px;
+    grid-area: main;
+}
+
+.sctForgottenPassword {
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0px 0px 5px black;
+    display: grid;
+    grid-template-rows: auto;
+    max-width: 600px;
+    width: 100%;
+    gap: 20px;
+}
+
+.sctForgottenPassword > form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    width: 100%;
+    padding: 0px 20px 20px 20px;
+}
+
+.itemFogottenPasswordTitle {
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+    border-radius: 7px 7px 0px 0px;
+    color: white;
+}
+
+.itemFogottenPasswordTitle h1 {
+    margin-bottom: 5px;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.itemFogottenPasswordTitle h1 i { font-size: 1.5rem; }
+
+.sctForgottenPassword > form > input {
+    padding: 20px;
+    border: 2px solid var(--color-bg-primary-blue);
+    border-radius: 6px;
+    background-color: var(--color-bg-white-opacity);
+    outline: none;
+}
+
+.sctForgottenPassword > form > input:focus { background-color: white; box-shadow: 0 0 5px var(--color-bg-secondary-blue); }
+
+.sctForgottenPassword > form > button {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sctForgottenPassword > form > button:hover:not(:disabled) { background-color: var(--color-bg-secondary-blue); }
+.sctForgottenPassword > form > button:disabled { opacity: 0.7; cursor: not-allowed; }
+
+footer { padding: 20px; grid-area: footer; }
+footer p { text-align: center; font-size: .9rem; color: rgba(255, 255, 255, 0.5); }

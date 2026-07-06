@@ -1,0 +1,51 @@
+<section class="status">
+  <h1> <i class="ph-fill ph-file-text"></i> Relatórios do Sistema</h1>
+</section>
+
+<section class="filtro">
+  <div class="field">
+    <label for="relatorioSearch">Pesquisar:</label>
+    <input type="text" id="relatorioSearch" placeholder="Filtro de busca" [(ngModel)]="buscaFilter" (ngModelChange)="onFilterChange()">
+  </div>
+  <div class="field">
+    <label for="relatorioStatus">Status:</label>
+    <select id="relatorioStatus" [(ngModel)]="statusFilter" (ngModelChange)="onFilterChange()">
+      <option value="">Todos</option>
+      <option value="NORMAL">Normal</option>
+      <option value="FORNECIMENTO_IRREGULAR">Irregular</option>
+      <option value="SEM_ABASTECIMENTO">Sem Abastecimento</option>
+    </select>
+  </div>
+</section>
+
+<section class="reportUserList">
+  <h2> <i class="ph-bold ph-list-bullets"></i> Lista de Relatórios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Título/Referência:</th>
+        <th>Data:</th>
+        <th>Status:</th>
+        <th>Ação:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of relatorios">
+        <td data-label="Título:">
+          <div id="reportAvatar">{{ getIniciais(item.nome) }}</div> 
+          {{ item.nome }}
+        </td>
+        <td data-label="Data:">{{ item.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td data-label="Status:">{{ item.status }}</td>
+        <td class="itemTableAcoes" data-label="Ação:">
+          <button class="btn-detalhes">
+            <i class="ph-fill ph-clipboard-text"></i> <p>Ver</p>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="relatorios.length === 0">
+        <td colspan="4" style="text-align: center;">Nenhum relatório encontrado</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

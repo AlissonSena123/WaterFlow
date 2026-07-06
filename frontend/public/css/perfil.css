@@ -1,0 +1,505 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    color: black;
+    padding: 10px;
+}
+
+main > section{
+    box-shadow: var(--shadow-medium);
+    background-color: white;
+}
+
+/* ==== SEÇÃO DO CABEÇALHO DO PERFIL ==== */
+main > .titlePerfil{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    font-weight: lighter;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    border-radius: 7px 7px 0px 0px;
+}
+
+main > .titlePerfil > .User{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#avatar{
+  font-size: 1.4rem;
+  background-color: var(--color-bg-secondary-blue);
+  padding: 10px;
+  border-radius: 50%;
+  width: 70px; 
+  height: 70px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.userTitle{
+    display: flex;
+    flex-direction: column;
+}
+
+.userTitle > h1{
+    font-weight: lighter;
+}
+
+.userTitle > p{
+    font-size: .8rem;
+    color: rgba(220, 229, 255, 0.632);
+}
+
+main > .titlePerfil > button{
+    background: none;
+    outline: 3px solid var(--color-bg-tertiary-blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    padding: 15px;
+    gap: 5px;
+}
+
+main > .titlePerfil > button > i{
+    font-size: 1.5rem;
+}
+
+main > .titlePerfil > button:hover{
+    background-color: var(--color-bg-tertiary-blue);
+    color: var(--color-bg-blue-darker);
+}
+
+
+/* ==== SEÇÃO COM AS INFORMAÇÕES DO USUÁRIO ==== */
+main > section#infoUser{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
+    gap: 20px;
+    box-shadow: none;
+    border-radius: 0px 0px 7px 7px;
+    border: 1px solid rgba(54, 54, 54, 0.293);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
+    padding: 30px;
+}
+
+main > section#infoUser > h3{
+    grid-column: 1/-1;
+    font-weight: lighter;
+    font-size: 1rem;
+    color: var(--color-bg-blue-darker);
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.infoContant{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: max-content;
+    gap: 20px;
+}
+
+.infoContant > .infoCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.infoContant > .infoCard > p:first-child{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: rgba(0, 0, 0, 0.768);
+    font-size: .9rem;
+}
+
+.infoContant > .infoCard > p:last-child{
+    font-size: .9rem;
+    border: 1px solid rgba(182, 182, 182, 0.249);
+    padding: 15px;
+    border-radius: 3px;
+    background-color: rgba(207, 207, 207, 0.226);
+}
+
+.infoContant > .infoCard:last-child{
+    grid-column: 1/-1;
+}
+
+hr{
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.infoContantReport {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.infoContantReport > span {
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+}
+
+#listaReportes{
+    display: grid;
+    grid-template-rows: max-content;
+    grid-auto-rows: max-content;
+    gap: 5px;
+    overflow-y: scroll;
+    height: 350px;
+    border: 1px solid rgba(0, 0, 0, 0.223);
+    padding: 20px;
+    border-radius: 7px;
+}
+
+#listaReportes p{
+    font-size: .9rem;
+    color: rgba(3, 3, 3, 0.608);
+}
+
+.reporte-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: rgba(218, 218, 218, 0.2);
+    border-left: 5px solid var(--color-bg-primary-blue); 
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-right: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background-color: white;
+}
+
+.reporte-tipo {
+    grid-column: 1/-2;
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--color-bg-primary-blue);
+    display: flex;
+    flex-direction: column;
+}
+
+.reporte-data {
+    font-size: .8rem;
+    color: rgba(0,0,0,0.5);
+}
+
+.reporte-descricao {
+    grid-column: 1/-1;
+    font-size: .85rem;
+    color: rgba(0,0,0,0.7);
+}
+
+.reporte-status {
+    grid-column: 2/-1;
+    font-size: .75rem;
+    padding: 3px 8px;
+    border-radius: 7px;
+    width: max-content;
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+}
+
+/* SEÇÃO PARA DELETAR CONTA */
+.sctDeletarConta{
+    background-color: var(--color-bg-blue-darker);
+    border-radius: 7px;
+    color: white;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.sctDeletarConta h3{
+    font-weight: lighter;
+}
+
+.sctDeletarConta p{
+    font-size: .85rem;
+}
+
+.sctDeletarConta button{
+    background-color: red;
+    width: max-content;
+    color: white;
+}
+
+
+/* ==== MODAL DE EDITAR O PERFIL ==== */
+.modal{
+    position: fixed;
+    inset: 0; /* substitui top, left, width, height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: background 0.1s ease, opacity 0.2s ease;
+    z-index: 9999;
+}
+
+.modal.active {
+    background: rgba(0,0,0,0.5);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modalHeader{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modalHeader > #modalAvatar{
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+    padding: 20px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalHeaderContent > h2{
+    color: var(--color-bg-primary-blue);
+    font-size: 1.5rem;
+}
+
+.modalHeaderContent > p{
+    font-size: .9rem;
+    color: rgba(0, 0, 0, 0.699);
+}
+
+aside{
+    box-shadow: var(--shadow-medium);
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    background-color: white;
+}
+
+aside > h2{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+aside > form{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px 10px;
+}
+
+.atualizarItem{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.atualizarItem > label{
+    color: var(--color-bg-primary-blue);
+}
+
+.atualizarItem > input,
+.atualizarItem > div > input{
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid var(--color-bg-blue-darker);
+}
+
+
+.atualizarItem > div{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5px 10px;
+}
+
+.atualizarItem > div > input{
+    width: 100%;
+}
+
+.atualizarItem > div > p{
+    grid-column: 1/-1;
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 0.534);
+}
+
+aside > form > div#updateButton{
+    grid-column: 1/-1;
+    justify-self: flex-end;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+} 
+
+aside > form > div#updateButton > button{
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+aside > form > div#updateButton > button > i{
+    font-size: 1.5rem;
+}
+
+aside > form > div#updateButton > button:first-child{
+    background: none;
+    outline: 2px solid red;
+    color: red;
+}
+
+aside > form > div#updateButton > button:last-child{
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+}
+
+
+/* MODAL PARA DELETAR A CONTA */
+
+#modalDeletarContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 40px;
+    max-width: 400px;
+}
+
+#iconAvisoDelete {
+    font-size: 4rem;
+    color: red;
+}
+
+#modalDeletarContent > h2 {
+    color: var(--color-bg-primary-blue);
+}
+
+#modalDeletarContent > p {
+    font-size: .9rem;
+    color: rgba(0,0,0,0.6);
+}
+
+#deletarButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#deletarButtons > button {
+    padding: 12px;
+}
+
+#deletarButtons > button:first-child {
+    background: none;
+    outline: 2px solid rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.6);
+}
+
+#deletarButtons > button:last-child {
+    background-color: red;
+    color: white;
+}
+
+#deletarButtons > button:hover {
+    transform: translateY(-3px);
+}
+
+/* HOVER */
+aside > form > div#updateButton > button:hover{
+    transform: translateY(-4px);
+}
+
+aside > form > div#updateButton > button:first-child:hover{
+    background-color: red;
+    color: white;
+}
+
+aside > form > div#updateButton > button:last-child:hover{
+    background-color: var(--color-bg-blue-darker);
+}
+
+.sctDeletarConta button:hover{
+    background-color: darkred;
+}
+
+@media (max-width: 850px){
+
+    main > .titlePerfil{
+        padding: 20px;
+        gap: 10px;
+    }
+
+    .userTitle > h1{
+        font-size: 1.5rem;
+    }
+
+    #avatar{
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .infoContant{
+        grid-template-columns: 1fr;
+    }
+
+    main > .titlePerfil > button{
+        width: max-content;
+    }
+
+    main > .titlePerfil > button > p{
+        display: none;
+    }
+
+    main > section#infoUser{
+        padding: 20px;
+    }
+
+    #btnEditarPerfil{
+        padding: 10px;
+    }
+}

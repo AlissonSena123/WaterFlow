@@ -1,0 +1,83 @@
+<div class="container">
+  <app-header [activePage]="'mapa'"></app-header>
+  
+  <main>
+    <section id="section-map">
+      <div class="div-search">
+        <input 
+          type="search" 
+          id="search" 
+          placeholder="Pesquise um bairro" 
+          autocomplete="off"
+          [ngModel]="searchTerm"
+          (ngModelChange)="onSearchInput($event)"
+          (keydown)="onSearchKeydown($event)"
+          (blur)="hideSuggestions()">
+
+        <button type="button" id="btnSearch" (click)="buscarRegiao(searchTerm)">
+          <span class="ph-bold ph-magnifying-glass"></span>
+        </button>
+
+        <div id="suggestions" [style.display]="suggestions.length ? 'block' : 'none'">
+          <div *ngFor="let s of suggestions" class="suggestion-item" (mousedown)="onSuggestionClick(s)">
+            {{ s }}
+          </div>
+        </div>
+      </div>
+      
+      <div id="map" #mapContainer></div>
+
+      <section id="cardStatus" [class.visible]="cardVisible" (click)="$event.stopPropagation()">
+        <ng-container *ngIf="cardData && cardData.length > 0">
+          <ng-container *ngFor="let bairro of cardData">
+            <div class="cardHeader">
+              <i class="ph-fill ph-map-pin"></i>
+              <div class="cardHeaderContant">
+                <p>{{ nomeExibicao | uppercase }}</p>
+                <p>Salvador - BA · <span>Atualizado em: {{ formatDateStr(bairro.atualizado_em) || "Sem Atualização" }}</span></p>
+              </div>
+              <div class="status">
+                <p class="badge" [ngClass]="colorStatus(bairro.status)">
+                  {{ formatStatusStr(bairro.status) | titlecase }}
+                </p>
+              </div>
+              <button type="button" class="ph-fill ph-x-circle" id="fecharStatus" (click)="closeCard()"></button>
+            </div>
+            
+            <div class="cardBody">
+              <div class="cardItem inicioInterrupcao">
+                <p><i class="ph-fill ph-clock"></i> Inicio da Interrupção:</p>
+                <p>{{ formatDateStr(bairro.inicio_interrupcao, bairro.status) || "-" }}</p>
+              </div>
+              <div class="cardItem prevRetorno">
+                <p><i class="ph-fill ph-clock-counter-clockwise"></i> Previsão de Retorno:</p>
+                <p>{{ formatDateStr(bairro.previsao_retorno, bairro.status) || "-" }}</p>
+              </div>
+              <div class="cardItem causaInterrupcao">
+                <p><i class="ph-fill ph-warning-circle"></i> Causa da Interrupção:</p>
+                <p>{{ formatStatusStr(bairro.causa_interrupcao || "Sem interrupção") | titlecase }}</p>
+              </div>
+              <div class="cardItem areaAfetada">
+                <p><i class="ph-fill ph-map-pin-area"></i> Área Afetada:</p>
+                <p>{{ formatStatusStr(bairro.area_afetada || "Sem área afetada") | titlecase }}</p>
+              </div>
+              <div class="cardItem pressaoAgua">
+                <p><i class="ph-fill ph-gauge"></i> Pressão da água:</p>
+                <p>{{ formatStatusStr(bairro.pressao_rede || "-") | titlecase }}</p>
+              </div>
+              <div class="cardItem medResolucao">
+                <p><i class="ph-fill ph-wrench"></i> Medida de Solução:</p>
+                <p>{{ formatStatusStr(bairro.medida_solucao || "-") | titlecase }}</p>
+              </div>
+              <div class="cardItem descInfo">
+                <p><i class="ph-fill ph-sort-ascending"></i> Descrição:</p>
+                <p>{{ bairro.descricao || "Sem descrição" }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </section>
+      
+    </section>
+  </main>
+</div>

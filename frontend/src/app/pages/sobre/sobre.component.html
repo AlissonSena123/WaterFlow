@@ -1,0 +1,120 @@
+<div class="container">
+  <header id="header" [ngClass]="{'sombra': isScrolled}">
+    <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+    <button class="menu-toggle" [attr.aria-expanded]="menuOpen" (click)="toggleMenu()">
+      <i [class]="menuOpen ? 'ph-fill ph-x' : 'ph-bold ph-list'"></i>
+    </button>
+    <div class="btn-links" [ngClass]="{'open': menuOpen}" id="navLinks">
+      <a href="/sobre#section-sobre" (click)="closeMenu()">Sobre nós</a>
+      <a href="/sobre#section-projeto" (click)="closeMenu()">Sobre o Projeto</a>
+      <a href="/sobre#section-developers" (click)="closeMenu()">Desenvolvedores</a>
+      <button (click)="irParaLogin()">
+        <i class="ph-fill ph-sign-in"></i> Entrar
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="section-sobre">
+      <img src="/assets/Img/illustrationVectorDEV.svg" alt="">
+      <article class="section-sobre-contant" data-aos="fade-right">
+        <h1>Bem Vindo ao WaterFlow</h1>
+        <p>Receba informações sobre a situação da água em seu bairro!</p>
+        <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador.</p>
+      </article>
+    </section>
+
+    <section id="section-projeto">
+      <article class="section-projeto-contant" data-aos="fade-up">
+        <div>
+          <h1>Sobre o projeto</h1>
+          <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador de forma simples e rápida. Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
+          <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao abastecimento de água nos bairros de Salvador.</p>
+        </div>
+        <img src="/assets/Img/LogoV2.png" alt="LogoTipo">
+      </article>
+    </section>
+
+    <section id="section-funcionalidades">
+      <div class="sctFuncionContent">
+        <img src="/assets/Img/illustrationVectorMAP.svg" alt="" data-aos="fade-up">
+        <div>
+          <h1>MAPA INTERATIVO</h1>
+          <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do abastecimento de água em seu bairro. Podemos trazer informações atuais, quanto problemas futuros. Assim podemos trazer mais informação para a população.</p>
+        </div>
+      </div>
+      <div class="sctFuncionContent">
+        <div>
+          <h1>REPORTAR FALTA D'ÁGUA</h1>
+          <p>Os usuários poderão reportar problemas relacionados ao abastecimento de água em seu bairro. Esses reportes serão enviados ao administrador, assim podendo resolver o problema da melhor forma possível.</p>
+        </div>
+        <img src="/assets/Img/illustrationVectorREPORT.svg" alt="" data-aos="fade-up">
+      </div>
+    </section>
+
+    <section class="sctRegister">
+      <h1>Ficou interessado(a)?</h1>
+      <button (click)="irParaCadastro()">Cadastrar-se</button>
+    </section>
+
+    <hr>
+
+    <section id="section-developers">
+      <h1>Desenvolvedores</h1>
+
+      <article data-aos="fade-up">
+        <div class="article-developers">
+          <img src="/assets/Img/perfilMatos.jpeg" alt="João Gabriel Matos">
+          <div class="article-developer-info">
+            <h2>João Gabriel Matos</h2>
+            <p>Gestor do Projeto</p>
+          </div>
+        </div>
+      </article>
+      <article data-aos="fade-up">
+        <div class="article-developers">
+          <img src="/assets/Img/perfilMatheus.jpeg" alt="Matheus Leite Gubert">
+          <div class="article-developer-info">
+            <h2>Matheus Leite Gubert</h2>
+            <p>Desenvolvedor Back-end</p>
+          </div>
+        </div>
+      </article>
+      <article data-aos="fade-up">
+        <div class="article-developers">
+          <img src="/assets/Img/perfilAlisson.jpg" alt="Alisson Oliveira Sena">
+          <div class="article-developer-info">
+            <h2>Alisson Oliveira Sena</h2>
+            <p>Desenvolvedor Front-end</p>
+          </div>
+        </div>
+      </article>
+      <article class="allan" data-aos="fade-up">
+        <div class="article-developers">
+          <div class="article-developer-info">
+            <h2>Allan Bacelar</h2>
+            <p>Desenvolvedor Front-end</p>
+          </div>
+        </div>
+      </article>
+      <article data-aos="fade-up">
+        <div class="article-developers">
+          <img src="/assets/Img/perfilViana.jpeg" alt="Guilherme Simões">
+          <div class="article-developer-info">
+            <h2>Guilherme Simões</h2>
+            <p>Desenvolvedor Back-end</p>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <img src="/assets/Img/LogoV3.png" alt="LogoTipo">
+    <p>Projeto de TCC - SENAI Cimatec</p>
+    <div id="contact">
+      <p>Contato:</p>
+      <p><i class="ph-fill ph-envelope"></i>waterflow855&#64;gmail.com</p>
+    </div>
+  </footer>
+</div>

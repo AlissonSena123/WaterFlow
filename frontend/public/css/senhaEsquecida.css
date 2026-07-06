@@ -1,0 +1,83 @@
+.container{
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main";
+    background: url(../assets/Img/backgroundBlueWaves.svg) center top no-repeat;
+    background-size: cover;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+header > img{
+    width: 100px;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.sctForgottenPassword{
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px black;
+    display: grid;
+    grid-template-rows: auto;
+    max-width: 600px;
+}
+
+.sctForgottenPassword > form{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+    width: 100%;
+}
+
+.sctForgottenPassword > h1{
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.sctForgottenPassword > p{
+    margin-bottom: 30px;
+}
+
+.sctForgottenPassword > form > input{
+    padding: 20px;
+    border: 2px solid var(--color-bg-primary-blue);
+    border-radius: 6px;
+}
+
+.sctForgottenPassword > form > button{
+    width: 100%;
+    padding: 20px;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+}
+
+.sctForgottenPassword > form > button:hover{
+    background-color: var(--color-bg-secondary-blue);
+}
+
+@media (max-width: 600px){
+    .sctForgottenPassword > h1{
+        text-align: center;
+        justify-self: center;
+        font-size: 1.4rem;
+    }
+
+    .sctForgottenPassword > p{
+        text-align: center;
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,52 @@
+<div class="container">
+  <header>
+    <img src="/assets/Img/LogoV1.png" alt="LogoTipo">
+  </header>
+  <main>
+    <section class="section-login">
+      <div class="section-login-header">
+        <h1>ENTRAR</h1>
+        <h3>Bem vindo ao WaterFlow</h3>
+      </div>
+      <form autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="form-item-login">
+          <label for="idEmail" class="ph-fill ph-at"></label>
+          <input
+            type="email"
+            name="email"
+            id="idEmail"
+            placeholder="Digite seu email"
+            autocomplete="email"
+            [(ngModel)]="email"
+          >
+        </div>
+        <div class="form-item-login">
+          <label for="idSenha" class="ph-fill ph-lock-key"></label>
+          <input
+            [type]="mostrarSenha ? 'text' : 'password'"
+            name="senha"
+            id="idSenha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            minlength="10"
+            maxlength="15"
+            [(ngModel)]="senha"
+          >
+          <span class="toggle-senha" (click)="toggleSenha()">
+            <i [class]="mostrarSenha ? 'ph-fill ph-eye-slash' : 'ph-fill ph-eye'" id="iconToggle"></i>
+          </span>
+        </div>
+        <a routerLink="/redefinir">Esqueceu sua senha?</a>
+        <button type="submit" id="btnLogin" [disabled]="isLoading">
+          <span class="ph-fill ph-sign-in"></span>
+          {{ isLoading ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+      <div class="linkCadastro">
+        <hr>
+        <p>Primeira vez aqui? <a routerLink="/cadastro">Cadastra-se</a></p>
+        <hr>
+      </div>
+    </section>
+  </main>
+</div>

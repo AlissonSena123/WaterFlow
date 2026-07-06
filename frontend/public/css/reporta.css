@@ -1,0 +1,259 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.31);
+    background: white;
+    color: black;
+    padding: 10px;
+}
+
+main>div.title-report {
+    width: 100%;
+    padding: 30px;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    font-weight: lighter;
+    border-radius: 7px 7px 0px 0px;
+}
+
+main>.title-report>h1 {
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    font-size: 2rem;
+    margin-bottom: 5px;
+
+}
+
+.title-report>h1>i {
+    font-size: 3rem;
+}
+
+main>.title-report>p {
+    font-size: 1rem;
+    color: white;
+}
+
+main>section {
+    min-height: 100%;
+    border-radius: 0px 0px 7px 7px;
+    box-shadow: var(--shadow-soft);
+    background: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.219);
+    border: 1px solid rgba(54, 54, 54, 0.293);
+    padding: 30px;
+}
+
+main>section>form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: max-content;
+    gap: 20px 10px;
+    grid-template-areas:
+        "titlePessoa titlePessoa"
+        "item1 item2"
+        "titleProblema titleProblema"
+        "item3 item4"
+        "item5 item6"
+        "item7 item7"
+        "none btn";
+    color: var(--color-bg-primary-blue);
+    min-height: 100%;
+}
+
+main>section>form>div {
+    display: flex;
+    flex-direction: column;
+}
+
+main>section>form>div>label {
+    margin-bottom: 5px;
+    font-size: .9rem;
+}
+
+main>section>form>div>input,
+main>section>form>div>select {
+    padding: 15px;
+    border: 2px solid var(--color-bg-blue-darker);
+    border-radius: 5px;
+    background: #f0f4ff;
+}
+
+main>section>form>.title {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+main>section>form>.title>p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+main>section>form>.titleItemDadosPessoais {
+    grid-area: titlePessoa;
+}
+
+main>section>form>.titleItemDadosProblema {
+    grid-area: titleProblema;
+}
+
+main>section>form>#item1 {
+    grid-area: item1;
+}
+
+main>section>form>#item2 {
+    grid-area: item2;
+}
+
+main>section>form>#item3 {
+    grid-area: item3;
+}
+
+#item3 select {
+    padding: 14px;
+}
+
+main>section>form>#item4 {
+    grid-area: item4;
+    align-self: flex-end;
+}
+
+#item4 p,
+#item1 p {
+    font-size: .82rem;
+    color: #1b1b1b9a;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-top: 5px;
+}
+
+main>section>form>#item5 {
+    grid-area: item5;
+    align-self: flex-end;
+}
+
+main>section>form>#item6 {
+    grid-area: item6;
+    align-self: flex-end;
+}
+
+main>section>form>#item7 {
+    grid-area: item7;
+}
+
+main>section>form>#item7>textarea {
+    height: 340px;
+    resize: none;
+    padding: 13px;
+    border: 2px solid var(--color-bg-blue-darker);
+    border-radius: 5px;
+    background: #f0f4ff;
+}
+
+main>section>form>button {
+    margin-top: 20px;
+    border-radius: 8px;
+    grid-area: btn;
+    justify-self: end;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    color: white;
+    width: 50%;
+    height: 100%;
+    background-color: royalblue;
+}
+
+section>form>button>i {
+    font-size: 1.2rem;
+}
+
+main>section>form>button:hover {
+    background-color: var(--color-bg-blue-darker);
+}
+
+
+/* FOCUS */
+form>div>input:focus,
+form>#item6>textarea:focus,
+main>section>form>div>select:focus,
+main>section>form>#item7>textarea:focus {
+    background-color: white;
+    box-shadow: 0 0 5px var(--color-bg-secondary-blue);
+}
+
+/* HOVER */
+#item3>select:hover {
+    cursor: pointer;
+}
+
+#item5>input:hover,
+#item6>input:hover {
+    cursor: no-drop;
+}
+
+
+/* MEDIA QUERYS */
+@media (max-width: 850px) {
+
+    main{
+        padding: 10px;
+    }
+
+    main section{
+        padding: 0px 20px 20px 20px;
+    }
+
+    main>div.title-report {
+        padding: 40px;
+    }
+
+    .title-report>h1>i {
+        display: none;
+    }
+
+    main>.title-report>h1 {
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    main>div.title-report {
+        text-align: center;
+    }
+
+    main>section>form {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "titlePessoa"
+            "item1"
+            "item2"
+            "titleProblema"
+            "item3"
+            "item4"
+            "item5"
+            "item6"
+            "item7"
+            "btn";
+    }
+
+    main>section>form>button {
+        justify-self: center;
+        margin-top: 10px;
+        padding: 20px;
+        width: 100%;
+    }
+}

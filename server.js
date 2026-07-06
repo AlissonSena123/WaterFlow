@@ -28,64 +28,9 @@ server.use(usuarioRouter);
 server.use("/admin", funcionarioRouter);
 server.use("/status", statusMAP);
 
-server.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/sobre.html"));
-});
-
-/*---- Páginas gerais ----*/
-server.get("/login", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/login.html"));
-});
-
-server.get("/cadastro", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/cadastro.html"));
-});
-
-/*---- Página de acesso de usuário ----*/
-server.get("/inicio", autorizarRole("users"), (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/inicio.html"));
-});
-
-server.get("/perfil", autorizarRole("users"), (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/perfil.html"));
-});
-
-server.get("/reporte", autorizarRole("users"), (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/reporte.html"));
-});
-
-server.get("/redefinir", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/senhaEsquecida.html"));
-});
-
-server.get("/redefinir/confirmar", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/redefinirsenha.html"));
-});
-
-server.get("/instrucoes_enviadas", (req, res) => {
-  res.sendFile(join(__dirname, "public/pages/instrucoesEmail.html"));
-});
-
-/* ---- ROTAS DE ADMIN ---- */
-server.get("/admin/dashboard", autorizarRole("funcionario"), (req, res) => {
-  res.sendFile(join(__dirname, "admin/pages/dashboard.html"));
-});
-
-server.get("/admin/reports", autorizarRole("funcionario"), (req, res) => {
-  res.sendFile(join(__dirname, "admin/pages/reporte.html"));
-});
-
-server.get("/admin/poligonos", autorizarRole("funcionario"), (req, res) => {
-  res.sendFile(join(__dirname, "admin/pages/poligonos.html"));
-});
-
-server.get("/admin/relatorios", autorizarRole("funcionario"), (req, res) => {
-  res.sendFile(join(__dirname, "admin/pages/relatorios.html"));
-});
-
-server.get("/admin/usuarios", autorizarRole("funcionario"), (req, res) => {
-  res.sendFile(join(__dirname, "admin/pages/usuarios.html"));
-});
+// Serve Angular static files
+const angularDistPath = join(__dirname, "frontend/dist/frontend/browser");
+server.use(express.static(angularDistPath));
 
 /** ---- API DO MAPA ---- */
 
@@ -97,6 +42,75 @@ server.get("/api/mapKey", (req, res) => {
 server.post("/logout", (req, res) => {
   res.clearCookie("token", { httpOnly: true, sameSite: "lax" });
   return res.json({ success: true, message: "Sessão encerrada", redirect: "/login" });
+});
+
+/* ---- Rota de Usuarios ---- */
+server.get("/api/usuarios", autorizarRole("funcionario"), async (req, res) => {
+  try {
+    const { nome, role } = req.query;
+    
+    // Buscar cidadãos
+    let usersQuery = supabase.from("Users").select("id, nome_completo, email, telefone, bairro, created_at");
+    
+    // Buscar admins
+    let adminsQuery = supabase.from("Funcionarios").select("id, nome, email, role, created_at");
+
+    const [resUsers, resAdmins] = await Promise.all([usersQuery, adminsQuery]);
+    
+    if (resUsers.error) throw resUsers.error;
+    if (resAdmins.error) throw resAdmins.error;
+
+    let lista = [
+      ...resUsers.data.map(u => ({ ...u, role: "user" })),
+      ...resAdmins.data.map(a => ({ id: a.id, nome_completo: a.nome, email: a.email, telefone: "", bairro: "", role: "admin", created_at: a.created_at }))
+    ];
+
+    if (nome) {
+      const p = nome.toLowerCase();
+      lista = lista.filter(u => u.nome_completo?.toLowerCase().includes(p) || u.email?.toLowerCase().includes(p));
+    }
+    if (role) {
+      lista = lista.filter(u => u.role === role);
+    }
+
+    // Ordenar por mais recente
+    lista.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+    res.json({ success: true, data: lista });
+  } catch (error) {
+    res.json({ success: false, erro: error.message });
+  }
+});
+
+/* ---- Rota de Relatorios ---- */
+server.get("/api/relatorios", autorizarRole("funcionario"), async (req, res) => {
+  try {
+    const { busca, status } = req.query;
+    let query = supabase.from("abastecimento").select("*").order("atualizado_em", { ascending: false });
+
+    if (busca) {
+      query = query.ilike("bairro", `%${busca}%`);
+    }
+    if (status) {
+      query = query.eq("status", status);
+    }
+
+    const { data, error } = await query;
+    
+    if (error) throw error;
+    
+    // Mapear os dados para bater com a interface do componente (ex: nome = bairro, created_at = atualizado_em)
+    const relatoriosFormatados = data.map(item => ({
+      id: item.id,
+      nome: item.bairro,
+      status: item.status,
+      created_at: item.atualizado_em || item.inicio_interrupcao || new Date().toISOString()
+    }));
+
+    res.json({ success: true, data: relatoriosFormatados });
+  } catch (error) {
+    res.json({ success: false, erro: error.message });
+  }
 });
 
 /** ---- Rota ME ---- */
@@ -133,4 +147,12 @@ server.get("/me", async (req, res) => {
   return res.json({ tipo: null, user: null });
 });
 
-export default server;
+server.get("*", (req, res) => {
+  res.sendFile(join(angularDistPath, "index.html"));
+});
+
+server.listen(PORT, () => {
+  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+});
+
+export default server;

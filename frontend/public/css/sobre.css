@@ -1,0 +1,498 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.sombra {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- HEADER ----- */
+
+header {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-primary-black);
+    padding: 24px;
+}
+
+header>img {
+    width: 100px;
+}
+
+header>.btn-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+}
+
+header>.btn-links>a {
+    text-decoration: none;
+    color: var(--color-bg-blue-darker);
+}
+
+header>.btn-links>a:hover {
+    text-decoration: underline;
+}
+
+header>.btn-links>a:active {
+    text-decoration: underline;
+    color: royalblue;
+}
+
+header>.btn-links>button {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    width: 170px;
+    background-color: var(--color-bg-secondary-blue);
+    color: white;
+}
+
+header>.btn-links>button>i {
+    font-size: 1.4rem;
+}
+
+/* Menu hamburguer */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+    width: max-content;
+    padding: 8px;
+    color: var(--color-bg-blue-darker);
+    font-size: 1.8rem;
+}
+
+/* ----- MAIN ----- */
+main {
+    background-color: royalblue;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    padding-top: 90px;
+}
+
+/* ----- SOBRE NÓS ----- */
+#section-sobre {
+    padding: clamp(30px, 5vw, 50px);
+    text-align: start;
+    background: linear-gradient(to top, var(--color-bg-tertiary-blue) 5%, white 50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    color: var(--color-bg-blue-darker);
+}
+
+#section-sobre>.section-sobre-contant {
+    align-self: center;
+    padding: clamp(20px, 4vw, 50px);
+}
+
+#section-sobre>.section-sobre-contant>h1 {
+    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+#section-sobre>.section-sobre-contant>p {
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+#section-sobre>img {
+    width: clamp(250px, 40vw, 600px);
+    align-self: center;
+    justify-self: center;
+}
+
+/* ----- PROJETO ----- */
+#section-projeto {
+    padding: clamp(40px, 8vw, 100px);
+    background: white;
+    color: var(--color-bg-blue-darker);
+}
+
+#section-projeto>.section-projeto-contant {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#section-projeto>.section-projeto-contant>div {
+    justify-self: center;
+    align-self: center;
+    padding: clamp(20px, 4vw, 50px);
+}
+
+#section-projeto>.section-projeto-contant>div>h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin-bottom: 10px;
+}
+
+#section-projeto>.section-projeto-contant>div>p {
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+#section-projeto>.section-projeto-contant>img {
+    justify-self: center;
+    align-self: center;
+    width: clamp(200px, 35vw, 600px);
+    max-width: 100%;
+}
+
+/* ----- FUNCIONALIDADES ----- */
+#section-funcionalidades {
+    padding: clamp(40px, 8vw, 100px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    background-color: var(--color-text-secondary-black);
+}
+
+#section-funcionalidades>.sctFuncionContent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: white;
+    column-gap: 20px;
+}
+
+#section-funcionalidades>.sctFuncionContent>div {
+    justify-self: center;
+    align-self: center;
+    padding: clamp(20px, 4vw, 50px);
+}
+
+#section-funcionalidades>.sctFuncionContent>div>h1 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin-bottom: 10px;
+}
+
+#section-funcionalidades>.sctFuncionContent>div>p {
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+#section-funcionalidades>.sctFuncionContent>div>h2 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+#section-funcionalidades>.sctFuncionContent>img {
+    width: clamp(200px, 35vw, 500px);
+    justify-self: center;
+    align-self: center;
+    max-width: 100%;
+}
+
+/* ----- SEÇÃO DE CADASTRAR ----- */
+.sctRegister {
+    background-color: white;
+    padding: clamp(40px, 8vw, 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+    color: var(--color-bg-blue-darker);
+}
+
+.sctRegister>h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+}
+
+.sctRegister>button {
+    padding: clamp(15px, 3vw, 25px);
+    background-color: var(--color-bg-secondary-blue);
+    width: clamp(240px, 60vw, 420px);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
+}
+
+
+
+/* ----- SEÇÃO DE DESENVOLVEDORES ----- */
+#section-developers {
+    background-color: white;
+    padding: clamp(40px, 8vw, 100px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+#section-developers>h1 {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-bottom: 50px;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-bg-blue-darker);
+}
+
+#section-developers>article {
+    border-radius: 1000px;
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    padding: clamp(20px, 3vw, 30px);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.29);
+    transition: .3s;
+}
+
+#section-developers>article:hover {
+    transform: translateY(-4px);
+}
+
+#section-developers>article>.article-developers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.article-developer-info {
+    flex: 1;
+}
+
+#section-developers>article>.article-developers>img {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#section-developers>article>.article-developers>.article-developer-info>h2 {
+    font-weight: lighter;
+}
+
+#section-developers>article:nth-last-child(1) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: clamp(200px, 50%, 100%);
+}
+
+.allan{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.allan .article-developer-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ----- FOOTER ----- */
+footer {
+    border: 1px solid black;
+    background: url(../assets/Img/backgroundWeveEffect.svg);
+    padding: clamp(16px, 3vw, 60px) clamp(20px, 5vw, 100px);
+    color: var(--color-bg-blue-darker);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+footer img {
+    width: clamp(90px, 15vw, 150px);
+}
+
+footer p {
+    font-size: clamp(12px, 1.5vw, 16px);
+    text-align: center;
+}
+
+footer #contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+footer #contact>p:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+/* HOVER */
+header>.btn-links>button:hover {
+    background-color: var(--color-bg-blue-darker);
+}
+
+.sctRegister>button:hover {
+    background-color: var(--color-bg-blue-darker);
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.29);
+}
+
+@media (max-width: 1165px) {
+
+    #section-developers {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    #section-developers>article:nth-last-child(1){
+        width: 100%;
+    }
+
+    #section-sobre {
+        grid-template-columns: 1fr;
+    }
+
+    #section-sobre>.section-sobre-contant>h1 {
+        text-align: center;
+    }
+
+    #section-sobre>.section-sobre-contant>p {
+        text-align: center;
+    }
+
+    #section-sobre>img {
+        display: none;
+    }
+
+    #section-projeto>.section-projeto-contant {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    #section-projeto>.section-projeto-contant>img {
+        width: min(400px, 90%);
+        justify-self: center;
+    }
+
+    #section-projeto>.section-projeto-contant>div {
+        text-align: center;
+    }
+
+    #section-projeto>.section-projeto-contant>div>p {
+        text-align: center;
+    }
+
+    #section-funcionalidades>.sctFuncionContent {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+
+    #section-funcionalidades>.sctFuncionContent>img {
+        width: min(350px, 80%);
+        justify-self: center;
+    }
+
+
+    #section-funcionalidades>.sctFuncionContent>div {
+        order: -1;
+        text-align: center;
+    }
+
+    #section-funcionalidades>.sctFuncionContent>div>p {
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    footer #contact {
+        align-items: center;
+    }
+
+    .article-developers {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #section-developers>article>.article-developers>.article-developer-info>h2+p {
+        font-size: .8rem;
+    }
+
+    #section-developers>article>.article-developers>img {
+        width: 100px;
+        height: 100px;
+    }
+
+    #section-developers>article:nth-last-child(1) {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 16px 20px;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header>.btn-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 16px;
+        width: 100%;
+        padding: 20px 0px 8px 0px;
+    }
+
+    header>.btn-links.open {
+        display: flex;
+    }
+
+    header>.btn-links>button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    main {
+        padding-top: 75px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    #section-sobre,
+    #section-projeto,
+    #section-funcionalidades,
+    .sctRegister,
+    #section-developers {
+        padding: 30px 20px;
+    }
+
+    #section-funcionalidades {
+        row-gap: 30px;
+    }
+}

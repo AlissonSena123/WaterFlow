@@ -1,5 +1,5 @@
 import { supabase } from "../config/supabase.js";
-import { enviarRespostaReport } from "../public/services/emailServices.js";
+import { enviarRespostaReport } from "../services/emailServices.js";
 import { Router } from "express";
 const router = Router();
 

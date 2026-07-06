@@ -1,0 +1,96 @@
+.container{
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main";
+    background: url(../assets/Img/backgroundBlueWaves.svg) no-repeat center top;
+    background-size: cover;
+}
+
+header{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header > img{
+    width: 100px;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+main > section{
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    color: var(--color-bg-primary-blue);
+    box-shadow: var(--shadow-medium);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 30px;
+    gap: 10px;
+}
+
+main > section > div{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    gap: 6px;
+}
+
+main > section > div > i{
+    font-size: 40px;
+}
+
+main > section > p{
+    justify-self: center;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+main > section > p.text-timer{
+    font-size: 1.2rem;
+}
+
+main > section > #timer{
+    background-color: var(--color-bg-primary-blue);
+    color: white;
+    padding: 10px;
+    width: max-content;
+    border-radius: 10px;
+}
+
+main > section > a{
+    justify-self: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-bg-secondary-blue);
+    transition: .5s;
+}
+
+main > section > a:hover{
+    color: var(--color-bg-primary-blue);
+    text-decoration: underline;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px){
+    main > section > div > i{
+        font-size: 1.5rem;
+    }
+
+    main > section > div > h1{
+        text-align: center;
+        font-size: 1.5rem;
+    }
+}

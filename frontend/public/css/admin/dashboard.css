@@ -1,0 +1,332 @@
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "nav header"
+    "nav main";
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+
+header img {
+  width: 100px;
+}
+
+main {
+  padding: clamp(12px, 3vw, 24px);
+  background: #f6f8fc;
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "titleDash titleDash titleDash"
+    "status map map"
+    "tabela tabela tabela";
+  gap: 10px;
+  grid-auto-rows: auto;
+}
+
+/* Seções */
+main section {
+  background: white;
+  padding: clamp(14px, 2.5vw, 20px);
+  border-radius: 7px;
+  box-shadow: var(--shadow-soft);
+}
+
+main > section > h2 {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+main > section > h2 > i {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+}
+
+/* TITULO DASHBOARD */
+main > #titleDashboard {
+  background-color: var(--color-bg-primary-blue);
+  color: white;
+  grid-area: titleDash;
+  display: flex;
+  flex-direction: column;
+}
+
+main > #titleDashboard > h1 {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+main > #titleDashboard > hr {
+  border: 1px solid rgba(217, 227, 255, 0.381);
+  margin: 10px 0;
+}
+
+#titleDashboard > h1 > i {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+#titleDashboard > p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: rgb(217, 227, 255);
+  border-radius: 7px;
+  flex-wrap: wrap;
+}
+
+#titleDashboard > p > i {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+}
+
+/* SEÇÃO DE STATUS */
+#sctStatus {
+  grid-area: status;
+  width: 100%;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  height: 100%;
+}
+
+.card {
+  border-radius: 7px;
+  box-shadow: var(--shadow-medium);
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: clamp(10px, 2vw, 20px);
+  padding: clamp(12px, 2vw, 20px);
+  min-width: 0;
+}
+
+.card > .card-content {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  align-self: center;
+  min-width: 0;
+}
+
+.card > i {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  justify-self: center;
+  align-self: center;
+  padding: clamp(12px, 2vw, 20px);
+  border-radius: 50px;
+}
+
+.card.red > i,
+.card.red {
+  background: rgba(230, 46, 46, 0.568);
+}
+
+.card.orange > i,
+.card.orange {
+  background: rgb(255, 123, 0, 0.568);
+}
+
+.card.green > i,
+.card.green {
+  background: rgba(40, 179, 27, 0.568);
+}
+
+.card h3 {
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  margin-bottom: 6px;
+  font-weight: lighter;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card > .card-content > p {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 600;
+}
+
+/* SEÇÃO DE MAPA */
+#sctMap {
+  grid-area: map;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  height: clamp(350px, 50vw, 500px);
+  padding: 0;
+  background: none;
+}
+
+#sctMap > .mapCaption {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  background-color: var(--color-bg-primary-blue);
+  padding: 10px clamp(10px, 2vw, 20px);
+  border-radius: 7px 7px 0 0;
+  color: white;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+}
+
+#sctMap > .mapCaption > .itemCaption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#sctMap > .mapCaption > .itemCaption > span {
+  padding: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#sctMap > .mapCaption > .itemCaption > span.capRed {
+  background-color: #ff0000;
+}
+
+#sctMap > .mapCaption > .itemCaption > span.capOrange {
+  background-color: #ff7700;
+}
+
+#sctMap > .mapCaption > .itemCaption > span.capGreen {
+  background-color: #00cc66;
+}
+
+div#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+/* TABELA */
+#ReviewDashboard {
+  grid-area: tabela;
+  overflow-x: auto;
+}
+
+main > #ReviewDashboard > table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  min-width: 480px; /* impede colapso em telas muito pequenas */
+}
+
+th,
+td {
+  text-align: left;
+  padding: clamp(7px, 1.5vw, 10px);
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: lighter;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  white-space: nowrap;
+}
+
+td:first-child,
+th:first-child {
+  white-space: normal;
+}
+
+thead {
+  background: var(--color-bg-secondary-blue);
+  color: white;
+}
+
+tbody > tr > .itemTableAcoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+}
+
+tr > .itemTableAcoes > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  justify-self: center;
+  width: 100%;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  padding: clamp(4px, 1vw, 8px);
+}
+
+tr > .itemTableAcoes > button > i {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 920px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "titleDash"
+      "status"
+      "map"
+      "tabela";
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #sctMap {
+    height: 420px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  main {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    grid-template-columns: max-content 1fr;
+  }
+
+  #sctMap {
+    height: 320px;
+  }
+
+  #ReviewDashboard {
+    position: relative;
+  }
+
+  #ReviewDashboard::after {
+    content: "← deslize →";
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 6px;
+  }
+
+  tbody > tr > .itemTableAcoes {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+
+  #sctMap > .mapCaption {
+    justify-content: center;
+  }
+}

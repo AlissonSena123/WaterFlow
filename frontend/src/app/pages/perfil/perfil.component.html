@@ -1,0 +1,123 @@
+<div class="container-perfil">
+  <app-header [activePage]="'perfil'"></app-header>
+  <main *ngIf="user">
+    <section class="titlePerfil">
+      <div class="User">
+        <div id="avatar">{{ iniciais }}</div>
+        <div class="userTitle">
+          <h1 id="titleNome">{{ user.nome }}</h1>
+          <p><span id="titleLocalidade">{{ user.bairro | uppercase }}, BA — Brasil</span></p>
+        </div>
+      </div>
+      <button type="button" id="btnEditarPerfil" (click)="abrirModalEdit()">
+        <i class="ph-fill ph-pen"></i>
+        <p>Editar Perfil</p>
+      </button>
+    </section>
+
+    <section id="infoUser">
+      <h3> <i class="ph-fill ph-identification-card"></i> Informações pessoais</h3>
+      <div class="infoContant">
+        <div class="infoCard">
+          <p> <i class="ph-fill ph-user"></i> Nome:</p>
+          <p id="userNome">{{ user.nome }}</p>
+        </div>
+        <div class="infoCard">
+          <p> <i class="ph-fill ph-at"></i> Email:</p>
+          <p id="userEmail">{{ user.email }}</p>
+        </div>
+        <div class="infoCard">
+          <p><i class="ph-fill ph-phone"></i> Telefone:</p>
+          <p id="userTel">{{ formatarTelefone(user.telefone) }}</p>
+        </div>
+        <div class="infoCard">
+          <p> <i class="ph-fill ph-calendar"></i> Data de Nascimento:</p>
+          <p id="userData">{{ formatarData(user.nascimento) }} - {{ idade }} anos</p>
+        </div>
+        <div class="infoCard">
+          <p> <i class="ph-fill ph-map-pin"></i> Localidade:</p>
+          <p id="userBairro">{{ user.bairro | uppercase }}</p>
+        </div>
+      </div>
+      <h3> <i class="ph-fill ph-warning-circle"></i> Meus reportes</h3>
+      <div class="infoContantReport">
+        <span>Reportes feitos: <strong>{{ totalReportes }}</strong></span>
+        <div id="listaReportes">
+          <ng-container *ngIf="totalReportes === 0">
+            <p>Sem reportes registrados</p>
+          </ng-container>
+          <ng-container *ngIf="totalReportes > 0">
+            <div class="reporte-card" *ngFor="let r of reportes">
+              <span class="reporte-tipo">{{ r.tipo_problema || "Sem titulo" }} 
+                <span class="reporte-data">{{ r.created_at | date:'dd/MM/yyyy' }}</span>
+              </span>
+              <span class="reporte-status">{{ r.status | titlecase }}</span>
+              <p class="reporte-descricao">{{ r.descricao || "Sem descrição" }}</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <hr>
+      <div class="sctDeletarConta">
+        <h3>Deletar sua conta</h3>
+        <p>Clique no botão abaixo caso queira deletar sua conta no WaterFlow</p>
+        <button type="button" id="deletarConta" (click)="abrirModalDeletar()">
+          <i class="ph-fill ph-trash"></i> Deletar conta
+        </button>
+      </div>
+    </section>
+
+    <!-- Modal Editar Perfil -->
+    <div class="modal" id="modalEdit" [class.active]="modalEditVisible" (click)="fecharModalEdit()">
+      <aside (click)="$event.stopPropagation()">
+        <div class="modalHeader">
+          <div id="modalAvatar">{{ iniciais }}</div>
+          <div class="modalHeaderContent">
+            <h2>Atualizar Perfil</h2>
+            <p>Edite suas informações pessoais</p>
+          </div>
+        </div>
+        <form>
+          <div class="atualizarItem">
+            <label>Nome completo:</label>
+            <input type="text" name="nome_completo" placeholder="Digite seu nome" [(ngModel)]="editForm.nome_completo">
+          </div>
+          <div class="atualizarItem">
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Digite seu email" [(ngModel)]="editForm.email">
+          </div>
+          <div class="atualizarItem">
+            <label>Telefone:</label>
+            <input type="tel" name="telefone" placeholder="Digite seu telefone" [(ngModel)]="editForm.telefone">
+          </div>
+          <div class="atualizarItem">
+            <label>CEP:</label>
+            <div>
+              <input type="text" placeholder="Digite o novo CEP" name="cep" [(ngModel)]="editForm.cep" (blur)="buscarCEP()">
+              <input type="text" placeholder="Bairro" name="bairro" readonly [(ngModel)]="editForm.bairro">
+              <p>Digite o CEP para preencher o bairro automaticamente</p>
+            </div>
+          </div>
+          <div id="updateButton">
+            <button type="button" (click)="fecharModalEdit()">Cancelar</button>
+            <button type="button" (click)="confirmarAtualizacao()">Confirmar Atualização</button>
+          </div>
+        </form>
+      </aside>
+    </div>
+
+    <!-- Modal Deletar -->
+    <div class="modal" id="modalDeletar" [class.active]="modalDeletarVisible" (click)="fecharModalDeletar()">
+      <aside id="modalDeletarContent" (click)="$event.stopPropagation()">
+        <i class="ph-fill ph-warning" id="iconAvisoDelete"></i>
+        <h2>Deletar conta</h2>
+        <p>Tem certeza que deseja deletar sua conta? Essa ação <strong>não pode ser desfeita.</strong></p>
+        <div id="deletarButtons">
+          <button type="button" (click)="fecharModalDeletar()">Cancelar</button>
+          <button type="button" (click)="deletarConta()">Sim, deletar</button>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+</div>

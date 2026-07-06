@@ -1,0 +1,131 @@
+/* public/css/sidebar.css port */
+
+#iconHamburguer { display: flex; }
+#iconHamburguerMobile { display: none; }
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: var(--color-bg-primary-blue);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100vh;
+    z-index: 50;
+    transition: width .3s ease;
+}
+
+#sidebar.expand { width: 220px; }
+
+#sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+#sidebar-content > button.ph-list {
+    padding: 35.2px;
+    background-color: var(--color-bg-blue-darker);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-radius: 0;
+    width: 100%;
+}
+
+#sidebar-items { display: flex; flex-direction: column; list-style: none; padding: 0; margin: 0; }
+.sidebar-item { cursor: pointer; transition: .2s; }
+.sidebar-item:hover { background-color: var(--color-bg-secondary-blue); }
+
+.sidebar-item a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    width: 100%;
+    padding: 20px;
+}
+
+.sidebar-item a i { font-size: 1.5em; }
+
+.item-title {
+    font-size: 17px;
+    white-space: nowrap;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: .3s;
+}
+
+#sidebar.expand .item-title { opacity: 1; width: auto; }
+
+#sidebar:not(.expand) .sidebar-item a { justify-content: center; padding: 20px 0; }
+#sidebar:not(.expand) .sidebar-item a i { margin: 0; }
+#sidebar:not(.expand) #btn-logout { justify-content: center; }
+#sidebar:not(.expand) #btn-logout span { display: none; }
+#sidebar:not(.expand) .sidebar-item { justify-content: center; }
+
+.active, .sidebar-item.active {
+    background-color: var(--color-bg-secondary-blue);
+    border-left: 4px solid rgb(187, 187, 255);
+}
+
+#sidebar > #logout { padding: 10px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+#sidebar > #logout > #btn-logout {
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.844);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#sidebar > #logout > #btn-logout > i { font-size: 1.5rem; }
+#sidebar > #logout > #btn-logout:hover { background-color: rgba(220, 38, 38, 0.45); }
+
+#sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 49;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+
+#sidebar-overlay.visible { opacity: 1; pointer-events: all; }
+
+@media (max-width: 600px) {
+    #iconHamburguer { display: none !important; }
+    
+    #sidebar {
+        width: 200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform .3s ease;
+        z-index: 9999;
+    }
+
+    #sidebar.open { transform: translateX(0); }
+    .item-title, #btn-logout span { opacity: 1; width: auto; display: block; }
+    .sidebar-item a { justify-content: flex-start; padding: 20px; }
+}
+
+@media (max-width: 500px) {
+    #iconHamburguer { font-size: 2rem; }
+}

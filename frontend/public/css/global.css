@@ -1,0 +1,206 @@
+/* ==== FONTE ==== */
+
+@font-face {
+    font-family: "Momo Trust Display";
+    src: url(/assets/fonts/MomoTrustDisplay-Regular.ttf) format("truetype");
+}
+
+/* ==== VARIAVEIS ==== */
+
+:root {
+    --font: "Momo Trust Display", sans-serif;
+
+    --color-bg-primary-blue: #023373; 
+    --color-bg-secondary-blue: #375ac4;
+    --color-bg-tertiary-blue: #7fa1e9;
+    --color-bg-blue-lighter: #88e9ff;
+    --color-bg-blue-darker: #0a0064;
+    --color-bg-white-opacity: #d0edff71;
+    --color-text-primary-black: #1b1f26;
+
+    --shadow-soft: 0 4px 10px rgba(0,0,0,0.1);
+    --shadow-medium: 0 0 15px rgba(0,0,0,0.2);
+}
+
+/* ==== CONFIGURAÇÕES GERAIS ==== */
+
+
+* {
+    font-family: var(--font);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    min-height: 100vh;
+}
+
+
+button, label{
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+label{
+    width: max-content;
+}
+
+input:focus, 
+textarea:focus{
+    outline: none;
+    border-color: var(--color-bg-secondary-blue);
+    box-shadow: 0 0 5px var(--color-bg-secondary-blue);
+    transition: 0.2s;
+    background-color: white;
+}
+
+/* ==== CONTAINER ==== */
+.container{
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr max-content;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+}
+
+header{
+    grid-area: header;
+}
+
+main{
+    grid-area: main;
+}
+
+footer{
+    grid-area: footer;
+}
+
+
+/* ==== CONFIGURAÇÃO PADRÃO DE BOTÕES ==== */
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 150px;
+    font-weight: 500;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+
+.btn-primary{
+    background-color: royalblue;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-bg-blue-darker);
+}
+
+.btn-outline {
+    border: 2px solid royalblue;
+    color: royalblue;
+    border-radius: 10px;
+    background: none;
+}
+
+.btn-outline:hover {
+    background-color: rgb(65, 105, 225);
+    color: white;
+}
+
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* ==== CONFIGURAÇÕES DE INPUTS ==== */
+
+.input-form{
+    padding: 10px;
+    border: 2px solid rgba(54, 101, 255, 0.76);
+    background-color: #ececec;
+    border-radius: 6px;
+    width: 100%;       
+}
+
+.image-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+    z-index: 1;
+}
+
+/* ==== MAIN'S ==== */
+
+.main-primary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background-color: white;
+    padding: 50px 20px;
+}
+
+/* ==== BACKGROUNDS ==== */
+
+.bg-primary-img{
+    background: linear-gradient(to bottom , #ffffff38, #002c855d), url(../Img/bg.svg) no-repeat center top;
+    background-size: cover;
+}
+
+.bg-secondary-img{
+    background: linear-gradient(to bottom, #ffffff38, #002c855d), url(../Img/layered-waves-haikei.svg) no-repeat center top;
+    background-size: cover;
+}
+
+.bg-primary-linear{
+    background: linear-gradient(to bottom, 
+    var(--color-bg-tertiary-blue),
+    var(--color-white),
+    var(--color-white),
+    var(--color-white),
+    var(--color-white));
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-active  { background: #d1f5e0; color: #0a6e37; border: 1px solid #a3e8c0; }
+.badge-high    { background: #ffe0e0; color: #960000; border: 1px solid #f5b0b0; }
+.badge-med     { background: #fff0cc; color: #8a4f00; border: 1px solid #f5d98a; }
+.badge-review  { background: #e0e9ff; color: #1e3fa0; border: 1px solid #aabfff; }
+
+@media (max-width: 600px) {
+    .section-form-login{
+        margin: 0px;
+    }
+
+    footer{
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 520px) {
+    .btnGroup{
+        display: none;
+
+    }
+}

@@ -1,7 +1,7 @@
 import { supabase } from "../config/supabase.js";
 import { Router } from "express";
 const router = Router();
-import { enviarAlertaEmail } from "../public/services/emailServices.js";
+import { enviarAlertaEmail } from "../services/emailServices.js";
 
 router.get("/bairro", async (req, res) => {
     try {

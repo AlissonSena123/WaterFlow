@@ -1,0 +1,74 @@
+<section id="titleDashboard">
+  <h1> <i class="ph-fill ph-gauge"></i> Painel de Status</h1>
+  <hr>
+  <p><i class="ph-fill ph-user-circle-gear"></i> Funcionario: <span>{{ adminLogged }}</span></p>
+</section>
+
+<section id="sctStatus">
+  <div class="cards">
+    <div class="card red">
+      <i class="ph-fill ph-drop-slash"></i>
+      <div class="card-content">
+        <h3>Sem Abastecimento:</h3>
+        <p>{{ statusFalta }}</p>
+      </div>
+    </div>
+
+    <div class="card orange">
+      <i class="ph-fill ph-drop-half-bottom"></i>
+      <div class="card-content">
+        <h3>Fornecimento Irregular:</h3>
+        <p>{{ statusIrregular }}</p>
+      </div>
+    </div>
+
+    <div class="card green">
+      <i class="ph-fill ph-drop"></i>
+      <div class="card-content">
+        <h3>Normalidade:</h3>
+        <p>{{ statusNormal }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ReviewDashboard">
+  <h2> <i class="ph-fill ph-drop-slash"></i> Bairros sem abastecimento</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Região:</th>
+        <th>Causa:</th>
+        <th>Medida de Solução:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of bairrosComProblema">
+        <td>{{ b.bairro | uppercase }}</td>
+        <td>{{ formatStatus(b.causa_interrupcao || 'Não informada') | titlecase }}</td>
+        <td>{{ formatStatus(b.medida_solucao || 'Em análise') | titlecase }}</td>
+      </tr>
+      <tr *ngIf="bairrosComProblema.length === 0">
+        <td colspan="3" style="text-align: center; padding: 20px;">Nenhum bairro com problema de abastecimento.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sctMap">
+  <aside class="mapCaption">
+    <div class="itemCaption">
+      <span class="capRed"></span>
+      <p>Sem Abastecimento</p>
+    </div>
+    <div class="itemCaption">
+      <span class="capOrange"></span>
+      <p>Fornecimento Irregular</p>
+    </div>
+    <div class="itemCaption">
+      <span class="capGreen"></span>
+      <p>Normalidade</p>
+    </div>
+  </aside>
+  <div id="map" #mapContainer></div>
+</section>

@@ -77,7 +77,7 @@ async function enviarAlertaEmail(destinatario, bairro, status) {
         attachments: [
             {
                 filename: "LogoWhiteV1.png",
-                path: "./public/assets/Img/LogoWhiteV1.png",
+                path: "./frontend/public/assets/Img/LogoWhiteV1.png",
                 cid: "LogoWaterFlow"
             }
         ]

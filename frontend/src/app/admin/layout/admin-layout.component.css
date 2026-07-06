@@ -1,0 +1,76 @@
+:host {
+    display: block;
+}
+
+.admin-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "nav content";
+    min-height: 100vh;
+}
+
+app-admin-sidebar {
+    grid-area: nav;
+}
+
+.admin-content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Important for preventing grid overflow */
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 22px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+}
+
+header img { width: 100px; }
+
+#iconHamburguerMobile {
+    display: none;
+}
+
+main {
+    flex: 1;
+    background: #f6f8fc;
+    /* Content styling belongs to child components but container handles padding */
+    padding: clamp(12px, 3vw, 24px);
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "content";
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+    }
+
+    header img {
+        justify-self: center;
+    }
+
+    #iconHamburguerMobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--color-bg-primary-blue);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 6px;
+    }
+}
