@@ -11,7 +11,7 @@ import { RedefinirSenhaComponent } from './pages/redefinir-senha/redefinir-senha
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/sobre', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'inicio', component: InicioComponent, canActivate: [authGuard] },
@@ -26,5 +26,5 @@ export const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [authGuard, adminGuard]
   },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/sobre' }
 ];
