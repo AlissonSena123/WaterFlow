@@ -1,12 +1,36 @@
 import nodemailer from "nodemailer";
 
+// --- Transporte único, usado por TODAS as rotas que enviam email ---
+// Usa host/port/STARTTLS explícito (porta 587) em vez de service:"gmail",
+// que por padrão tentaria porta 465/SSL direto e estava causando ECONNRESET.
 const transporte = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // STARTTLS, não SSL direto
     auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS
-    }
+    },
+    tls: { rejectUnauthorized: false },
+    logger: true,           // loga cada etapa do protocolo SMTP no console
+    debug: true,            // inclui detalhes extras de debug
+    connectionTimeout: 10000, // 10s pra conectar
+    greetingTimeout: 10000,   // 10s pra receber o "220" inicial
+    socketTimeout: 15000      // 15s de inatividade no socket antes de abortar
 });
+
+// --- Helper de retry para envios intermitentes (ex: ECONNRESET) ---
+async function enviarComRetry(opcoes, tentativas = 3) {
+    for (let i = 0; i < tentativas; i++) {
+        try {
+            return await transporte.sendMail(opcoes);
+        } catch (err) {
+            console.error(`Tentativa ${i + 1}/${tentativas} de envio de email falhou:`, err.message);
+            if (i === tentativas - 1) throw err;
+            await new Promise(r => setTimeout(r, 1000 * (i + 1))); // espera crescente: 1s, 2s, 3s...
+        }
+    }
+}
 
 async function enviarAlertaEmail(destinatario, bairro, status) {
     const mensagem = `
@@ -69,7 +93,7 @@ async function enviarAlertaEmail(destinatario, bairro, status) {
         </html>
     `;
 
-    await transporte.sendMail({
+    await enviarComRetry({
         from: `"WaterFlow" <${process.env.MAIL_USER}>`,
         to: destinatario,
         subject: `Alerta de abastecimento — ${bairro}`,
@@ -85,7 +109,7 @@ async function enviarAlertaEmail(destinatario, bairro, status) {
 }
 
 async function enviarRespostaReport({ para, nome, bairro, status, resposta }) {
-    await transporte.sendMail({
+    await enviarComRetry({
         from: `"WaterFlow" <${process.env.MAIL_USER}>`,
         to: para,
         subject: `Atualização do seu reporte - ${status}`,
@@ -113,4 +137,6 @@ async function enviarRespostaReport({ para, nome, bairro, status, resposta }) {
     });
 }
 
-export { enviarAlertaEmail, enviarRespostaReport };
+// Exporta o transporte e o helper de retry também, para reuso em outras rotas
+// (ex: usuarios.js na rota /redefinirSenha), evitando duplicar a configuração.
+export { enviarAlertaEmail, enviarRespostaReport, transporte, enviarComRetry };
