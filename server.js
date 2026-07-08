@@ -152,7 +152,7 @@ server.get("*", (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
 
-export default server;
+export default server;
