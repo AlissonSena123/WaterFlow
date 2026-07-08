@@ -44,7 +44,7 @@ export class CadastroComponent implements OnInit {
     private viaCepService: ViaCepService,
     private toastService: ToastService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const hoje = new Date();
@@ -113,9 +113,10 @@ export class CadastroComponent implements OnInit {
           this.toastService.error(data.message || 'Erro ao cadastrar');
         }
       },
-      error: () => {
+      error: (err) => {
         this.isLoading = false;
-        this.toastService.error('Erro interno do servidor');
+        const mensagem = err?.error?.message || 'Erro interno do servidor';
+        this.toastService.error(mensagem);
       }
     });
   }
