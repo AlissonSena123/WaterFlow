@@ -3,22 +3,36 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface StatusBairro {
+
   id: number;
+
   bairro: string;
+
+  bairroExibicao?: string;
+
   status: string;
+
   inicio_interrupcao?: string;
+
   previsao_retorno?: string;
+
   causa_interrupcao?: string;
+
   area_afetada?: string;
+
   pressao_rede?: string;
+
   medida_solucao?: string;
+
   descricao?: string;
+
   atualizado_em: string;
+
 }
 
 @Injectable({ providedIn: 'root' })
 export class MapaService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getMapKey(): Observable<{ key: string }> {
     return this.http.get<{ key: string }>('/api/mapKey');

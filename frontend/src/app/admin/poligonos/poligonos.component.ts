@@ -12,7 +12,7 @@ import * as turf from '@turf/turf';
 })
 export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
-  
+
   map!: maplibregl.Map;
   municipiosData: any = null;
 
@@ -21,7 +21,7 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   painelUpdateVisible = false;
 
   bairroSelecionado: StatusBairro | null = null;
-  
+
   // Update Form
   formData = {
     idBairro: '',
@@ -39,9 +39,9 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private mapaService: MapaService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.mapaService.getMapKey().subscribe({
@@ -137,13 +137,13 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
           const u = item.bairro.toUpperCase();
           const feature = this.municipiosData?.features.find((f: any) => this.normalizarTexto(f.properties.NM_BAIRRO) === this.normalizarTexto(u));
           if (feature) {
-             // MapLibre requires an ID for feature-state. Wait, the original js didn't use promoteId for poligonos?
-             // It matched feature-state directly? Let's use promoteId on source if we do. 
-             // Without promoteId, we need feature.id to exist.
-             // But original just updated DB and maybe fetched.
-             // Actually, original didn't use setFeatureState in poligono.js for initial colors? 
-             // Oh wait, `mapa-poligono.js` didn't actually color the initial map based on DB!
-             // Well, we will color it based on DB.
+            // MapLibre requires an ID for feature-state. Wait, the original js didn't use promoteId for poligonos?
+            // It matched feature-state directly? Let's use promoteId on source if we do. 
+            // Without promoteId, we need feature.id to exist.
+            // But original just updated DB and maybe fetched.
+            // Actually, original didn't use setFeatureState in poligono.js for initial colors? 
+            // Oh wait, `mapa-poligono.js` didn't actually color the initial map based on DB!
+            // Well, we will color it based on DB.
           }
         }
       });
@@ -188,20 +188,38 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   abrirModalBairro(nomeExibicao: string, nomeNormalizado: string): void {
+
     this.bairroSelecionado = null;
     this.painelStatusVisible = true;
     this.painelUpdateVisible = false;
 
     this.mapaService.getDetalhesBairro(nomeNormalizado).subscribe({
+
       next: (data: StatusBairro[]) => {
+
         if (data && data.length > 0) {
-          this.bairroSelecionado = data[0];
-          this.bairroSelecionado.bairro = nomeExibicao;
+
+          this.bairroSelecionado = {
+            ...data[0],
+            bairro: data[0].bairro,
+            bairroExibicao: nomeExibicao
+          } as any;
+
         } else {
-          this.toastService.error('Nenhum resultado encontrado.');
+          this.toastService.error("Nenhum resultado encontrado.");
         }
+
       },
-      error: () => this.toastService.error('Erro ao buscar dados.')
+
+      error: (err) => {
+        console.error(err);
+
+        this.toastService.error(
+          err.error?.erro ??
+          err.error?.message ??
+          "Erro ao buscar dados."
+        );
+      }
     });
   }
 
@@ -211,23 +229,34 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
 
   abrirPainelAtualizar(): void {
     if (!this.bairroSelecionado) return;
-    
+
     this.formData = {
-      idBairro: this.normalizarTexto(this.bairroSelecionado.bairro),
-      bairroExibicao: this.bairroSelecionado.bairro,
+
+      idBairro: this.bairroSelecionado.bairro,
+
+      bairroExibicao: (this.bairroSelecionado as any).bairroExibicao,
+
       status: this.bairroSelecionado.status,
+
       causa: this.bairroSelecionado.causa_interrupcao || '',
+
       inicio: this.formatDateForInput(this.bairroSelecionado.inicio_interrupcao),
+
       retorno: this.formatDateForInput(this.bairroSelecionado.previsao_retorno),
+
       area: this.bairroSelecionado.area_afetada || '',
+
       pressao: this.bairroSelecionado.pressao_rede || '',
+
       medida: this.bairroSelecionado.medida_solucao || '',
+
       descricao: this.bairroSelecionado.descricao || ''
+
     };
-    
+
     this.onStatusChange();
     this.painelUpdateVisible = true;
-    
+
     setTimeout(() => {
       document.getElementById('painelStatusUpdate')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
@@ -271,18 +300,39 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.mapaService.updateDadosBairro(this.formData.idBairro, payload).subscribe({
-      next: (res: { message?: string, erro?: string }) => {
-        if (res.message) {
-          this.toastService.success(res.message);
-          this.painelUpdateVisible = false;
-          document.getElementById('map')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          this.abrirModalBairro(this.formData.bairroExibicao, this.formData.idBairro);
-        } else {
-          this.toastService.error(res.erro || 'Erro ao atualizar.');
-        }
+
+      next: (res: any) => {
+
+        this.toastService.success(res.message);
+
+        this.painelUpdateVisible = false;
+
+        document.getElementById('map')
+          ?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+
+        this.abrirModalBairro(
+          this.formData.bairroExibicao,
+          this.formData.idBairro
+        );
+
       },
-      error: () => this.toastService.error('Erro na requisição')
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.toastService.error(
+          err.error?.erro ??
+          err.error?.message ??
+          "Erro na requisição."
+        );
+
+      }
     });
+    
   }
 
   // Utils

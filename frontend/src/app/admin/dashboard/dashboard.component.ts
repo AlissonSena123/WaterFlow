@@ -12,7 +12,7 @@ import * as maplibregl from 'maplibre-gl';
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
-  
+
   adminLogged = '';
   statusFalta = 0;
   statusIrregular = 0;
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private authService: AuthService,
     private mapaService: MapaService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.me().subscribe((res: MeResponse) => {
@@ -58,9 +58,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.statusNormal = data.filter((b: StatusBairro) => b.status === 'NORMAL').length;
 
         this.bairrosComProblema = data.filter((b: StatusBairro) => b.status !== 'NORMAL');
-        
+
         if (this.map && this.map.isStyleLoaded()) {
-           this.updateMapColors(data);
+          this.updateMapColors(data);
         }
       },
       error: () => this.toastService.error('Erro ao carregar status')
@@ -85,10 +85,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       fetch('/assets/mapas/salvador_bairros.geojson')
         .then(res => res.json())
         .then(data => {
+          // Adiciona um campo normalizado em cada feature, pra bater exatamente com o backend
+          data.features.forEach((f: any) => {
+            f.properties.ID_NORMALIZADO = this.normalizarTexto(f.properties.NM_BAIRRO);
+          });
+
           this.map.addSource('municipios', {
             type: 'geojson',
             data: data,
-            promoteId: 'NM_BAIRRO'
+            promoteId: 'ID_NORMALIZADO'
           });
 
           this.map.addLayer({
@@ -102,7 +107,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 'SEM_ABASTECIMENTO', '#ff0000',
                 'FORNECIMENTO_IRREGULAR', '#ff7700',
                 'NORMAL', '#00cc66',
-                '#00cc66'
+                '#999999'
               ],
               'fill-opacity': 0.6
             }
@@ -118,7 +123,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           });
 
-          // update colors if data was loaded
           this.mapaService.getStatusBairros().subscribe((statusData: StatusBairro[]) => {
             this.updateMapColors(statusData);
           });
@@ -131,9 +135,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     statusData.forEach((item: StatusBairro) => {
       if (item.bairro) {
-        const uppercaseNome = item.bairro.toUpperCase();
         this.map.setFeatureState(
-          { source: 'municipios', id: uppercaseNome },
+          { source: 'municipios', id: this.normalizarTexto(item.bairro) },  // ← normalizado igual ao GeoJSON
           { status: item.status }
         );
       }
@@ -142,5 +145,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formatStatus(status: string): string {
     return status.replace(/_/g, ' ');
+  }
+
+  private normalizarTexto(texto: string): string {
+    return texto
+      .toUpperCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^A-Z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 }
