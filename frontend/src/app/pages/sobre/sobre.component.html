@@ -20,7 +20,8 @@
       <article class="section-sobre-contant" data-aos="fade-right">
         <h1>Bem Vindo ao WaterFlow</h1>
         <p>Receba informações sobre a situação da água em seu bairro!</p>
-        <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador.</p>
+        <p>Somos a equipe WaterFlow, composta por alunos do ensino técnico do SENAI Cimatec. Projetamos esse site com o
+          intuito de ajudar a população soteropolitana e as empresas de abastecimento de água de Salvador.</p>
       </article>
     </section>
 
@@ -28,8 +29,10 @@
       <article class="section-projeto-contant" data-aos="fade-up">
         <div>
           <h1>Sobre o projeto</h1>
-          <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador de forma simples e rápida. Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
-          <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao abastecimento de água nos bairros de Salvador.</p>
+          <p>O WaterFlow é uma plataforma que ajuda você a acompanhar o abastecimento de água em Salvador de forma
+            simples e rápida. Nosso objetivo é trazer mais transparência e manter a população sempre bem informada.</p>
+          <p>Desenvolvemos o Waterflow com o intuito de trazer mais um canal de informação relacionado ao abastecimento
+            de água nos bairros de Salvador.</p>
         </div>
         <img src="/assets/Img/LogoV2.png" alt="LogoTipo">
       </article>
@@ -40,15 +43,48 @@
         <img src="/assets/Img/illustrationVectorMAP.svg" alt="" data-aos="fade-up">
         <div>
           <h1>MAPA INTERATIVO</h1>
-          <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do abastecimento de água em seu bairro. Podemos trazer informações atuais, quanto problemas futuros. Assim podemos trazer mais informação para a população.</p>
+          <p>Temos uma mapa de Salvador, onde os usuários poderão interagir e saber a situação do abastecimento de água
+            em seu bairro. Podemos trazer informações atuais, quanto problemas futuros. Assim podemos trazer mais
+            informação para a população.</p>
         </div>
       </div>
       <div class="sctFuncionContent">
         <div>
           <h1>REPORTAR FALTA D'ÁGUA</h1>
-          <p>Os usuários poderão reportar problemas relacionados ao abastecimento de água em seu bairro. Esses reportes serão enviados ao administrador, assim podendo resolver o problema da melhor forma possível.</p>
+          <p>Os usuários poderão reportar problemas relacionados ao abastecimento de água em seu bairro. Esses reportes
+            serão enviados ao administrador, assim podendo resolver o problema da melhor forma possível.</p>
         </div>
         <img src="/assets/Img/illustrationVectorREPORT.svg" alt="" data-aos="fade-up">
+      </div>
+    </section>
+
+    <section id="section-showcase">
+      <h1>Conheça o Sistema</h1>
+      <p>Veja como é simples acompanhar e reportar o abastecimento de água na prática.</p>
+
+      <div class="carousel-container">
+        <button class="carousel-btn prev" (click)="prevSlide()" aria-label="Slide anterior">
+          <i class="ph-bold ph-caret-left"></i>
+        </button>
+
+        <div class="carousel-track">
+          <div class="carousel-slide" *ngFor="let slide of slides; let i = index" [class.active]="i === slideAtual">
+            <img [src]="slide.imagem" [alt]="slide.titulo">
+            <div class="carousel-caption">
+              <h3>{{ slide.titulo }}</h3>
+              <p>{{ slide.descricao }}</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-btn next" (click)="nextSlide()" aria-label="Próximo slide">
+          <i class="ph-bold ph-caret-right"></i>
+        </button>
+
+        <div class="carousel-dots">
+          <span *ngFor="let slide of slides; let i = index" [class.active]="i === slideAtual"
+            (click)="irParaSlide(i)"></span>
+        </div>
       </div>
     </section>
 
