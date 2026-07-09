@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -14,13 +14,14 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() activePage: 'mapa' | 'reporte' | 'perfil' = 'mapa';
 
   notifOpen = false;
   perfilOpen = false;
   mobileOpen = false;
 
+  notifVisiveis: any[] = [];
   notifReportes: NotifReporte[] = [];
   notifAlertas: NotifAlerta[] = [];
   notifLidas: Record<string, string[]> = { reportes: [], alertas: [] };
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit {
     private notifService: NotificacaoService,
     private toastService: ToastService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.carregarNotificacoes();
@@ -50,19 +51,18 @@ export class HeaderComponent implements OnInit {
   }
 
   carregarNotificacoes(): void {
-    const lidasR = this.getLidas(this.CHAVE_REPORTES);
-    const lidasA = this.getLidas(this.CHAVE_ALERTAS);
-
     this.notifService.meusReportes().subscribe(res => {
       if (res.success) this.notifReportes = res.data;
       this.calcBadge();
+      this.atualizarNotifVisiveis();
     });
 
     this.notifService.alertasBairro().subscribe(res => {
       if (res.success) this.notifAlertas = res.data;
       this.calcBadge();
+      this.atualizarNotifVisiveis();
     });
-  }
+  };
 
   calcBadge(): void {
     const lidasR = this.getLidas(this.CHAVE_REPORTES);
@@ -72,12 +72,12 @@ export class HeaderComponent implements OnInit {
     this.totalNaoLidas = naoLidasR + naoLidasA;
   }
 
-  get notifVisiveis(): any[] {
+  private atualizarNotifVisiveis(): void {
     const lidasR = this.getLidas(this.CHAVE_REPORTES);
     const lidasA = this.getLidas(this.CHAVE_ALERTAS);
     const r = this.notifReportes.filter(n => !lidasR.includes(String(n.id))).map(n => ({ ...n, tipo: 'reporte' }));
     const a = this.notifAlertas.filter(n => !lidasA.includes(`${n.id}_${n.atualizado_em}`)).map(n => ({ ...n, tipo: 'alerta' }));
-    return [...a, ...r];
+    this.notifVisiveis = [...a, ...r];
   }
 
   dispensarNotif(notif: any, event: MouseEvent): void {
@@ -88,6 +88,7 @@ export class HeaderComponent implements OnInit {
       this.marcarLida(this.CHAVE_ALERTAS, `${notif.id}_${notif.atualizado_em}`);
     }
     this.calcBadge();
+    this.atualizarNotifVisiveis();
   }
 
   formatarData(dateStr: string): string {
@@ -129,7 +130,8 @@ export class HeaderComponent implements OnInit {
     const lidas = this.getLidas(key);
     if (!lidas.includes(id)) {
       lidas.push(id);
-      localStorage.setItem(key, JSON.stringify(lidas));
+      const limitado = lidas.length > 100 ? lidas.slice(-100) : lidas;
+      localStorage.setItem(key, JSON.stringify(limitado));
     }
   }
 }

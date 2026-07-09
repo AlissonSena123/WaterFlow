@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, Subscription, forkJoin, of } from 'rxjs';
@@ -23,11 +23,11 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   searchTerm = '';
   searchSubject = new Subject<string>();
   suggestions: string[] = [];
-  
+
   municipiosData: any = null;
   listaBairros: string[] = [];
   statusBairros: StatusBairro[] = [];
-  
+
   cardData: StatusBairro[] | null = null;
   nomeExibicao = '';
   cardVisible = false;
@@ -37,8 +37,9 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private mapaService: MapaService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
     // Setup RxJS for search autocomplete
@@ -95,97 +96,100 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     const comecaCom = this.listaBairros.filter(nome => this.normalizarTexto(nome).startsWith(term));
-    const contemTexto = this.listaBairros.filter(nome => 
+    const contemTexto = this.listaBairros.filter(nome =>
       this.normalizarTexto(nome).includes(term) && !this.normalizarTexto(nome).startsWith(term)
     );
     this.suggestions = [...comecaCom, ...contemTexto].slice(0, 8);
   }
 
   private initMap(key: string): void {
-    this.map = new maplibregl.Map({
-      container: this.mapContainer.nativeElement,
-      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`,
-      center: [-38.5167, -12.9704],
-      zoom: 12,
-      minZoom: 10,
-      maxZoom: 16,
-      maxBounds: [
-        [-38.70, -13.20],
-        [-38.20, -12.70]
-      ]
-    });
+    this.ngZone.runOutsideAngular(() => {
+      this.map = new maplibregl.Map({
+        container: this.mapContainer.nativeElement,
+        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`,
+        center: [-38.5167, -12.9704],
+        zoom: 12,
+        minZoom: 10,
+        maxZoom: 16,
+        maxBounds: [
+          [-38.70, -13.20],
+          [-38.20, -12.70]
+        ]
+      });
 
-    this.map.on('load', () => {
-      fetch('/assets/mapas/salvador_bairros.geojson')
-        .then(res => res.json())
-        .then(data => {
-          this.municipiosData = data;
-          this.listaBairros = [...new Set(data.features.map((f: any) => f.properties.NM_BAIRRO))] as string[];
+      this.map.on('load', () => {
+        fetch('/assets/mapas/salvador_bairros.geojson')
+          .then(res => res.json())
+          .then(data => {
+            this.municipiosData = data;
+            this.listaBairros = [...new Set(data.features.map((f: any) => f.properties.NM_BAIRRO))] as string[];
 
-          this.map.addSource('municipios', {
-            type: 'geojson',
-            data: data,
-            promoteId: 'NM_BAIRRO'
+            this.map.addSource('municipios', {
+              type: 'geojson',
+              data: data,
+              promoteId: 'NM_BAIRRO'
+            });
+
+            this.map.addLayer({
+              id: 'municipios-layer',
+              type: 'fill',
+              source: 'municipios',
+              paint: {
+                'fill-color': '#aeffd500',
+                'fill-opacity': 0.35,
+                'fill-outline-color': '#003366'
+              }
+            });
+
+            this.map.addLayer({
+              id: 'municipios-fill',
+              type: 'fill',
+              source: 'municipios',
+              paint: {
+                'fill-color': [
+                  'match',
+                  ['feature-state', 'status'],
+                  'SEM_ABASTECIMENTO', '#ff0000',
+                  'FORNECIMENTO_IRREGULAR', '#ff7700',
+                  'NORMAL', '#00cc66',
+                  '#aeffd500'
+                ],
+                'fill-opacity': 0.2
+              },
+              filter: ['==', ['get', 'NM_BAIRRO'], '']
+            });
+
+            this.map.addLayer({
+              id: 'municipios-line',
+              type: 'line',
+              source: 'municipios',
+              paint: {
+                'line-color': '#ffe4e4',
+                'line-width': 2
+              },
+              filter: ['==', ['get', 'NM_BAIRRO'], '']
+            });
+
+            this.ngZone.run(() => this.loadStatusBairros());
           });
+      });
 
-          this.map.addLayer({
-            id: 'municipios-layer',
-            type: 'fill',
-            source: 'municipios',
-            paint: {
-              'fill-color': '#aeffd500',
-              'fill-opacity': 0.35,
-              'fill-outline-color': '#003366'
-            }
-          });
-
-          this.map.addLayer({
-            id: 'municipios-fill',
-            type: 'fill',
-            source: 'municipios',
-            paint: {
-              'fill-color': [
-                'match',
-                ['feature-state', 'status'],
-                'SEM_ABASTECIMENTO', '#ff0000',
-                'FORNECIMENTO_IRREGULAR', '#ff7700',
-                'NORMAL', '#00cc66',
-                '#aeffd500'
-              ],
-              'fill-opacity': 0.2
-            },
-            filter: ['==', ['get', 'NM_BAIRRO'], '']
-          });
-
-          this.map.addLayer({
-            id: 'municipios-line',
-            type: 'line',
-            source: 'municipios',
-            paint: {
-              'line-color': '#ffe4e4',
-              'line-width': 2
-            },
-            filter: ['==', ['get', 'NM_BAIRRO'], '']
-          });
-
-          this.loadStatusBairros();
+      this.map.on('click', 'municipios-layer', (e: maplibregl.MapLayerMouseEvent) => {
+        this.cliqueNoBairro = true;
+        if (!e.features || e.features.length === 0) return;
+        const nomeMunicipio = e.features[0].properties['NM_BAIRRO'];
+        this.ngZone.run(() => {
+          this.searchTerm = nomeMunicipio;
+          this.buscarRegiao(nomeMunicipio);
         });
-    });
+      });
 
-    this.map.on('click', 'municipios-layer', (e: maplibregl.MapLayerMouseEvent) => {
-      this.cliqueNoBairro = true;
-      if (!e.features || e.features.length === 0) return;
-      const nomeMunicipio = e.features[0].properties['NM_BAIRRO'];
-      this.searchTerm = nomeMunicipio;
-      this.buscarRegiao(nomeMunicipio);
-    });
-
-    // Close card when clicking on map outside polygons
-    this.map.on('click', (e: maplibregl.MapMouseEvent) => {
-      if (!this.cliqueNoBairro && this.cardVisible) {
-        this.closeCard();
-      }
-      this.cliqueNoBairro = false;
+      this.map.on('click', (e: maplibregl.MapMouseEvent) => {
+        if (!this.cliqueNoBairro && this.cardVisible) {
+          this.ngZone.run(() => this.closeCard());
+        }
+        this.cliqueNoBairro = false;
+      });
     });
   }
 
@@ -226,7 +230,7 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
       next: (res) => {
         this.statusBairros = res.statusGeral;
         this.cardData = res.detalhes;
-        
+
         const bairroStatus = this.statusBairros.find(b => this.normalizarTexto(b.bairro) === nomeBusca);
         const cor = this.resolverCor(bairroStatus?.status);
 
