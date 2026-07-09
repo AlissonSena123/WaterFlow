@@ -31,6 +31,7 @@ export class CadastroComponent implements OnInit {
   minDate = '';
   isLoading = false;
   cepErro = '';
+  aceiteTermos = false;
 
   readonly tiposProblem = [
     { value: 'SEM ÁGUA', label: 'Sem Água' },
@@ -93,15 +94,27 @@ export class CadastroComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { data_nascimento, cep, ...payload } = this.form;
+    if (!this.aceiteTermos) {
+      this.toastService.error('Você precisa aceitar os termos para continuar');
+      return;
+    }
 
-    if (!data_nascimento || data_nascimento > this.maxDate || data_nascimento < this.minDate) {
+    const { nome_completo, email, senha, data_nascimento, telefone, bairro } = this.form;
+
+    if (!nome_completo || !email || !senha || !data_nascimento || !telefone || !bairro) {
+      this.toastService.error('Preencha todos os campos');
+      return;
+    }
+
+    if (data_nascimento > this.maxDate || data_nascimento < this.minDate) {
       this.toastService.error('Data de nascimento inválida');
       return;
     }
 
+    const { cep, ...payload } = this.form;
+
     this.isLoading = true;
-    const sendPayload = { ...payload, data_nascimento };
+    const sendPayload = { ...payload };
 
     this.authService.cadastrar(sendPayload as any).subscribe({
       next: (data) => {
@@ -120,7 +133,7 @@ export class CadastroComponent implements OnInit {
       }
     });
   }
-
+  
   private limparEndereco(): void {
     this.form.cidade = '';
     this.form.bairro = '';

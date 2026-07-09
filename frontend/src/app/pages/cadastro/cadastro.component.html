@@ -61,7 +61,11 @@
             <input type="text" name="bairro" id="bairro" placeholder="Bairro" readonly [(ngModel)]="form.bairro"
               aria-label="Bairro preenchido automaticamente pelo CEP">
           </div>
-          <button type="submit" id="btnCadastrar" [disabled]="isLoading">
+          <div class="form-item-register item8" style="flex-direction: row; align-items: center; gap: 8px;">
+            <input type="checkbox" name="aceiteTermos" id="idAceiteTermos" required [(ngModel)]="aceiteTermos" style="width: auto; padding: 0;">
+            <label for="idAceiteTermos" style="margin: 0; cursor: pointer;">Marque para continuar: li e aceito a <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank">Política de Privacidade e a LGPD</a></label>
+          </div>
+          <button type="submit" id="btnCadastrar" [disabled]="isLoading || !aceiteTermos">
             {{ isLoading ? 'Cadastrando...' : 'Cadastrar-se' }}
           </button>
         </form>

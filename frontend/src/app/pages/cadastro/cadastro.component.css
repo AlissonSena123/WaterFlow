@@ -100,6 +100,7 @@ main {
         "item4 item5"
         "item6 item6"
         "item7 item7"
+        "item8 item8"
         "btn   btn";
     color: var(--color-bg-primary-blue);
     padding: 0px 30px;
@@ -112,6 +113,7 @@ main {
 .register-right > form > .item5 { grid-area: item5; }
 .register-right > form > .item6 { grid-area: item6; }
 .register-right > form > .item7 { grid-area: item7; }
+.register-right > form > .item8 { grid-area: item8; }
 
 .register-right > form > button {
     grid-area: btn;
@@ -159,9 +161,16 @@ main {
     color: var(--color-bg-primary-blue);
 }
 
-.register-right > form > button:hover {
+.register-right > form > button:hover:not(:disabled) {
     background-color: var(--color-bg-blue-darker);
     transform: translateY(-4px);
+}
+
+.register-right > form > button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .itemCep {
@@ -190,6 +199,7 @@ main {
             "item5 item5"
             "item6 item6"
             "item7 item7"
+            "item8 item8"
             "btn btn";
         padding: 0px;
     }
