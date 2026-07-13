@@ -26,9 +26,6 @@ header {
     align-items: center;
     padding: 22px;
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.184);
-    position: sticky;
-    top: 0;
-    z-index: 10;
     background: white;
 }
 
