@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   bairrosComProblema: StatusBairro[] = [];
 
   map!: maplibregl.Map;
+  private mapReady = false;
 
   constructor(
     private authService: AuthService,
@@ -65,7 +66,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.bairrosComProblema = data.filter((b: StatusBairro) => b.status !== 'NORMAL');
 
-        if (this.map && typeof this.map.getSource === 'function' && this.map.getSource('municipios')) {
+        // Only update map if fully ready (source + layers added)
+        if (this.mapReady) {
           this.updateMapColors(data);
         }
       },
@@ -129,6 +131,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           });
 
+          // Mark map as ready THEN load colors
+          this.mapReady = true;
           this.mapaService.getStatusBairros().subscribe((statusData: StatusBairro[]) => {
             this.updateMapColors(statusData);
           });
@@ -137,7 +141,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateMapColors(statusData: StatusBairro[]): void {
-    if (!this.map || typeof this.map.getSource !== 'function' || !this.map.getSource('municipios')) return;
+    if (!this.mapReady || !this.map || !this.map.isStyleLoaded()) return;
 
     statusData.forEach((item: StatusBairro) => {
       if (item.bairro) {

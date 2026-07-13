@@ -14,6 +14,7 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
 
   map!: maplibregl.Map;
+  private mapReady = false;
   municipiosData: any = null;
 
   searchTerm = '';
@@ -123,6 +124,8 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
             filter: ['==', ['get', 'NM_BAIRRO'], '']
           });
 
+          // Mark map as ready THEN load status colors
+          this.mapReady = true;
           this.loadStatusBairros();
         });
     });
@@ -136,9 +139,8 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadStatusBairros(): void {
+    if (!this.mapReady || !this.map || !this.map.isStyleLoaded()) return;
     this.mapaService.getStatusBairros().subscribe((statusData: StatusBairro[]) => {
-      if (!this.map || typeof this.map.getSource !== 'function' || !this.map.getSource('municipios')) return;
-      
       statusData.forEach((item: StatusBairro) => {
         if (item.bairro) {
           this.map.setFeatureState(
@@ -306,6 +308,9 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
         this.toastService.success(res.message);
 
         this.painelUpdateVisible = false;
+
+        // Refresh map colors to reflect the new status
+        this.loadStatusBairros();
 
         document.getElementById('map')
           ?.scrollIntoView({
