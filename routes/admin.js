@@ -95,13 +95,17 @@
                 resolvido:  "Resolvido",
             };
 
-            await enviarRespostaReport({ // Chama função importada responsável por enviar email
-                para:     reporte.email, // Destinatario
-                nome:     reporte.nome, // Nome do usuário
-                bairro:   reporte.bairro, // Bairro do usuário
-                status:   labelStatus[status], // Converte o status técnico em texto
-                resposta: resposta.trim(), // Envia a resposta sem espaços extras
-            });
+            try {
+                await enviarRespostaReport({ // Chama função importada responsável por enviar email
+                    para:     reporte.email, // Destinatario
+                    nome:     reporte.nome, // Nome do usuário
+                    bairro:   reporte.bairro, // Bairro do usuário
+                    status:   labelStatus[status], // Converte o status técnico em texto
+                    resposta: resposta.trim(), // Envia a resposta sem espaços extras
+                });
+            } catch (emailError) {
+                console.error("Falha ao enviar email de resposta ao reporte. A atualização do banco foi mantida.", emailError);
+            }
 
             res.json({ success: true, mensagem: "Resposta enviada com sucesso." });
 

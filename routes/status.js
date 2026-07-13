@@ -227,11 +227,16 @@ router.put("/update/dados/:bairro", async (req, res) => {
                 `Enviando email para ${usuariosFiltrados.length} usuários`
             );
 
-            await Promise.all(
-                usuariosFiltrados.map(user =>
-                    enviarAlertaEmail(user.email, bairro, status)
-                )
-            );
+            try {
+                await Promise.all(
+                    usuariosFiltrados.map(user =>
+                        enviarAlertaEmail(user.email, bairro, status)
+                    )
+                );
+                console.log("Emails enviados com sucesso!");
+            } catch (emailError) {
+                console.error("Falha ao enviar emails de alerta. A atualização do banco foi mantida.", emailError);
+            }
         }
 
         res.json({
