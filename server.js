@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 config();
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import usuarioRouter from "./routes/usuarios.js";
@@ -18,19 +19,38 @@ const server = express();
 const PORT = process.env.PORT || 8080;
 
 // Middlewares
+const allowedOrigins = (origin, callback) => {
+  // origin is undefined if the request comes from the same server or a non-browser client
+  if (!origin || /^https?:\/\/localhost(:\d+)?$/.test(origin) || /^https?:\/\/.*\.vercel\.app$/.test(origin)) {
+    return callback(null, true);
+  }
+  return callback(new Error("Not allowed"), false);
+};
+
+server.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(cookieParser());
-server.use(express.static(join(__dirname, "public")));
+
+if (!process.env.VERCEL) {
+  server.use(express.static(join(__dirname, "public")));
+}
 
 // Middlewares de routers
 server.use(usuarioRouter);
 server.use("/admin", funcionarioRouter);
 server.use("/status", statusMAP);
 
-// Serve Angular static files
-const angularDistPath = join(__dirname, "frontend/dist/frontend/browser");
-server.use(express.static(angularDistPath));
+// Serve Angular static files (somente rodando localmente)
+let angularDistPath;
+if (!process.env.VERCEL) {
+  angularDistPath = join(__dirname, "frontend/dist/frontend/browser");
+  server.use(express.static(angularDistPath));
+}
 
 /** ---- API DO MAPA ---- */
 
@@ -147,9 +167,11 @@ server.get("/me", async (req, res) => {
   return res.json({ tipo: null, user: null });
 });
 
-server.get("*", (req, res) => {
-  res.sendFile(join(angularDistPath, "index.html"));
-});
+if (!process.env.VERCEL) {
+  server.get("*", (req, res) => {
+    res.sendFile(join(angularDistPath, "index.html"));
+  });
+}
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);

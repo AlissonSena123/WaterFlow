@@ -61,3 +61,27 @@ A aplicação está com o código TS válido e sem estouros de limite de tamanho
 | Servidor Node.js inicializando (`server.listen`) | ✅ Porta 8080 ativa |
 | Teste end-to-end completo | ✅ **Aprovado** |
 
+---
+
+## 6. Configuração de Deploy Vercel (Roteamento & CORS)
+Para garantir um deploy de sucesso no Vercel (monorepo com Angular + Express Serverless), foram aplicadas as seguintes configurações rigorosas de roteamento no `vercel.json` para evitar conflitos de rotas entre o frontend (SPA) e o backend (API):
+
+### Isolamento de Métodos HTTP (Prevenção de Conflitos 404)
+- **O Problema:** Tanto o frontend quanto o backend possuíam a rota `/login`. Um recarregamento de página (`GET /login`) estava caindo na API Express (que só ouvia `POST /login`), retornando erro 404 e quebrando o SPA.
+- **A Solução:** No `vercel.json`, definimos a regra `{ "src": "/login", "methods": ["POST"], "dest": "/server.js" }`.
+  - `GET /login`: Bypassa o Express e cai na regra de *fallback* estática do Angular (retornando `index.html`).
+  - `POST /login`: Roteia adequadamente para a Serverless Function do Express.
+- Mesma regra metodológica restrita aplicada para `POST /cadastrar` (backend) vs `GET /cadastro` (frontend) para blindagem extra, e `POST /redefinirSenha` vs `GET /redefinirSenha/:token`.
+
+### Mapeamento Completo de Rotas para a API (server.js)
+Todas as rotas do Express foram explicitamente roteadas para o arquivo Serverless (`server.js`) utilizando expressões regulares precisas no `vercel.json`:
+- `/api/(.*)` (inclui usuarios, relatorios, mapKey, etc)
+- `/usuarios/(.*)` (inclui atualizar senha, perfil, deletar)
+- `/reporte/(.*)` e `/reportes/(.*)` e `/meus-reportes/(.*)`
+- `/admin/api/(.*)` (isofocusado na API para não conflitar com a página frontend `/admin`)
+- `/status/(.*)`
+- `/me`, `/logout` (com método POST)
+
+### Correções Preventivas de CORS e Static Fallback
+- **CORS Configurado Corretamente:** Instalada a lib `cors`. A função de validação de origem dinâmica permite requisições seguras via Regex (`/^https?:\/\/localhost(:\d+)?$/` e `/^https?:\/\/.*\.vercel\.app$/`). Substituída a rejeição por `throw` por callbacks padrões do express `callback(new Error('Not allowed'), false)` garantindo imediata recusa HTTP sem travar a função na Vercel.
+- **Static Fallback Isolado:** As rotas estáticas `server.use(express.static(...))` e `server.get("*")` que devolviam o build do Angular no `server.js` foram circundadas por `if (!process.env.VERCEL)`. No ambiente Vercel, o roteamento da SPA fica unicamente a cargo do `vercel.json` (`{ "handle": "filesystem" }` -> `index.html`).
