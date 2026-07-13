@@ -27,6 +27,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private toastService: ToastService
   ) { }
 
+  private focusListener = () => {
+    this.loadStatusBairros();
+  };
+
   ngOnInit(): void {
     this.authService.me().subscribe((res: MeResponse) => {
       if (res && res.user) {
@@ -35,6 +39,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.loadStatusBairros();
+    window.addEventListener('focus', this.focusListener);
   }
 
   ngAfterViewInit(): void {
@@ -48,6 +53,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.map) this.map.remove();
+    window.removeEventListener('focus', this.focusListener);
   }
 
   loadStatusBairros(): void {
@@ -59,7 +65,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.bairrosComProblema = data.filter((b: StatusBairro) => b.status !== 'NORMAL');
 
-        if (this.map && this.map.isStyleLoaded()) {
+        if (this.map && typeof this.map.getSource === 'function' && this.map.getSource('municipios')) {
           this.updateMapColors(data);
         }
       },
@@ -131,7 +137,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateMapColors(statusData: StatusBairro[]): void {
-    if (!this.map || !this.map.getSource('municipios')) return;
+    if (!this.map || typeof this.map.getSource !== 'function' || !this.map.getSource('municipios')) return;
 
     statusData.forEach((item: StatusBairro) => {
       if (item.bairro) {

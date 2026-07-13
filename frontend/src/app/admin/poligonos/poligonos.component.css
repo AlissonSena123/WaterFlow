@@ -71,7 +71,7 @@ section {
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   padding: 16px;
-  z-index: 10;
+  z-index: 1000;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 

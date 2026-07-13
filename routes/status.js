@@ -7,7 +7,7 @@ router.get("/bairro", async (req, res) => {
     try {
         const { data, error } = await supabase
             .from("abastecimento")
-            .select("bairro, status");
+            .select("bairro, status, causa_interrupcao, medida_solucao");
 
         if (error) throw error;
 
@@ -240,10 +240,18 @@ router.put("/update/dados/:bairro", async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("[PUT /status/update/dados] Erro detalhado:", {
+            message: error?.message,
+            code: error?.code,
+            details: error?.details,
+            hint: error?.hint,
+            stack: error?.stack,
+            bairro: req.params.bairro
+        });
 
         res.status(500).json({
-            message: "Erro ao atualizar status"
+            message: "Erro ao atualizar status",
+            erro: error?.message || "Erro desconhecido"
         });
     }
 });

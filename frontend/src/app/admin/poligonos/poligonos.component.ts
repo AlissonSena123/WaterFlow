@@ -72,10 +72,15 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
       fetch('/assets/mapas/salvador_bairros.geojson')
         .then(res => res.json())
         .then(data => {
+          data.features.forEach((f: any) => {
+            f.properties.ID_NORMALIZADO = this.normalizarTexto(f.properties.NM_BAIRRO);
+          });
           this.municipiosData = data;
+          
           this.map.addSource('municipios', {
             type: 'geojson',
-            data: data
+            data: data,
+            promoteId: 'ID_NORMALIZADO'
           });
 
           this.map.addLayer({
@@ -132,19 +137,14 @@ export class PoligonosComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loadStatusBairros(): void {
     this.mapaService.getStatusBairros().subscribe((statusData: StatusBairro[]) => {
+      if (!this.map || typeof this.map.getSource !== 'function' || !this.map.getSource('municipios')) return;
+      
       statusData.forEach((item: StatusBairro) => {
         if (item.bairro) {
-          const u = item.bairro.toUpperCase();
-          const feature = this.municipiosData?.features.find((f: any) => this.normalizarTexto(f.properties.NM_BAIRRO) === this.normalizarTexto(u));
-          if (feature) {
-            // MapLibre requires an ID for feature-state. Wait, the original js didn't use promoteId for poligonos?
-            // It matched feature-state directly? Let's use promoteId on source if we do. 
-            // Without promoteId, we need feature.id to exist.
-            // But original just updated DB and maybe fetched.
-            // Actually, original didn't use setFeatureState in poligono.js for initial colors? 
-            // Oh wait, `mapa-poligono.js` didn't actually color the initial map based on DB!
-            // Well, we will color it based on DB.
-          }
+          this.map.setFeatureState(
+            { source: 'municipios', id: this.normalizarTexto(item.bairro) },
+            { status: item.status }
+          );
         }
       });
     });

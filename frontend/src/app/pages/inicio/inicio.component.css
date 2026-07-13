@@ -30,7 +30,7 @@ main>section>h2>i {
     font-size: 1.8rem;
 }
 
-main>#section-map {
+#section-map {
     flex: 1;
     min-height: 0;
     position: relative;
@@ -39,7 +39,7 @@ main>#section-map {
     border: 2px solid royalblue;
 }
 
-main>#section-map>.div-search {
+#section-map>.div-search {
     position: absolute;
     top: 20px;
     left: 50%;
