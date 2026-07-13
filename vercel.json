@@ -29,6 +29,7 @@
     { "src": "/redefinirSenha", "methods": ["POST"], "dest": "/server.js" },
     
     { "handle": "filesystem" },
+    { "src": "/(.*\\.(js|css|svg|png|jpg|jpeg|ico|woff|woff2|ttf|json))", "dest": "/frontend/$1" },
     { "src": "/(.*)", "dest": "/frontend/index.html" }
   ]
 }
