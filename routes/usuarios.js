@@ -2,15 +2,11 @@ import { supabase } from "../config/supabase.js";
 import express from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import nodemailer from "nodemailer";
-import path from "path";
-import { fileURLToPath } from "url";
 import jwt from "jsonwebtoken";
 import { buscarUsuarioPorEmail } from "../services/userService.js";
 import { buscarFuncionarioPorEmail } from "../services/funcionarioService.js";
+import { enviarComRetry, _LOGO_B64 } from "../services/emailServices.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 // Helper: gera e seta o cookie JWT
@@ -183,37 +179,43 @@ router.post("/redefinirSenha", async (req, res) => {
     const baseURL = process.env.BASE_URL || "http://localhost:8080";
     const resetURL = `${baseURL}/redefinir-senha/${token}`;
 
-    await transporte.sendMail({
-      from: process.env.MAIL_USER,
-      to: emailLimpo,
-      subject: "Redefinir senha WaterFlow",
-      html: `
-      <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-        <body style="font-family:sans-serif; max-width:520px; margin:0 auto; padding: 0px;">
-          <div style="background: linear-gradient(135deg, #0ea5e9, #0369a1); padding: 32px; text-align: center;">
-            <h1 style="margin: 0; color: #ffffff; font-size: 28px; letter-spacing: 1px;">
-              <img src="cid:LogoWaterFlow" style="width: 125px;"/>
-            </h1>
-          </div>
-          <div style="background:#fff;border:1px solid #e2e8f0; padding:10px; border-radius:0px 0px 8px 8px;">
-            <h2 style="text-align:center; color: #1e3a5f; font-size: 28px; text-transform: uppercase; margin: 0px;">Redefinir Senha</h2>
-            <p style="text-align:center;">Você pediu para redefinir sua senha.</p>
-            <p style="text-align:center;">Clique no link abaixo para continuar:</p>
-            <a style="text-align:center;" href="${resetURL}">${resetURL}</a>
-            <p style="text-align:center;">O link expira em 1 hora.</p>
-          </div>
-        </body>
-        </html>`,
-      attachments: [{
-        filename: "LogoWhiteV1.png",
-        path: "./frontend/public/assets/Img/LogoWhiteV1.png",
-        cid: "LogoWaterFlow"
-      }]
-    });
+    // Token já salvo — email é disparado num try/catch isolado.
+    // Uma falha de SMTP não deve derrubar a rota com 500.
+    try {
+      await enviarComRetry({
+        from: `"WaterFlow" <${process.env.MAIL_USER}>`,
+        to: emailLimpo,
+        subject: "Redefinir senha WaterFlow",
+        html: `
+        <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+          <body style="font-family:sans-serif; max-width:520px; margin:0 auto; padding: 0px;">
+            <div style="background: linear-gradient(135deg, #0ea5e9, #0369a1); padding: 32px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; letter-spacing: 1px;">
+                <img src="cid:LogoWaterFlow" style="width: 125px;"/>
+              </h1>
+            </div>
+            <div style="background:#fff;border:1px solid #e2e8f0; padding:10px; border-radius:0px 0px 8px 8px;">
+              <h2 style="text-align:center; color: #1e3a5f; font-size: 28px; text-transform: uppercase; margin: 0px;">Redefinir Senha</h2>
+              <p style="text-align:center;">Você pediu para redefinir sua senha.</p>
+              <p style="text-align:center;">Clique no link abaixo para continuar:</p>
+              <a style="text-align:center;" href="${resetURL}">${resetURL}</a>
+              <p style="text-align:center;">O link expira em 1 hora.</p>
+            </div>
+          </body>
+          </html>`,
+        attachments: [{
+          filename: "LogoWhiteV1.png",
+          path: "data:image/png;base64," + _LOGO_B64,
+          cid: "LogoWaterFlow"
+        }]
+      });
+      console.log("Email de redefinição enviado para:", emailLimpo);
+    } catch (emailError) {
+      console.error("Falha ao enviar email de redefinição (token já salvo no banco):", emailError.message);
+    }
 
-    // return res.sendFile(path.join(__dirname, "../public/pages/instrucoesEmail.html"));
     return res.status(200).json({ success: true, redirect: "/instrucoes_enviadas" })
 
   } catch (error) {
